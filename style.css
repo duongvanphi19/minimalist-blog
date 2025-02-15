@@ -69,6 +69,15 @@ nav ul li {
     padding: 10px;
     overflow-x: auto;
 }
+/* ===== Định dạng hình ảnh trong bài viết ===== */
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
 /* ===== Footer ===== */
 .main-footer {
