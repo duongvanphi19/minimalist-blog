@@ -3,7 +3,7 @@
     "title": "Hướng dẫn Markdown",
     "date": "2025-02-15",
     "description": "Học cách sử dụng Markdown để viết bài.",
-    "file": "post1",
+    "file": "post2",
     "tags": ["Hướng dẫn", "Markdown"],
     "featured": true
   },
@@ -11,7 +11,7 @@
     "title": "Giới thiệu về Netlify CMS",
     "date": "2025-02-20",
     "description": "Quản lý blog dễ dàng với Netlify CMS.",
-    "file": "post2",
+    "file": "post1",
     "tags": ["CMS", "Netlify"],
     "featured": false
   },
