@@ -384,5 +384,30 @@ nav ul li {
 
 .featured p {
     font-size: 14px;
-    color: #555;
+    color: #333;
+}
+.dark-mode .featured p {
+    font-size: 14px;
+    color: #eee;
+}
+
+/* ===== Code Block Styles ===== */
+pre {
+    
+    color:;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+}
+
+/* ✅ Đổi màu khi bật Dark Mode */
+.dark-mode pre {
+    /* 🔹 Màu nền tối */
+    color: ; /* 🔹 Màu chữ sáng */
+    border: 1px solid #555; /* 🔹 Viền nhẹ để nổi bật */
+}
+
+.dark-mode code{
+  background-color: ;
 }

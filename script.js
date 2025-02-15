@@ -1,32 +1,16 @@
-const post1 = `
----
-title: "Bài viết đầu tiên"
-date: 2025-02-15
-author: "Tên của bạn"
-tags: [minimalist, blog, example]
-description: "Bài viết đầu tiên trên blog minimalist."
----
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
 
-# Chào mừng đến với Minimalist Blog
-
-*Ngày đăng: 15/02/2025 | Tác giả: Tên của bạn*
-
----
-
-## Nội dung bài viết
-
-Đây là một bài viết mẫu viết bằng Markdown.
-
-javascript
-// Đây là đoạn code JavaScript
-console.log("Hello, Blog!");
-`;
-console.log(post1)
-
+  // Lưu trạng thái trong localStorage
+  if (document.body.classList.contains("dark-mode")) {
+    localStorage.setItem("darkMode", "enabled");
+  } else {
+    localStorage.setItem("darkMode", "disabled");
+  }
+}
+// Hàm chuyển đổi Dark Mode
 document.addEventListener("DOMContentLoaded", function () {
-     
     loadPosts();
-  
     if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
   }
@@ -46,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
 
-            console.log( markdown); // 🔍 Kiểm tra nội dung trả về
+            //console.log( markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {
@@ -76,46 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
   
 });
-
-// Hàm chuyển đổi Dark Mode
-// Hàm chuyển đổi Dark Mode
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-
-  // Lưu trạng thái trong localStorage
-  if (document.body.classList.contains("dark-mode")) {
-    localStorage.setItem("darkMode", "enabled");
-  } else {
-    localStorage.setItem("darkMode", "disabled");
-  }
-}
-
-// Đăng ký sự kiện cho nút toggle
-document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
-
-async function loadPosts() {
-    console.log("loadPosts");
-    const blogList = document.getElementById("post-list");
-
-    try {
-        // 🔹 Fetch danh sách bài viết từ posts.json
-        const response = await fetch("posts.json");
-        const posts = await response.json();
-
-        // 🔹 Hiển thị danh sách bài viết
-        blogList.innerHTML = posts.map(post => `
-            <article>
-                <h2><a href="post.html?post=${post.file}">${post.title}</a></h2>
-                <p><strong>Ngày đăng:</strong> ${post.date}</p>
-                <p>${post.description}</p>
-            </article>
-        `).join("");
-    } catch (error) {
-        blogList.innerHTML = "<p>Lỗi khi tải danh sách bài viết.</p>";
-        console.error("Lỗi:", error);
-    }
-
-};
 
 document.addEventListener("DOMContentLoaded", async function () {
     const blogList = document.getElementById("post-list");
@@ -209,3 +153,29 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 🔹 Xử lý lọc theo danh mục
     categoryFilter.addEventListener("change", filterPosts);
 });
+
+// Đăng ký sự kiện cho nút toggle
+document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+
+async function loadPosts() {
+  
+    const blogList = document.getElementById("post-list");
+    try {
+        // 🔹 Fetch danh sách bài viết từ posts.json
+        const response = await fetch("posts.json");
+        const posts = await response.json();
+
+        // 🔹 Hiển thị danh sách bài viết
+        blogList.innerHTML = posts.map(post => `
+            <article>
+                <h2><a href="post.html?post=${post.file}">${post.title}</a></h2>
+                <p><strong>Ngày đăng:</strong> ${post.date}</p>
+                <p>${post.description}</p>
+            </article>
+        `).join("");
+    } catch (error) {
+        blogList.innerHTML = "<p>Lỗi khi tải danh sách bài viết.</p>";
+        console.error("Lỗi:", error);
+    }
+
+};
