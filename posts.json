@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Hướng dẫn Markdown",
+    "date": "2025-02-15",
+    "description": "Học cách sử dụng Markdown để viết bài.",
+    "file": "post1",
+    "tags": ["Hướng dẫn", "Markdown"],
+    "featured": true
+  },
+  {
+    "title": "Giới thiệu về Netlify CMS",
+    "date": "2025-02-20",
+    "description": "Quản lý blog dễ dàng với Netlify CMS.",
+    "file": "post2",
+    "tags": ["CMS", "Netlify"],
+    "featured": false
+  },
+  {
+    "title": "Cách tối ưu SEO cho blog",
+    "date": "2025-03-01",
+    "description": "Hướng dẫn tối ưu SEO để blog có thứ hạng cao hơn.",
+    "file": "post3",
+    "tags": ["SEO", "Marketing"],
+    "featured": true
+  }
+]

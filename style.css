@@ -1,0 +1,379 @@
+/* ===== Global Styles ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+a {
+    color: #ff6347;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Header ===== */
+.main-header {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.main-header h1 {
+    margin: 0;
+    font-weight: 600;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+nav ul li {
+    display: inline;
+}
+
+/* ===== Blog List ===== */
+.blog-list {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.blog-list article {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ===== Blog Content ===== */
+.blog-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.blog-content h1, .blog-content h2 {
+    color: #ff6347;
+}
+.blog-content pre {
+    background: #eee;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+/* ===== Footer ===== */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    margin-top: 40px;
+}
+
+/* ===== Dark Mode Styles ===== */
+.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+
+.dark-mode a {
+  color: #ffcc00;
+}
+
+.dark-mode .main-header {
+  background-color: #333;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .main-footer {
+  background-color: #333;
+  box-shadow: 0 -2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .blog-list article,
+.dark-mode .blog-content {
+  background-color: #333;
+}
+
+/* Nút toggle Dark Mode */
+.toggle-btn {
+  background: none;
+  border: 1px solid #ff6347;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ff6347;
+  transition: background 0.3s, color 0.3s;
+}
+
+.toggle-btn:hover {
+  background: #ff6347;
+  color: #fff;
+}
+
+/* ===== About Page Styles ===== */
+.about-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.about-container h2 {
+  color: #ff6347;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.about-container p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Nếu bạn muốn thêm hình ảnh (ví dụ avatar) */
+.about-container .avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+/* ===== Contact Page Styles ===== */
+.contact-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.contact-container h2 {
+  color: #ff6347;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form label {
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #ff6347;
+}
+
+.contact-form button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #e5533d;
+}
+
+.contact-container p {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+/* ===== Dark Mode cho trang About ===== */
+.dark-mode .about-container {
+  background: #333;
+  color: #ddd;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .about-container h2 {
+  color: #ffcc00;
+}
+
+.dark-mode .about-container p {
+  color: #ccc;
+}
+/* ===== Dark Mode cho trang Contact ===== */
+.dark-mode .contact-container {
+  background: #333;
+  color: #ddd;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .contact-container h2 {
+  color: #ffcc00;
+}
+
+.dark-mode .contact-form label {
+  color: #ddd;
+}
+
+.dark-mode .contact-form input,
+.dark-mode .contact-form textarea {
+  background-color: #444;
+  color: #ddd;
+  border: 1px solid #555;
+}
+
+.dark-mode .contact-form input:focus,
+.dark-mode .contact-form textarea:focus {
+  border-color: #ffcc00;
+}
+
+.dark-mode .contact-form button {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.dark-mode .contact-container a {
+  color: #ffcc00;
+}
+
+/* ===== Search Filter Styles ===== */
+.search-filter {
+    display: flex;
+    flex-wrap: wrap;  /* ✅ Cho phép xuống dòng nếu không đủ chỗ */
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%; /* ✅ Đảm bảo không bị tràn container */
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 36px;
+}
+
+/* ✅ Input sẽ mở rộng nhưng không vượt quá khung chứa */
+.search-filter input {
+    flex: 1; /* ✅ Input sẽ tự mở rộng nhưng không tràn */
+    min-width: 0; /* ✅ Fix lỗi tràn trên điện thoại có màn hình lớn */
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* ✅ Đảm bảo padding không làm to input */
+}
+
+/* ✅ Nút tìm kiếm giữ kích thước cố định, không bị vỡ chữ */
+.search-filter button {
+    flex-shrink: 0; /* ✅ Ngăn nút bị co lại */
+    padding: 12px 15px;
+    font-size: 16px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap; /* ✅ Tránh nút bị vỡ chữ */
+}
+
+/* ✅ Dropdown có kích thước cố định */
+.search-filter select {
+    flex-shrink: 0; /* ✅ Ngăn dropdown bị co lại */
+    width: 200px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ✅ Đảm bảo hiển thị đẹp trên điện thoại */
+@media (max-width: 768px) {
+    .search-filter {
+        flex-direction: column; /* ✅ Xếp dọc trên màn hình nhỏ */
+        align-items: stretch; /* ✅ Các phần tử full width */
+    }
+
+    .search-filter input, 
+    .search-filter button, 
+    .search-filter select {
+        width: 100%; /* ✅ Không bị tràn ra ngoài */
+    }
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.no-results {
+    color: #777;
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ===== Bài viết nổi bật ===== */
+.featured-posts {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffeeba;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.featured-posts h2 {
+    color: #d9534f;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.featured {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.featured h3 {
+    margin: 0;
+    color: #d9534f;
+}
+
+.featured p {
+    font-size: 14px;
+    color: #555;
+}
