@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
-  branch: main  # Hoặc branch bạn đang sử dụng
+  name: github
+  repo: duongvanphi19/minimalist-blog # 🔹 Thay bằng GitHub repo của bạn
+  branch: main  # Hoặc nhánh đang dùng
+  auth_scope: repo
 
 media_folder: "assets/uploads"  # Nơi lưu hình ảnh
 public_folder: "/assets/uploads"
