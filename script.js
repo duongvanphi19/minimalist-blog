@@ -41,13 +41,22 @@ document.addEventListener("DOMContentLoaded", function () {
             markdown = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
             // Chuyển đổi Markdown thành HTML
             marked.setOptions({
-            breaks: true, // Xuống dòng đúng cách
-            smartLists: true, // Cải thiện danh sách
-            smartypants: true, // Chuyển đổi ký tự đặc biệt
-            gfm: true, // Hỗ trợ GitHub Flavored Markdown
-            renderer: new marked.Renderer()
+            breaks: true,
+            gfm: true,
+            highlight: function (code, lang) {
+                return lang && hljs.getLanguage(lang) 
+                    ? hljs.highlight(code, { language: lang }).value 
+                    : hljs.highlightAuto(code).value;
+            }
         });
-            document.getElementById("post-content").innerHTML = marked.parse(markdown);
+
+        // 🔹 Render nội dung Markdown vào HTML
+        document.getElementById("post-content").innerHTML = marked.parse(markdown);
+
+        // 🔹 Tô màu tất cả các đoạn code trong <pre><code>
+        document.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightElement(block);
+        });
         } else {
             document.getElementById("post-content").innerHTML = "<p>Lỗi khi tải bài viết.</p>";
         }
@@ -179,3 +188,4 @@ async function loadPosts() {
     }
 
 };
+

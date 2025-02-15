@@ -5,7 +5,7 @@
     "description": "Học cách sử dụng Markdown để viết bài.",
     "file": "post2",
     "tags": ["Hướng dẫn", "Markdown"],
-    "featured": true
+    "featured": false
   },
   {
     "title": "Giới thiệu về Netlify CMS",
