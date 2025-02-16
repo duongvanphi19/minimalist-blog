@@ -22,10 +22,51 @@ javascript
 console.log("Hello, Blog!");
 `;
 //console.log(post1)
+async function fetchPosts() {
+   // console.log('fetchpoa5');
+    
+    const response = await fetch("https://minimblog.netlify.app/posts");
+    const files = await response.json();
+    console.log(files);
+    const posts = await Promise.all(
+        files
+            .filter(file => file.name.endsWith(".md"))
+            .map(async file => {
+                const postResponse = await fetch(file.download_url);
+                const markdown = await postResponse.text();
+                return extractMetadata(markdown, file.name);
+            })
+    );
 
+    renderPosts(posts);
+}
+
+function extractMetadata(markdown, filename) {
+    const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
+    const match = markdown.match(yamlRegex);
+    let metadata = {};
+    let content = markdown;
+
+    if (match) {
+        metadata = parseYAML(match[1]);
+        content = markdown.replace(yamlRegex, "");
+    }
+
+    return {
+        title: metadata.title || filename.replace(".md", ""),
+        date: metadata.date || "Không rõ",
+        description: metadata.description || "",
+        tags: metadata.tags || [],
+        image: metadata.image || "",
+        slug: filename.replace(".md", ""),
+        content
+    };
+}
+
+//posts
 document.addEventListener("DOMContentLoaded", function () {
-     
-    loadPosts();
+   // fetchPosts();
+    //loadPosts();
   
     if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
@@ -33,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     const params = new URLSearchParams(window.location.search);
     const postFile = params.get("post");
-    console.log(postFile);
+    //console.log(postFile);
     if (!postFile) {
         document.getElementById("post-list").innerHTML = "<p>Bài viết không tồn tại.</p>";
         return;
@@ -43,11 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
     xhr.open("GET", `posts/${postFile}.md`, true);
     
     xhr.onload = function () {
-        console.log("stt", xhr.status);
+        //console.log("stt", xhr.status);
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
 
-            console.log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
+            //console.log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {
@@ -95,7 +136,7 @@ function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 
   // Lưu trạng thái trong localStorage
-  if (document.body.classList.contains("dark-mode")) {o
+  if (document.body.classList.contains("dark-mode")) {
     localStorage.setItem("darkMode", "enabled");
   } else {
     localStorage.setItem("darkMode", "disabled");
@@ -128,7 +169,7 @@ async function loadPosts() {
     }
 
 };
-
+//index
 document.addEventListener("DOMContentLoaded", async function () {
     const blogList = document.getElementById("post-list");
     const featuredList = document.getElementById("featured-list");
@@ -143,11 +184,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(blogList, searchInput, searchButton, categoryFilter);
     }
     let posts = [];
-
+    fetchPosts();
+    return;
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
         const response = await fetch("posts.json");
-        console.log(response)
+        //console.log(response)
         posts = await response.json();
 
         // 🔹 Lấy danh sách danh mục (tags)
