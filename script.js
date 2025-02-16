@@ -66,7 +66,7 @@ function renderFeaturedPosts(posts) {
     const featuredList = document.getElementById("featured-list");
     if (!featuredList){
       console.log("featuredList null");
-      return;
+      
     }
     const featuredPosts = posts.filter(post => post.featured);
     if (featuredPosts.length === 0) {
@@ -83,5 +83,86 @@ function renderFeaturedPosts(posts) {
       `).join("")}
     `;
 }
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const searchButton = document.getElementById("searchButton");
 
+    if (searchInput && categoryFilter && searchButton) {
+        searchButton.addEventListener("click", function () {
+            filterPosts();
+        });
+
+        searchInput.addEventListener("input", function () {
+            filterPosts();
+        });
+
+        categoryFilter.addEventListener("change", function () {
+            filterPosts();
+        });
+    }
+});
+
+/**
+ * Lọc bài viết theo từ khóa và danh mục
+ */
+function filterPosts() {
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    const selectedCategory = document.getElementById("categoryFilter").value;
+    const posts = document.querySelectorAll(".blog-list article");
+
+    posts.forEach(post => {
+        const title = post.querySelector("h2").textContent.toLowerCase();
+        const category = post.dataset.category;
+
+        const matchesText = title.includes(searchText);
+        const matchesCategory = selectedCategory === "" || category === selectedCategory;
+
+        if (matchesText && matchesCategory) {
+            post.style.display = "block";
+        } else {
+            post.style.display = "none";
+        }
+    });
+}
+
+// Hàm highlight dòng bị lỗi trong Acode Editor
+function markErrorLine(line) {
+    if (window.editor && line) {
+        window.editor.markText(
+            { line: line - 1, ch: 0 },  // Vị trí bắt đầu của dòng lỗi
+            { line: line - 1, ch: 100 }, // Kết thúc dòng lỗi
+            { className: "error-line" } // Áp dụng class CSS
+        );
+        console.warn(`🚨 Đã highlight lỗi tại dòng ${line}`);
+    } else {
+        console.error("❌ Không tìm thấy editor hoặc dòng lỗi.");
+    }
+}
+
+// Bắt lỗi JavaScript và highlight dòng bị lỗi
+
+window.onerror = function (message, source, lineno, colno, error) {
+    console.error(`❌ Lỗi: ${message}\n📍 File: ${source}\n📌 Dòng: ${lineno}:${colno}`);
     
+    // Tạo một box thông báo lỗi trong giao diện Acode
+    const errorBox = document.createElement("div");
+    errorBox.style.position = "fixed";
+    errorBox.style.bottom = "10px";
+    errorBox.style.left = "10px";
+    errorBox.style.right = "10px";
+    errorBox.style.padding = "10px";
+    errorBox.style.background = "#e5533d";
+    errorBox.style.color = "white";
+    errorBox.style.fontSize = "14px";
+    errorBox.style.borderRadius = "5px";
+    errorBox.style.zIndex = "10000";
+    errorBox.textContent = `❌ Lỗi tại dòng ${lineno}: ${message} - ${source}`;
+    document.body.appendChild(errorBox);
+
+    // Tự động ẩn box lỗi sau 5 giây
+    setTimeout(() => {
+        errorBox.remove();
+    }, 5000);
+};
+

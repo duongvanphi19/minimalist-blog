@@ -9,14 +9,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 async function loadPost() {
     const params = new URLSearchParams(window.location.search);
     const postFile = params.get("post");
-
+    //console.log(postFile)
     if (!postFile) {
         showError("Bài viết không tồn tại.");
         return;
     }
 
     try {
+      console.log("try")
         const markdown = await fetchMarkdown(`posts/${postFile}.md`);
+        console.log(markdown)
         const { metadata, content } = extractMetadata(markdown);
         updatePostContent(metadata, content);
     } catch (error) {
@@ -31,13 +33,23 @@ async function loadPost() {
  * @returns {Promise<string>}
  */
 async function fetchMarkdown(url) {
-    const response = await fetch(url);
+    console.log("begin fetch");
+try {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000); // Hủy yêu cầu sau 10 giây nếu chưa có phản hồi
+  const response = await fetch(url, { signal: controller.signal });
+  clearTimeout(timeoutId);
+  console.log("fetching");
+  // Xử lý response...
+} catch (error) {
+  console.error("Lỗi khi fetch:", error);
+}
     if (!response.ok) {
         throw new Error(`Lỗi: ${response.statusText}`);
     }
+    
     return response.text();
     console.log(response.text());
-    
 }
 
 /**

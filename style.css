@@ -32,6 +32,7 @@ nav ul {
     margin: 10px 0 0;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 20px;
 }
 nav ul li {
@@ -52,41 +53,6 @@ nav ul li {
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* ===== Blog Content ===== */
-.blog-content {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-.blog-content h1, .blog-content h2 {
-    color: #ff6347;
-}
-.blog-content pre {
-    background: #eee;
-    padding: 10px;
-    overflow-x: auto;
-}
-/* ===== Định dạng hình ảnh trong bài viết ===== */
-.blog-content img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 20px auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* ===== Footer ===== */
-.main-footer {
-    text-align: center;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
-    margin-top: 40px;
-}
 
 /* ===== Dark Mode Styles ===== */
 .dark-mode {
@@ -98,15 +64,8 @@ nav ul li {
   color: #ffcc00;
 }
 
-.dark-mode .main-header {
-  background-color: #333;
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
-}
 
-.dark-mode .main-footer {
-  background-color: #333;
-  box-shadow: 0 -2px 5px rgba(255, 255, 255, 0.1);
-}
+
 
 .dark-mode .blog-list article,
 .dark-mode .blog-content {
@@ -394,19 +353,79 @@ nav ul li {
     font-size: 14px;
     color: #eee;
 }
-
-/* ===== Code Block Styles ===== */
-pre {
-    
-    color:;
-    padding: 10px;
-    border-radius: 5px;
-    overflow-x: auto;
-    font-family: "Courier New", monospace;
+/* Post Container Styles */
+.post-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: background 0.3s, color 0.3s;
+}
+.post-container h1 {
+    margin-bottom: 10px;
+}
+.post-container p {
+    margin-bottom: 15px;
+}
+#post-image {
+    margin: 20px 0;
+    border-radius: 8px;
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
 }
 
 
-/* Style cho nút */
+/* Code Block Styles */
+pre {
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    transition: background 0.3s, color 0.3s;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* Footer Styles */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    font-size: 14px;
+    color: #777;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #222;
+    color: #ddd;
+}
+
+.dark-mode .main-header {
+    background-color: #333;
+}
+.dark-mode .post-container {
+    background-color: #333;
+    color: #ddd;
+}
+.dark-mode pre {
+    background-color: #444;
+    color: #fff;
+}
+.dark-mode .main-footer {
+    background-color: #333;
+    color: #bbb;
+}
+
+/* Dark Mode Toggle Button */
 #darkModeToggle {
     background: #444;
     color: #fff;
@@ -415,8 +434,83 @@ pre {
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
+    
+    
 }
-
 #darkModeToggle:hover {
     background: #666;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .post-container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+}
+
+.dark-mode .main-header a{
+  color: white; 
+}
+
+/* ===== Search Filter Styles ===== */
+.search-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+}
+.search-filter input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.search-filter button, .search-filter select {
+    flex-shrink: 0;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.search-filter button {
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.search-filter button:hover {
+    background-color: #e5533d;
+}
+.search-filter select {
+    width: 180px;
+    border: 1px solid #ccc;
+}
+
+/* 🔹 Đảm bảo responsive tốt */
+@media (max-width: 768px) {
+    .search-filter {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-filter input, 
+    .search-filter button, 
+    .search-filter select {
+        width: 100%;
+    }
+}
+
+/* Highlight dòng bị lỗi trong Acode */
+.error-line {
+    background: rgba(255, 0, 0, 0.2) !important;  /* Màu đỏ nhạt */
+    border-left: 3px solid red !important;       /* Viền đỏ */
 }
