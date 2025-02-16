@@ -1,22 +1,18 @@
 backend:
-  name: github
-  repo: duongvanphi19/minimalist-blog # 🔹 Thay bằng GitHub repo của bạn
-  branch: main  # Hoặc nhánh đang dùng
-  auth_scope: repo
+  name: git-gateway
+  branch: main  # hoặc branch bạn sử dụng
 
-media_folder: "assets/uploads"  # Nơi lưu hình ảnh
-public_folder: "/assets/uploads"
+media_folder: "assets/uploads"  # nơi lưu trữ hình ảnh upload
+public_folder: "assets/uploads"
 
 collections:
-  - name: "posts"
+  - name: "posts"           # tên của collection
     label: "Bài viết"
-    folder: "posts"
-    create: true
+    folder: "posts"         # thư mục chứa các file Markdown
+    create: true            # cho phép tạo bài viết mới từ CMS
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Tiêu đề", name: "title", widget: "string" }
       - { label: "Ngày", name: "date", widget: "datetime" }
       - { label: "Mô tả", name: "description", widget: "text" }
       - { label: "Nội dung", name: "body", widget: "markdown" }
-      - { label: "Danh mục", name: "tags", widget: "list", default: [] }
-      - { label: "Hình ảnh đại diện", name: "image", widget: "image" }

@@ -1,26 +1,29 @@
 [
   {
-    "title": "Hướng dẫn Markdown",
-    "date": "2025-02-15",
-    "description": "Học cách sử dụng Markdown để viết bài.",
-    "file": "post2",
-    "tags": ["Hướng dẫn", "Markdown"],
+    "title": "Cách AI giúp phát triển website nhanh chóng",
+    "date": "2025-02-16",
+    "description": "Khám phá cách AI giúp lập trình viên và nhà thiết kế phát triển website nhanh hơn và hiệu quả hơn.",
+    "file": "web-ai",
+    "tags": ["AI", "Web Development"],
+    "image": "/images/web-ai.jpg",
+    "featured": true
+  },
+  {
+    "title": "Hướng dẫn tối ưu SEO cho Blog",
+    "date": "2025-02-17",
+    "description": "Các kỹ thuật SEO giúp blog của bạn đạt thứ hạng cao hơn trên Google.",
+    "file": "seo-blog",
+    "tags": ["SEO", "Blog"],
+    "image": "/images/seo-blog.jpg",
     "featured": false
   },
   {
-    "title": "Giới thiệu về Netlify CMS",
-    "date": "2025-02-20",
-    "description": "Quản lý blog dễ dàng với Netlify CMS.",
-    "file": "post1",
-    "tags": ["CMS", "Netlify"],
-    "featured": false
-  },
-  {
-    "title": "Làm Website với Sức Mạnh của AI: Công Cụ và Tương Lai Số",
-    "date": "2025-03-01",
-    "description": "Khám phá cách các công cụ AI đang biến đổi quá trình phát triển website và cách bạn có thể tận dụng chúng để xây dựng những trang web đột phá.",
-    "file": "post3",
-    "tags": ["AI", "Web Development", "Công Nghệ", "Tương Lai"],
+    "title": "AI và Sáng tạo Công thức Nấu Ăn",
+    "date": "2025-02-18",
+    "description": "AI có thể tạo ra công thức nấu ăn mới lạ bằng cách phân tích dữ liệu thực phẩm.",
+    "file": "recipe-ai",
+    "tags": ["AI", "Nấu Ăn"],
+    "image": "/images/recipe-ai.jpg",
     "featured": true
   }
 ]

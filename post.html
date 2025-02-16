@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title id="post-title">Đang tải...</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài viết - Minimalist Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Thư viện Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();
+</script>
 </head>
 <body>
-  <header class="main-header">
-    <h1>Minimalist Blog</h1>
-    <nav>
-        <ul>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li><a href="about.html">Giới thiệu</a></li>
-            <li><a href="contact.html">Liên hệ</a></li>
-            <li> <button id="darkModeToggle">🌙 Dark Mode</button></li>
-        </ul>
-    </nav>
-    <!-- Nút Dark Mode -->
-   
-</header>
+    <!-- Header -->
+    <header class="main-header">
+        <h1>Minimalist Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="about.html">Giới thiệu</a></li>
+                <li><a href="contact.html">Liên hệ</a></li>
+                        <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
+            </ul>
+        </nav>
+    </header>
 
-  <div class="post-container">
-    <h1 id="post-title"></h1>
-    <p><strong>Tác giả:</strong> <span id="post-author"></span></p>
-    <p><strong>Ngày đăng:</strong> <span id="post-date"></span></p>
-    <img id="post-image" src="../assets/uploads/sample.jpg" alt="Hình ảnh bài viết" style="display:none; width:100%; max-height:300px; object-fit:cover;">
-    <div id="post-content">Nội dung chưa được tải</div>
-  </div>
+    <!-- Nội dung bài viết -->
+    <main class="blog-content">
+        <article id="post-content">
+            <p>Đang tải bài viết...</p>
+        </article>
+    </main>
 
-  <footer class="main-footer">
-    <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
-  </footer>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  <!-- Tải thư viện Marked.js & Highlight.js -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-
-  <!-- Tải file JS cho trang bài viết -->
-  <script src="post.js"></script>
-  
+    <script src="script.js"></script>
 </body>
 </html>

@@ -3,43 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Minimalist Blog - Trang Chủ</title>
+  <title>Minimalist Blog</title>
   <link rel="stylesheet" href="style.css">
+   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-<header class="main-header">
+  <!-- Header -->
+  <header class="main-header">
     <h1>Minimalist Blog</h1>
     <nav>
-        <ul>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li><a href="about.html">Giới thiệu</a></li>
-            <li><a href="contact.html">Liên hệ</a></li>
-            <li> <button id="darkModeToggle">🌙 Dark Mode</button></li>
-        </ul>
+      <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="about.html">Giới thiệu</a></li>
+        <li><a href="contact.html">Liên hệ</a></li>
+        <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
+      </ul>
     </nav>
-    <!-- Nút Dark Mode -->
-   
-</header>
-  
-  <!-- Mục "Bài viết nổi bật" nếu cần -->
-  <section class="featured-posts" id="featured-list"></section>
-  <div class="search-filter">
-    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
-    <select id="categoryFilter">
-        <option value="">Tất cả danh mục</option>
-    </select>
-    <button id="searchButton">Tìm kiếm</button>
-</div>
+  </header>
+
+<!-- <div data-netlify-identity-menu></div>
+  <div data-netlify-identity-button>Login with Netlify Identity</div>
+-->
+
   <!-- Danh sách bài viết -->
-  <main class="blog-list" id="blog-list">
-    <p>Đang tải danh sách bài viết...</p>
+  <main class="blog-list">
+   
+  <section class="featured-posts">
+    <h2>🔥 Bài viết nổi bật</h2>
+    <div id="featured-list">
+        <p>Đang tải...</p>
+    </div>
+  </section>
+    
+    <div class="search-filter">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
+    <button id="searchButton">Search</button>
+    <select id="categoryFilter">
+        <option value="all">Tất cả danh mục</option>
+    </select>
+</div>
+    <div id="post-list">
+        <p>Đang tải...</p>      
+    </div>
   </main>
-  
+
+  <!-- Footer -->
   <footer class="main-footer">
     <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
   </footer>
-
-  <!-- Tải script cho trang chủ -->
+   
   <script src="script.js"></script>
 </body>
 </html>
