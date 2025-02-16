@@ -218,6 +218,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (featuredPosts.length > 0) {
             featuredList.innerHTML = featuredPosts.map(post => `
                 <article class="featured">
+                    <img src="${post.image}" alt="${post.title}"/>
                     <h3><a href="post.html?post=${post.file}">${post.title}</a></h3>
                     <p>${post.description}</p>
                 </article>
@@ -235,6 +236,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         blogList.innerHTML = filteredPosts.map(post => `
             <article>
+                    <img src="${post.image}" alt="${post.title}"/>
                 <h2><a href="post.html?post=${post.file}">${post.title}</a></h2>
                 <p><strong>Ngày đăng:</strong> ${post.date}</p>
                 <p>${post.description}</p>

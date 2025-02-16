@@ -70,6 +70,8 @@ nav ul li {
     overflow-x: auto;
 }
 /* ===== Định dạng hình ảnh trong bài viết ===== */
+img,
+.featured img,
 .blog-content img {
     max-width: 100%;
     height: auto;
@@ -78,6 +80,14 @@ nav ul li {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+img,
+.featured img{
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  
+}
+
+  
 
 /* ===== Footer ===== */
 .main-footer {
