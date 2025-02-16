@@ -8,6 +8,6 @@ author: "Admin"
 
 Dưới đây là một ảnh minh họa:
 
-![Ảnh ví dụ](sample.jpg)
+![Ảnh ví dụ](../assets/uploads/sample.jpg)
 
 Bạn có thể sử dụng hình ảnh để minh họa nội dung bài viết.

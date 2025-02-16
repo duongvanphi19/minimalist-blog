@@ -8,6 +8,8 @@ function toggleDarkMode() {
     localStorage.setItem("darkMode", "disabled");
   }
 }
+
+
 // Hàm chuyển đổi Dark Mode
 document.addEventListener("DOMContentLoaded", function () {
     loadPosts();
@@ -29,13 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
     xhr.onload = function () {
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
-
-            //console.log( markdown); // 🔍 Kiểm tra nội dung trả về
-
-            // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {
                 document.getElementById("post-content").innerHTML = "<p>Lỗi: Tải nhầm file HTML thay vì Markdown.</p>";
                 return;
+                
+            
+            // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
+             // 🔍 Kiểm tra nội dung trả về
+            
             }
             // Loại bỏ YAML Front Matter
             markdown = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
@@ -49,9 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
                     : hljs.highlightAuto(code).value;
             }
         });
-
+        
+const yamlMatch = markdown.match(/^---\n([\s\S]+?)\n---/);
+        let metadata = {};
+        if (yamlMatch) {
+            markdown = markdown.replace(yamlMatch[0], ""); // Xóa YAML khỏi nội dung Markdown
+            console.log(parseYAML(yamlMatch[1])); // Chuyển YAML thành object
+        
+}
         // 🔹 Render nội dung Markdown vào HTML
+                document.getElementById("post-title").textContent = metadata.title || "Bài viết";
+        document.getElementById("post-date").textContent = metadata.date || "Không có ngày";
+        document.getElementById("post-author").textContent = metadata.author || "Tác giả ẩn danh";
         document.getElementById("post-content").innerHTML = marked.parse(markdown);
+
+        // 🔹 Hiển thị hình ảnh đại diện (nếu có)
+        if (metadata.image) {
+            document.getElementById("post-image").src = metadata.image;
+            document.getElementById("post-image").style.display = "block";
+        }
 
         // 🔹 Tô màu tất cả các đoạn code trong <pre><code>
         document.querySelectorAll("pre code").forEach((block) => {
@@ -67,7 +86,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     xhr.send();
     
-  
+  function parseYAML(yamlString) {
+    const lines = yamlString.split("\n");
+    const obj = {};
+    lines.forEach(line => {
+        const [key, ...value] = line.split(": ");
+        if (key && value.length) {
+            obj[key.trim()] = value.join(": ").trim();
+        }
+    });
+    return obj;
+}
 });
 
 document.addEventListener("DOMContentLoaded", async function () {
