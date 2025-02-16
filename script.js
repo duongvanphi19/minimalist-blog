@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
 
-            log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
+            //log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {
@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         
             document.getElementById("post-content").innerHTML = marked.parse(markdown);
+            log(marked.parse(markdown));
             // 🔹 Tô màu tất cả các đoạn code trong <pre><code>
         document.querySelectorAll("pre code").forEach((block) => {
             hljs.highlightElement(block);
