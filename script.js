@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
 
-            //console.log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
+            log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {
@@ -184,8 +184,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(blogList, searchInput, searchButton, categoryFilter);
     }
     let posts = [];
-    fetchPosts();
-    return;
+    //loadPosts()
+    
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
         const response = await fetch("posts.json");
@@ -266,4 +266,26 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 🔹 Xử lý lọc theo danh mục
     categoryFilter.addEventListener("change", filterPosts);
 });
+
+function log(message){
+    // Tạo một box thông báo lỗi trong giao diện Acode
+    const errorBox = document.createElement("div");
+    errorBox.style.position = "fixed";
+    errorBox.style.bottom = "10px";
+    errorBox.style.left = "10px";
+    errorBox.style.right = "10px";
+    errorBox.style.padding = "10px";
+    errorBox.style.background = "#483746";
+    errorBox.style.color = "white";
+    errorBox.style.fontSize = "14px";
+    errorBox.style.borderRadius = "5px";
+    errorBox.style.zIndex = "10000";
+    errorBox.textContent = `${message}`;
+    document.body.appendChild(errorBox);
+
+    // Tự động ẩn box lỗi sau 5 giây
+    setTimeout(() => {
+        errorBox.remove();
+    }, 5000);
+};
 
