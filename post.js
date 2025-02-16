@@ -36,6 +36,8 @@ async function fetchMarkdown(url) {
         throw new Error(`Lỗi: ${response.statusText}`);
     }
     return response.text();
+    console.log(response.text());
+    
 }
 
 /**

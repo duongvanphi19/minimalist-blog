@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", async function () {
  */
 function renderPosts(posts) {
     const blogList = document.getElementById("blog-list");
+    if (!blogList){
+      console.log("blogList null");
+      return;
+    }
     if (!posts || posts.length === 0) {
         blogList.innerHTML = "<p class='no-results'>Không có bài viết nào.</p>";
         return;
@@ -60,6 +64,10 @@ function renderPosts(posts) {
  */
 function renderFeaturedPosts(posts) {
     const featuredList = document.getElementById("featured-list");
+    if (!featuredList){
+      console.log("featuredList null");
+      return;
+    }
     const featuredPosts = posts.filter(post => post.featured);
     if (featuredPosts.length === 0) {
         featuredList.innerHTML = "";
