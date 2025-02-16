@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Minimalist Blog</title>
+  <title>Minimalist Blog - Trang Chủ</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="main-header">
     <h1>Minimalist Blog</h1>
     <nav>
@@ -15,40 +14,23 @@
         <li><a href="index.html">Trang chủ</a></li>
         <li><a href="about.html">Giới thiệu</a></li>
         <li><a href="contact.html">Liên hệ</a></li>
-        <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
       </ul>
     </nav>
   </header>
-
-    
-
+  
+  <!-- Mục "Bài viết nổi bật" nếu cần -->
+  <section class="featured-posts" id="featured-list"></section>
+  
   <!-- Danh sách bài viết -->
-  <main class="blog-list">
-    
-  <section class="featured-posts">
-    <h2>🔥 Bài viết nổi bật</h2>
-    <div id="featured-list">
-        <p>Đang tải...</p>
-    </div>
-  </section>
-    
-    <div class="search-filter">
-    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
-    <button id="searchButton">Search</button>
-    <select id="categoryFilter">
-        <option value="all">Tất cả danh mục</option>
-    </select>
-</div>
-    <div id="post-list">
-        <p>Đang tải...</p>      
-    </div>
+  <main class="blog-list" id="blog-list">
+    <p>Đang tải danh sách bài viết...</p>
   </main>
-
-  <!-- Footer -->
+  
   <footer class="main-footer">
     <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
   </footer>
 
+  <!-- Tải script cho trang chủ -->
   <script src="script.js"></script>
 </body>
 </html>
