@@ -53,11 +53,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
         
-const yamlMatch = markdown.match(/^---\n([\s\S]+?)\n---/);
+        const yamlMatch = markdown.match(/^---\n([\s\S]+?)\n---/);
+        console.log(yamlMatch[0])
         let metadata = {};
         if (yamlMatch) {
             markdown = markdown.replace(yamlMatch[0], ""); // Xóa YAML khỏi nội dung Markdown
-            console.log(parseYAML(yamlMatch[1])); // Chuyển YAML thành object
+            metadata = parseYAML(yamlMatch[1]); // Chuyển YAML thành object
         
 }
         // 🔹 Render nội dung Markdown vào HTML
