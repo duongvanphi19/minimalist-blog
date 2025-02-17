@@ -1,39 +1,12 @@
 [
   {
-    "title": "Cách AI giúp phát triển website nhanh chóng",
-    "date": "2025-02-16",
-    "description": "Khám phá cách AI giúp lập trình viên và nhà thiết kế phát triển website nhanh hơn và hiệu quả hơn.",
-    "file": "web-ai",
-    "tags": ["AI", "Web Development"],
-    "image": "/assets/uploads/sample.jpg",
-    "featured": false
-  },
-  {
-    "title": "Hướng dẫn tối ưu SEO cho Blog",
-    "date": "2025-02-17",
-    "description": "Các kỹ thuật SEO giúp blog của bạn đạt thứ hạng cao hơn trên Google.",
-    "file": "seo-blog",
-    "tags": ["SEO", "Blog"],
-    "image": "/images/seo-blog.jpg",
-    "featured": false
-  },
-  {
-    "title": "AI và Sáng tạo Công thức Nấu Ăn",
-    "date": "2025-02-18",
-    "description": "AI có thể tạo ra công thức nấu ăn mới lạ bằng cách phân tích dữ liệu thực phẩm.",
-    "file": "recipe-ai",
-    "tags": ["AI", "Nấu Ăn"],
-    "image": "/images/recipe-ai.jpg",
-    "featured": false
-  },
-  {
     "title": "AI hỗ trợ lập trình Frontend như thế nào?",
     "date": "2025-02-20",
     "description": "Khám phá cách AI giúp lập trình viên Frontend tăng tốc phát triển giao diện web.",
     "file": "frontend-ai",
     "tags": ["AI", "Frontend", "Web Development"],
     "image": "assets/uploads/frontend-ai.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "title": "Chiến lược Content Marketing giúp blog tăng traffic",
@@ -42,7 +15,7 @@
     "file": "content-marketing",
     "tags": ["Marketing", "SEO", "Content"],
     "image": "assets/uploads/content-marketing.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "title": "Hướng dẫn ăn uống lành mạnh để có sức khỏe tốt",
@@ -51,7 +24,33 @@
     "file": "healthy-eating",
     "tags": ["Sức khỏe", "Dinh dưỡng", "Lifestyle"],
     "image": "assets/uploads/healthy-eating.jpg",
+    "featured": false
+  },
+  {
+    "title": "Web3 và tương lai của Internet",
+    "date": "2025-02-25",
+    "description": "Web3 hứa hẹn một Internet phi tập trung, nơi người dùng có quyền kiểm soát dữ liệu của họ.",
+    "file": "web3-future",
+    "tags": ["Web3", "Blockchain", "Internet"],
+    "image": "assets/uploads/web3-future.jpg",
+    "featured": false
+  },
+  {
+    "title": "AI và Sự Sáng Tạo: Bạn hay Máy?",
+    "date": "2025-02-26",
+    "description": "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?",
+    "file": "ai-creative",
+    "tags": ["AI", "Creativity", "Công nghệ"],
+    "image": "assets/uploads/ai-creative.jpg",
+    "featured": false
+  },
+  {
+    "title": "Digital Detox: Nghỉ Ngơi Khỏi Màn Hình",
+    "date": "2025-02-27",
+    "description": "Dành quá nhiều thời gian trước màn hình có thể gây căng thẳng. Hãy thử Digital Detox!",
+    "file": "digital-detox",
+    "tags": ["Sức khỏe", "Lifestyle", "Công nghệ"],
+    "image": "assets/uploads/digital-detox.jpg",
     "featured": true
   }
-
 ]

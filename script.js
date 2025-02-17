@@ -64,7 +64,7 @@ function extractMetadata(markdown, filename) {
 }
 
 //posts
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
    // fetchPosts();
     //loadPosts();
   
@@ -75,6 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(window.location.search);
     const postFile = params.get("post");
     //console.log(postFile);
+    try{
+      const response = await fetch(`posts/${postFile}.md`)
+    }catch(e){
+      print("error load")
+      return
+    }
     if (!postFile) {
         document.getElementById("post-list").innerHTML = "<p>Bài viết không tồn tại.</p>";
         return;
@@ -87,7 +93,6 @@ document.addEventListener("DOMContentLoaded", function () {
         //console.log("stt", xhr.status);
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
-
             //log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
@@ -190,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
         const response = await fetch("posts.json");
-        //console.log(response)
+        console.log(response)
         posts = await response.json();
 
         // 🔹 Lấy danh sách danh mục (tags)
@@ -278,11 +283,12 @@ function log(message){
     errorBox.style.left = "10px";
     errorBox.style.right = "10px";
     errorBox.style.padding = "10px";
-    errorBox.style.background = "#483746";
+    errorBox.style.background = "red";
     errorBox.style.color = "white";
     errorBox.style.fontSize = "14px";
     errorBox.style.borderRadius = "5px";
     errorBox.style.zIndex = "10000";
+    errorBox.style.opacity= "80%";
     errorBox.textContent = `${message}`;
     document.body.appendChild(errorBox);
 
