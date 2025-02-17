@@ -283,12 +283,12 @@ function log(message){
     errorBox.style.left = "10px";
     errorBox.style.right = "10px";
     errorBox.style.padding = "10px";
-    errorBox.style.background = "red";
+    errorBox.style.background = "#483746";
     errorBox.style.color = "white";
     errorBox.style.fontSize = "14px";
     errorBox.style.borderRadius = "5px";
     errorBox.style.zIndex = "10000";
-    errorBox.style.opacity= "80%";
+    errorBox.style.opacity= "95%";
     errorBox.textContent = `${message}`;
     document.body.appendChild(errorBox);
 
