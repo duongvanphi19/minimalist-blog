@@ -27,7 +27,7 @@ async function fetchPosts() {
     
     const response = await fetch("https://minimblog.netlify.app/posts");
     const files = await response.json();
-    console.log(files);
+    log(files);
     const posts = await Promise.all(
         files
             .filter(file => file.name.endsWith(".md"))
@@ -41,7 +41,7 @@ async function fetchPosts() {
     renderPosts(posts);
 }
 
-function extractMetadata(markdown, filename) {
+function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
     let metadata = {};
@@ -49,19 +49,78 @@ function extractMetadata(markdown, filename) {
 
     if (match) {
         metadata = parseYAML(match[1]);
-        content = markdown.replace(yamlRegex, "");
+        content = markdown.replace(yamlRegex, "").trim();
     }
 
-    return {
-        title: metadata.title || filename.replace(".md", ""),
-        date: metadata.date || "Không rõ",
-        description: metadata.description || "",
-        tags: metadata.tags || [],
-        image: metadata.image || "",
-        slug: filename.replace(".md", ""),
-        content
-    };
+    return { metadata, content };
 }
+
+/**
+ * Chuyển đổi YAML thành Object JavaScript.
+ * @param {string} yamlText - Nội dung YAML.
+ * @returns {Object} - Object chứa metadata.
+ */
+function parseYAML(yamlText) {
+    const lines = yamlText.split("\n");
+    const result = {};
+
+    lines.forEach(line => {
+        const [key, ...value] = line.split(": ");
+        
+          if (key && value.length) {
+            let val = value.join(": ").trim();
+          
+          if (val.startsWith('"') && val.endsWith('"')){
+              val = val.slice(1,-1);
+            }
+
+            // Nếu là một danh sách (array)
+            if (val.startsWith("[") && val.endsWith("]")) {
+                try {
+                    val = JSON.parse(val.replace(/'/g, '"')); // Chuyển YAML array thành JSON array hợp lệ
+                } catch (error) {
+                    console.warn("Lỗi khi parse YAML array:", error);
+                    val = []; // Trả về mảng rỗng nếu lỗi
+                }
+            }
+
+            result[key.trim()] = val;
+        }
+    });
+   // log(json.stringify(result))
+    return result;
+}
+
+/**
+ * Tạo Table of Contents (TOC) từ nội dung bài viết.
+ */
+function generateTOC() {
+    const postContent = document.getElementById("post-content");
+    const tocContainer = document.getElementById("post-toc");
+    
+    const headers = postContent.querySelectorAll("h2, h3");
+    if (headers.length === 0) {
+        tocContainer.style.display = "none"; // Ẩn TOC nếu không có tiêu đề nào
+        return;
+    }
+
+    tocContainer.innerHTML = "<h3>Mục lục</h3>";
+    const tocList = document.createElement("ul");
+
+    headers.forEach((header, index) => {
+        const id = `section-${index}`;
+        header.id = id; // Gán ID cho tiêu đề để có thể điều hướng
+
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `<a href="#${id}">${header.innerText}</a>`;
+        tocList.appendChild(listItem);
+    });
+
+    tocContainer.appendChild(tocList);
+    tocContainer.style.display = "block"; // Hiển thị TOC nếu có tiêu đề
+}
+
+// Gọi hàm generateTOC() sau khi bài viết được load
 
 //posts
 document.addEventListener("DOMContentLoaded", async function () {
@@ -100,9 +159,24 @@ document.addEventListener("DOMContentLoaded", async function () {
                 document.getElementById("post-content").innerHTML = "<p>Lỗi: Tải nhầm file HTML thay vì Markdown.</p>";
                 return;
             }
+            
+           const {metadata, content} = extractMetadata(markdown);
+           //log(content)
+            
+            //log("^^^")
             // Loại bỏ YAML Front Matter
             markdown = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
             // Chuyển đổi Markdown thành HTML
+          try{
+          //log(metadata.title)
+          document.getElementById("post-title").innerHTML = metadata.title || "Unknown";
+          document.getElementById("post-author").innerHTML = metadata.author || "Unknown";
+          document.getElementById("post-date").innerHTML = metadata.date || "Unknown";
+          document.getElementById("post-image").src = metadata.image || "Unknown";
+          //document.getElementById("post-description").innerHTML = metadata.description || "Unknown";
+          }catch(e){
+            log(e)
+          }
             marked.setOptions({
             breaks: true, // Xuống dòng đúng cách
             smartLists: true, // Cải thiện danh sách
@@ -113,26 +187,23 @@ document.addEventListener("DOMContentLoaded", async function () {
                 return lang && hljs.getLanguage(lang) ? hljs.highlight(code, { language: lang }).value: hljs.highlightAuto(code).value;
             }
         });
-        
-        // 🔹 Cấu hình Marked.js với Highlight.js
-        
-        
-            document.getElementById("post-content").innerHTML = marked.parse(markdown);
-            log(marked.parse(markdown));
+          document.getElementById("post-content").innerHTML = marked.parse(markdown);
+          //log(marked.parse(markdown));
             // 🔹 Tô màu tất cả các đoạn code trong <pre><code>
-        document.querySelectorAll("pre code").forEach((block) => {
+          document.querySelectorAll("pre code").forEach((block) => {
             hljs.highlightElement(block);
         });
         } else {
             document.getElementById("post-content").innerHTML = "<p>Lỗi khi tải bài viết.</p>";
         }
+    generateTOC();
+    
     };
     xhr.onerror = function () {
         document.getElementById("post-content").innerHTML = "<p>Lỗi kết nối đến máy chủ.</p>";
     };
 
     xhr.send();
-    
   
 });
 
@@ -195,7 +266,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
         const response = await fetch("posts.json");
-        console.log(response)
+        //log(response)
         posts = await response.json();
 
         // 🔹 Lấy danh sách danh mục (tags)

@@ -33,7 +33,7 @@
     "file": "web3-future",
     "tags": ["Web3", "Blockchain", "Internet"],
     "image": "assets/uploads/web3-future.jpg",
-    "featured": false
+    "featured": true
   },
   {
     "title": "AI và Sự Sáng Tạo: Bạn hay Máy?",
@@ -51,6 +51,15 @@
     "file": "digital-detox",
     "tags": ["Sức khỏe", "Lifestyle", "Công nghệ"],
     "image": "assets/uploads/digital-detox.jpg",
-    "featured": true
-  }
+    "featured": false
+  },
+  {
+  "title": "Công Thức Chuẩn: Gà Chiên Nước Mắm Giòn Rụm",
+  "date": "2025-02-29",
+  "description": "Hướng dẫn chi tiết cách làm gà chiên nước mắm giòn rụm, đậm đà đúng chuẩn nhà hàng.",
+  "file": "ga-chien-nuoc-mam",
+  "tags": ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"],
+  "image": "assets/uploads/ga-chien-nuoc-mam.jpg",
+  "featured": true
+}
 ]

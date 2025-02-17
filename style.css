@@ -1,4 +1,7 @@
 /* ===== Global Styles ===== */
+html{
+  scroll-behavior: smooth;
+}
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9f9f9;
@@ -420,4 +423,52 @@ pre {
 
 .dark-mode code{
   background-color: ;
+}
+
+/* ===== Table of Contents (TOC) Styles ===== */
+.post-toc {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #ff6347;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.post-toc h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #ff6347;
+}
+
+.post-toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.post-toc li {
+    margin: 5px 0;
+}
+
+.post-toc a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.post-toc a:hover {
+    color: #ff6347;
+}
+
+/* 🔹 Dark Mode TOC */
+.dark-mode .post-toc {
+    background: #333;
+    color: #ddd;
+}
+
+.dark-mode .post-toc a {
+    color: #ffcc00;
+}
+.dark-mode .post-toc a:hover {
+    color: #ffa500;
 }
