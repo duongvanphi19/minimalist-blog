@@ -7,7 +7,7 @@ description: "Web3 hứa hẹn một Internet phi tập trung, nơi người dù
 image: "assets/uploads/web3-future.jpg"
 ---
 
-## 🌐 Web3 - Cuộc cách mạng mới của Internet
+## 🌐 Web3333 - Cuộc cách mạng mới của Internet
 
 Web3 là khái niệm **Internet phi tập trung**, nơi dữ liệu và quyền kiểm soát thuộc về người dùng, thay vì các tập đoàn lớn.
 
