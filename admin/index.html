@@ -1,14 +1,33 @@
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>Content Manager</title>
-  </head>
-  <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  </body>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog của tôi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Minimalist Blog</h1>
+        <button id="editButton" class="btn">✏️ Quản lý bài viết</button>
+        <button id="darkModeToggle" class="btn">🌙 Dark Mode</button>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>📚 Danh sách bài viết</h2>
+            <div id="blog-list"></div>
+        </aside>
+
+        <main class="editor-container">
+            <div id="editor" class="hidden">
+                <h2>📝 Chỉnh sửa bài viết</h2>
+                <textarea id="markdownEditor" rows="15"></textarea>
+                <button id="saveButton" class="btn save-btn">💾 Lưu bài viết</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
 </html>

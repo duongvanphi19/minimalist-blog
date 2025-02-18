@@ -1,0 +1,137 @@
+/* ===== Reset CSS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ===== Main Layout ===== */
+body {
+    background: #f4f4f4;
+    color: #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container {
+    display: flex;
+    max-width: 1000px;
+    margin: 20px auto;
+    gap: 20px;
+}
+
+/* ===== Sidebar (Danh sách bài viết) ===== */
+.sidebar {
+    width: 30%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#blog-list div {
+    padding: 10px;
+    margin: 5px 0;
+    background: #ff6347;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#blog-list div:hover {
+    background: #e5533d;
+}
+
+/* ===== Editor (Chỉnh sửa bài viết) ===== */
+.editor-container {
+    width: 70%;
+}
+
+.hidden {
+    display: none;
+}
+
+#editor {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn {
+    background: #28a745;
+    color: #fff;
+}
+
+.save-btn:hover {
+    background: #218838;
+}
+
+/* ===== Dark Mode ===== */
+.dark-mode {
+    background: #222;
+    color: #ddd;
+}
+
+.dark-mode .main-header {
+    background: #333;
+}
+
+.dark-mode .sidebar {
+    background: #333;
+    color: #ddd;
+}
+
+.dark-mode #blog-list div {
+    background: #ffcc00;
+    color: #222;
+}
+
+.dark-mode #editor {
+    background: #444;
+}
+
+.dark-mode textarea {
+    background: #555;
+    color: #fff;
+    border: 1px solid #666;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar, .editor-container {
+        width: 100%;
+    }
+}
