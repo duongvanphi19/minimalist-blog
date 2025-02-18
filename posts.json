@@ -70,5 +70,13 @@
   "tags": ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"],
   "image": "assets/uploads/ga-chien-bo-toi.jpg",
   "featured": true
-}
+},
+    {
+        "title": "Đánh giá Microsoft Surface Pro 7: Sự kết hợp hoàn hảo giữa máy tính bảng và laptop",
+        "date": "2025-02-18",
+        "author": "Duong Van Phi",
+        "tags": ["Microsoft", "Surface Pro 7", "Review", "Công nghệ"],
+        "image": "/assets/uploads/surface-pro-7.jpg",
+        "file": "surface-pro-7-review.md"
+    }
 ]
