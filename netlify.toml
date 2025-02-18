@@ -1,0 +1,2 @@
+[build]
+  command = "echo '<script>window.API_KEY=\"${API_KEY}\"</script>' > public/config.js && npm run build"
