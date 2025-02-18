@@ -60,9 +60,7 @@ async function savePost(filename) {
    // console.log(content);// Chuyển Markdown thành Base64
     
     // Cần lấy SHA của file trước khi cập nhật
-    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`/*, {headers:{
-                  "Authorization": "token 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"
-    } }*/);
+    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
     const fileData = await getFileResponse.json();
     const sha = fileData.sha;
     //alert(sha)
