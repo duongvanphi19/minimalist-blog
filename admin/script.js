@@ -35,7 +35,66 @@ async function loadPosts() {
     });
 }
 
+function extractMetadata(markdown) {
+    const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
+    const match = markdown.match(yamlRegex);
+    let metadata = {};
+    let content = markdown;
+
+    if (match) {
+        metadata = parseYAML(match[1]);
+        content = markdown.replace(yamlRegex, "").trim();
+    }
+
+    return { metadata, content };
+}
+function parseYAML(yamlText) {
+    const lines = yamlText.split("\n");
+    const result = {};
+
+    lines.forEach(line => {
+        const [key, ...value] = line.split(": ");
+        
+          if (key && value.length) {
+            let val = value.join(": ").trim();
+          
+          if (val.startsWith('"') && val.endsWith('"')){
+              val = val.slice(1,-1);
+            }
+
+            // Nếu là một danh sách (array)
+            if (val.startsWith("[") && val.endsWith("]")) {
+                try {
+                    val = JSON.parse(val.replace(/'/g, '"')); // Chuyển YAML array thành JSON array hợp lệ
+                } catch (error) {
+                    console.warn("Lỗi khi parse YAML array:", error);
+                    val = []; // Trả về mảng rỗng nếu lỗi
+                }
+            }
+
+            result[key.trim()] = val;
+        }
+    });
+   // log(json.stringify(result))
+    return result;
+}
+
 // ✏️ Chỉnh sửa bài viết
+function frontMatter(markdown){
+  
+  //content = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
+  const {metadata, content} = extractMetadata(markdown);
+  
+  const head = `
+  # ${metadata.title}
+  ![${metadata.title}](../${metadata.image})
+  
+  `;
+  console.log(head)
+  
+  return head + content;
+}
+
 async function editPost(filename) {
     const response = await fetch(`https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`);
     //console.log(response)
@@ -44,7 +103,8 @@ async function editPost(filename) {
         return;
     }
     const markdown = await response.text();
-    
+    updatePreview(frontMatter(markdown));
+    console.log(frontMatter(markdown))
     document.getElementById("markdownEditor").value = markdown;
     document.getElementById("editor").style.display = "block";
     document.getElementById("saveButton").onclick = () => savePost(filename);
@@ -90,3 +150,30 @@ async function savePost(filename) {
         alert("Lỗi khi lưu bài viết.");
     }
 }
+
+// Thêm thư viện marked.js để hiển thị Markdown
+const loadScript = (url, callback) => {
+    const script = document.createElement("script");
+    script.src = url;
+    script.onload = callback;
+    document.head.appendChild(script);
+};
+
+loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
+    console.log("marked.js loaded");
+});
+
+// Xử lý Live Edit
+document.getElementById("markdownEditor").addEventListener("input", function () {
+    const markdownText = this.value;
+    updatePreview(markdownText);
+});
+
+function updatePreview(markdownText){
+  document.getElementById("previewContent").innerHTML = marked.parse(markdownText);
+}
+// Hiển thị Editor + Xem trước khi chỉnh sửa bài viết
+document.getElementById("editButton").addEventListener("click", () => {
+    document.getElementById("editor").classList.remove("hidden");
+    document.getElementById("preview").classList.remove("hidden");
+});

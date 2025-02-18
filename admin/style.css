@@ -74,6 +74,8 @@ textarea {
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
+    margin-bottom: 16px;
+    margin-top: 16px;
 }
 
 /* ===== Buttons ===== */
@@ -137,4 +139,127 @@ textarea {
 }
 a{
   text-decoration: none;
+}
+
+/* Xem trước bài viết */
+#preview {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.preview-box {
+    padding: 0px;
+    /*border: 1px solid #ddd;*/
+    border-radius: 5px;
+    background: #f9f9f9;
+    min-height: 100px;
+}
+
+/* Dark Mode cho Xem trước */
+.dark-mode #preview {
+    background: #333;
+    color: #ddd;
+}
+
+.dark-mode .preview-box {
+    background: #444;
+    border-color: #666;
+}
+
+/* ===== Bố cục chung ===== */
+.preview-box, .post-content {
+    padding: 20px;
+    
+    border-radius: 8px;
+    background: #fff;
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);*/
+    line-height: 1.6;
+}
+
+/* ===== Tiêu đề ===== */
+.preview-box h1, .post-content h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ff6347;
+}
+
+.preview-box h2, .post-content h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #ff6347;
+}
+
+.preview-box h3, .post-content h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #ff6347;
+}
+
+/* ===== Định dạng văn bản ===== */
+.preview-box p, .post-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.preview-box a, .post-content a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.preview-box a:hover, .post-content a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Danh sách ===== */
+.preview-box ul, .post-content ul {
+    padding-left: 20px;
+}
+
+.preview-box li, .post-content li {
+    margin-bottom: 5px;
+}
+
+/* ===== Code Block (Đồng bộ với post.html) ===== */
+.preview-box pre, .post-content pre {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.preview-box code, .post-content code {
+    background: #eee;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+}
+
+/* ===== Hình ảnh ===== */
+.preview-box img, .post-content img {
+    max-width: 100%;
+    border-radius: 6px;
+    display: block;
+    margin: 10px auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+/* ===== Dark Mode ===== */
+.dark-mode .preview-box, .dark-mode .post-content {
+    background: #333;
+    color: #ddd;
+    border-color: #666;
+}
+
+.dark-mode pre {
+    background: #444;
+}
+
+.dark-mode code {
+    background: #555;
 }
