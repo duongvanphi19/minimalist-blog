@@ -61,6 +61,7 @@ async function savePost(filename) {
     
     // Cần lấy SHA của file trước khi cập nhật
     const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
+    
     const fileData = await getFileResponse.json();
     const sha = fileData.sha;
     //alert(sha)
@@ -70,17 +71,17 @@ async function savePost(filename) {
         content: encodeBase64(content),
         sha: sha
     };
-    console.log(data)
-
+    //console.log(process.env.API_KEY)
+    
     const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`,{
         method: "PUT",
         headers: {
-            "Authorization": window.API_KEY,
+            "Authorization": "token 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",
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     });
-    //console.log("put",response)
+    console.log("put",response)
 
     if (response.ok) {
         alert("Bài viết đã được cập nhật!");
