@@ -226,12 +226,13 @@ document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMo
 async function loadPosts() {
     //console.log("loadPosts");
     const blogList = document.getElementById("post-list");
-
+  
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
-        const response = await fetch("posts.json");
+        //const response = await fetch("posts.json");
+        const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const posts = await response.json();
-
+        log(posts)
         // 🔹 Hiển thị danh sách bài viết
         blogList.innerHTML = posts.map(post => `
             <article>
@@ -265,10 +266,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
+        //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const response = await fetch("posts.json");
-        //log(response)
+        console.log(response)
         posts = await response.json();
-
+        console.log(posts)
         // 🔹 Lấy danh sách danh mục (tags)
         const uniqueTags = new Set();
         posts.forEach(post => post.tags.forEach(tag => uniqueTags.add(tag)));

@@ -33,7 +33,7 @@
     "file": "web3-future",
     "tags": ["Web3", "Blockchain", "Internet"],
     "image": "assets/uploads/web3-future.jpg",
-    "featured": true
+    "featured": false
   },
   {
     "title": "AI và Sự Sáng Tạo: Bạn hay Máy?",
@@ -60,6 +60,15 @@
   "file": "ga-chien-nuoc-mam",
   "tags": ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"],
   "image": "assets/uploads/ga-chien-nuoc-mam.jpg",
+  "featured": true
+},
+{
+  "title": "Bí Quyết Làm Cánh Gà Chiên Bơ Tỏi Thơm Lừng",
+  "date": "2025-02-29",
+  "description": "Hướng dẫn chi tiết cách làm cánh gà chiên bơ tỏi giòn rụm, thấm đẫm hương vị béo ngậy và thơm lừng.",
+  "file": "ga-chien-bo-toi",
+  "tags": ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"],
+  "image": "assets/uploads/ga-chien-bo-toi.jpg",
   "featured": true
 }
 ]
