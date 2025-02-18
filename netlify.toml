@@ -1,2 +1,2 @@
 [build]
-  command = "echo '<script>window.API_KEY=\"${API_KEY}\"</script>' > public/config.js && npm run build"
+  command = "mkdir -p public && echo '<script>window.API_KEY=\"${API_KEY}\"</script>' > public/config.js && npm run build"
