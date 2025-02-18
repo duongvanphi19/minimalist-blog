@@ -7,7 +7,7 @@ description: "Hướng dẫn cách làm gà chiên nước mắm đơn giản, g
 image: "assets/uploads/ga-chien-nuoc-mam.jpg"
 ---
 
-## 🍗 Giới thiệu  bbbbbbb
+## 🍗 Giới thiệu  bbbb222
 Gà chiên nước mắm – món ăn giòn rụm, đậm đà, thơm ngon. Lớp da giòn tan kết hợp nước mắm mặn ngọt tạo nên hương vị khó cưỡng.  
 
 ---
