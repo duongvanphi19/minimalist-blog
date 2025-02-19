@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 exports.handler = async (event, context) => {
   // Lấy token từ biến môi trường đã được cấu hình trong Netlify
   const token = process.env.TOKEN;
-  log(token);
+  
   if (!token) {
     return {
       statusCode: 500,
@@ -68,28 +68,5 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ error: error.toString() })
     };
   }
-};
-
-function log(message){
-    // Tạo một box thông báo lỗi trong giao diện Acode
-    const errorBox = document.createElement("div");
-    errorBox.style.position = "fixed";
-    errorBox.style.bottom = "10px";
-    errorBox.style.left = "10px";
-    errorBox.style.right = "10px";
-    errorBox.style.padding = "10px";
-    errorBox.style.background = "#483746";
-    errorBox.style.color = "white";
-    errorBox.style.fontSize = "14px";
-    errorBox.style.borderRadius = "5px";
-    errorBox.style.zIndex = "10000";
-    errorBox.style.opacity= "95%";
-    errorBox.textContent = `${message}`;
-    document.body.appendChild(errorBox);
-
-    // Tự động ẩn box lỗi sau 5 giây
-    setTimeout(() => {
-        errorBox.remove();
-    }, 5000);
 };
 
