@@ -4,7 +4,11 @@
     "date": "2025-02-20",
     "description": "Khám phá cách AI giúp lập trình viên Frontend tăng tốc phát triển giao diện web.",
     "file": "frontend-ai",
-    "tags": ["AI", "Frontend", "Web Development"],
+    "tags": [
+      "AI",
+      "Frontend",
+      "Web Development"
+    ],
     "image": "assets/uploads/frontend-ai.jpg",
     "featured": false
   },
@@ -13,7 +17,11 @@
     "date": "2025-02-21",
     "description": "Hướng dẫn xây dựng nội dung thu hút và tối ưu SEO để tăng traffic cho blog.",
     "file": "content-marketing",
-    "tags": ["Marketing", "SEO", "Content"],
+    "tags": [
+      "Marketing",
+      "SEO",
+      "Content"
+    ],
     "image": "assets/uploads/content-marketing.jpg",
     "featured": false
   },
@@ -22,7 +30,11 @@
     "date": "2025-02-22",
     "description": "Những nguyên tắc quan trọng để duy trì chế độ ăn uống lành mạnh và khoa học.",
     "file": "healthy-eating",
-    "tags": ["Sức khỏe", "Dinh dưỡng", "Lifestyle"],
+    "tags": [
+      "Sức khỏe",
+      "Dinh dưỡng",
+      "Lifestyle"
+    ],
     "image": "assets/uploads/healthy-eating.jpg",
     "featured": false
   },
@@ -31,7 +43,11 @@
     "date": "2025-02-25",
     "description": "Web3 hứa hẹn một Internet phi tập trung, nơi người dùng có quyền kiểm soát dữ liệu của họ.",
     "file": "web3-future",
-    "tags": ["Web3", "Blockchain", "Internet"],
+    "tags": [
+      "Web3",
+      "Blockchain",
+      "Internet"
+    ],
     "image": "assets/uploads/web3-future.jpg",
     "featured": false
   },
@@ -40,7 +56,11 @@
     "date": "2025-02-26",
     "description": "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?",
     "file": "ai-creative",
-    "tags": ["AI", "Creativity", "Công nghệ"],
+    "tags": [
+      "AI",
+      "Creativity",
+      "Công nghệ"
+    ],
     "image": "assets/uploads/ai-creative.jpg",
     "featured": false
   },
@@ -49,43 +69,70 @@
     "date": "2025-02-27",
     "description": "Dành quá nhiều thời gian trước màn hình có thể gây căng thẳng. Hãy thử Digital Detox!",
     "file": "digital-detox",
-    "tags": ["Sức khỏe", "Lifestyle", "Công nghệ"],
+    "tags": [
+      "Sức khỏe",
+      "Lifestyle",
+      "Công nghệ"
+    ],
     "image": "assets/uploads/digital-detox.jpg",
     "featured": false
   },
   {
-  "title": "Công Thức Chuẩn: Gà Chiên Nước Mắm Giòn Rụm",
-  "date": "2025-02-29",
-  "description": "Hướng dẫn chi tiết cách làm gà chiên nước mắm giòn rụm, đậm đà đúng chuẩn nhà hàng.",
-  "file": "ga-chien-nuoc-mam",
-  "tags": ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"],
-  "image": "assets/uploads/ga-chien-nuoc-mam.jpg",
-  "featured": true
-},
-{
-  "title": "Bí Quyết Làm Cánh Gà Chiên Bơ Tỏi Thơm Lừng",
-  "date": "2025-02-29",
-  "description": "Hướng dẫn chi tiết cách làm cánh gà chiên bơ tỏi giòn rụm, thấm đẫm hương vị béo ngậy và thơm lừng.",
-  "file": "ga-chien-bo-toi",
-  "tags": ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"],
-  "image": "assets/uploads/ga-chien-bo-toi.jpg",
-  "featured": true
-},
-    {
-        "title": "Đánh giá Microsoft Surface Pro 7: Sự kết hợp hoàn hảo giữa máy tính bảng và laptop",
-        "date": "2025-02-18",
-        "author": "Duong Van Phi",
-        "tags": ["Microsoft", "Surface Pro 7", "Review", "Công nghệ"],
-        "image": "/assets/uploads/surface-pro-7.jpg",
-        "file": "surface-pro-7-review"
-    },
-    {
-        "title": "Làm Website với Sức Mạnh của AI: Công Cụ và Tương Lai Số",
-        "date": "2025-03-15",
-        "author": "Trí Tuệ Nhân Tạo",
-        "tags": ["AI", "Web Development", "Công Nghệ", "Tương Lai"],
-        "description": "Khám phá cách các công cụ AI đang biến đổi quá trình phát triển website và cách bạn có thể tận dụng chúng để xây dựng những trang web đột phá.",
-        "image": "/assets/uploads/web3-future.jpg",
-        "file": "ai-web-development"
-    }
+    "title": "Công Thức Chuẩn: Gà Chiên Nước Mắm Giòn Rụm",
+    "date": "2025-02-29",
+    "description": "Hướng dẫn chi tiết cách làm gà chiên nước mắm giòn rụm, đậm đà đúng chuẩn nhà hàng.",
+    "file": "ga-chien-nuoc-mam",
+    "tags": [
+      "Ẩm thực",
+      "Món chiên",
+      "Gà",
+      "Việt Nam"
+    ],
+    "image": "assets/uploads/ga-chien-nuoc-mam.jpg",
+    "featured": true
+  },
+  {
+    "title": "Bí Quyết Làm Cánh Gà Chiên Bơ Tỏi Thơm Lừng",
+    "date": "2025-02-29",
+    "description": "Hướng dẫn chi tiết cách làm cánh gà chiên bơ tỏi giòn rụm, thấm đẫm hương vị béo ngậy và thơm lừng.",
+    "file": "ga-chien-bo-toi",
+    "tags": [
+      "Ẩm thực",
+      "Món chiên",
+      "Gà",
+      "Việt Nam"
+    ],
+    "image": "assets/uploads/ga-chien-bo-toi.jpg",
+    "featured": true
+  },
+  {
+    "title": "Đánh giá Microsoft Surface Pro 7: Sự kết hợp hoàn hảo giữa máy tính bảng và laptop",
+    "date": "2025-02-18",
+    "author": "Duong Van Phi",
+    "tags": [
+      "Microsoft",
+      "Surface Pro 7",
+      "Review",
+      "Công nghệ"
+    ],
+    "image": "/assets/uploads/surface-pro-7.jpg",
+    "file": "surface-pro-7-review"
+  },
+  {
+    "title": "Làm Website với Sức Mạnh của AI: Công Cụ và Tương Lai Số",
+    "date": "2025-03-15",
+    "author": "Trí Tuệ Nhân Tạo",
+    "tags": [
+      "AI",
+      "Web Development",
+      "Công Nghệ",
+      "Tương Lai"
+    ],
+    "description": "Khám phá cách các công cụ AI đang biến đổi quá trình phát triển website và cách bạn có thể tận dụng chúng để xây dựng những trang web đột phá.",
+    "image": "/assets/uploads/web3-future.jpg",
+    "file": "ai-web-development"
+  },
+  {
+    "file": "ai-creative.md"
+  }
 ]
