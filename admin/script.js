@@ -24,17 +24,32 @@ function toggleDarkMode() {
   }
 }
 
+function createSlug(title) {
+    return title
+        .toLowerCase() // Chuyển thành chữ thường
+        .normalize("NFD") // Tách dấu khỏi ký tự gốc (ví dụ: "á" → "a")
+        .replace(/[\u0300-\u036f]/g, "") // Xóa dấu
+        .replace(/đ/g, "d") // Đổi "đ" thành "d"
+        .replace(/[^a-z0-9\s-]/g, "") // Xóa ký tự đặc biệt (giữ lại chữ, số, dấu cách)
+        .trim() // Xóa khoảng trắng đầu & cuối
+        .replace(/\s+/g, "-"); // Đổi khoảng trắng thành dấu "-"
+}
+
+
 function newPost() {
     const title = prompt("Nhập tiêu đề bài viết:");
     if (!title) return;
 
-    const filename = title.toLowerCase().replace(/ /g, "-"); // Tạo tên file từ tiêu đề
+    const slug = createSlug(title); // Tạo tên file từ tiêu đề
     const content = `---
-title: "${title}"
-date: "${new Date().toISOString().split("T")[0]}"
-author: "Admin"
-tags: ["Mới"]
-image: "/assets/uploads/sample.jpg"
+    title: "${title}"
+    date: "${new Date().toISOString().split("T")[0]}"
+    author: "Admin"
+    tags: ["Mới"]
+    image: "/assets/uploads/sample.jpg"
+    featured: "false"
+    slug: "${slug}"
+    filename: "${slug}.md"
 ---
 # ${title}
 
@@ -46,7 +61,7 @@ Nội dung bài viết tại đây...
     document.getElementById("editor").style.display = "block";
     updatePreview(content);
 
-    document.getElementById("saveButton").onclick = () => savePost(filename, content);
+    document.getElementById("saveButton").onclick = () => savePost(slug + ".md", content);
     
 }
 
@@ -181,16 +196,19 @@ async function updatePostsJson(filename, metadata) {
     let posts =[];
     log(decodeBase64(postsData.content))
     
-    try{ posts = JSON.parse(decodeBase64(postsData.content));
-    console.log('decodeBase64 postsData ok')
+    try{ 
+      posts = JSON.parse(decodeBase64(postsData.content));
+    //console.log('decodeBase64 postsData ok')
     }catch(e){
       console.log("decodeBase64 postsData failed")
     }
 
     // 🛑 Kiểm tra xem bài viết đã có trong danh sách chưa
+    //console.log(JSON.stringify(posts, null,2));
     const exists = posts.some(post => post.file === filename);
     //console.log('posts[0]', posts[0]);
 
+    console.log('metadata', metadata)
     if (!exists) {
         console.log("📂 Đang thêm bài viết vào `posts.json`...");
         const newItem = {
@@ -202,11 +220,12 @@ async function updatePostsJson(filename, metadata) {
             file: filename,
             featured: false
         }
-        log(JSON.stringify(newItem, null,2));
-        posts.push(newItem);
+        console.log("newItem", metadata)
+        console.log('newItem json', JSON.stringify(metadata, null,2));
+        posts.push(metadata);
 
         const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
-        console.log("updatedPosts", updatedPosts)
+        //console.log("updatedPosts", updatedPosts)
         
         // ✅ Cập nhật `posts.json` trên GitHub
         await fetch(postsFile, {
@@ -267,7 +286,7 @@ async function savePost(filename) {
     if (response.ok) {
         console.log("✅ Bài viết đã được cập nhật!");
       //log(`✅ ${fileExists ?  "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
-      try{await updatePostsJson(filename, metadata)}catch(e){console.log(e)}
+      try{await updatePostsJson(filename, metadata.metadata)}catch(e){console.log(e)}
     } else {
         alert("⛔ Lỗi khi lưu bài viết.", result.message);
     }
