@@ -28,13 +28,13 @@ function newPost() {
     const title = prompt("Nhập tiêu đề bài viết:");
     if (!title) return;
 
-    const filename = title.toLowerCase().replace(/ /g, "-") + ".md"; // Tạo tên file từ tiêu đề
+    const filename = title.toLowerCase().replace(/ /g, "-"); // Tạo tên file từ tiêu đề
     const content = `---
 title: "${title}"
 date: "${new Date().toISOString().split("T")[0]}"
 author: "Admin"
 tags: ["Mới"]
-image: "/assets/uploads/default.jpg"
+image: "/assets/uploads/sample.jpg"
 ---
 # ${title}
 
@@ -52,7 +52,7 @@ Nội dung bài viết tại đây...
 
 // 📝 Tải danh sách bài viết từ GitHub
 async function loadPosts() {
-  console.log("post3.md");
+  
     const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts`);
     if (!response.ok) {
         console.error("Không thể tải danh sách bài viết.");
@@ -64,7 +64,7 @@ async function loadPosts() {
     
     posts.forEach(post => {
         const postItem = document.createElement("div");
-        postItem.innerHTML = `<a href="#" onclick="editPost('${post.name}')">${post.name}</a>`;
+        postItem.innerHTML = `<a href="#editHere" onclick="editPost('${post.name}')">${post.name}</a>`;
         blogList.appendChild(postItem);
     });
 }
@@ -124,7 +124,7 @@ function FrontMatter(markdown){
   ![${metadata.title}](../${metadata.image})
   
   `;
-  console.log(head)
+ 
   
   return head + content;
 }
@@ -136,7 +136,7 @@ function FrontMatter(markdown){
 
 
 async function editPost(filename, newContent=null) {
-  console.log("editpost")
+  //console.log("editpost")
     const response = await fetch(`https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`);
     console.log(response)
     if (!response.ok) {
@@ -238,9 +238,7 @@ async function savePost(filename) {
     const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
     const fileExists = getFileResponse.ok;
     const sha = fileExists ? (await getFileResponse.json()).sha : undefined;
-    //const fileData = await getFileResponse.json();
-    //const sha = fileData.sha;
-    //alert(sha)
+   
 
     const data = {
         message: fileExists ?  "Cập nhật bài viết" : "Tạo bài viết mới",
@@ -260,7 +258,7 @@ async function savePost(filename) {
         },
         body: JSON.stringify(data)
     });
-     console.log('put',response);
+    // console.log('put',response);
      //log(response.status)
     //const result = await response.json();
     //log(result);
@@ -285,9 +283,8 @@ loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
     console.log("marked.js loaded");
 });
 
-/*loadScript("https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js", () => {
-    console.log("front-matter.js loaded");
-});*/
+
+
 
 // Xử lý Live Edit
 document.getElementById("markdownEditor").addEventListener("input", function () {
