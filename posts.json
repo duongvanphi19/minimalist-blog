@@ -21,5 +21,16 @@
     "image": "/assets/uploads/sample.jpg",
     "file": "bai-viet-2",
     "featured": false
+  },
+  {
+    "title": "bài viết 3",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "file": "bài-viết-3",
+    "featured": false
   }
 ]
