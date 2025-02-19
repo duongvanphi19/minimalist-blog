@@ -8,7 +8,7 @@ image: "assets/uploads/ga-chien-bo-toi.jpg"
 featured: true
 ---
 
-## 🧄 Giới thiệu  
+## 🧄 Giới thiệu   66
 Cánh gà chiên bơ tỏi – lớp vỏ giòn rụm, thịt mềm ngọt thấm đẫm hương bơ tỏi thơm lừng. Món ăn này không chỉ ngon miệng mà còn cực kỳ dễ làm, thích hợp cho mọi bữa ăn!
 
 ---
