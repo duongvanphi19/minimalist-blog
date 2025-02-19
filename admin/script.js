@@ -80,7 +80,7 @@ async function uploadImage() {
         const result = await response.json();
         if (response.ok) {
             const imageUrl = result.content.download_url;
-            alert("✅ Ảnh đã được upload!");
+            alert("✅ Ảnh  đã được upload!");
             insertImageMarkdown(imageUrl);
         } else {
             alert("❌ Lỗi khi upload ảnh: " + result.message);
