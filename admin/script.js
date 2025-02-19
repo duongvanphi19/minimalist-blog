@@ -45,6 +45,7 @@ function newPost() {
     title: "${title}"
     date: "${new Date().toISOString().split("T")[0]}"
     author: "Admin"
+    description: "Lorem ipsum dolor sit atmet"
     tags: ["Mới"]
     image: "/assets/uploads/sample.jpg"
     featured: "false"
