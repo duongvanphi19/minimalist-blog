@@ -133,9 +133,7 @@ async function savePost(filename) {
    // console.log(content);// Chuyển Markdown thành Base64
     
     // Cần lấy SHA của file trước khi cập nhật
-    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`, {headers:{
-                  "Authorization": process.env.TOKEN
-    } });
+    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
     const fileData = await getFileResponse.json();
     const sha = fileData.sha;
     //alert(sha)
@@ -145,21 +143,24 @@ async function savePost(filename) {
         content: encodeBase64(content),
         sha: sha
     };
-    console.log(data)
-
-    const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`,{
+    //console.log(data)
+   // const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`
+    const url = '/.netlify/functions/savePost';
+    
+    const response = await fetch(url,{
         method: "PUT",
         headers: {
-            "Authorization": process.env.TOKEN,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            //"Authorization": token
         },
         body: JSON.stringify(data)
     });
-    console.log("put",response)
-    const result = await response.json();
-    console.log(result);
+     console.log('put',response);
+     log(response.status)
+    //const result = await response.json();
+    //log(result);
     if (response.ok) {
-        alert("✅ Bài viết đã được cập nhật!");
+        log("✅ Bài viết đã được cập nhật!");
     } else {
         alert("⛔ Lỗi khi lưu bài viết.", result.message);
     }
@@ -195,3 +196,27 @@ document.getElementById("editButton").addEventListener("click", () => {
     document.getElementById("editor").classList.remove("hidden");
     document.getElementById("preview").classList.remove("hidden");
 });
+
+function log(message){
+    // Tạo một box thông báo lỗi trong giao diện Acode
+    const errorBox = document.createElement("div");
+    errorBox.style.position = "fixed";
+    errorBox.style.bottom = "10px";
+    errorBox.style.left = "10px";
+    errorBox.style.right = "10px";
+    errorBox.style.padding = "10px";
+    errorBox.style.background = "#483746";
+    errorBox.style.color = "white";
+    errorBox.style.fontSize = "14px";
+    errorBox.style.borderRadius = "5px";
+    errorBox.style.zIndex = "10000";
+    errorBox.style.opacity= "95%";
+    errorBox.textContent = `${message}`;
+    document.body.appendChild(errorBox);
+
+    // Tự động ẩn box lỗi sau 5 giây
+    setTimeout(() => {
+        errorBox.remove();
+    }, 5000);
+};
+
