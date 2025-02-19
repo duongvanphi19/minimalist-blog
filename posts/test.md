@@ -1,11 +1,14 @@
 ---
-title: "test"
-date: "2025-02-19"
-author: "Admin"
-tags: ["Mới"]
-image: "/assets/uploads/default.jpg"
+    title: "test"
+    date: "2025-02-19"
+    author: "Admin"
+    description: "Lorem ipsum dolor sit atmet"
+    tags: ["Mới"]
+    image: "/assets/uploads/sample.jpg"
+    featured: "true"
+    slug: "test"
+    filename: "test.md"
 ---
-# test test 00:42
+# test
 
 Nội dung bài viết tại đây...
-test1111
