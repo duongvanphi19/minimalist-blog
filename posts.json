@@ -10,5 +10,19 @@
     ],
     "description": "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?",
     "image": "assets/uploads/ai-creative.jpg"
+  },
+  {
+    "title": "Bí Quyết Làm Cánh Gà Chiên Bơ Tỏi Thơm Lừng",
+    "date": "2025-02-29",
+    "description": "Hướng dẫn chi tiết cách làm cánh gà chiên bơ tỏi giòn rụm, thấm đẫm hương vị béo ngậy và thơm lừng.",
+    "file": "ga-chien-bo-toi",
+    "tags": [
+      "Ẩm thực",
+      "Món chiên",
+      "Gà",
+      "Việt Nam"
+    ],
+    "image": "assets/uploads/ga-chien-bo-toi.jpg",
+    "featured": "true"
   }
 ]
