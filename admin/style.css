@@ -296,6 +296,10 @@ a{
     text-align: center;
 }
 
+.dark-mode .upload-container{
+  background: #444;
+}
+
 /* 📷 Nút chọn ảnh */
 .upload-label {
     background-color: #007bff;

@@ -48,8 +48,8 @@ async function uploadImage() {
     reader.readAsDataURL(file);
     reader.onload = async function () {
         const base64Content = reader.result.split(",")[1]; // Lấy phần base64
-
-        const filename = `assets/uploads/${createSlug(file.name)}`;
+        
+        const filename = `assets/uploads/${createSlug(file.name.substring(0, file.name.lastIndexOf('.')))}.${file.name.split('.').pop().toLowerCase()}`;
 
         const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")// 🔥 Thay bằng GitHub Token của bạn
         const repo = "duongvanphi19/minimalist-blog"; // 🔥 Thay bằng tên repo của bạn
