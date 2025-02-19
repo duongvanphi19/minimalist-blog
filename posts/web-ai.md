@@ -2,7 +2,7 @@
 title: "Cách AI giúp phát triển website nhanh chóng"
 date: 2025-02-16
 author: "Nguyễn Minh"
-tags: [AI, Web Development]
+tags: ["AI", "Web Development"]
 description: "Khám phá cách AI giúp lập trình viên và nhà thiết kế phát triển website nhanh hơn và hiệu quả hơn."
 image: "/images/web-ai.jpg"
 ---

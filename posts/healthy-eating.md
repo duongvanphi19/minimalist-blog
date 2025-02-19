@@ -2,7 +2,7 @@
 title: "Hướng dẫn ăn uống lành mạnh để có sức khỏe tốt"
 date: 2025-02-22
 author: "Trần Bảo Ngọc"
-tags: [Sức khỏe, Dinh dưỡng, Lifestyle]
+tags: ["Sức khỏe", "Dinh dưỡng", "Lifestyle"]
 description: "Những nguyên tắc quan trọng để duy trì chế độ ăn uống lành mạnh và khoa học."
 image: "assets/uploads/healthy-eating.jpg"
 ---

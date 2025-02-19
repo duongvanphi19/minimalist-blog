@@ -78,5 +78,14 @@
         "tags": ["Microsoft", "Surface Pro 7", "Review", "Công nghệ"],
         "image": "/assets/uploads/surface-pro-7.jpg",
         "file": "surface-pro-7-review"
+    },
+    {
+        "title": "Làm Website với Sức Mạnh của AI: Công Cụ và Tương Lai Số",
+        "date": "2025-03-15",
+        "author": "Trí Tuệ Nhân Tạo",
+        "tags": ["AI", "Web Development", "Công Nghệ", "Tương Lai"],
+        "description": "Khám phá cách các công cụ AI đang biến đổi quá trình phát triển website và cách bạn có thể tận dụng chúng để xây dựng những trang web đột phá.",
+        "image": "/assets/uploads/web3-future.jpg",
+        "file": "ai-web-development"
     }
 ]

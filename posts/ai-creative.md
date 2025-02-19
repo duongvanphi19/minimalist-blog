@@ -2,7 +2,7 @@
 title: "AI và Sự Sáng Tạo: Bạn hay Máy?"
 date: 2025-02-26
 author: "Lê Anh Tuấn"
-tags: [AI, Creativity, Công nghệ]
+tags: ["AI", "Creativity", "Công nghệ"]
 description: "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?"
 image: "assets/uploads/ai-creative.jpg"
 ---

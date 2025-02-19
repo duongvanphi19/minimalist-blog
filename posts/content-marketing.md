@@ -2,7 +2,7 @@
 title: "Chiến lược Content Marketing giúp blog tăng traffic"
 date: 2025-02-21
 author: "Lê Anh Tuấn"
-tags: [Marketing, SEO, Content]
+tags: ["Marketing", "SEO", "Content"]
 description: "Hướng dẫn xây dựng nội dung thu hút và tối ưu SEO để tăng traffic cho blog."
 image: "assets/uploads/content-marketing.jpg"
 ---

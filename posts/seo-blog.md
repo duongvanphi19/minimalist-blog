@@ -2,7 +2,7 @@
 title: "Hướng dẫn tối ưu SEO cho Blog"
 date: 2025-02-17
 author: "Lê Anh Tuấn"
-tags: [SEO, Blog]
+tags: ["SEO", "Blog"]
 description: "Các kỹ thuật SEO giúp blog của bạn đạt thứ hạng cao hơn trên Google."
 image: "/images/seo-blog.jpg"
 ---

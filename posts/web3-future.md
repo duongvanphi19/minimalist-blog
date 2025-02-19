@@ -2,7 +2,7 @@
 title: "Web3 và tương lai của Internet"
 date: 2025-02-25
 author: "Nguyễn Minh"
-tags: [Web3, Blockchain, Internet]
+tags: ["Web3", "Blockchain", "Internet"]
 description: "Web3 hứa hẹn một Internet phi tập trung, nơi người dùng có quyền kiểm soát dữ liệu của họ."
 image: "assets/uploads/web3-future.jpg"
 ---

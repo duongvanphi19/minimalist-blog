@@ -2,7 +2,7 @@
 title: "AI hỗ trợ lập trình Frontend như thế nào?"
 date: 2025-02-20
 author: "Nguyễn Minh"
-tags: [AI, Frontend, Web Development]
+tags: ["AI", "Frontend", "Web Development"]
 description: "Khám phá cách AI giúp lập trình viên Frontend tăng tốc phát triển giao diện web."
 image: "assets/uploads/frontend-ai.jpg"
 ---

@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
+    if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+  }
+  
     function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 
@@ -18,7 +22,7 @@ document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMo
 
 // 📝 Tải danh sách bài viết từ GitHub
 async function loadPosts() {
-  const filename = "post3.md"
+  console.log("post3.md");
     const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts`);
     if (!response.ok) {
         console.error("Không thể tải danh sách bài viết.");
@@ -65,6 +69,7 @@ function parseYAML(yamlText) {
             // Nếu là một danh sách (array)
             if (val.startsWith("[") && val.endsWith("]")) {
                 try {
+                  console.log(val);
                     val = JSON.parse(val.replace(/'/g, '"')); // Chuyển YAML array thành JSON array hợp lệ
                 } catch (error) {
                     console.warn("Lỗi khi parse YAML array:", error);
@@ -80,8 +85,7 @@ function parseYAML(yamlText) {
 }
 
 // ✏️ Chỉnh sửa bài viết
-function frontMatter(markdown){
-  
+function FrontMatter(markdown){
   //content = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
   const {metadata, content} = extractMetadata(markdown);
   
@@ -94,17 +98,26 @@ function frontMatter(markdown){
   
   return head + content;
 }
+// Dùng front-matter.js để parse YAML trước khi chuyển Markdown thành HTML
+
+
+
+// Khi tải bài viết, parse YAML & Markdown
+
 
 async function editPost(filename) {
+  console.log("editpost")
     const response = await fetch(`https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`);
-    //console.log(response)
+    console.log(response)
     if (!response.ok) {
         console.error("Không thể tải bài viết.");
         return;
     }
     const markdown = await response.text();
-    updatePreview(frontMatter(markdown));
-    console.log(frontMatter(markdown))
+    const parsed = marked.parse(FrontMatter(markdown));
+    
+    
+    updatePreview(parsed);
     document.getElementById("markdownEditor").value = markdown;
     document.getElementById("editor").style.display = "block";
     document.getElementById("saveButton").onclick = () => savePost(filename);
@@ -120,9 +133,9 @@ async function savePost(filename) {
    // console.log(content);// Chuyển Markdown thành Base64
     
     // Cần lấy SHA của file trước khi cập nhật
-    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`/*, {headers:{
-                  "Authorization": "token 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"
-    } }*/);
+    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`, {headers:{
+                  "Authorization": "token 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"
+    } });
     const fileData = await getFileResponse.json();
     const sha = fileData.sha;
     //alert(sha)
@@ -137,17 +150,18 @@ async function savePost(filename) {
     const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`,{
         method: "PUT",
         headers: {
-            "Authorization": "token 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",
+            "Authorization": "token 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",
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     });
-    //console.log("put",response)
-
+    console.log("put",response)
+    const result = await response.json();
+    console.log(result);
     if (response.ok) {
-        alert("Bài viết đã được cập nhật!");
+        alert("✅ Bài viết đã được cập nhật!");
     } else {
-        alert("Lỗi khi lưu bài viết.");
+        alert("⛔ Lỗi khi lưu bài viết.", result.message);
     }
 }
 
@@ -162,6 +176,10 @@ const loadScript = (url, callback) => {
 loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
     console.log("marked.js loaded");
 });
+
+/*loadScript("https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js", () => {
+    console.log("front-matter.js loaded");
+});*/
 
 // Xử lý Live Edit
 document.getElementById("markdownEditor").addEventListener("input", function () {

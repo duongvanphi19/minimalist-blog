@@ -2,7 +2,7 @@
 title: "Digital Detox: Nghỉ Ngơi Khỏi Màn Hình"
 date: 2025-02-27
 author: "Trần Bảo Ngọc"
-tags: [Sức khỏe, Lifestyle, Công nghệ]
+tags: ["Sức khỏe", "Lifestyle", "Công nghệ"]
 description: "Dành quá nhiều thời gian trước màn hình có thể gây căng thẳng. Hãy thử Digital Detox!"
 image: "assets/uploads/digital-detox.jpg"
 ---
