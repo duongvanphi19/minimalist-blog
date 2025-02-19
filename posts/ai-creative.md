@@ -3,10 +3,13 @@ title: "AI và Sự Sáng Tạo: Bạn hay Máy?"
 date: 2025-02-26
 author: "Lê Anh Tuấn"
 tags: ["AI", "Creativity", "Công nghệ"]
-description: "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?"   uujh
+description: "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?" 
 image: "assets/uploads/ai-creative.jpg"
+slug:"ai-creative"
+filename:"ai-creative.md"
+featured:"true"
 ---
-# bài viết đã được cập nhật bởi admin vào lúc 15:25
+# bài viết đã được cập nhật bởi admin vào lúc 1:42
 ## 🤖 AI có thể sáng tạo không? 
 
 Ngày nay, AI đã có thể **vẽ tranh, viết thơ, soạn nhạc**, nhưng nó có thực sự sáng tạo không?
