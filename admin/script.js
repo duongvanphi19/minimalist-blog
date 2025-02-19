@@ -9,7 +9,7 @@ document.getElementById("imageUpload").addEventListener("change", function (even
     };
     reader.readAsDataURL(file);
 });
-//document.getElementById("uploadButton").addEventListener("click", uploadImage);
+document.getElementById("uploadButton").addEventListener("click", uploadImage);
 
 document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
