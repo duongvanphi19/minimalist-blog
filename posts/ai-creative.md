@@ -6,7 +6,7 @@ tags: ["AI", "Creativity", "Công nghệ"]
 description: "AI ngày càng giỏi trong sáng tạo nội dung, nhưng liệu nó có thể thay thế con người không?"   uujh
 image: "assets/uploads/ai-creative.jpg"
 ---
-# bài viết đã được cập nhật bởi admin vào lúc 14:17
+# bài viết đã được cập nhật bởi admin vào lúc 15:25
 ## 🤖 AI có thể sáng tạo không? 
 
 Ngày nay, AI đã có thể **vẽ tranh, viết thơ, soạn nhạc**, nhưng nó có thực sự sáng tạo không?
