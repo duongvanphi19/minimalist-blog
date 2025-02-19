@@ -144,19 +144,20 @@ async function savePost(filename) {
         sha: sha
     };
     //console.log(data)
-   // const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`
-    const url = '/.netlify/functions/savePost';
-    
+      const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`
+    //const url = '/.netlify/functions/savePost';
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
+    //log(token)
     const response = await fetch(url,{
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            //"Authorization": token
+            "Authorization": token
         },
         body: JSON.stringify(data)
     });
      console.log('put',response);
-     log(response.status+process.env.TOKEN)
+     //log(response.status)
     //const result = await response.json();
     //log(result);
     if (response.ok) {
