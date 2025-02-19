@@ -1,4 +1,15 @@
+document.getElementById("imageUpload").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    if (!file) return;
 
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        document.getElementById("imagePreview").src = e.target.result;
+        document.getElementById("imagePreview").style.display = "block";
+    };
+    reader.readAsDataURL(file);
+});
+//document.getElementById("uploadButton").addEventListener("click", uploadImage);
 
 document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
@@ -22,6 +33,68 @@ function toggleDarkMode() {
   } else {
     localStorage.setItem("darkMode", "disabled");
   }
+}
+
+async function uploadImage() {
+    const fileInput = document.getElementById("imageUpload");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("❌ Vui lòng chọn một ảnh!");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async function () {
+        const base64Content = reader.result.split(",")[1]; // Lấy phần base64
+
+        const filename = `assets/uploads/${createSlug(file.name)}`;
+
+        const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")// 🔥 Thay bằng GitHub Token của bạn
+        const repo = "duongvanphi19/minimalist-blog"; // 🔥 Thay bằng tên repo của bạn
+
+        const url = `https://api.github.com/repos/${repo}/contents/${filename}`;
+
+        // Kiểm tra xem file đã tồn tại chưa
+        let sha = null;
+        const checkFile = await fetch(url, { headers: { Authorization: token }});
+        if (checkFile.ok) {
+            const fileData = await checkFile.json();
+            sha = fileData.sha; // Nếu có file cũ, lấy SHA để cập nhật
+        }
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Upload ảnh mới",
+                content: base64Content,
+                sha: sha || undefined
+            })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            const imageUrl = result.content.download_url;
+            alert("✅ Ảnh đã được upload!");
+            insertImageMarkdown(imageUrl);
+        } else {
+            alert("❌ Lỗi khi upload ảnh: " + result.message);
+        }
+    };
+}
+
+function insertImageMarkdown(imageUrl) {
+    const editor = document.getElementById("markdownEditor");
+    const cursorPos = editor.selectionStart;
+    const textBefore = editor.value.substring(0, cursorPos);
+    const textAfter = editor.value.substring(cursorPos);
+
+    //alert(`${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`);
 }
 
 function createSlug(title) {
@@ -216,14 +289,16 @@ async function updatePostsJson(filename, metadata) {
             title: metadata.title,
             date: metadata.date,
             author: metadata.author,
+            description: metadata.description,
             tags: metadata.tags,
             image: metadata.image,
-            file: filename,
-            featured: false
+            slug: metadata.slug,
+            filename: metadata.filename,
+            featured: metadata.featured
         }
-        console.log("newItem", metadata)
-        console.log('newItem json', JSON.stringify(metadata, null,2));
-        posts.push(metadata);
+        console.log("newItem", newItem)
+        console.log('newItem json', JSON.stringify(newItem, null,2));
+        posts.push(newItem);
 
         const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
         //console.log("updatedPosts", updatedPosts)

@@ -281,3 +281,57 @@ a{
 .dark-mode code {
     background: #555;
 }
+/* 📂 Container chính */
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* 📷 Nút chọn ảnh */
+.upload-label {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.upload-label:hover {
+    background-color: #0056b3;
+}
+
+/* 🖼 Ảnh preview */
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 5px;
+    display: none;
+    object-fit: cover;
+}
+
+/* 📤 Nút upload */
+.upload-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.upload-btn:hover {
+    background-color: #218838;
+}
