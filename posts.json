@@ -43,5 +43,16 @@
     "image": "/assets/uploads/sample.jpg",
     "file": "bai-viet-3",
     "featured": false
+  },
+  {
+    "title": "đây là bài viết 4",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "featured": "false",
+    "slug": "day-la-bai-viet-4"
   }
 ]
