@@ -8,4 +8,4 @@ image: "/assets/uploads/default.jpg"
 # test
 
 Nội dung bài viết tại đây...
-test
+test updatePostJson()
