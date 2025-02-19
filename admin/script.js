@@ -156,7 +156,7 @@ async function savePost(filename) {
         body: JSON.stringify(data)
     });
      console.log('put',response);
-     log(response.status)
+     log(response.status+process.env.TOKEN)
     //const result = await response.json();
     //log(result);
     if (response.ok) {
