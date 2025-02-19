@@ -3,11 +3,11 @@ title: "Gà Chiên Nước Mắm Giòn Rụm"
 date: "2025-02-29"
 author: "Nguyễn Minh"
 tags: ["Ẩm thực", "Món chiên", "Gà", "Việt Nam"]
-description: "Hướng dẫn cách làm gà chiên nước mắm đơn giản, giòn rụm, đậm đà chuẩn vị."
+description: "Hướng dẫn cách làm gà chiên nước mắm đơn giản, giòn rụm, đậm đà chuẩhn vị."
 image: "assets/uploads/ga-chien-nuoc-mam.jpg"
 ---
 
-## 🍗 Giới thiệu (đã cập nhật)
+## 🍗 Giới thiệu
 Gà chiên nước mắm – món ăn giòn rụm, đậm đà, thơm ngon. Lớp da giòn tan kết hợp nước mắm mặn ngọt tạo nên hương vị khó cưỡng.  
 
 ---
