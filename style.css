@@ -512,3 +512,74 @@ pre {
     }
 }
 
+/* 📝 Căn chỉnh bài viết Markdown */
+#post-content {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    color: ;
+    background: ;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/*
+
+/* ✅ Danh sách */
+#post-content ul, #post-content ol {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#post-content ul li {
+    list-style: disc;
+}
+
+#post-content ol li {
+    list-style: decimal;
+}
+
+/* 📊 Bảng */
+#post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: ;
+}
+
+#post-content th, #post-content td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+#post-content th {
+    background: ;
+    font-weight: bold;
+}
+
+/* 💡 Code Block */
+#post-content pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#post-content code {
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    background: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+#post-content pre code {
+    background: transparent;
+    color: #fff;
+}
+
+/* 🎯 Task List */
+#post-content input[type="checkbox"] {
+    margin-right: 5px;
+}

@@ -233,6 +233,13 @@ async function editPost(filename, newContent=null) {
         return;
     }
     const markdown = await response.text();
+    marked.setOptions({
+    gfm: true, // Bật chế độ GitHub Flavored Markdown
+    breaks: true, // Xuống dòng với dấu xuống dòng bình thường
+    tables: true, // Hỗ trợ bảng
+    smartLists: true, // Tự động nhận diện danh sách thông minh
+    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
+});
     const parsed = marked.parse(FrontMatter(markdown));
     
     

@@ -136,7 +136,7 @@ textarea {
 }
 
 .dark-mode #editor {
-    background: #444;
+    background: #333;
 }
 
 .dark-mode textarea {
@@ -297,7 +297,7 @@ a{
 }
 
 .dark-mode .upload-container{
-  background: #444;
+  background: #333;
 }
 
 /* 📷 Nút chọn ảnh */
@@ -338,4 +338,107 @@ a{
 
 .upload-btn:hover {
     background-color: #218838;
+}
+
+/* 📝 Căn chỉnh bài viết Markdown */
+#preview {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    color: #333;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* 📌 Tiêu đề */
+#preview h1 {
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+#preview h2 {
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+    margin-top: 20px;
+}
+
+#preview h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* 🔗 Link */
+#preview a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+#preview a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ Danh sách */
+#preview ul, #preview ol {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#preview ul li {
+    list-style: disc;
+}
+
+#preview ol li {
+    list-style: decimal;
+}
+
+/* 📊 Bảng */
+#preview table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #fff;
+}
+
+#preview th, #preview td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+#preview th {
+    background: #f8f9fa;
+    font-weight: bold;
+}
+
+/* 💡 Code Block */
+#preview pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#preview code {
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    background: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+#preview pre code {
+    background: transparent;
+    color: #fff;
+}
+
+/* 🎯 Task List */
+#preview input[type="checkbox"] {
+    margin-right: 5px;
 }
