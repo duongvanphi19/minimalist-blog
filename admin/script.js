@@ -1,10 +1,19 @@
+
+
 document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
     if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
   }
   
-    function toggleDarkMode() {
+
+// Đăng ký sự kiện cho nút toggle
+document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+
+document.getElementById("newPostButton").addEventListener("click", newPost);
+});
+
+function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 
   // Lưu trạng thái trong localStorage
@@ -15,10 +24,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 }
 
-// Đăng ký sự kiện cho nút toggle
-document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+function newPost() {
+    const title = prompt("Nhập tiêu đề bài viết:");
+    if (!title) return;
 
-});
+    const filename = title.toLowerCase().replace(/ /g, "-") + ".md"; // Tạo tên file từ tiêu đề
+    const content = `---
+title: "${title}"
+date: "${new Date().toISOString().split("T")[0]}"
+author: "Admin"
+tags: ["Mới"]
+image: "/assets/uploads/default.jpg"
+---
+# ${title}
+
+Nội dung bài viết tại đây...
+`;
+
+    // Mở trình soạn thảo với nội dung mới
+    document.getElementById("markdownEditor").value = content;
+    document.getElementById("editor").style.display = "block";
+    updatePreview(content);
+
+    document.getElementById("saveButton").onclick = () => savePost(filename, content);
+    
+}
 
 // 📝 Tải danh sách bài viết từ GitHub
 async function loadPosts() {
@@ -105,7 +135,7 @@ function FrontMatter(markdown){
 // Khi tải bài viết, parse YAML & Markdown
 
 
-async function editPost(filename) {
+async function editPost(filename, newContent=null) {
   console.log("editpost")
     const response = await fetch(`https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`);
     console.log(response)
@@ -123,23 +153,97 @@ async function editPost(filename) {
     document.getElementById("saveButton").onclick = () => savePost(filename);
 }
 
+function encodeBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
+
+function decodeBase64(base64Str) {
+    return decodeURIComponent(escape(atob(base64Str)));
+}
+
+async function updatePostsJson(filename, metadata) {
+    const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
+    //const url = '/.netlify/functions/savePost';
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
+
+    // 🛑 Lấy nội dung hiện tại của `posts.json`
+    const response = await fetch(postsFile, { headers: { Authorization: token } });
+
+    if (!response.ok) {
+        log("⛔ Lỗi khi tải `posts.json`!");
+        return;
+    }
+    
+    
+    const postsData = await response.json();
+    //console.log("postsData", postsData.content)
+    
+    let posts =[];
+    log(decodeBase64(postsData.content))
+    
+    try{ posts = JSON.parse(decodeBase64(postsData.content));
+    console.log('decodeBase64 postsData ok')
+    }catch(e){
+      console.log("decodeBase64 postsData failed")
+    }
+    log(posts)
+
+    // 🛑 Kiểm tra xem bài viết đã có trong danh sách chưa
+    const exists = posts.some(post => post.file === filename);
+    //console.log('posts[0]', posts[0]);
+
+    if (!exists) {
+        console.log("📂 Đang thêm bài viết vào `posts.json`...");
+        posts.push({
+            title: metadata.title,
+            date: metadata.date,
+            author: metadata.author,
+            tags: metadata.tags,
+            image: metadata.image,
+            file: filename
+        });
+
+        const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
+        //console.log("updatedPosts", updatedPosts)
+        
+        // ✅ Cập nhật `posts.json` trên GitHub
+        await fetch(postsFile, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({
+                message: "Cập nhật danh sách bài viết",
+                content: updatedPosts,
+                sha: postsData.sha
+            })
+        });
+
+        log("✅ `posts.json` đã được cập nhật!");
+    } else {
+        log("📜 Bài viết đã tồn tại trong `posts.json`, không cần cập nhật.");
+    }
+}
 // 💾 Lưu bài viết lên GitHub
 async function savePost(filename) {
     function encodeBase64(str) {
     return btoa(unescape(encodeURIComponent(str)));
 }
     const content = document.getElementById("markdownEditor").value;
-    
+    const metadata = extractMetadata(content);
    // console.log(content);// Chuyển Markdown thành Base64
     
     // Cần lấy SHA của file trước khi cập nhật
     const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
-    const fileData = await getFileResponse.json();
-    const sha = fileData.sha;
+    const fileExists = getFileResponse.ok;
+    const sha = fileExists ? (await getFileResponse.json()).sha : undefined;
+    //const fileData = await getFileResponse.json();
+    //const sha = fileData.sha;
     //alert(sha)
 
     const data = {
-        message: "Cập nhật bài viết",
+        message: fileExists ?  "Cập nhật bài viết" : "Tạo bài viết mới",
         content: encodeBase64(content),
         sha: sha
     };
@@ -161,7 +265,9 @@ async function savePost(filename) {
     //const result = await response.json();
     //log(result);
     if (response.ok) {
-        log("✅ Bài viết đã được cập nhật!");
+        console.log("✅ Bài viết đã được cập nhật!");
+      //log(`✅ ${fileExists ?  "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
+      try{await updatePostsJson(filename, metadata)}catch(e){console.log(e)}
     } else {
         alert("⛔ Lỗi khi lưu bài viết.", result.message);
     }
@@ -193,11 +299,6 @@ function updatePreview(markdownText){
   document.getElementById("previewContent").innerHTML = marked.parse(markdownText);
 }
 // Hiển thị Editor + Xem trước khi chỉnh sửa bài viết
-document.getElementById("editButton").addEventListener("click", () => {
-    document.getElementById("editor").classList.remove("hidden");
-    document.getElementById("preview").classList.remove("hidden");
-});
-
 function log(message){
     // Tạo một box thông báo lỗi trong giao diện Acode
     const errorBox = document.createElement("div");
