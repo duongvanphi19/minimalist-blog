@@ -1,0 +1,78 @@
+<<<<<<< HEAD
+=======
+[
+  {
+    "title": "test",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/1000060150jpg.jpg",
+    "slug": "test",
+    "filename": "test.md",
+    "featured": "false"
+  },
+  {
+    "title": "Tương Lai của Trí Tuệ Nhân Tạo",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "description": "AI đang thay đổi thế giới, từ sáng tạo nội dung đến tự động hóa công việc.",
+    "tags": [
+      "Công nghệ",
+      "AI",
+      "Tương lai"
+    ],
+    "image": "/assets/uploads/ai-future.jpg",
+    "slug": "tuong-lai-tri-tue-nhan-tao",
+    "filename": "tuong-lai-tri-tue-nhan-tao.md",
+    "featured": "false"
+  },
+  {
+    "title": "Tương Lai của Trí Tuệ Nhân Tạo",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "description": "AI đang thay đổi thế giới, từ sáng tạo nội dung đến tự động hóa công việc.",
+    "tags": [
+      "Công nghệ",
+      "AI",
+      "Tương lai"
+    ],
+    "image": "/assets/uploads/ai-future.jpg",
+    "slug": "tuong-lai-tri-tue-nhan-tao",
+    "filename": "tuong-lai-tri-tue-nhan-tao.md",
+    "featured": "false"
+  },
+  {
+    "title": "Tương Lai của Trí Tuệ Nhân Tạo",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "description": "AI đang thay đổi thế giới, từ sáng tạo nội dung đến tự động hóa công việc.",
+    "tags": [
+      "Công nghệ",
+      "AI",
+      "Tương lai"
+    ],
+    "image": "/assets/uploads/ai-future.jpg",
+    "slug": "tuong-lai-tri-tue-nhan-tao",
+    "filename": "tuong-lai-tri-tue-nhan-tao.md",
+    "featured": "false"
+  },
+  {
+    "title": "Tương Lai của Trí Tuệ Nhân Tạo",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "description": "AI đang thay đổi thế giới, từ sáng tạo nội dung đến tự động hóa công việc.",
+    "tags": [
+      "Công nghệ",
+      "AI",
+      "Tương lai"
+    ],
+    "image": "/assets/uploads/ai-future.jpg",
+    "slug": "tuong-lai-tri-tue-nhan-tao",
+    "filename": "tuong-lai-tri-tue-nhan-tao.md",
+    "featured": "false"
+  }
+]
+>>>>>>> b439bd6f20f333411db8ff3f5746ff967a028c13
