@@ -5,7 +5,7 @@
     description: "Lorem ipsum dolor sit atmet"
     tags: ["Mới"]
     image: "/assets/uploads/sample.jpg"
-    featured: "true"
+    featured: "false"
     slug: "test"
     filename: "test.md"
 ---
