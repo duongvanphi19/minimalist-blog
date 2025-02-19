@@ -9,6 +9,23 @@
     slug: "test"
     filename: "test.md"
 ---
-# test
 
-Nội dung bài viết tại đây...
+# Tính năng GFM 🏆
+
+## 1️⃣ Hỗ trợ danh sách kiểm tra ✅
+- [x] Viết bài blog
+- [ ] Sửa lỗi code
+- [ ] Deploy website
+
+## 2️⃣ Hỗ trợ bảng 📊  
+| Tên     | Tuổi | Nghề nghiệp  |
+|---------|-----|-------------|
+| Nam     | 25  | Developer   |
+| Hoa     | 22  | Designer    |
+
+## 3️⃣ Tự động nhận diện link 🔗  
+Truy cập: www.example.com
+
+## 4️⃣ Hỗ trợ code highlight 💻  
+```javascript
+console.log("Hello GFM!");
