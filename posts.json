@@ -10,5 +10,16 @@
   {
     "file": "ai-web-development.md",
     "featured": false
+  },
+  {
+    "title": "bai viet 2",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "file": "bai-viet-2",
+    "featured": false
   }
 ]
