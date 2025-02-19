@@ -37,5 +37,18 @@
     "featured": "true",
     "slug": "test",
     "filename": "test.md"
+  },
+  {
+    "title": "test",
+    "date": "2025-02-19",
+    "author": "Admin",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "featured": "true",
+    "slug": "test",
+    "filename": "test.md"
   }
 ]
