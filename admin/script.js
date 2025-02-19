@@ -134,7 +134,7 @@ async function savePost(filename) {
     
     // Cần lấy SHA của file trước khi cập nhật
     const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`, {headers:{
-                  "Authorization": "token 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"
+                  "Authorization": process.env.TOKEN
     } });
     const fileData = await getFileResponse.json();
     const sha = fileData.sha;
@@ -150,7 +150,7 @@ async function savePost(filename) {
     const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`,{
         method: "PUT",
         headers: {
-            "Authorization": "token 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",
+            "Authorization": process.env.TOKEN,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
