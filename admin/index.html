@@ -26,8 +26,12 @@
             <div id="editor" class="">
                 <h2 id="editHere">Chỉnh sửa bài viết</h2>
                 </br>
-                <input type="file" id="imageUpload" accept="image/*">
-<img id="imagePreview" style="max-width: 200px; display: none;">
+                <div class="upload-container">
+    <label for="imageUpload" class="upload-label">📷 Chọn ảnh</label>
+    <input type="file" id="imageUpload" accept="image/*" hidden>
+    <img id="imagePreview" class="image-preview">
+    <button id="uploadButton" class="upload-btn">📤 Upload Ảnh</button>
+</div>
                 <textarea id="markdownEditor" rows="10"></textarea>
                 <button id="saveButton" class="btn save-btn">Lưu bài viết</button>
             </div>
