@@ -6,8 +6,8 @@
     tags: ["Mới"]
     image: "/assets/uploads/sample.jpg"
     featured: "false"
-    slug: "test"
-    filename: "test.md"
+    slug: "test-1"
+    filename: "test-1.md"
 ---
 
 
