@@ -3,7 +3,7 @@
     title: "post 1"
     date: "2025-02-20"
     author: "Admin"
-    description: "Lorem ipsum dolor sit atmet""
+    description: "Lorem ipsum dolor sit atmet"""
     tags: ["Mới"]
     image: "/assets/uploads/sample.jpg"
     featured: "false"
