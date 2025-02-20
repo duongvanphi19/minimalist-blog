@@ -152,13 +152,11 @@
     "title": "11111",
     "date": "2025-02-20",
     "author": "Admin",
-    "description": "Lorem ipsum dolor sit atmet",
     "tags": [
       "Mới"
     ],
     "image": "/assets/uploads/sample.jpg",
     "slug": "11111",
-    "filename": "11111.md",
-    "featured": "false"
+    "filename": "11111.md"
   }
 ]
