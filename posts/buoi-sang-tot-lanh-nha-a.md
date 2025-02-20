@@ -6,7 +6,7 @@ author: "Admin"
 description: "undefined"
 tags: ["Mới"]
 image: "/assets/uploads/sample.jpg"
-featured: "undefined"
+featured: "true"
 slug: "buoi-sang-tot-lanh-nha-a"
 filename: "buoi-sang-tot-lanh-nha-a.md"
 ---
