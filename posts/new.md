@@ -8,4 +8,4 @@
     slug: "new"
     filename: "new.md"
 ---
-undefined
+new file
