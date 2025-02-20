@@ -80,5 +80,17 @@
     "featured": "false",
     "slug": "post-1",
     "filename": "post-1.md"
+  },
+  {
+    "id": "1740041380810",
+    "title": "now",
+    "date": "2025-02-20",
+    "author": "Admin",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "slug": "now",
+    "filename": "now.md"
   }
 ]
