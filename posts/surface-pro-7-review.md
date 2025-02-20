@@ -2,8 +2,12 @@
 title: "Đánh giá Microsoft Surface Pro 7: Máy tính bảng hay laptop?"
 date: "2025-02-18"
 author: "Duong Van Phi"
+description:""
 tags: ["Microsoft", "Surface Pro 7", "Review", "Công nghệ"]
 image: "/assets/uploads/surface-pro-7.jpg"
+slug:"surface-pro-7"
+filename:"surface-pro-7"
+featured:"true"
 ---
 
 💻 **Microsoft Surface Pro 7** tiếp tục truyền thống của dòng **Surface**, kết hợp giữa **máy tính bảng** và **laptop 2-trong-1**. Với kích thước **292 x 201 x 8,5 mm** và khung **nhôm nguyên khối**, thiết bị mang lại cảm giác **chắc chắn & sang trọng**.  
