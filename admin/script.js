@@ -13,6 +13,7 @@ document.getElementById("uploadButton").addEventListener("click", uploadImage);
 
 document.addEventListener("DOMContentLoaded", () => {
     loadPosts();
+    
     if (localStorage.getItem("darkMode") === "enabled") {
     document.body.classList.add("dark-mode");
   }
@@ -40,7 +41,7 @@ async function uploadImage() {
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("❌ Vui lòng chọn một ảnh!");
+        log("❌ Vui lòng chọn một ảnh!");
         return;
     }
 
@@ -80,10 +81,10 @@ async function uploadImage() {
         const result = await response.json();
         if (response.ok) {
             const imageUrl = result.content.download_url;
-            alert("✅ Ảnh  đã được upload!");
+            log(`✅ Ảnh ${filename } đã được upload!`;
             insertImageMarkdown(imageUrl);
         } else {
-            alert("❌ Lỗi khi upload ảnh: " + result.message);
+            log("❌ Lỗi khi upload ảnh: " + result.message);
         }
     };
 }
@@ -93,8 +94,8 @@ function insertImageMarkdown(imageUrl) {
     const cursorPos = editor.selectionStart;
     const textBefore = editor.value.substring(0, cursorPos);
     const textAfter = editor.value.substring(cursorPos);
-
-    //alert(`${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`);
+    editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
+    updatePreview(editor.value);
 }
 
 function createSlug(title) {
@@ -116,31 +117,29 @@ function newPost() {
     const title = prompt("Nhập tiêu đề bài viết:");
     if (!title) return;
 
-    const slug = createSlug(title); // Tạo tên file từ tiêu đề
+    const slug = createSlug(title);
     const content = `---
-    id: ""
-    title: "${title}"
-    date: "${new Date().toISOString().split("T")[0]}"
-    author: "Admin"
-    description: "Lorem ipsum dolor sit atmet"
-    tags: ["Mới"]
-    image: "/assets/uploads/sample.jpg"
-    featured: "false"
-    slug: "${slug}"
-    filename: "${slug}.md"
+title: "${title}"
+date: "${new Date().toISOString().split("T")[0]}"
+author: "Admin"
+description: "Lorem ipsum dolor sit atmet"
+tags: ["Mới"]
+image: "/assets/uploads/sample.jpg"
+featured: "false"
+slug: "${slug}"
+filename: "${slug}.md"
 ---
 # ${title}
 
 Nội dung bài viết tại đây...
 `;
 
-    // Mở trình soạn thảo với nội dung mới
     document.getElementById("markdownEditor").value = content;
     document.getElementById("editor").style.display = "block";
+    
     updatePreview(content);
 
-    document.getElementById("saveButton").onclick = () => savePost(slug + ".md", content);
-    
+    document.getElementById("saveButton").onclick = () => savePost(slug + ".md");
 }
 
 // 📝 Tải danh sách bài viết từ GitHub
@@ -191,7 +190,7 @@ function parseYAML(yamlText) {
             // Nếu là một danh sách (array)
             if (val.startsWith("[") && val.endsWith("]")) {
                 try {
-                  console.log(val);
+                  //console.log(val);
                     val = JSON.parse(val.replace(/'/g, '"')); // Chuyển YAML array thành JSON array hợp lệ
                 } catch (error) {
                     console.warn("Lỗi khi parse YAML array:", error);
@@ -217,36 +216,21 @@ function FrontMatter(markdown){
   
   `;
  
-  
-  return head + content;
+ 
+  return content;
 }
-// Dùng front-matter.js để parse YAML trước khi chuyển Markdown thành HTML
-
-
-
-// Khi tải bài viết, parse YAML & Markdown
-
 
 async function editPost(filename, newContent=null) {
   //console.log("editpost")
     const response = await fetch(`https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`);
-    console.log(response)
+    //console.log(response)
     if (!response.ok) {
         console.error("Không thể tải bài viết.");
         return;
     }
     const markdown = await response.text();
-    marked.setOptions({
-    gfm: true, // Bật chế độ GitHub Flavored Markdown
-    breaks: true, // Xuống dòng với dấu xuống dòng bình thường
-    tables: true, // Hỗ trợ bảng
-    smartLists: true, // Tự động nhận diện danh sách thông minh
-    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
-});
-    const parsed = marked.parse(FrontMatter(markdown));
-    
-    
-    updatePreview(parsed);
+  
+    updatePreview(markdown);
     document.getElementById("markdownEditor").value = markdown;
     document.getElementById("editor").style.display = "block";
     document.getElementById("saveButton").onclick = () => savePost(filename);
@@ -259,44 +243,48 @@ function encodeBase64(str) {
 function decodeBase64(base64Str) {
     return decodeURIComponent(escape(atob(base64Str)));
 }
+
 async function savePost(filename) {
     function encodeBase64(str) {
-    return btoa(unescape(encodeURIComponent(str)));
-}
-    const markdown = document.getElementById("markdownEditor").value;
-    const {metadata,content} = extractMetadata(markdown);
-    console.log('metadata', metadata);// Chuyển Markdown thành Base64
+        return btoa(unescape(encodeURIComponent(str)));
+    }
+    const markdown = document.getElementById("markdownEditor").value
+    const { metadata, content } = extractMetadata(markdown);
+    // Nếu chưa có id, tạo mới
+    if (!metadata.id) {
+        metadata.id = generateID();
+    }
+    // Lưu toàn bộ nội dung sau YAML vào metadata.body để so sánh
+    //metadata.body = content;
     
-    // Cần lấy SHA của file trước khi cập nhật
     const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
     const fileExists = getFileResponse.ok;
     const sha = fileExists ? (await getFileResponse.json()).sha : undefined;
-    if(!metadata.id ){
-      metadata.id = generateID();
-    }
+
+    // Sửa lỗi extra double quote ở dòng description
     const newContent = `---
-    id: "${metadata.id}"
-    title: "${metadata.title}"
-    date: "${metadata.date}"
-    author: "${metadata.author}"
-    tags: ${JSON.stringify(metadata.tags)}
-    image: "${metadata.image}"
-    slug: "${metadata.slug}"
-    filename: "${filename}"
+id: "${metadata.id}"
+title: "${metadata.title}"
+date: "${metadata.date}"
+author: "${metadata.author}"
+description: "${metadata.description}"
+tags: ${JSON.stringify(metadata.tags)}
+image: "${metadata.image}"
+featured: "${metadata.featured}"
+slug: "${metadata.slug}"
+filename: "${filename}"
 ---
 ${content}`;
 
     const data = {
-        message: fileExists ?  "Cập nhật bài viết" : "Tạo bài viết mới",
+        message: fileExists ? "Cập nhật bài viết" : "Tạo bài viết mới",
         content: encodeBase64(newContent),
         sha: sha
     };
-    //console.log(data)
-      const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`
-    //const url = '/.netlify/functions/savePost';
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
-    //log(token)
-    const response = await fetch(url,{
+
+    const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const response = await fetch(url, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -304,21 +292,19 @@ ${content}`;
         },
         body: JSON.stringify(data)
     });
-    log(newContent)
-    // console.log('put',response);
-     //log(response.status)
-    //const result = await response.json();
-    //log(result);
     if (response.ok) {
-        console.log("✅ Bài viết đã được cập nhật!");
-      //log(`✅ ${fileExists ?  "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
-      document.getElementById("markdownEditor").value = newContent;
-      try{await updatePostsJson(filename, metadata)}catch(e){console.log(e)}
+        log(`✅ ${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
+        document.getElementById("markdownEditor").value = newContent;
+        console.log(newContent)
+        try {
+            await updatePostsJson(filename, metadata);
+        } catch (e) {
+            console.log(e);
+        }
     } else {
-        alert("⛔ Lỗi khi lưu bài viết.", result.message);
+        alert("⛔ Lỗi khi lưu bài viết.");
     }
 }
-
 
 async function updatePostsJson(filename, metadata) {
     const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
@@ -338,15 +324,15 @@ async function updatePostsJson(filename, metadata) {
     //console.log("postsData", postsData.content)
     
     let posts =[];
-    log(decodeBase64(postsData.content))
+    //log(decodeBase64(postsData.content))
     
     try{ 
       posts = JSON.parse(decodeBase64(postsData.content));
-    console.log('decodeBase64 postsData ok')
+    //console.log('decodeBase64 postsData ok')
     }catch(e){
-      console.log("decodeBase64 postsData failed")
+      console.log(e)
     }
-    console.log('posts', posts);
+    //console.log('posts', posts);
     // 🛑 Kiểm tra xem bài viết đã có trong danh sách chưa
     const newItem = {
             id: metadata.id,
@@ -374,16 +360,17 @@ async function updatePostsJson(filename, metadata) {
         log("✅ `posts.json` đã được cập nhật!");
       }
       else{ //
-        log("✅ `posts.json` khong can cập nhật!");
+        log("✅ `posts.json` không cần cập nhật!");
         return;
       }
     }
     else{ // bai viet chua ton tai
-        console.log("📂 Đang thêm bài viết moi vào `posts.json`...");
+        log("📂 Đang thêm bài viết moi vào `posts.json`...");
+        posts.push(metadata);
         
-        //console.log("newItem", newItem)
-        //console.log('newItem json', JSON.stringify(newItem, null,2));
-        posts.push(newItem);
+        console.log("newItem", metadata)
+        console.log('posts', posts);
+        //posts.push(newItem);
         
 }
         const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
@@ -419,7 +406,13 @@ const loadScript = (url, callback) => {
 };
 
 loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
-    console.log("marked.js loaded");
+  marked.setOptions({
+    gfm: true, // Bật chế độ GitHub Flavored Markdown
+    breaks: true, // Xuống dòng với dấu xuống dòng bình thường
+    tables: true, // Hỗ trợ bảng
+    smartLists: true, // Tự động nhận diện danh sách thông minh
+    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
+});
 });
 
 
@@ -427,15 +420,22 @@ loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
 
 // Xử lý Live Edit
 document.getElementById("markdownEditor").addEventListener("input", function () {
-    const markdownText = this.value;
-    updatePreview(markdownText);
+    
+    updatePreview(this.value);
 });
 
 function updatePreview(markdownText){
-  document.getElementById("previewContent").innerHTML = marked.parse(markdownText);
+  marked.setOptions({
+    gfm: true, // Bật chế độ GitHub Flavored Markdown
+    breaks: true, // Xuống dòng với dấu xuống dòng bình thường
+    tables: true, // Hỗ trợ bảng
+    smartLists: true, // Tự động nhận diện danh sách thông minh
+    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
+});
+  document.getElementById("previewContent").innerHTML = marked.parse(FrontMatter(markdownText));
 }
 // Hiển thị Editor + Xem trước khi chỉnh sửa bài viết
-function log(message){
+function lLog(message){
     // Tạo một box thông báo lỗi trong giao diện Acode
     const errorBox = document.createElement("div");
     errorBox.style.position = "fixed";
@@ -457,4 +457,21 @@ function log(message){
         errorBox.remove();
     }, 5000);
 };
+
+function log(message) {
+  const toastContainer = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+
+  toast.className = "toast red";
+  toast.innerText = message;
+
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = "0";  // Làm mờ trước
+    setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
+  }, 2000); // Hiển thị trong 2.5 giây, 0.5 giây fade out
+}
+log("box-shadow: 0 2px 5px rgba(0,0,0,0.1);")
+// Ví dụ sử dụng
 

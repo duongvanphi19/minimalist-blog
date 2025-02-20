@@ -59,15 +59,20 @@ body {
 #blog-list div {
     padding: 10px;
     margin: 5px 0;
-    background: #ff6347;
-    color: #fff;
+    background:;
+    color: ;
     border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     transition: background 0.3s;
 }
 
 #blog-list div:hover {
-    background: #e5533d;
+    background: #eee;
+}
+
+.red {
+  background: #338; !important
 }
 
 /* ===== Editor (Chỉnh sửa bài viết) ===== */
@@ -130,9 +135,13 @@ textarea {
     color: #ddd;
 }
 
+.dark-mode #blog-list div a {
+  color: #fff;
+}
 .dark-mode #blog-list div {
-    background: #ffcc00;
+    background: #444;
     color: #222;
+    
 }
 
 .dark-mode #editor {
@@ -282,7 +291,7 @@ a{
     background: #555;
 }
 /* 📂 Container chính */
-.upload-container {
+.uupload-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -301,7 +310,7 @@ a{
 }
 
 /* 📷 Nút chọn ảnh */
-.upload-label {
+.uupload-label {
     background-color: #007bff;
     color: white;
     padding: 8px 16px;
@@ -350,28 +359,6 @@ a{
     border-radius: 5px;
 }
 
-/* 📌 Tiêu đề */
-#preview h1 {
-    font-size: 24px;
-    font-weight: bold;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-
-#preview h2 {
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 3px;
-    margin-top: 20px;
-}
-
-#preview h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 15px;
-}
 
 /* 🔗 Link */
 #preview a {
@@ -402,7 +389,7 @@ a{
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    background: #fff;
+    background: ;
 }
 
 #preview th, #preview td {
@@ -412,7 +399,7 @@ a{
 }
 
 #preview th {
-    background: #f8f9fa;
+    background: ;
     font-weight: bold;
 }
 
@@ -441,4 +428,28 @@ a{
 /* 🎯 Task List */
 #preview input[type="checkbox"] {
     margin-right: 5px;
+}
+
+
+
+  #toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    left: 20px;
+    z-index: 9999;
+  }
+  .toast {
+    background: #e5533d;
+    color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  @keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); } /* Giữ nguyên vị trí */
 }
