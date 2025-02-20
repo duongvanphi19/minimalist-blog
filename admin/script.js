@@ -108,6 +108,9 @@ function createSlug(title) {
         .replace(/\s+/g, "-"); // Đổi khoảng trắng thành dấu "-"
 }
 
+function generateID(){
+  return Date.now().toString();
+}
 
 function newPost() {
     const title = prompt("Nhập tiêu đề bài viết:");
@@ -115,6 +118,7 @@ function newPost() {
 
     const slug = createSlug(title); // Tạo tên file từ tiêu đề
     const content = `---
+    id: ""
     title: "${title}"
     date: "${new Date().toISOString().split("T")[0]}"
     author: "Admin"
@@ -157,7 +161,6 @@ async function loadPosts() {
         blogList.appendChild(postItem);
     });
 }
-
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
@@ -256,6 +259,66 @@ function encodeBase64(str) {
 function decodeBase64(base64Str) {
     return decodeURIComponent(escape(atob(base64Str)));
 }
+async function savePost(filename) {
+    function encodeBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
+}
+    const markdown = document.getElementById("markdownEditor").value;
+    const {metadata,content} = extractMetadata(markdown);
+    console.log('metadata', metadata);// Chuyển Markdown thành Base64
+    
+    // Cần lấy SHA của file trước khi cập nhật
+    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
+    const fileExists = getFileResponse.ok;
+    const sha = fileExists ? (await getFileResponse.json()).sha : undefined;
+    if(!metadata.id ){
+      metadata.id = generateID();
+    }
+    const newContent = `---
+    id: "${metadata.id}"
+    title: "${metadata.title}"
+    date: "${metadata.date}"
+    author: "${metadata.author}"
+    tags: ${JSON.stringify(metadata.tags)}
+    image: "${metadata.image}"
+    slug: "${metadata.slug}"
+    filename: "${filename}"
+---
+${content}`;
+
+    const data = {
+        message: fileExists ?  "Cập nhật bài viết" : "Tạo bài viết mới",
+        content: encodeBase64(newContent),
+        sha: sha
+    };
+    //console.log(data)
+      const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`
+    //const url = '/.netlify/functions/savePost';
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
+    //log(token)
+    const response = await fetch(url,{
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": token
+        },
+        body: JSON.stringify(data)
+    });
+    log(newContent)
+    // console.log('put',response);
+     //log(response.status)
+    //const result = await response.json();
+    //log(result);
+    if (response.ok) {
+        console.log("✅ Bài viết đã được cập nhật!");
+      //log(`✅ ${fileExists ?  "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
+      document.getElementById("markdownEditor").value = newContent;
+      try{await updatePostsJson(filename, metadata)}catch(e){console.log(e)}
+    } else {
+        alert("⛔ Lỗi khi lưu bài viết.", result.message);
+    }
+}
+
 
 async function updatePostsJson(filename, metadata) {
     const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
@@ -286,6 +349,7 @@ async function updatePostsJson(filename, metadata) {
     console.log('posts', posts);
     // 🛑 Kiểm tra xem bài viết đã có trong danh sách chưa
     const newItem = {
+            id: metadata.id,
             title: metadata.title,
             date: metadata.date,
             author: metadata.author,
@@ -297,18 +361,31 @@ async function updatePostsJson(filename, metadata) {
             featured: metadata.featured
         }
     //console.log(JSON.stringify(posts, null,2));
-    const exists = posts.some(post => JSON.stringify(post) === JSON.stringify(newItem));
-    
+    const exists = posts.some(post => post.id === metadata.id);
+    const index = posts.findIndex(post => post.id === metadata.id)
      
 
-    //console.log('metadata', metadata)
-    if (!exists) {
-        console.log("📂 Đang thêm bài viết vào `posts.json`...");
+    //console.log(posts[0].filename, newItem.filename)
+    
+    if (exists) { //bai viet da ton
+      if (JSON.stringify(posts[index]) !== JSON.stringify(metadata))
+      {
+        posts[index] = metadata;
+        log("✅ `posts.json` đã được cập nhật!");
+      }
+      else{ //
+        log("✅ `posts.json` khong can cập nhật!");
+        return;
+      }
+    }
+    else{ // bai viet chua ton tai
+        console.log("📂 Đang thêm bài viết moi vào `posts.json`...");
         
-        console.log("newItem", newItem)
-        console.log('newItem json', JSON.stringify(newItem, null,2));
+        //console.log("newItem", newItem)
+        //console.log('newItem json', JSON.stringify(newItem, null,2));
         posts.push(newItem);
-
+        
+}
         const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
         //console.log("updatedPosts", updatedPosts)
         
@@ -326,56 +403,12 @@ async function updatePostsJson(filename, metadata) {
             })
         });
 
-        log("✅ `posts.json` đã được cập nhật!");
-    } else {
-        log("📜 Bài viết đã tồn tại trong `posts.json`, không cần cập nhật.");
-    }
+    
+        
+        //log("📜 Bài viết đã tồn tại trong `posts.json`, không cần cập nhật.");
+    
 }
 // 💾 Lưu bài viết lên GitHub
-async function savePost(filename) {
-    function encodeBase64(str) {
-    return btoa(unescape(encodeURIComponent(str)));
-}
-    const content = document.getElementById("markdownEditor").value;
-    const metadata = extractMetadata(content);
-   // console.log(content);// Chuyển Markdown thành Base64
-    
-    // Cần lấy SHA của file trước khi cập nhật
-    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
-    const fileExists = getFileResponse.ok;
-    const sha = fileExists ? (await getFileResponse.json()).sha : undefined;
-   
-
-    const data = {
-        message: fileExists ?  "Cập nhật bài viết" : "Tạo bài viết mới",
-        content: encodeBase64(content),
-        sha: sha
-    };
-    //console.log(data)
-      const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`
-    //const url = '/.netlify/functions/savePost';
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
-    //log(token)
-    const response = await fetch(url,{
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": token
-        },
-        body: JSON.stringify(data)
-    });
-    // console.log('put',response);
-     //log(response.status)
-    //const result = await response.json();
-    //log(result);
-    if (response.ok) {
-        console.log("✅ Bài viết đã được cập nhật!");
-      //log(`✅ ${fileExists ?  "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
-      try{await updatePostsJson(filename, metadata.metadata)}catch(e){console.log(e)}
-    } else {
-        alert("⛔ Lỗi khi lưu bài viết.", result.message);
-    }
-}
 
 // Thêm thư viện marked.js để hiển thị Markdown
 const loadScript = (url, callback) => {
