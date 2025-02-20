@@ -108,5 +108,19 @@
     "slug": "better-logic",
     "filename": "better-logic.md",
     "featured": "false"
+  },
+  {
+    "id": "1740054644490",
+    "title": "19:30",
+    "date": "2025-02-20",
+    "author": "Admin",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "slug": "1930",
+    "filename": "1930.md",
+    "featured": "false"
   }
 ]
