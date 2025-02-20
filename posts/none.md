@@ -8,6 +8,4 @@
     slug: "none"
     filename: "none.md"
 ---
-# none
-
-Nội dung bài viết tại đây...
+# updated
