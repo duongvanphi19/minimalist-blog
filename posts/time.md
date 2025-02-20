@@ -3,10 +3,8 @@
     title: "time"
     date: "2025-02-20"
     author: "Admin"
-    description: "undefined""
     tags: ["Mới"]
     image: "/assets/uploads/sample.jpg"
-    featured: "undefined"
     slug: "time"
     filename: "time.md"
 ---
