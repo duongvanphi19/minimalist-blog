@@ -1,7 +1,7 @@
 ---
 title: "Đánh giá Microsoft Surface Pro 7: Máy tính bảng hay laptop?"
 date: "2025-02-18"
-author: "Duong Van Phi"
+author: "Duong van Phi"
 description:""
 tags: ["Microsoft", "Surface Pro 7", "Review", "Công nghệ"]
 image: "/assets/uploads/surface-pro-7.jpg"
