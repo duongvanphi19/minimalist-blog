@@ -119,8 +119,9 @@
       "Mới"
     ],
     "image": "/assets/uploads/sample.jpg",
+    "featured": "false",
     "slug": "1930",
     "filename": "1930.md",
-    "featured": "false"
+    "body": "# 19:30\n\nNội dung bài viết tại đây..."
   }
 ]
