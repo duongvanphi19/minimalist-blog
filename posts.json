@@ -13,32 +13,6 @@
     "featured": "false"
   },
   {
-    "title": "test",
-    "date": "2025-02-19",
-    "author": "Admin",
-    "description": "Lorem ipsum dolor sit atmet",
-    "tags": [
-      "Mới"
-    ],
-    "image": "/assets/uploads/sample.jpg",
-    "slug": "test",
-    "filename": "test.md",
-    "featured": "false"
-  },
-  {
-    "title": "test",
-    "date": "2025-02-19",
-    "author": "Admin",
-    "description": "Lorem ipsum dolor sit atmet",
-    "tags": [
-      "Mới"
-    ],
-    "image": "/assets/uploads/sample.jpg",
-    "slug": "test-1",
-    "filename": "test-1.md",
-    "featured": "false"
-  },
-  {
     "title": "Đánh giá Microsoft Surface Pro 7: Máy tính bảng hay laptop?",
     "date": "2025-02-18",
     "author": "Duong Van Phi",
@@ -49,18 +23,5 @@
       "Công nghệ"
     ],
     "image": "/assets/uploads/surface-pro-7.jpg"
-  },
-  {
-    "title": "test",
-    "date": "2025-02-19",
-    "author": "Admin",
-    "description": "Lorem ipsum dolor sit atmet",
-    "tags": [
-      "Mới"
-    ],
-    "image": "/assets/uploads/sample.jpg",
-    "slug": "test-1",
-    "filename": "test-1.md",
-    "featured": "false"
   }
 ]

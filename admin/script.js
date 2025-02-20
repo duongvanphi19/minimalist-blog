@@ -279,20 +279,13 @@ async function updatePostsJson(filename, metadata) {
     
     try{ 
       posts = JSON.parse(decodeBase64(postsData.content));
-    //console.log('decodeBase64 postsData ok')
+    console.log('decodeBase64 postsData ok')
     }catch(e){
       console.log("decodeBase64 postsData failed")
     }
-
+    console.log('posts', posts);
     // 🛑 Kiểm tra xem bài viết đã có trong danh sách chưa
-    //console.log(JSON.stringify(posts, null,2));
-    const exists = posts.some(post => post.file === filename);
-    //console.log('posts[0]', posts[0]);
-
-    console.log('metadata', metadata)
-    if (!exists) {
-        console.log("📂 Đang thêm bài viết vào `posts.json`...");
-        const newItem = {
+    const newItem = {
             title: metadata.title,
             date: metadata.date,
             author: metadata.author,
@@ -303,6 +296,15 @@ async function updatePostsJson(filename, metadata) {
             filename: metadata.filename,
             featured: metadata.featured
         }
+    //console.log(JSON.stringify(posts, null,2));
+    const exists = posts.some(post => JSON.stringify(post) === JSON.stringify(newItem));
+    
+     
+
+    //console.log('metadata', metadata)
+    if (!exists) {
+        console.log("📂 Đang thêm bài viết vào `posts.json`...");
+        
         console.log("newItem", newItem)
         console.log('newItem json', JSON.stringify(newItem, null,2));
         posts.push(newItem);
