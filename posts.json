@@ -129,13 +129,12 @@
     "title": "20h01",
     "date": "2025-02-20",
     "author": "Admin",
-    "description": "Lorem ipsum dolor sit atmet",
     "tags": [
       "Mới"
     ],
     "image": "/assets/uploads/sample.jpg",
     "slug": "20h01",
     "filename": "20h01.md",
-    "featured": "false"
+    "body": "# 20h05\n\n```javascript \nmarked.setOptions({\n    gfm: true, // Bật chế độ GitHub Flavored Markdown\n    breaks: true, // Xuống dòng với dấu xuống dòng bình thường\n    tables: true, // Hỗ trợ bảng\n    smartLists: true, // Tự động nhận diện danh sách thông minh\n    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt\n});"
   }
 ]
