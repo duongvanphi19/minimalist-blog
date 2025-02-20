@@ -10,5 +10,19 @@
     "image": "/assets/uploads/sample.jpg",
     "slug": "buoi-sang-tot-lanh-nha-a",
     "filename": "buoi-sang-tot-lanh-nha-a.md"
+  },
+  {
+    "id": "1740045365357",
+    "title": "git diff posts.json",
+    "date": "2025-02-20",
+    "author": "Admin",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [
+      "Mới"
+    ],
+    "image": "/assets/uploads/sample.jpg",
+    "slug": "git-diff-postsjson",
+    "filename": "git-diff-postsjson.md",
+    "featured": "false"
   }
 ]
