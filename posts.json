@@ -47,14 +47,15 @@
     "title": "git diff posts.json",
     "date": "2025-02-20",
     "author": "Admin",
-    "description": "Lorem ipsum dolor sit atmet\"",
+    "description": "Lorem ipsum dolor sit atmet\"\"",
     "tags": [
       "Mới"
     ],
     "image": "/assets/uploads/sample.jpg",
     "featured": "false",
     "slug": "git-diff-postsjson",
-    "filename": "git-diff-postsjson.md"
+    "filename": "git-diff-postsjson.md",
+    "body": "# git diff posts.json\n ![Hình ảnh](https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/assets/uploads/1000060853.jpg) \nNội dung bài viết tại đây..."
   },
   {
     "id": "1740041937444",
