@@ -12,9 +12,10 @@ filename: "canh-bau-hot-vit-lon.md"
 ---
 # 🥣 Cách Nấu Canh Bầu Hột Vịt Lộn - Dân Dã Mà Bổ Dưỡng  
 
-**Canh bầu hột vịt lộn** là món ăn dân dã, thanh mát, với vị ngọt tự nhiên của bầu kết hợp với béo bùi của trứng vịt lộn. Món canh này không chỉ dễ nấu mà còn rất bổ dưỡng, thích hợp để đổi vị trong bữa cơm gia đình.  
+>**Canh bầu hột vịt lộn** là món ăn dân dã, thanh mát, với vị ngọt tự nhiên của bầu kết hợp với béo bùi của trứng vịt lộn. Món canh này không chỉ dễ nấu mà còn rất bổ dưỡng, thích hợp để đổi vị trong bữa cơm gia đình.  
 
----
+
+
 
 ## 🛒 **Nguyên Liệu** (2-3 người ăn)  
 - 🥚 **Hột vịt lộn**: 3-4 quả  
