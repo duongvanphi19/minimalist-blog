@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "id": "1740114119700",
+    "title": "Làm Website với AI - Tương Lai của Thiết Kế Web",
+    "date": "2025-02-21",
+    "author": "Admin",
+    "description": "Khám phá cách AI đang thay đổi cách chúng ta thiết kế và xây dựng website.",
+    "tags": [
+      "AI",
+      "Thiết Kế Web",
+      "Tự Động Hóa",
+      "Công Nghệ"
+    ],
+    "image": "/assets/uploads/frontend-ai.jpg",
+    "featured": "false",
+    "slug": "lam-website-voi-ai",
+    "filename": "lam-website-voi-ai.md"
+  }
+]
