@@ -253,6 +253,7 @@ async function savePost(filename) {
     if (!metadata.id) {
         metadata.id = generateID();
     }
+    //metadata.filename=filename
     // Lưu toàn bộ nội dung sau YAML vào metadata.body để so sánh
     //metadata.body = content;
     
@@ -471,6 +472,6 @@ function log(message) {
     setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
   }, 2000); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
-log("box-shadow: 0 2px 5px rgba(0,0,0,0.1);")
+//log("box-shadow: 0 2px 5px rgba(0,0,0,0.1);")
 // Ví dụ sử dụng
 

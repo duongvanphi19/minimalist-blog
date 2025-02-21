@@ -198,7 +198,6 @@ a{
 
 /* ===== Bố cục chung ===== */
 .preview-box, .post-content {
-    padding: 20px;
     
     border-radius: 8px;
     background: #fff;
@@ -430,7 +429,7 @@ a{
     margin-right: 5px;
 }
 
-
+.preview-box
 
   #toast-container {
     position: fixed;
