@@ -1,0 +1,30 @@
+---
+id: "1740107130364"
+title: "Thần Gió - Thần Thoại Việt Nam"
+date: "2025-02-20"
+author: "Admin"
+description: "Truyền thuyết về Thần Gió trong văn hóa dân gian Việt Nam."
+tags: ["Thần thoại","Đại Việt Kỳ Nhân","Lịch sử Việt Nam"]
+image: "/assets/uploads/thangio.jpg"
+featured: "true"
+slug: "than-gio-2"
+filename: "than-gio-2.md"
+---
+# 🌪️ Thần Gió - Thần Thoại Việt Nam  
+
+Thần Gió là một vị thần kỳ lạ, **không có đầu** ❌🧑 nhưng sở hữu một **chiếc quạt thần** 🌬️, có thể tạo ra **gió nhẹ hay bão lớn** tùy theo lệnh Ngọc Hoàng. Khi **Thần Gió kết hợp với Thần Mưa** 🌧️ **và Thần Sét** ⚡, thiên nhiên trở nên dữ dội, gieo rắc nỗi kinh hoàng cho nhân gian.  
+
+> "Dân gian kể rằng vào những **đêm tối trời**, Thần Gió thường xuống trần dạo chơi, tạo ra **những cơn gió xoáy mạnh** 🌪️💨, mà người ta gọi là **'thần Cụt đầu'**."  
+
+## 👦 Câu chuyện về con trai Thần Gió  
+Thần Gió có một đứa con **nghịch ngợm** 👶. Một hôm, khi cha đi vắng, cậu ta tò mò lấy quạt ra thử. Đúng lúc đó, một **người nông dân nghèo** 👨‍🌾 vừa xin được **một bát gạo** 🍚 mang về nấu cháo cho vợ bệnh 🤒. Khi ông cúi xuống ao để vo gạo, **một trận gió mạnh thổi bay hết gạo xuống nước** 🌊.  
+
+Không biết bắt đền ai, người nông dân đau khổ **quyết kiện lên Thiên đình** ⛩️. **Ngọc Hoàng** 👑 nghe chuyện, nổi giận **trách phạt Thần Gió**, rồi **đày con trai thần xuống trần** làm **kẻ chăn trâu** 🐂 cho người mất gạo.  
+
+## 🌿 Từ kẻ chăn trâu thành cây ngải gió  
+Sau một thời gian, con trai Thần Gió **hóa thành cây ngải gió** 🍃. Từ đó, mỗi khi **cây ngải cuốn lá**, người ta tin rằng **trời sắp nổi gió** ☁️💨.  
+
+```plaintext
+Mỗi lần cây ngải gió cuốn bông cuốn lá lại, 
+người hạ giới bảo là trời sắp nổi gió nổi mưa.  
+Lá cây ngải còn dùng để chữa bệnh cảm cho trâu.
