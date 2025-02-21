@@ -10,9 +10,7 @@ featured: "false"
 slug: "lam-website-voi-ai"
 filename: "lam-website-voi-ai.md"
 ---
-# 🚀 Làm Website với AI - Tương Lai của Thiết Kế Web  
-
-Ngày nay, **trí tuệ nhân tạo (AI)** đang cách mạng hóa nhiều lĩnh vực, trong đó có **thiết kế và phát triển website**. Với AI, bạn có thể tự động tạo giao diện, tối ưu UX/UI, và thậm chí tạo nội dung mà không cần nhiều kỹ năng lập trình.  
+> Ngày nay, **trí tuệ nhân tạo (AI)** đang cách mạng hóa nhiều lĩnh vực, trong đó có **thiết kế và phát triển website**. Với AI, bạn có thể tự động tạo giao diện, tối ưu UX/UI, và thậm chí tạo nội dung mà không cần nhiều kỹ năng lập trình.  
 
 ## 🤖 **AI Đang Ảnh Hưởng Đến Web Như Thế Nào?**  
 
