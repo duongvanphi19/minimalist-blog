@@ -69,13 +69,13 @@ function generateTOC() {
         const listItem = document.createElement("li");
         listItem.innerHTML = `<a href="#${id}">${header.innerText}</a>`;
 
-        if (header.tagName === "H2") {
+        if (header.tagName === "h2") {
             // Nếu là H2, tạo danh sách con mới cho các H3 tiếp theo
             currentSubList = document.createElement("ul");
             listItem.appendChild(currentSubList);
             tocList.appendChild(listItem);
             lastH2Item = listItem;
-        } else if (header.tagName === "H3" && lastH2Item) {
+        } else if (header.tagName === "h3" && lastH2Item) {
             // Nếu là H3, thêm vào danh sách con của H2 gần nhất
             currentSubList.appendChild(listItem);
         } else {
