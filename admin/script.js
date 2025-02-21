@@ -121,15 +121,14 @@ function newPost() {
     const content = `---
 title: "${title}"
 date: "${new Date().toISOString().split("T")[0]}"
-author: "Admin"
+author: ""
 description: "Lorem ipsum dolor sit atmet"
-tags: ["Mới"]
+tags: []
 image: "/assets/uploads/sample.jpg"
 featured: "false"
 slug: "${slug}"
 filename: "${slug}.md"
 ---
-# ${title}
 
 Nội dung bài viết tại đây...
 `;
