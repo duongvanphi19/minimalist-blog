@@ -51,6 +51,7 @@
     "filename": "thit-bo-xao-cu-hanh.md"
   },
   {
+    "id": "1740140260173",
     "title": "Cách Nấu Canh Trứng Cà Chua (Canh Mây) - Đơn Giản, Thanh Mát",
     "date": "2025-02-21",
     "author": "Admin",
@@ -61,10 +62,9 @@
       "Canh Trứng",
       "Công Thức Nấu Ăn"
     ],
-    "image": "/assets/uploads/canh-trung-ca-chua.jpg",
+    "image": "/assets/uploads/canh-trung-ca-chua.jpeg",
     "featured": "true",
     "slug": "canh-trung-ca-chua",
-    "filename": "canh-trung-ca-chua.md",
-    "id": "1740140260173"
+    "filename": "canh-trung-ca-chua.md"
   }
 ]
