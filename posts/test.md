@@ -4,9 +4,9 @@ title: "undefined"
 date: "undefined"
 author: "undefined"
 description: "undefined"
-tags: undefined
+tags: "undefined"
 image: "undefined"
 featured: "undefined"
-slug: "undefined"
+slug: "test"
 filename: "test.md"
 ---
