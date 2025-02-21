@@ -466,7 +466,7 @@ function log(message) {
   const toastContainer = document.getElementById("toast-container");
   const toast = document.createElement("div");
 
-  toast.className = "toast red";
+  toast.className = "toast";
   toast.innerText = message;
 
   toastContainer.appendChild(toast);
@@ -474,8 +474,9 @@ function log(message) {
   setTimeout(() => {
     toast.style.opacity = "0";  // Làm mờ trước
     setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
-  }, 2000); // Hiển thị trong 2.5 giây, 0.5 giây fade out
+  }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
 //log("box-shadow: 0 2px 5px rgba(0,0,0,0.1);")
 // Ví dụ sử dụng
 
+log('),,@#,#,,@,#@,@,@,')

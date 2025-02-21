@@ -17,7 +17,7 @@ body {
 }
 
 .main-header {
-    display: fljus
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -429,36 +429,33 @@ a{
     margin-right: 5px;
 }
 
-.preview-box
+
+blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 15px;
+    font-style: italic;
+    margin: 0;
+    color: #666;
+}
 
   #toast-container {
     position: fixed;
-    bottom: 20px;
+    bottom: 50px;
     right: 20px;
     left: 20px;
     z-index: 9999;
   }
   .toast {
-    background: #e5533d;
+    background: #333;
     color: #fff;
     padding: 10px 15px;
     margin-bottom: 10px;
     border-radius: 5px;
-    animation: fadeInOut 3s ease-in-out;
+    animation: fadeInOut 5s ease-in-out;
   }
   @keyframes fadeInOut {
-  0% { opacity: 0; transform: translateY(-10px); }
-  10% { opacity: 1; transform: translateY(0); }
-  90% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(-10px); } /* Giữ nguyên vị trí */
-}
-
-
-blockquote {
-    border-left: 4px solid #ccc;
-    border-radius: 6px;
-    padding-left: 15px;
-    font-style: italic;
-    margin: 0;
-    color: #666;
+  0% { opacity: 0.8; transform: translateY(50px); }
+  10% { opacity: 0.9;  }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(0px); } 
 }

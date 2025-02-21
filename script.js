@@ -57,8 +57,10 @@ function generateTOC() {
         return;
     }
 
-    tocContainer.innerHTML = "<h3>Mục lục</h3>";
+    tocContainer.innerHTML = "<h2>Nội dung chính</h2>";
     const tocList = document.createElement("ul");
+    let currentSubList = null; // Danh sách con cho H3
+    let lastH2Item = null; // Lưu phần tử <li> của H2 gần nhất
 
     headers.forEach((header, index) => {
         const id = `section-${index}`;
@@ -66,7 +68,20 @@ function generateTOC() {
 
         const listItem = document.createElement("li");
         listItem.innerHTML = `<a href="#${id}">${header.innerText}</a>`;
-        tocList.appendChild(listItem);
+
+        if (header.tagName === "H2") {
+            // Nếu là H2, tạo danh sách con mới cho các H3 tiếp theo
+            currentSubList = document.createElement("ul");
+            listItem.appendChild(currentSubList);
+            tocList.appendChild(listItem);
+            lastH2Item = listItem;
+        } else if (header.tagName === "H3" && lastH2Item) {
+            // Nếu là H3, thêm vào danh sách con của H2 gần nhất
+            currentSubList.appendChild(listItem);
+        } else {
+            // Nếu không có H2 trước đó, thêm H3 trực tiếp vào tocList
+            tocList.appendChild(listItem);
+        }
     });
 
     tocContainer.appendChild(tocList);
@@ -304,7 +319,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     categoryFilter.addEventListener("change", filterPosts);
 });
 
-function log(message){
+function lll9log(message){
     // Tạo một box thông báo lỗi trong giao diện Acode
     const errorBox = document.createElement("div");
     errorBox.style.position = "fixed";
@@ -326,4 +341,21 @@ function log(message){
         errorBox.remove();
     }, 5000);
 };
+
+function log(message) {
+  const toastContainer = document.getElementById("toast-container");
+  const toast = document.createElement("div");
+
+  toast.className = "toast";
+  toast.innerText = message;
+
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = "0";  // Làm mờ trước
+    setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
+  }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
+}
+
+log('Welcome!')
 
