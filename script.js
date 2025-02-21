@@ -185,7 +185,7 @@ async function loadPosts() {
         //const response = await fetch("posts.json");
         const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const posts = await response.json();
-        log(posts)
+        console.log('posts', posts)
         // 🔹 Hiển thị danh sách bài viết
         blogList.innerHTML = posts.map(post => `
             <article>

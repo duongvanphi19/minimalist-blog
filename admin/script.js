@@ -138,7 +138,7 @@ Nội dung bài viết tại đây...
     
     updatePreview(content);
 
-    document.getElementById("saveButton").onclick = () => savePost(slug + ".md");
+    document.getElementById("saveButton").onclick = () => savePost();
 }
 
 // 📝 Tải danh sách bài viết từ GitHub
@@ -232,7 +232,7 @@ async function editPost(filename, newContent=null) {
     updatePreview(markdown);
     document.getElementById("markdownEditor").value = markdown;
     document.getElementById("editor").style.display = "block";
-    document.getElementById("saveButton").onclick = () => savePost(filename);
+    document.getElementById("saveButton").onclick = () => savePost();
 }
 
 function encodeBase64(str) {
@@ -243,12 +243,14 @@ function decodeBase64(base64Str) {
     return decodeURIComponent(escape(atob(base64Str)));
 }
 
-async function savePost(filename) {
+async function savePost() {
     function encodeBase64(str) {
         return btoa(unescape(encodeURIComponent(str)));
     }
     const markdown = document.getElementById("markdownEditor").value
     const { metadata, content } = extractMetadata(markdown);
+    filename = metadata.slug + ".md"
+    //sua metadata 
     // Nếu chưa có id, tạo mới
     if (!metadata.id) {
         metadata.id = generateID();
@@ -272,7 +274,7 @@ tags: ${JSON.stringify(metadata.tags)}
 image: "${metadata.image}"
 featured: "${metadata.featured}"
 slug: "${metadata.slug}"
-filename: "${filename}"
+filename: "${metadata.slug}.md"
 ---
 ${content}`;
 
@@ -349,12 +351,12 @@ async function updatePostsJson(filename, metadata) {
     //console.log(JSON.stringify(posts, null,2));
     const exists = posts.some(post => post.id === metadata.id);
     const index = posts.findIndex(post => post.id === metadata.id)
-     
+    
 
     //console.log(posts[0].filename, newItem.filename)
     
-    if (exists) { //bai viet da ton
-      if (JSON.stringify(posts[index]) !== JSON.stringify(metadata))
+    if (exists && metadata.slug === posts[index].slug) { //can cap nhat
+      if (JSON.stringify(posts[index]) !== JSON.stringify(metadata) )//co thay doi
       {
         posts[index] = metadata;
         log("✅ `posts.json` đã được cập nhật!");
@@ -364,7 +366,9 @@ async function updatePostsJson(filename, metadata) {
         return;
       }
     }
-    else{ // bai viet chua ton tai
+    else{ 
+      
+      // bai viet chua ton tai
         log("📂 Đang thêm bài viết moi vào `posts.json`...");
         posts.push(metadata);
         
