@@ -430,7 +430,7 @@ pre {
     background: #f9f9f9;
     padding: 15px;
     border-left: 4px solid #ff6347;
-    border-radius: 5px;
+    border-radius: ;
     margin-bottom: 20px;
     font-size: 14px;
 }
@@ -584,7 +584,9 @@ pre {
 
 blockquote {
     border-left: 4px solid #ccc;
-    padding-left: 10px;
+    border-radius: 6px;
+    padding-left: 15px;
     font-style: italic;
+    margin: 0;
     color: #666;
 }

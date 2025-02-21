@@ -199,7 +199,7 @@ a{
 /* ===== Bố cục chung ===== */
 .preview-box, .post-content {
     
-    border-radius: 8px;
+    border-radius: 10px;
     background: #fff;
     /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);*/
     line-height: 1.6;
@@ -456,7 +456,9 @@ a{
 
 blockquote {
     border-left: 4px solid #ccc;
-    padding-left: 10px;
+    border-radius: 6px;
+    padding-left: 15px;
     font-style: italic;
+    margin: 0;
     color: #666;
 }
