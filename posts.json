@@ -30,6 +30,7 @@
     "featured": "true"
   },
   {
+    "id": "1740096512259",
     "title": "test",
     "date": "2025-02-21",
     "author": "",
@@ -38,7 +39,6 @@
     "image": "/assets/uploads/sample.jpg",
     "featured": "false",
     "slug": "test",
-    "filename": "test.md",
-    "id": "1740096512259"
+    "filename": "test.md"
   }
 ]
