@@ -452,3 +452,11 @@ a{
   90% { opacity: 1; }
   100% { opacity: 0; transform: translateY(-10px); } /* Giữ nguyên vị trí */
 }
+
+
+blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 10px;
+    font-style: italic;
+    color: #666;
+}
