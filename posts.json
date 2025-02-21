@@ -10,5 +10,21 @@
     "featured": "true",
     "slug": "test2",
     "filename": "test2.md"
+  },
+  {
+    "title": "Thần Gió - Thần Thoại Việt Nam",
+    "date": "2025-02-20",
+    "author": "Admin",
+    "description": "Truyền thuyết về Thần Gió trong văn hóa dân gian Việt Nam.",
+    "tags": [
+      "Thần thoại",
+      "Đại Việt Kỳ Nhân",
+      "Lịch sử Việt Nam"
+    ],
+    "image": "/assets/uploads/thangio.jpg",
+    "slug": "than-gio",
+    "filename": "than-gio.md",
+    "featured": "true",
+    "id": "1740107130364"
   }
 ]
