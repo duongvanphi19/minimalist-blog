@@ -12,6 +12,7 @@
     "filename": "test2.md"
   },
   {
+    "id": "1740107130364",
     "title": "Thần Gió - Thần Thoại Việt Nam",
     "date": "2025-02-20",
     "author": "Admin",
@@ -22,9 +23,8 @@
       "Lịch sử Việt Nam"
     ],
     "image": "/assets/uploads/thangio.jpg",
-    "slug": "than-gio",
-    "filename": "than-gio.md",
     "featured": "true",
-    "id": "1740107130364"
+    "slug": "than-gio-2",
+    "filename": "than-gio-2.md"
   }
 ]
