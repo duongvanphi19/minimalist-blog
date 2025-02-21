@@ -10,4 +10,4 @@ featured: "false"
 slug: "test-post"
 filename: "test-post.md"
 ---
-Nội dung 💩  nè
+Nội dung nè
