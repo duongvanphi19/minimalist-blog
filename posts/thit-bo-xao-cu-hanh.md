@@ -37,15 +37,15 @@ filename: "thit-bo-xao-cu-hanh.md"
 
 ### 1️⃣ **Sơ chế nguyên liệu**  
 ✔️ **Thịt bò:**  
-- Rửa sạch, **thái lát mỏng**.  
-- **Ướp với**: ½ thìa muối, 1 thìa hạt nêm, ½ thìa tiêu, 1 thìa dầu hào, 1 thìa rượu trắng.  
-- Trộn đều và để thịt **thấm gia vị 15 phút**.  
+Rửa sạch, **thái lát mỏng**.  
+ **Ướp với**: ½ thìa muối, 1 thìa hạt nêm, ½ thìa tiêu, 1 thìa dầu hào, 1 thìa rượu trắng.  
+Trộn đều và để thịt **thấm gia vị 15 phút**.  
 
 ✔️ **Củ hành tây:**  
-- Lột vỏ, rửa sạch, **cắt múi cau**.  
+Lột vỏ, rửa sạch, **cắt múi cau**.  
 
 ✔️ **Tỏi & Ớt:**  
-- Tỏi băm nhỏ, ớt thái lát.  
+Tỏi băm nhỏ, ớt thái lát.  
 
 ---
 
