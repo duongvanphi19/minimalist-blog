@@ -214,11 +214,11 @@ function generateID(){
 }
 
 function newPost() {
-    const title = prompt("Nhập tiêu đề bài viết:");
-    if (!title) return;
+    const title = "new";
 
     const slug = createSlug(title);
     const content = `---
+id: ""
 title: "${title}"
 date: "${new Date().toISOString().split("T")[0]}"
 author: ""
@@ -228,6 +228,7 @@ image: "/assets/uploads/sample.jpg"
 featured: "false"
 slug: "${slug}"
 filename: "${slug}.md"
+status: "published"
 ---
 
 Nội dung bài viết tại đây...
@@ -375,6 +376,7 @@ image: "${metadata.image}"
 featured: "${metadata.featured}"
 slug: "${metadata.slug}"
 filename: "${metadata.slug}.md"
+status: "published"
 ---
 ${content}`;
 
@@ -446,7 +448,8 @@ async function updatePostsJson(filename, metadata) {
             image: metadata.image,
             slug: metadata.slug,
             filename: metadata.filename,
-            featured: metadata.featured
+            featured: metadata.featured,
+            status: metadata.status
         }
     //console.log(JSON.stringify(posts, null,2));
     const exists = posts.some(post => post.id === metadata.id);

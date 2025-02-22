@@ -219,9 +219,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(blogList, searchInput, searchButton, categoryFilter);
     }
     let posts = [];
-    loadPosts()
-    log('return')
-    return;
+   // loadPosts()
+    
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
         //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");

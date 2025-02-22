@@ -9,6 +9,7 @@ image: "/assets/uploads/canh-bau-hot-vit-lon.jpg"
 featured: "true"
 slug: "canh-bau-hot-vit-lon"
 filename: "canh-bau-hot-vit-lon.md"
+status: "published"
 ---
 # 🥣 Cách Nấu Canh Bầu Hột Vịt Lộn - Dân Dã Mà Bổ Dưỡng  
 
