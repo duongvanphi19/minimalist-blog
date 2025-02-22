@@ -1,14 +1,36 @@
 document.getElementById("imageUpload").addEventListener("change", function (event) {
     const file = event.target.files[0];
-    if (!file) return;
 
+    // Nếu không chọn file thì reset lại toàn bộ
+    if (!file) {
+        resetUploadForm();
+        return;
+    }
+
+    // Hiển thị ảnh preview
     const reader = new FileReader();
     reader.onload = function (e) {
-        document.getElementById("imagePreview").src = e.target.result;
-        document.getElementById("imagePreview").style.display = "block";
+        const preview = document.getElementById("imagePreview");
+        preview.src = e.target.result;
+        preview.style.display = "block";
     };
     reader.readAsDataURL(file);
+
+    // Cập nhật nội dung checkbox
+    const useDefaultNameLabel = document.querySelector("label[for='useDefaultName']");
+    useDefaultNameLabel.innerText = `Sử dụng tên '${file.name}'`;
+
+    // Hiển thị các tùy chọn upload
+    document.getElementById("uploadOptions").classList.remove("hidden");
 });
+
+// Hàm reset khi chọn ảnh khác
+function resetUploadForm() {
+    document.getElementById("imagePreview").style.display = "none";
+    document.getElementById("uploadOptions").classList.add("hidden");
+    document.getElementById("imageUpload").value = ""; // Reset input file
+}
+
 document.getElementById("uploadButton").addEventListener("click", uploadImage);
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,57 +58,138 @@ function toggleDarkMode() {
   }
 }
 
-async function uploadImage() {
-    const fileInput = document.getElementById("imageUpload");
-    const file = fileInput.files[0];
+// Sự kiện checkbox: nếu được chọn, disable input tên ảnh
+document.getElementById("useDefaultName").addEventListener("change", function () {
+  const imageNameInput = document.getElementById("imageNameInput");
+  imageNameInput.disabled = this.checked;
+});
 
-    if (!file) {
-        log("❌ Vui lòng chọn một ảnh!");
-        return;
+// Sự kiện xem trước ảnh khi chọn file
+document.getElementById("imageUpload").addEventListener("change", function (event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const preview = document.getElementById("imagePreview");
+    preview.src = e.target.result;
+    preview.style.display = "block";
+  };
+  document.getElementById("extensionLabel").innerHTML= "." + file.name.split(".").pop().toLowerCase();
+  reader.readAsDataURL(file);
+});
+
+// Hàm tạo slug từ chuỗi (loại bỏ dấu, chuyển thành chữ thường, đổi khoảng trắng thành dấu -)
+function createSlug(title) {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
+// Sự kiện nút upload ảnh
+document.getElementById("uploadButton").addEventListener("click", uploadImage);
+
+async function uploadImage() {
+  const fileInput = document.getElementById("imageUpload");
+  const file = fileInput.files[0];
+  if (!file) {
+    log("❌ Vui lòng chọn một ảnh!");
+    return;
+  }
+  
+  document.getElementById("uploadButton").textContent = "Uploading...";
+
+  // Lấy extension của file
+  const extension = file.name.split(".").pop().toLowerCase();
+  
+  // Nếu checkbox "useDefaultName" được check, dùng tên file gốc (đã chuyển slug)
+  // Ngược lại, lấy tên từ input (và chuyển slug)
+ 
+  let baseName = "";
+  if (document.getElementById("useDefaultName").checked) {
+    baseName = file.name.substring(0, file.name.lastIndexOf("."));
+  } else {
+    baseName = document.getElementById("imageNameInput").value;
+    if (!baseName) {
+      log("❌ Vui lòng nhập tên ảnh!");
+      return;
+    }
+  }
+  const slugName = createSlug(baseName);
+  const filename = `assets/uploads/${slugName}.${extension}`;
+
+  // Đọc file và chuyển thành Base64
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = async function () {
+    const base64Content = reader.result.split(",")[1]; // Lấy phần dữ liệu base64 sau dấu ,
+
+    // Cấu hình thông tin GitHub
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw=="); // Thay bằng token của bạn (đã mã hóa)
+    const repo = "duongvanphi19/minimalist-blog"; // Thay bằng repo của bạn
+    const url = `https://api.github.com/repos/${repo}/contents/${filename}`;
+
+    // Kiểm tra xem file đã tồn tại chưa
+    let sha = null;
+    const checkFile = await fetch(url, { headers: { Authorization: token } });
+    if (checkFile.ok) {
+      const fileData = await checkFile.json();
+      sha = fileData.sha;
     }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async function () {
-        const base64Content = reader.result.split(",")[1]; // Lấy phần base64
-        
-        const filename = `assets/uploads/${createSlug(file.name.substring(0, file.name.lastIndexOf('.')))}.${file.name.split('.').pop().toLowerCase()}`;
+    // Gửi yêu cầu PUT để upload file ảnh
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "Upload ảnh mới",
+        content: base64Content,
+        sha: sha || undefined
+      })
+    });
 
-        const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")// 🔥 Thay bằng GitHub Token của bạn
-        const repo = "duongvanphi19/minimalist-blog"; // 🔥 Thay bằng tên repo của bạn
+    const result = await response.json();
+    if (response.ok) {
+      const absoluteUrl = result.content.download_url;
+      // Đường dẫn tương đối giả định là phần sau dấu "repos/<repo>/contents"
+      const relativeUrl = `/${filename}`;
+      log("✅ Ảnh đã được upload thành công!");
+      // Hiển thị đường dẫn để người dùng copy
+      document.getElementById("uploadPaths").innerHTML = `
+        <h3><strong>Path:</strong></h3>
+        <p> <input type="text" value="${absoluteUrl}" readonly style="width:100%;"></p>
+        <p> <input type="text" value="${relativeUrl}" readonly style="width:100%;"></p>
+      `;
+      // Tự chèn markdown của ảnh vào editor
+      //insertImageMarkdown(absoluteUrl);
+      document.getElementById("uploadButton").textContent = "✅"
+    } else {
+      log("❌ Lỗi khi upload ảnh: " + result.message);
+    }
+  };
+}
 
-        const url = `https://api.github.com/repos/${repo}/contents/${filename}`;
+// Hàm chèn markdown của ảnh vào vị trí con trỏ trong editor
+function insertImageMarkdown(imageUrl) {
+  const editor = document.getElementById("markdownEditor");
+  const cursorPos = editor.selectionStart;
+  const textBefore = editor.value.substring(0, cursorPos);
+  const textAfter = editor.value.substring(cursorPos);
+  editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
+  updatePreview(editor.value);
+}
 
-        // Kiểm tra xem file đã tồn tại chưa
-        let sha = null;
-        const checkFile = await fetch(url, { headers: { Authorization: token }});
-        if (checkFile.ok) {
-            const fileData = await checkFile.json();
-            sha = fileData.sha; // Nếu có file cũ, lấy SHA để cập nhật
-        }
-
-        const response = await fetch(url, {
-            method: "PUT",
-            headers: {
-                Authorization: token,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: "Upload ảnh mới",
-                content: base64Content,
-                sha: sha || undefined
-            })
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-            const imageUrl = result.content.download_url;
-            log(`✅ Ảnh ${filename } đã được upload!`);
-            insertImageMarkdown(imageUrl);
-        } else {
-            log("❌ Lỗi khi upload ảnh: " + result.message);
-        }
-    };
+// Hàm cập nhật preview sử dụng marked.js (đã được load từ CDN)
+function updatePreview(markdownText) {
+  document.getElementById("previewContent").innerHTML = marked.parse(markdownText);
 }
 
 function insertImageMarkdown(imageUrl) {
@@ -477,6 +580,4 @@ function log(message) {
   }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
 //log("box-shadow: 0 2px 5px rgba(0,0,0,0.1);")
-// Ví dụ sử dụng
 
-log('),,@#,#,,@,#@,@,@,')

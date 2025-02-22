@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const postFile = params.get("post");
     //console.log(postFile);
     try{
-      const response = await fetch(`posts/${postFile}.md`)
+      const response = await fetch(`https://minimblog.netlify.app/posts/${postFile}.md`)
     }catch(e){
       print("error load")
       return
@@ -114,13 +114,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `posts/${postFile}.md`, true);
+    xhr.open("GET", `https://minimblog.netlify.app/posts/${postFile}.md`, true);
     
     xhr.onload = function () {
         //console.log("stt", xhr.status);
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
-            //log( "md",markdown); // 🔍 Kiểm tra nội dung trả về
+            log(markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {

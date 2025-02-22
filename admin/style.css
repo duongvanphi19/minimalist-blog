@@ -71,13 +71,12 @@ body {
     background: #eee;
 }
 
-.red {
-  background: #338; !important
-}
-
 /* ===== Editor (Chỉnh sửa bài viết) ===== */
 .editor-container {
     width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .hidden {
@@ -170,7 +169,6 @@ a{
 
 /* Xem trước bài viết */
 #preview {
-    margin-top: 20px;
     background: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -289,64 +287,8 @@ a{
 .dark-mode code {
     background: #555;
 }
-/* 📂 Container chính */
-.uupload-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    max-width: 400px;
-    margin: 20px auto;
-    text-align: center;
-}
 
-.dark-mode .upload-container{
-  background: #333;
-}
 
-/* 📷 Nút chọn ảnh */
-.uupload-label {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-.upload-label:hover {
-    background-color: #0056b3;
-}
-
-/* 🖼 Ảnh preview */
-.image-preview {
-    max-width: 100%;
-    max-height: 200px;
-    border-radius: 5px;
-    display: none;
-    object-fit: cover;
-}
-
-/* 📤 Nút upload */
-.upload-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
-
-.upload-btn:hover {
-    background-color: #218838;
-}
 
 /* 📝 Căn chỉnh bài viết Markdown */
 #preview {
@@ -458,4 +400,114 @@ blockquote {
   10% { opacity: 0.9;  }
   50% { opacity: 1; }
   100% { opacity: 0; transform: translateY(0px); } 
+}
+
+/* Giao diện tối giản, tinh tế */
+.upload-container {
+  padding: 15px;
+  margin: 0;
+  border-radius: 8px;
+  background: #fff;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.dark-mode .upload-container{
+  background-color: #333;
+}
+
+/* Nút chọn ảnh */
+.upload-label {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.upload-label:hover {
+  background-color: #0056b3;
+}
+
+/* Ẩn input file */
+#imageUpload {
+  display: none;
+}
+
+/* Preview ảnh */
+.image-preview {
+  max-width: 100%;
+  max-height: 180px;
+  margin: 10px auto;
+  border-radius: 5px;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Ẩn các tùy chọn ban đầu */
+.hidden {
+  display: none;
+}
+
+/* Input tên file */
+#imageNameInput {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Nút upload */
+.upload-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 15px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.upload-btn:hover {
+  background-color: #218838;
+}
+
+/* Khu vực hiển thị kết quả */
+#uploadPaths {
+  margin-top: 10px;
+  font-size: 14px;
+}
+#uploadPaths input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 13px;
+  text-align: center;
+}
+
+
+.upload-container,
+#editor,
+#preview{
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+#nameInputContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+#imageNameInput{
+  flex: 1;
+}
+
+#extensionLabel{
+  padding: 4px 8px;
+  background-color: #8588;
+  border-radius: 4px;
+  background: #eee;
 }
