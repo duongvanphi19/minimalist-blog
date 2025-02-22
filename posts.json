@@ -128,5 +128,22 @@
     "featured": "true",
     "slug": "canh-ga-chien-nuoc-mam",
     "filename": "canh-ga-chien-nuoc-mam.md"
+  },
+  {
+    "id": "1740223212199",
+    "title": "Cách Làm Thịt Kho Tiêu - Đậm Đà, Béo Ngậy",
+    "date": "2025-02-22",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm thịt kho tiêu thơm ngon, đậm đà với thịt mềm béo, nước kho sánh mặn ngọt cực bắt cơm.",
+    "tags": [
+      "Ẩm thực",
+      "Món Kho",
+      "Thịt Heo",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/thit-kho-tieu.jpg",
+    "featured": "true",
+    "slug": "thit-kho-tieu",
+    "filename": "thit-kho-tieu.md"
   }
 ]
