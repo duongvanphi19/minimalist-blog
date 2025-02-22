@@ -12,9 +12,7 @@ filename: "canh-ga-chien-nuoc-mam.md"
 ---
 # 🍗 Cách Làm Cánh Gà Chiên Nước Mắm - Giòn Rụm, Đậm Đà  
 
-**Cánh gà chiên nước mắm** là món ăn quen thuộc với lớp da giòn rụm, phủ nước sốt mặn ngọt đậm đà, cực kỳ hao cơm!  
-
----
+>**Cánh gà chiên nước mắm** là món ăn quen thuộc với lớp da giòn rụm, phủ nước sốt mặn ngọt đậm đà, cực kỳ hao cơm!  
 
 ## 📝 **Thông Tin Món Ăn**  
 - 🍽 **Khẩu phần**: 3 người  
