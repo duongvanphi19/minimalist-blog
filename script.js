@@ -226,7 +226,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const response = await fetch("posts.json");
         console.log('posts.json response', response)
-        posts = await response.json().filter(post => post.status === "published");
+        posts = await response.json();
+        try{posts = posts.filter(post => post.status === "published");
+        }catch(e){
+          log(e)
+        }
         //console.log(posts)
         // 🔹 Lấy danh sách danh mục (tags)
         const uniqueTags = new Set();
