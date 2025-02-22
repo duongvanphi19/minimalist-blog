@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const response = await fetch("posts.json");
         console.log('posts.json response', response)
-        posts = await response.json();
+        posts = await response.json().filter(post => post.status === "published");
         //console.log(posts)
         // 🔹 Lấy danh sách danh mục (tags)
         const uniqueTags = new Set();
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           if(post.tags &&  Array.isArray(post.tags))
           {post.tags.forEach(tag => uniqueTags.add(tag))}
         });
-         console.log('uniqueTags', uniqueTags)
+         log('uniqueTags', uniqueTags)
         // 🔹 Thêm danh mục vào dropdown filter
         uniqueTags.forEach(tag => {
             const option = document.createElement("option");
