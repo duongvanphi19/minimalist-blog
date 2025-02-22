@@ -622,7 +622,7 @@ blockquote {
 }
 
 #post-toc ul ul {
-  padding-left: 10px; /* Thụt vào cho mục con */
+  padding-left: 16px; /* Thụt vào cho mục con */
 }
 
 #post-toc a:hover {
