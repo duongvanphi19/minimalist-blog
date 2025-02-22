@@ -12,7 +12,8 @@ filename: "bun-thit-khia.md"
 ---
 # 🍜 Cách Làm Bún Thịt Khìa - Đậm Đà, Chuẩn Vị Miền Tây  
 
-> **Bún thịt khìa** là món ăn **đặc trưng của miền Tây**, nổi bật với **thịt heo khìa nước dừa**, thấm vị, mềm ngọt ăn kèm với **bún tươi, rau sống** và nước mắm chua ngọt.  
+>**Bún thịt khìa** là món ăn **đặc trưng của miền Tây**, nổi bật với **thịt heo khìa nước dừa**, thấm vị, mềm ngọt ăn kèm với **bún tươi, rau sống** và nước mắm chua ngọt.  
+
 
 ## 📝 **Thông Tin Món Ăn**  
 - 🍽 **Khẩu phần**: 3-4 người  
