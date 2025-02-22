@@ -1,4 +1,25 @@
 /* ===== Reset CSS ===== */
+
+/* ===== Định nghĩa Biến CSS ===== */
+:root {
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --success-color: #28a745;
+  --success-hover: #218838;
+  --border-color: #ddd;
+  --background-light: #fafafa;
+  --background-dark: #222;
+  --text-color: #333;
+  --text-light: #ddd;
+  --border-radius: 4px;
+  --border-radius-l: 8px;
+  --padding-small: 8px;
+  --padding-medium: 12px;
+  --transition-speed: 0.3s;
+  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -11,8 +32,8 @@ html{
 
 /* ===== Main Layout ===== */
 body {
-    background: #f4f4f4;
-    color: #333;
+    background: var(--background-light);
+    color: var(--text-color);
     transition: background 0.3s, color 0.3s;
 }
 
@@ -23,7 +44,7 @@ body {
     align-items: center;
     background: #fff;
     padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--box-shadow)
     
 }
 .main-header h1{
@@ -111,18 +132,18 @@ textarea {
 }
 
 .save-btn {
-    background: #28a745;
+    background: var(--success-color);
     color: #fff;
 }
 
 .save-btn:hover {
-    background: #218838;
+    background: var(--success-hover);
 }
 
 /* ===== Dark Mode ===== */
 .dark-mode {
-    background: #222;
-    color: #ddd;
+    background: var(--background-dark);
+    color: var(--text-light);
 }
 
 .dark-mode .main-header {
@@ -169,10 +190,10 @@ a{
 
 /* Xem trước bài viết */
 #preview {
-    background: #fff;
+    background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--border-radius-l)
 }
 
 .preview-box {
@@ -294,8 +315,8 @@ a{
 #preview {
     font-family: Arial, sans-serif;
     line-height: 1.7;
-    color: #333;
-    background: #fff;
+    color: var(--text-color);
+    background: var(--background-light);
     padding: 20px;
     border-radius: 5px;
 }
@@ -403,6 +424,9 @@ blockquote {
 }
 
 /* Giao diện tối giản, tinh tế */
+.upload-container h2{
+  text-align: left;
+}
 .upload-container {
   padding: 15px;
   margin: 0;
@@ -414,6 +438,7 @@ blockquote {
 .dark-mode .upload-container{
   background-color: #333;
 }
+
 
 /* Nút chọn ảnh */
 .upload-label {
@@ -434,6 +459,7 @@ blockquote {
   display: none;
 }
 
+
 /* Preview ảnh */
 .image-preview {
   max-width: 100%;
@@ -453,25 +479,27 @@ blockquote {
 #imageNameInput {
   width: 100%;
   padding: 6px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   font-size: 14px;
 }
 
+.dark-mode #imageNameInput{
+  background: var(--text-color);
+}
 /* Nút upload */
 .upload-btn {
-  background-color: #28a745;
+  background-color: var(--success-color);
   color: white;
-  padding: 8px 15px;
+  padding: var(--padding-small) var(--padding-medium);
   margin-top: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   font-size: 14px;
-  transition: 0.3s;
+  transition: var(--transition-speed)
 }
 .upload-btn:hover {
-  background-color: #218838;
+  background-color: var(--success-hover);
 }
 
 /* Khu vực hiển thị kết quả */
@@ -492,8 +520,8 @@ blockquote {
 .upload-container,
 #editor,
 #preview{
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius-l);
 }
 #nameInputContainer{
   display: flex;
@@ -509,5 +537,6 @@ blockquote {
   padding: 4px 8px;
   background-color: #8588;
   border-radius: 4px;
-  background: #eee;
+  background: var(--text-color);
 }
+

@@ -50,7 +50,6 @@ function parseYAML(yamlText) {
 function generateTOC() {
     const postContent = document.getElementById("post-content");
     const tocContainer = document.getElementById("post-toc");
-    
     const headers = postContent.querySelectorAll("h2, h3");
     if (headers.length === 0) {
         tocContainer.style.display = "none"; // Ẩn TOC nếu không có tiêu đề nào
@@ -59,28 +58,25 @@ function generateTOC() {
 
     tocContainer.innerHTML = "<h2>Nội dung chính</h2>";
     const tocList = document.createElement("ul");
-    let currentSubList = null; // Danh sách con cho H3
-    let lastH2Item = null; // Lưu phần tử <li> của H2 gần nhất
+    let lastH2Item = null; // Lưu `li` của `h2` gần nhất
+    let currentSubList = null; // Lưu `ul` chứa `h3`
 
     headers.forEach((header, index) => {
         const id = `section-${index}`;
-        header.id = id; // Gán ID cho tiêu đề để có thể điều hướng
+        header.id = id; // Gán ID để điều hướng
 
         const listItem = document.createElement("li");
         listItem.innerHTML = `<a href="#${id}">${header.innerText}</a>`;
 
-        if (header.tagName === "h2") {
-            // Nếu là H2, tạo danh sách con mới cho các H3 tiếp theo
+        if (header.tagName === "H2") {
+            // Nếu là H2, tạo danh sách con mới cho H3 tiếp theo
             currentSubList = document.createElement("ul");
             listItem.appendChild(currentSubList);
             tocList.appendChild(listItem);
             lastH2Item = listItem;
-        } else if (header.tagName === "h3" && lastH2Item) {
+        } else if (header.tagName === "H3" && lastH2Item) {
             // Nếu là H3, thêm vào danh sách con của H2 gần nhất
             currentSubList.appendChild(listItem);
-        } else {
-            // Nếu không có H2 trước đó, thêm H3 trực tiếp vào tocList
-            tocList.appendChild(listItem);
         }
     });
 
@@ -89,10 +85,19 @@ function generateTOC() {
 }
 
 // Gọi hàm generateTOC() sau khi bài viết được load
-
+function showExam(){
+  document.getElementById("post-content").innerHTML = marked.parse(
+`
+# title
+## Chương 1  
+### Chuong 1.1
+    `)
+    
+}
 //posts
 document.addEventListener("DOMContentLoaded", async function () {
-   // fetchPosts();
+   // showExam();
+    //generateTOC();
     //loadPosts();
   
     if (localStorage.getItem("darkMode") === "enabled") {
@@ -120,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         //console.log("stt", xhr.status);
         if (xhr.status >= 200 && xhr.status < 300) {
             let markdown = xhr.responseText;
-            log(markdown); // 🔍 Kiểm tra nội dung trả về
+            //log(markdown); // 🔍 Kiểm tra nội dung trả về
 
             // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
             if (markdown.startsWith("<!DOCTYPE html>")) {

@@ -611,3 +611,20 @@ blockquote {
   50% { opacity: 1; }
   100% { opacity: 0; transform: translateY(0px); } 
 }
+
+#post-toc ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+#post-toc li {
+  margin: 5px 0;
+}
+
+#post-toc ul ul {
+  padding-left: 10px; /* Thụt vào cho mục con */
+}
+
+#post-toc a:hover {
+  text-decoration: underline;
+}
