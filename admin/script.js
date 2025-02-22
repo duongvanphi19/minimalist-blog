@@ -184,13 +184,10 @@ function insertImageMarkdown(imageUrl) {
   const textBefore = editor.value.substring(0, cursorPos);
   const textAfter = editor.value.substring(cursorPos);
   editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
-  updatePreview(editor.value);
+  updatePreview();
 }
 
 // Hàm cập nhật preview sử dụng marked.js (đã được load từ CDN)
-function updatePreview(markdownText) {
-  document.getElementById("previewContent").innerHTML = marked.parse(markdownText);
-}
 
 function insertImageMarkdown(imageUrl) {
     const editor = document.getElementById("markdownEditor");
@@ -198,7 +195,7 @@ function insertImageMarkdown(imageUrl) {
     const textBefore = editor.value.substring(0, cursorPos);
     const textAfter = editor.value.substring(cursorPos);
     editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
-    updatePreview(editor.value);
+    updatePreview();
 }
 
 function createSlug(title) {
@@ -239,7 +236,7 @@ Nội dung bài viết tại đây...
     document.getElementById("markdownEditor").value = content;
     document.getElementById("editor").style.display = "block";
     
-    updatePreview(content);
+    updatePreview();
 
     document.getElementById("saveButton").onclick = () => savePost();
 }
@@ -332,8 +329,8 @@ async function editPost(filename, newContent=null) {
     }
     const markdown = await response.text();
   
-    updatePreview(markdown);
     document.getElementById("markdownEditor").value = markdown;
+    updatePreview();
     document.getElementById("editor").style.display = "block";
     document.getElementById("saveButton").onclick = () => savePost();
 }
@@ -526,19 +523,15 @@ loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
 
 
 // Xử lý Live Edit
+let timeout;
 document.getElementById("markdownEditor").addEventListener("input", function () {
-    
-    updatePreview(this.value);
+    clearTimeout(timeout);
+    timeout = setTimeout(updatePreview, 300); // Chờ 300ms trước khi cập nhật
 });
 
-function updatePreview(markdownText){
-  marked.setOptions({
-    gfm: true, // Bật chế độ GitHub Flavored Markdown
-    breaks: true, // Xuống dòng với dấu xuống dòng bình thường
-    tables: true, // Hỗ trợ bảng
-    smartLists: true, // Tự động nhận diện danh sách thông minh
-    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
-});
+function updatePreview(){
+  
+  const markdownText = document.getElementById("markdownEditor").value;
   document.getElementById("previewContent").innerHTML = marked.parse(FrontMatter(markdownText));
 }
 // Hiển thị Editor + Xem trước khi chỉnh sửa bài viết

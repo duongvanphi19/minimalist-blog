@@ -108,9 +108,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const postFile = params.get("post");
     //console.log(postFile);
     try{
-      const response = await fetch(`https://minimblog.netlify.app/posts/${postFile}.md`)
+      const response = await fetch(`/posts/${postFile}.md`)
     }catch(e){
-      print("error load")
+      log("error load")
       return
     }
     if (!postFile) {
@@ -197,29 +197,13 @@ function toggleDarkMode() {
 document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
 
 async function loadPosts() {
-    //console.log("loadPosts");
-    const blogList = document.getElementById("post-list");
-  
-    try {
-        // 🔹 Fetch danh sách bài viết từ posts.json
-        //const response = await fetch("posts.json");
-        const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
-        const posts = await response.json();
-        console.log('posts', posts)
-        // 🔹 Hiển thị danh sách bài viết
-        blogList.innerHTML = posts.map(post => `
-            <article>
-                <h2><a href="post.html?post=${post.file}">${post.title}</a></h2>
-                <p><strong>Ngày đăng:</strong> ${post.date}</p>
-                <p>${post.description}</p>
-            </article>
-        `).join("");
-    } catch (error) {
-        blogList.innerHTML = "<p>Lỗi khi tải danh sách bài viết.</p>";
-        console.error("Lỗi:", error);
-    }
-
-};
+  log("load posts");
+  const response = await fetch("/posts/");
+  const data = await response.json();
+  const a = await response.text();
+  log(data);
+  log(a);
+}
 //index
 document.addEventListener("DOMContentLoaded", async function () {
     const blogList = document.getElementById("post-list");
@@ -235,8 +219,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(blogList, searchInput, searchButton, categoryFilter);
     }
     let posts = [];
-    //loadPosts()
-    
+    loadPosts()
+    log('return')
+    return;
     try {
         // 🔹 Fetch danh sách bài viết từ posts.json
         //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");

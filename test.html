@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            font-weight: bold;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .invoice {
+            background: white;
+            padding: 20px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .invoice h2 {
+            text-align: center;
+        }
+        .invoice hr {
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        .info, .items, .total {
+            margin-top: 10px;
+        }
+        .info p, .total p {
+            display: flex;
+            justify-content: space-between;
+        }
+        .items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .items th, .items td {
+            border: 0px solid #ddd;
+            padding: 5px;
+            text-align: ;
+        }
+        .export-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #333;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Form nhập thông tin -->
+    <div class="form-container">
+        <h3>Nhập thông tin hóa đơn</h3>
+        <label>Tên khách hàng:</label>
+        <input type="text" id="customerName" placeholder="Nhập tên khách hàng">
+        
+        <label>Số điện thoại:</label>
+        <input type="text" id="customerPhone" placeholder="Nhập số điện thoại">
+
+        <label>Địa chỉ:</label>
+        <input type="text" id="customerAddress" placeholder="Nhập địa chỉ">
+
+        <hr>
+
+        <h3>Thêm sản phẩm</h3>
+        <label>Tên sản phẩm:</label>
+        <input type="text" id="productName" placeholder="Nhập tên sản phẩm">
+
+        <label>Giá sản phẩm:</label>
+        <input type="number" id="productPrice" placeholder="Nhập giá sản phẩm">
+
+        <label>Số lượng:</label>
+        <input type="number" id="productQty" value="1" min="1">
+
+        <button onclick="addProduct()">Thêm sản phẩm</button>
+
+        <hr>
+
+        <label>Phí vận chuyển:</label>
+        <input type="number" id="shippingFee" value="35000">
+
+        <label>Giảm giá:</label>
+        <input type="number" id="discount" value="0">
+
+        <button onclick="generateInvoice()">Tạo hóa đơn</button>
+    </div>
+
+    <!-- Hóa đơn hiển thị -->
+    <div class="invoice" id="invoice" style="display: none;">
+        <h2>HÓA ĐƠN TẠM TÍNH</h2>
+        <p style="text-align: center;">Mã hóa đơn: <span id="invoiceCode"></span></p>
+        <hr>
+        
+        <div class="info">
+            <p><span>Khách:</span> <span id="displayCustomerName"></span></p>
+            <p><span>ĐT:</span> <span id="displayCustomerPhone"></span></p>
+            <p><span>Địa chỉ:</span> <span id="displayCustomerAddress"></span></p>
+        </div>
+
+        <hr>
+
+        <div class="items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>SL</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody id="productList"></tbody>
+            </table>
+        </div>
+
+        <hr>
+
+        <div class="total">
+            <p><span>Tạm tính</span> <span id="subtotal"></span></p>
+            <p><span>Phí vận chuyển</span> <span id="displayShippingFee"></span></p>
+            <p><span>Giảm giá</span> <span id="displayDiscount"></span></p>
+            <p style="font-size: 18px;"><span><strong>Tổng cộng</strong></span> <span id="total"></span></p>
+        </div>
+
+        <hr>
+    </div>
+
+    <button class="export-btn" onclick="exportToImage()">Xuất hóa đơn ảnh</button>
+
+    <script>
+        let products = [];
+
+        function addProduct() {
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const qty = parseInt(document.getElementById('productQty').value);
+
+            if (!name || price <= 0 || qty <= 0) {
+                alert("Vui lòng nhập đầy đủ thông tin sản phẩm!");
+                return;
+            }
+
+            products.push({ name, price, qty });
+
+            document.getElementById('productName').value = "";
+            document.getElementById('productPrice').value = "";
+            document.getElementById('productQty').value = "1";
+        }
+
+        function generateInvoice() {
+            const customerName = document.getElementById('customerName').value;
+            const customerPhone = document.getElementById('customerPhone').value;
+            const customerAddress = document.getElementById('customerAddress').value;
+            const shippingFee = parseFloat(document.getElementById('shippingFee').value);
+            const discount = parseFloat(document.getElementById('discount').value);
+
+            let subtotal = 0;
+            let productHTML = "";
+
+            products.forEach(product => {
+                subtotal += product.price * product.qty;
+                productHTML += `<tr>
+                    <td>${product.name}</td>
+                    <td>${product.qty}</td>
+                    <td>${product.price.toLocaleString()} đ</td>
+                </tr>`;
+            });
+
+            const total = subtotal + shippingFee - discount;
+
+            document.getElementById('invoiceCode').innerText = Math.random().toString(36).substring(7).toUpperCase();
+            document.getElementById('displayCustomerName').innerText = customerName;
+            document.getElementById('displayCustomerPhone').innerText = customerPhone;
+            document.getElementById('displayCustomerAddress').innerText = customerAddress;
+            document.getElementById('productList').innerHTML = productHTML;
+            document.getElementById('subtotal').innerText = subtotal.toLocaleString() + " đ";
+            document.getElementById('displayShippingFee').innerText = shippingFee.toLocaleString() + " đ";
+            document.getElementById('displayDiscount').innerText = "-" + discount.toLocaleString() + " đ";
+            document.getElementById('total').innerText = total.toLocaleString() + " đ";
+
+            document.getElementById('invoice').style.display = "block";
+        }
+
+        function exportToImage() {
+            html2canvas(document.getElementById('invoice')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'hoa-don.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+    </script>
+
+</body>
+</html>
