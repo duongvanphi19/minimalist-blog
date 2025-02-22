@@ -78,5 +78,21 @@
     "featured": "false",
     "slug": "test-post",
     "filename": "test-post.md"
+  },
+  {
+    "id": "1740205854091",
+    "title": "Danh sách tủ đồ của tôi",
+    "date": "2025-02-22",
+    "author": "GPT",
+    "description": "Danh sách tủ đồ cập nhật mới nhất.",
+    "tags": [
+      "smart casual",
+      "thời trang",
+      "tủ đồ"
+    ],
+    "image": "/assets/uploads/wardrobe.jpg",
+    "featured": "false",
+    "slug": "danh-sach-tu-do",
+    "filename": "danh-sach-tu-do.md"
   }
 ]
