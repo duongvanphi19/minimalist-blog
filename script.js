@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         // 🔹 Fetch danh sách bài viết từ posts.json
         //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const response = await fetch("posts.json");
-        console.log('posts.json response', response)
+       // console.log('posts.json response', response)
         posts = await response.json();
         try{posts = posts.filter(post => post.status === "published");
         }catch(e){

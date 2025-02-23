@@ -14,7 +14,8 @@
     "image": "/assets/uploads/frontend-ai.jpg",
     "featured": "false",
     "slug": "lam-website-voi-ai",
-    "filename": "lam-website-voi-ai.md"
+    "filename": "lam-website-voi-ai.md",
+     "status":"draft"
   },
   {
     "id": "1740127294945",
@@ -31,7 +32,7 @@
     "image": "/assets/uploads/canh-bau-hot-vit-lon.jpg",
     "featured": "true",
     "slug": "canh-bau-hot-vit-lon",
-    "filename": "canh-bau-hot-vit-lon.md"
+    "filename": "canh-bau-hot-vit-lon.md",
     "status":"published"
   },
   {
@@ -49,7 +50,8 @@
     "image": "/assets/uploads/bo-xao-cu-hanh.jpg",
     "featured": "true",
     "slug": "thit-bo-xao-cu-hanh",
-    "filename": "thit-bo-xao-cu-hanh.md"
+    "filename": "thit-bo-xao-cu-hanh.md",
+    "status":"draft"
   },
   {
     "id": "1740140260173",
@@ -66,7 +68,8 @@
     "image": "/assets/uploads/canh-trung-ca-chua.jpeg",
     "featured": "true",
     "slug": "canh-trung-ca-chua",
-    "filename": "canh-trung-ca-chua.md"
+    "filename": "canh-trung-ca-chua.md",
+     "status":"draft"
   },
   {
     "id": "1740110184846",
@@ -78,7 +81,8 @@
     "image": "/assets/uploads/xoi-ga.jpg",
     "featured": "false",
     "slug": "test-post",
-    "filename": "test-post.md"
+    "filename": "test-post.md",
+     "status":"draft"
   },
   {
     "id": "1740205854091",
@@ -94,7 +98,8 @@
     "image": "/assets/uploads/wardrobe.jpg",
     "featured": "false",
     "slug": "danh-sach-tu-do",
-    "filename": "danh-sach-tu-do.md"
+    "filename": "danh-sach-tu-do.md",
+     "status":"draft"
   },
   {
     "id": "1740211409335",
@@ -111,7 +116,8 @@
     "image": "/assets/uploads/bun-thit-khia.jpg",
     "featured": "true",
     "slug": "bun-thit-khia",
-    "filename": "bun-thit-khia.md"
+    "filename": "bun-thit-khia.md",
+     "status":"draft"
   },
   {
     "id": "1740221644317",
@@ -128,7 +134,8 @@
     "image": "/assets/uploads/canh-ga-chien-nuoc-mam.jpg",
     "featured": "true",
     "slug": "canh-ga-chien-nuoc-mam",
-    "filename": "canh-ga-chien-nuoc-mam.md"
+    "filename": "canh-ga-chien-nuoc-mam.md",
+    "status": "published"
   },
   {
     "id": "1740223212199",
@@ -145,6 +152,7 @@
     "image": "/assets/uploads/thit-kho-tieu.jpg",
     "featured": "true",
     "slug": "thit-kho-tieu",
-    "filename": "thit-kho-tieu.md"
+    "filename": "thit-kho-tieu.md",
+     "status":"draft"
   }
 ]
