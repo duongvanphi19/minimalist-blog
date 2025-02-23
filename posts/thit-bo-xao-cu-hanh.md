@@ -2,11 +2,11 @@
 id: "1740134845777"
 title: "Cách Làm Thịt Bò Xào Củ Hành - Mềm Ngọt, Đậm Đà"
 date: "2025-02-21"
-author: "Ad"
+author: "Admin"
 description: "Công thức làm thịt bò xào củ hành đơn giản, nhanh gọn nhưng vẫn thơm ngon, hấp dẫn."
 tags: ["Ẩm thực","Món Xào","Thịt Bò","Công Thức Nấu Ăn"]
 image: "/assets/uploads/bo-xao-cu-hanh.jpg"
-featured: "true"
+featured: "false"
 slug: "thit-bo-xao-cu-hanh"
 filename: "thit-bo-xao-cu-hanh.md"
 status: "published"
