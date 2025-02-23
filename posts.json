@@ -1,20 +1,15 @@
 [
   {
-    "id": "1740134845777",
-    "title": "Cách Làm Thịt Bò Xào Củ Hành - Mềm Ngọt, Đậm Đà",
-    "date": "2025-02-21",
-    "author": "Ad",
-    "description": "Công thức làm thịt bò xào củ hành đơn giản, nhanh gọn nhưng vẫn thơm ngon, hấp dẫn.",
-    "tags": [
-      "Ẩm thực",
-      "Món Xào",
-      "Thịt Bò",
-      "Công Thức Nấu Ăn"
-    ],
-    "image": "/assets/uploads/bo-xao-cu-hanh.jpg",
-    "featured": "true",
-    "slug": "thit-bo-xao-cu-hanh",
-    "filename": "thit-bo-xao-cu-hanh.md",
-    "status": "published"
+    "id": "1740292265937",
+    "title": "new",
+    "date": "2025-02-23",
+    "author": "",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [],
+    "image": "/assets/uploads/sample.jpg",
+    "featured": "false",
+    "slug": "new",
+    "filename": "new.md",
+    "status": "draft"
   }
 ]
