@@ -9,7 +9,7 @@ image: "/assets/uploads/bo-xao-cu-hanh.jpg"
 featured: "false"
 slug: "thit-bo-xao-cu-hanh"
 filename: "thit-bo-xao-cu-hanh.md"
-status: "published"
+status: "draft"
 ---
 # 🥩 Cách Làm Thịt Bò Xào Củ Hành - Mềm Ngọt, Đậm Đà  
 
