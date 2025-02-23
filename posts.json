@@ -83,5 +83,23 @@
     "slug": "thit-bo-xao-cu-hanh",
     "filename": "thit-bo-xao-cu-hanh.md",
     "status": "published"
+  },
+  {
+    "id": "1740140260173",
+    "title": "Cách Nấu Canh Trứng Cà Chua (Canh Mây) - Đơn Giản, Thanh Mát",
+    "date": "2025-02-21",
+    "author": "Admin",
+    "description": "Công thức nấu canh trứng cà chua (canh mây) thơm ngon, dễ làm, phù hợp cho mọi bữa ăn.",
+    "tags": [
+      "Ẩm thực",
+      "Món Canh",
+      "Canh Trứng",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/canh-trung-ca-chua.jpeg",
+    "featured": "false",
+    "slug": "canh-trung-ca-chua",
+    "filename": "canh-trung-ca-chua.md",
+    "status": "published"
   }
 ]
