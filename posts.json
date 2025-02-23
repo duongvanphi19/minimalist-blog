@@ -1,20 +1,15 @@
 [
   {
-    "id": "1740293211635",
-    "title": "Cách Nấu Canh Bầu Hột Vịt Lộn - Dân Dã Mà Bổ Dưỡng",
-    "date": "2025-02-21",
-    "author": "Admin",
-    "description": "Hướng dẫn cách nấu canh bầu hột vịt lộn thơm ngon, bổ dưỡng với công thức đơn giản.",
-    "tags": [
-      "Ẩm thực",
-      "Món Canh",
-      "Hột Vịt Lộn",
-      "Công Thức Nấu Ăn"
-    ],
-    "image": "/assets/uploads/canh-bau-hot-vit-lon.jpg",
-    "featured": "true",
-    "slug": "canh-bau-hot-vit-lon",
-    "filename": "canh-bau-hot-vit-lon.md",
+    "id": "1740293259414",
+    "title": "new",
+    "date": "2025-02-23",
+    "author": "",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [],
+    "image": "/assets/uploads/sample.jpg",
+    "featured": "false",
+    "slug": "new",
+    "filename": "new.md",
     "status": "published"
   }
 ]
