@@ -62,7 +62,7 @@ Tính - Hòa
 
 --- 
 
-## ⛺ 3D3N
+## ⛺ Lịch trình
 > *20h xe có mặt*
 > *2h30 khởi hành*
 
