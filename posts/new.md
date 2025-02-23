@@ -1,9 +1,9 @@
 ---
-id: "1740292651343"
+id: "1740293259414"
 title: "new"
 date: "2025-02-23"
 author: ""
-description: "Lohhrem ipsum dolor sit atmet"
+description: "Lorem ipsum dolor sit atmet"
 tags: []
 image: "/assets/uploads/sample.jpg"
 featured: "false"
