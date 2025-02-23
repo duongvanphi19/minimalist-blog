@@ -1,7 +1,7 @@
 [
   {
-    "id": "1740292265937",
-    "title": "new",
+    "id": "1740292305954",
+    "title": "new 1",
     "date": "2025-02-23",
     "author": "",
     "description": "Lorem ipsum dolor sit atmet",
@@ -10,6 +10,6 @@
     "featured": "false",
     "slug": "new",
     "filename": "new.md",
-    "status": "draft"
+    "status": "published"
   }
 ]
