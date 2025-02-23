@@ -1,20 +1,20 @@
 [
   {
-    "id": "1740211409335",
-    "title": "Cách Làm Bún Thịt Khìa - Đậm Đà, Chuẩn Vị Miền Tây",
-    "date": "2025-02-22",
+    "id": "1740127294945",
+    "title": "Cách Nấu Canh Bầu Hột Vịt Lộn - Dân Dã Mà Bổ Dưỡng",
+    "date": "2025-02-21",
     "author": "Admin",
-    "description": "Hướng dẫn làm món bún thịt khìa ngon chuẩn vị miền Tây, với thịt mềm, đậm đà ăn kèm nước chấm chua ngọt.",
+    "description": "Hướng dẫn cách nấu canh bầu hột vịt lộn thơm ngon, bổ dưỡng với công thức đơn giản.",
     "tags": [
       "Ẩm thực",
-      "Món Nước",
-      "Thịt Heo",
+      "Món Canh",
+      "Hột Vịt Lộn",
       "Công Thức Nấu Ăn"
     ],
-    "image": "/assets/uploads/bun-thit-khia.jpg",
+    "image": "/assets/uploads/canh-bau-hot-vit-lon.jpg",
     "featured": "true",
-    "slug": "bun-thit-khia",
-    "filename": "bun-thit-khia.md",
+    "slug": "canh-bau-hot-vit-lon",
+    "filename": "canh-bau-hot-vit-lon.md",
     "status": "published"
   }
 ]
