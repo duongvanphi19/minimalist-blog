@@ -24,13 +24,13 @@ status: "published"
 ### 🚗 Sắp xe
 
 #### 👈 Hàng trái
-1.Thúy 1_- Ý
+1.Thúy 1 - Ý
 2. Lài - Vy
 3. Tuyền 2 - Linh
 4. Đào - Ngân
-5. Thiệu mai
+5. Thiệu - Mai
 6. Tuyền 1 - Thư
-7. Thúy - Tiên
+7. Thúy 2 - Tiên
 8. Nhi - Ngà
 9. Phi - An
 10.Luận - Hào - Đại - Duy
@@ -91,6 +91,8 @@ Tính - Hòa
 ###  Ngày thứ 3
 #### 🌲Chợ Đà Lạt 🌲
 *Outfit 4:*
+
+--- 
 
 ### 📛 Lưu ý 
 - Nhớ mang điện thoại ☎
