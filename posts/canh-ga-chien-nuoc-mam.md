@@ -9,6 +9,7 @@ image: "/assets/uploads/canh-ga-chien-nuoc-mam.jpg"
 featured: "true"
 slug: "canh-ga-chien-nuoc-mam"
 filename: "canh-ga-chien-nuoc-mam.md"
+status: "published"
 ---
 # 🍗 Cách Làm Cánh Gà Chiên Nước Mắm - Giòn Rụm, Đậm Đà  
 
