@@ -9,7 +9,7 @@ image: "/assets/uploads/bun-thit-khia.jpg"
 featured: "true"
 slug: "bun-thit-khia"
 filename: "bun-thit-khia.md"
-status: "published"
+status: "draft"
 ---
 # 🍜 Cách Làm Bún Thịt Khìa - Đậm Đà, Chuẩn Vị Miền Tây  
 
