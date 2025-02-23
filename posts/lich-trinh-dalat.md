@@ -11,13 +11,13 @@ slug: "lich-trinh-dalat"
 filename: "lich-trinh-dalat.md"
 status: "published"
 ---
-## Sáng
-- sáng: vp
-- trưa: về
+> ## Sáng
+> - sáng: vp
+> - trưa: về
 
-## Xe 
-- gửi xe ở kho: nhận **18h - 19h45** *(2ng/chiếc)*
--> 19h30 **có mặt tại vp** 
+> ## Xe 
+> - gửi xe ở kho: nhận **18h - 19h45** *(2ng/chiếc)*
+> -> 19h30 **có mặt tại vp** 
 
 ## 🗓 Lịch trình
 
@@ -70,16 +70,16 @@ Tính - Hòa
 
 --- 
 
-### Ngày đầu tiên 
-#### Sáng (Thiền Viện Trúc Lâm, Thác, Dinh Bảo Đại) 
+### 1️⃣ Ngày đầu tiên 
+#### Sáng: (Thiền Viện Trúc Lâm, Thác, Dinh Bảo Đại) 
 *Outift 1:* cả ngày
 
-#### Tối ...
+#### Tối: Chợ đêm
 *Outfit 2:*
 
 ---
 
-### Ngày thứ 2 
+### 2️⃣ Ngày thứ 2 
 #### Sáng: Chùa ve chai
 
 #### Tối: **Gala Dinner** 🎇
@@ -88,13 +88,13 @@ Tính - Hòa
 --- 
 
 
-###  Ngày thứ 3
-#### 🌲Chợ Đà Lạt 🌲
+###  3️⃣ Ngày thứ 3
+#### 🌲 Sáng: Chợ Đà Lạt 🌲
 *Outfit 4:*
 
 --- 
 
-### 📛 Lưu ý 
+## 📛 *Lưu ý*
 - Nhớ mang điện thoại ☎
 - Sạc, sạc dự phòng 🔋
 - Tiền mặt 💵
