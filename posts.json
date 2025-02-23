@@ -188,5 +188,18 @@
     "slug": "markdown",
     "filename": "markdown.md",
     "status": "draft"
+  },
+  {
+    "id": "1740310763476",
+    "title": "Lịch trình Đà Lạt",
+    "date": "2025-02-23",
+    "author": "",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [],
+    "image": "/assets/uploads/dalat.jpg",
+    "featured": "true",
+    "slug": "lich-trinh-dalat",
+    "filename": "lich-trinh-dalat.md",
+    "status": "published"
   }
 ]
