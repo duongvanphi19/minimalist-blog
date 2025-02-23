@@ -1,3 +1,5 @@
+
+
 document.getElementById("imageUpload").addEventListener("change", function (event) {
     const file = event.target.files[0];
 
@@ -243,23 +245,56 @@ Nội dung bài viết tại đây...
 }
 
 // 📝 Tải danh sách bài viết từ GitHub
+
 async function loadPosts() {
   
-    const response = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts`);
+    const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
+    //const url = '/.netlify/functions/savePost';
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
+
+    // 🛑 Lấy nội dung hiện tại của `posts.json`
+    const response = await fetch(postsFile, { headers: { Authorization: token } });
+
     if (!response.ok) {
-        console.error("Không thể tải danh sách bài viết.");
+        log("⛔ Lỗi khi tải `posts.json`!");
         return;
     }
-    //console.log(response)
-    const posts = await response.json();
-    const blogList = document.getElementById("blog-list");
+    let postsData = await response.json();
+    let posts =[];
+    //log(decodeBase64(postsData.content))
     
-    posts.forEach(post => {
-        const postItem = document.createElement("div");
-        postItem.innerHTML = `<a href="#editHere" onclick="editPost('${post.name}')">${post.name}</a>`;
-        blogList.appendChild(postItem);
-    });
+    try{ 
+      posts = JSON.parse(decodeBase64(postsData.content));
+    //console.log('decodeBase64 postsData ok')
+    }catch(e){
+      console.log(e)
+    }
+    console.log(posts)
+    filterPosts(posts, "all");
+    document.querySelectorAll("input[name='filter']").forEach(radio => {
+            radio.addEventListener("change", (e) => {
+                filterPosts(posts,e.target.value);
+            });       
+}); 
+    
 }
+
+
+function filterPosts(posts, status) {
+      log(typeof posts)
+            const filteredPosts = status === "all" ? posts : posts.filter(post => post.status === status);
+          
+           //console.log(filteredPosts)
+           const postList = document.getElementById("blog-list");
+        postList.innerHTML = "";
+        filteredPosts.forEach(post => {
+        const postItem = document.createElement("div");
+        
+        postItem.innerHTML = `<span style="margin-right:6px;">${post.status === "published" ? '✅' : '⬜'}</span><a href="#editHere" onclick="editPost('${post.filename}')">${post.filename}</a>`;
+        postList.appendChild(postItem);
+    });
+        }
+        
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
@@ -376,7 +411,7 @@ image: "${metadata.image}"
 featured: "${metadata.featured}"
 slug: "${metadata.slug}"
 filename: "${metadata.slug}.md"
-status: "published"
+status: "${metadata.status}"
 ---
 ${content}`;
 
@@ -409,7 +444,6 @@ ${content}`;
         alert("⛔ Lỗi khi lưu bài viết.");
     }
 }
-
 async function updatePostsJson(filename, metadata) {
     const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
     //const url = '/.netlify/functions/savePost';

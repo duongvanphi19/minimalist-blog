@@ -17,8 +17,15 @@
         <aside class="sidebar">
             <h2>Danh sách bài viết</h2>
             </br>
-            <button style="margin-bottom: 10px" class="btn" id="newPostButton">+</button>
+            <button style="margin-bottom: 10px" class="btn save-btn" id="newPostButton">+</button>
             </br>
+                <!-- Bộ lọc -->
+    <div class="filter-container">
+    <label><input type="radio" name="filter" value="all" checked> Tất cả</label>
+    <label><input type="radio" name="filter" value="published"> Published</label>
+    <label><input type="radio" name="filter" value="draft"> Draft</label>
+    </div>
+     </br>
             <div id="blog-list"></div>
         </aside>
         
@@ -73,3 +80,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
