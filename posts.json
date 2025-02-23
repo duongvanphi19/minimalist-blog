@@ -1,15 +1,15 @@
 [
   {
-    "id": "1740292305954",
-    "title": "new 1",
+    "id": "1740292265937",
+    "title": "new",
     "date": "2025-02-23",
     "author": "",
     "description": "Lorem ipsum dolor sit atmet",
     "tags": [],
     "image": "/assets/uploads/sample.jpg",
     "featured": "false",
-    "slug": "new",
+    "slug": "nnnew",
     "filename": "new.md",
-    "status": "published"
+    "status": "draft"
   }
 ]
