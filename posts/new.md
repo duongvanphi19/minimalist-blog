@@ -1,5 +1,5 @@
 ---
-id: "1740293259414"
+id: "1740301553109"
 title: "new"
 date: "2025-02-23"
 author: ""
@@ -9,6 +9,6 @@ image: "/assets/uploads/sample.jpg"
 featured: "false"
 slug: "new"
 filename: "new.md"
-status: "draft"
+status: "published"
 ---
 Nội dung bài viết tại đây...
