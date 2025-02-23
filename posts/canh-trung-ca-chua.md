@@ -9,7 +9,7 @@ image: "/assets/uploads/canh-trung-ca-chua.jpeg"
 featured: "false"
 slug: "canh-trung-ca-chua"
 filename: "canh-trung-ca-chua.md"
-status: "published"
+status: "draft"
 ---
 >**Canh trứng cà chua** (hay còn gọi là **canh mây**) là món ăn phổ biến trong bữa cơm gia đình. Vị chua nhẹ của cà chua kết hợp với trứng gà bông xốp tạo nên hương vị thanh mát, dễ ăn, cực kỳ nhanh gọn mà vẫn đầy đủ dinh dưỡng.  
 
