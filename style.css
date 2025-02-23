@@ -598,9 +598,9 @@ blockquote {
     z-index: 9999;
   }
   .toast {
-    background: #333;
+    background: #676767;
     color: #fff;
-    padding: 10px 15px;
+    padding: 8px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     animation: fadeInOut 5s ease-in-out;
@@ -627,4 +627,11 @@ blockquote {
 
 #post-toc a:hover {
   text-decoration: underline;
+}
+
+.error{
+  background: #dc4040;
+}
+.success{
+  background: #2eb872;
 }

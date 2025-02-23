@@ -281,7 +281,7 @@ async function loadPosts() {
 
 
 function filterPosts(posts, status) {
-      log(typeof posts)
+     
             const filteredPosts = status === "all" ? posts : posts.filter(post => post.status === status);
           
            //console.log(filteredPosts)
@@ -432,7 +432,7 @@ ${content}`;
         body: JSON.stringify(data)
     });
     if (response.ok) {
-        log(`✅ ${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`);
+        log(`✅ ${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`,"success");
         document.getElementById("markdownEditor").value = newContent;
         console.log(newContent)
         try {
@@ -496,17 +496,17 @@ async function updatePostsJson(filename, metadata) {
       if (JSON.stringify(posts[index]) !== JSON.stringify(metadata) )//co thay doi
       {
         posts[index] = metadata;
-        log("✅ `posts.json` đã được cập nhật!");
+        log("✅ `posts.json` đã được cập nhật!", "success")
       }
       else{ //
-        log("✅ `posts.json` không cần cập nhật!");
+        log(" `posts.json` không cần cập nhật!")
         return;
       }
     }
     else{ 
       
       // bai viet chua ton tai
-        log("📂 Đang thêm bài viết moi vào `posts.json`...");
+        log("📂 Đang thêm bài viết moi vào `posts.json`...", "success");
         posts.push(metadata);
         
         console.log("newItem", metadata)
@@ -572,35 +572,20 @@ function updatePreview(){
   document.getElementById("previewContent").innerHTML = marked.parse(FrontMatter(markdownText));
 }
 // Hiển thị Editor + Xem trước khi chỉnh sửa bài viết
-function lLog(message){
-    // Tạo một box thông báo lỗi trong giao diện Acode
-    const errorBox = document.createElement("div");
-    errorBox.style.position = "fixed";
-    errorBox.style.bottom = "10px";
-    errorBox.style.left = "10px";
-    errorBox.style.right = "10px";
-    errorBox.style.padding = "10px";
-    errorBox.style.background = "#483746";
-    errorBox.style.color = "white";
-    errorBox.style.fontSize = "14px";
-    errorBox.style.borderRadius = "5px";
-    errorBox.style.zIndex = "10000";
-    errorBox.style.opacity= "95%";
-    errorBox.textContent = `${message}`;
-    document.body.appendChild(errorBox);
 
-    // Tự động ẩn box lỗi sau 5 giây
-    setTimeout(() => {
-        errorBox.remove();
-    }, 5000);
-};
-
-function log(message) {
+function log(message, type="") {
   const toastContainer = document.getElementById("toast-container");
   const toast = document.createElement("div");
-
-  toast.className = "toast";
-  toast.innerText = message;
+  toast.className = `toast ${type}`;
+  if(type === "error"){
+  toast.innerText = `⛔ ${message}`;
+  }
+  else if (type === "success"){
+  toast.innerText = `✅ ${message}`;
+  }
+  else{
+  toast.innerText = `ℹ️ ${message}`;
+  }
 
   toastContainer.appendChild(toast);
 
@@ -609,5 +594,7 @@ function log(message) {
     setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
   }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
-//log("box-shadow: 0 2px 5px rgba(0,0,0,0.1);")
+//log("box-sh adow: 0 2px 5px ,0,0.1);", "error")
+//log("box-sh adow: 0 2px 5px ,0,0.1);", "success")
+//log("box-sh adow: 0 2px 5px ,0,0.1);", "")
 

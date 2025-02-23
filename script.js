@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", async function () {
           if(post.tags &&  Array.isArray(post.tags))
           {post.tags.forEach(tag => uniqueTags.add(tag))}
         });
-         log('uniqueTags', uniqueTags)
+         //log('uniqueTags', uniqueTags)
         // 🔹 Thêm danh mục vào dropdown filter
         uniqueTags.forEach(tag => {
             const option = document.createElement("option");
@@ -282,7 +282,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <h2><a href="post.html?post=${post.slug}">${post.title}</a></h2>
                 <p><strong>Ngày đăng:</strong> ${post.date}</p>
                 <p>${post.description}</p>
-                <p><strong>Danh mục:</strong> ${post.tags}</p>
             </article>
         `).join("");
     }
@@ -312,35 +311,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     categoryFilter.addEventListener("change", filterPosts);
 });
 
-function lll9log(message){
-    // Tạo một box thông báo lỗi trong giao diện Acode
-    const errorBox = document.createElement("div");
-    errorBox.style.position = "fixed";
-    errorBox.style.bottom = "10px";
-    errorBox.style.left = "10px";
-    errorBox.style.right = "10px";
-    errorBox.style.padding = "10px";
-    errorBox.style.background = "#483746";
-    errorBox.style.color = "white";
-    errorBox.style.fontSize = "14px";
-    errorBox.style.borderRadius = "5px";
-    errorBox.style.zIndex = "10000";
-    errorBox.style.opacity= "95%";
-    errorBox.textContent = `${message}`;
-    document.body.appendChild(errorBox);
-
-    // Tự động ẩn box lỗi sau 5 giây
-    setTimeout(() => {
-        errorBox.remove();
-    }, 5000);
-};
-
-function log(message) {
+function log(message, type="") {
   const toastContainer = document.getElementById("toast-container");
   const toast = document.createElement("div");
-
-  toast.className = "toast";
-  toast.innerText = message;
+  toast.className = `toast ${type}`;
+  if(type === "error"){
+  toast.innerText = `⛔ ${message}`;
+  }
+  else if (type === "success"){
+  toast.innerText = `✅ ${message}`;
+  }
+  else{
+  toast.innerText = `ℹ️ ${message}`;
+  }
 
   toastContainer.appendChild(toast);
 
@@ -350,5 +333,9 @@ function log(message) {
   }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
 
-log('Welcome!')
+
+//log('Welcome!')
+//log('Welcome!', "error")
+//log('Welcome!', "success")
+
 
