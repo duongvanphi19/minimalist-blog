@@ -1,6 +1,6 @@
 ---
-id: "1740292458719"
-title: "nbbbbew"
+id: "1740292630637"
+title: "new"
 date: "2025-02-23"
 author: ""
 description: "Lorem ipsum dolor sit atmet"
