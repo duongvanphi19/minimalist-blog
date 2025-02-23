@@ -3,7 +3,7 @@ id: "1740301553109"
 title: "new"
 date: "2025-02-23"
 author: ""
-description: "Lorem ipsum dolor sit atmet"
+description: "Lorem ipsum bbbbbdolor sit atmet"
 tags: []
 image: "/assets/uploads/sample.jpg"
 featured: "false"
