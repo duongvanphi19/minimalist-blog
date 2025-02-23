@@ -11,4 +11,4 @@ slug: "new1"
 filename: "new1.md"
 status: "draft"
 ---
-Nội dung bài viết tại đây...
+Nội dung
