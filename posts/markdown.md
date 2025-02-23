@@ -9,7 +9,7 @@ image: "/assets/uploads/sample.jpg"
 featured: "false"
 slug: "markdown"
 filename: "markdown.md"
-status: "published"
+status: "draft"
 ---
 # Markdown example 🖊
 
