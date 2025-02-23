@@ -9,7 +9,7 @@ image: "/assets/uploads/thit-kho-tieu.jpg"
 featured: "true"
 slug: "thit-kho-tieu"
 filename: "thit-kho-tieu.md"
-status: "published"
+status: "draft"
 ---
 # 🍖 Cách Làm Thịt Kho Tiêu - Đậm Đà, Béo Ngậy  
 
