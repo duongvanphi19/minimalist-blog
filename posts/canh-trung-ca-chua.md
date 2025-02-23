@@ -6,7 +6,7 @@ author: "Admin"
 description: "Công thức nấu canh trứng cà chua (canh mây) thơm ngon, dễ làm, phù hợp cho mọi bữa ăn."
 tags: ["Ẩm thực","Món Canh","Canh Trứng","Công Thức Nấu Ăn"]
 image: "/assets/uploads/canh-trung-ca-chua.jpeg"
-featured: "true"
+featured: "false"
 slug: "canh-trung-ca-chua"
 filename: "canh-trung-ca-chua.md"
 status: "published"
