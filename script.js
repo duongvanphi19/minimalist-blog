@@ -257,14 +257,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     // 🔹 Hiển thị bài viết nổi bật
         const featuredPosts = posts.filter(post => post.featured);
-        if (featuredPosts.length > 0) {
-            featuredList.innerHTML = featuredPosts.map(post => `
+        log("featured")
+        if (featuredPosts.length > 0){featuredList.innerHTML = featuredPosts.map(post => `
                 <article class="featured">
-                    <img src="${post.image}" alt="${post.title}"/>
-                    <h3><a href="post.html?post=${post.slug}">${post.title}</a></h3>
-                    <p>${post.description}</p>
+                    <img class="skeleton skeleton-image lazy" data-src="${post.image}" alt="${post.title}"/>
+                    <h3 class=""><a href="post.html?post=${post.slug}">${post.title}</a></h3>
+                    <p >${post.description}</p>
                 </article>
             `).join("");
+            
+            
+            
+        
         } else {
             featuredList.innerHTML = "<p>Chưa có bài viết nổi bật.</p>";
         }
@@ -309,6 +313,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // 🔹 Xử lý lọc theo danh mục
     categoryFilter.addEventListener("change", filterPosts);
+    
+    lazyLoadImages();
 });
 
 function log(message, type="") {
@@ -338,4 +344,23 @@ function log(message, type="") {
 //log('Welcome!', "error")
 //log('Welcome!', "success")
 
+
+function lazyLoadImages() {
+    const lazyImages = document.querySelectorAll('.lazy');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove("lazy");
+                img.classList.remove("skeleton");
+                observer.unobserve(img);
+                //console.log(img.src)
+            }
+        });
+    });
+
+    lazyImages.forEach(img => observer.observe(img));
+}
 

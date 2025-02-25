@@ -594,7 +594,7 @@ function log(message, type="") {
     setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
   }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
-//log("box-sh adow: 0 2px 5px ,0,0.1);", "error")
-//log("box-sh adow: 0 2px 5px ,0,0.1);", "success")
-//log("box-sh adow: 0 2px 5px ,0,0.1);", "")
+log("box-sh adow: 0 2px 5px ,0,0.1);", "error")
+log("box-sh adow: 0 2px 5px ,0,0.1);", "success")
+log("box-sh adow: 0 2px 5px ,0,0.1);", "")
 
