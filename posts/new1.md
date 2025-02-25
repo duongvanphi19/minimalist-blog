@@ -9,6 +9,6 @@ image: "/assets/uploads/sample.jpg"
 featured: "false"
 slug: "new1"
 filename: "new1.md"
-status: "draft"
+status: "published"
 ---
 Nội dung bài viết tại đây...
