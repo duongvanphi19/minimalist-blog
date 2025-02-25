@@ -6,7 +6,7 @@ author: "Admin"
 description: "Hướng dẫn cách làm cánh gà chiên nước mắm giòn rụm, thơm ngon, đậm đà đưa cơm."
 tags: ["Ẩm thực","Món Chiên","Gà","Công Thức Nấu Ăn"]
 image: "/assets/uploads/canh-ga-chien-nuoc-mam.jpg"
-featured: "true"
+featured: "false"
 slug: "canh-ga-chien-nuoc-mam"
 filename: "canh-ga-chien-nuoc-mam.md"
 status: "published"
