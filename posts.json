@@ -146,9 +146,9 @@
     "tags": [],
     "image": "/assets/uploads/sample.jpg",
     "featured": "false",
-    "slug": "new1",
-    "filename": "new1.md",
-    "status": "published"
+    "slug": "new",
+    "filename": "new.md",
+    "status": "draft"
   },
   {
     "id": "1740301553109",
