@@ -7,8 +7,8 @@ description: "Danh sách tủ đồ cập nhật mới nhất."
 tags: ["smart casual","thời trang","tủ đồ"]
 image: "/assets/uploads/wardrobe.jpg"
 featured: "false"
-slug: "danh-sach-tu-do"
-filename: "danh-sach-tu-do.md"
+slug: "tu-do"
+filename: "tu-do.md"
 status: "draft"
 ---
 # 🛍 Danh sách tủ đồ của tôi (Cập nhật mới nhất)
