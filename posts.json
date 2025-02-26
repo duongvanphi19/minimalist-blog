@@ -253,5 +253,18 @@
     "slug": "new1",
     "filename": "new1.md",
     "status": "draft"
+  },
+  {
+    "id": "1740565407790",
+    "title": "new",
+    "date": "2025-02-26",
+    "author": "",
+    "description": "Lorem ipsum dolor sit atmet",
+    "tags": [],
+    "image": "/assets/uploads/sample.jpg",
+    "featured": "false",
+    "slug": "a1",
+    "filename": "a1.md",
+    "status": "published"
   }
 ]
