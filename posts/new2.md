@@ -7,8 +7,8 @@ description: "Lorem ipsum dolor sit atmet"
 tags: []
 image: "/assets/uploads/sample.jpg"
 featured: "false"
-slug: "new2"
-filename: "new2.md"
-status: "published"
+slug: "newnew"
+filename: "newnew.md"
+status: "draft"
 ---
-Nội dung bài viết tại đây...
+đã update
