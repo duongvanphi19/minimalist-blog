@@ -1,4 +1,6 @@
-
+const deleteBtn = document.getElementById("deletePostBtn");
+    deleteBtn.style.display = "none"; // Ẩn nút xóa mặc định
+    deleteBtn.addEventListener("click", deletePost)
 
 document.getElementById("imageUpload").addEventListener("change", function (event) {
     const file = event.target.files[0];
@@ -100,7 +102,7 @@ async function uploadImage() {
   const fileInput = document.getElementById("imageUpload");
   const file = fileInput.files[0];
   if (!file) {
-    log("❌ Vui lòng chọn một ảnh!");
+    log("Vui lòng chọn một ảnh!", "error");
     return;
   }
   
@@ -163,7 +165,7 @@ async function uploadImage() {
       const absoluteUrl = result.content.download_url;
       // Đường dẫn tương đối giả định là phần sau dấu "repos/<repo>/contents"
       const relativeUrl = `/${filename}`;
-      log("✅ Ảnh đã được upload thành công!");
+      log("Ảnh đã được upload thành công!");
       // Hiển thị đường dẫn để người dùng copy
       document.getElementById("uploadPaths").innerHTML = `
         <h3><strong>Path:</strong></h3>
@@ -216,7 +218,7 @@ function generateID(){
 }
 
 function newPost() {
-    const title = "new";
+    const title = prompt("nhap title")
 
     const slug = createSlug(title);
     const content = `---
@@ -256,7 +258,7 @@ async function loadPosts() {
     const response = await fetch(postsFile, { headers: { Authorization: token } });
 
     if (!response.ok) {
-        log("⛔ Lỗi khi tải `posts.json`!");
+        log("Lỗi khi tải `posts.json`!");
         return;
     }
     let postsData = await response.json();
@@ -369,6 +371,7 @@ async function editPost(filename, newContent=null) {
     updatePreview();
     document.getElementById("editor").style.display = "block";
     document.getElementById("saveButton").onclick = () => savePost();
+    document.getElementById("deletePostBtn").style.display = "block"
 }
 
 function encodeBase64(str) {
@@ -383,23 +386,37 @@ async function savePost() {
     function encodeBase64(str) {
         return btoa(unescape(encodeURIComponent(str)));
     }
-    const markdown = document.getElementById("markdownEditor").value
+
+    const markdown = document.getElementById("markdownEditor").value;
     const { metadata, content } = extractMetadata(markdown);
-    filename = metadata.slug + ".md"
-    //sua metadata 
-    // Nếu chưa có id, tạo mới
+    
     if (!metadata.id) {
         metadata.id = generateID();
     }
-    //metadata.filename=filename
-    // Lưu toàn bộ nội dung sau YAML vào metadata.body để so sánh
-    //metadata.body = content;
-    
-    const getFileResponse = await fetch(`https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`);
-    const fileExists = getFileResponse.ok;
-    const sha = fileExists ? (await getFileResponse.json()).sha : undefined;
 
-    // Sửa lỗi extra double quote ở dòng description
+    const filename = metadata.slug + ".md";
+    const fileUrl = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+
+    let sha = null;
+    let fileExists = false;
+
+    try {
+        // 🛑 Lấy thông tin file hiện tại
+        const getFileResponse = await fetch(fileUrl, {
+            headers: { Authorization: `${token}` }
+        });
+
+        if (getFileResponse.ok) {
+            const fileData = await getFileResponse.json();
+            sha = fileData.sha; // Lấy SHA nếu file đã tồn tại
+            fileExists = true;
+        }
+    } catch (error) {
+        console.error("❌ Lỗi khi kiểm tra file trên GitHub:", error);
+    }
+
+    // 🛑 Tạo nội dung Markdown mới
     const newContent = `---
 id: "${metadata.id}"
 title: "${metadata.title}"
@@ -410,115 +427,112 @@ tags: ${JSON.stringify(metadata.tags)}
 image: "${metadata.image}"
 featured: "${metadata.featured}"
 slug: "${metadata.slug}"
-filename: "${metadata.slug}.md"
+filename: "${filename}"
 status: "${metadata.status}"
 ---
 ${content}`;
 
+    // 🛑 Chuẩn bị dữ liệu cập nhật
     const data = {
         message: fileExists ? "Cập nhật bài viết" : "Tạo bài viết mới",
         content: encodeBase64(newContent),
-        sha: sha
+        ...(fileExists && { sha }) // Chỉ gửi `sha` nếu file đã tồn tại
     };
 
-    const url = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
+    try {
+        // 🛑 Gửi yêu cầu cập nhật hoặc tạo mới file
+        const response = await fetch(fileUrl, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            log(`${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`, "success");
+            document.getElementById("markdownEditor").value = newContent;
+
+            // 🛑 Cập nhật `posts.json`
+            try {
+                await updatePostsJson(filename, metadata);
+            } catch (error) {
+                console.error("Lỗi khi cập nhật `posts.json`:", error);
+            }
+        } else {
+            const errorResponse = await response.json();
+            log(`Lỗi khi lưu bài viết: ${errorResponse.message}`, "error");
+        }
+    } catch (error) {
+        log(" Lỗi khi gửi yêu cầu đến GitHub!", "error");
+        console.error("Lỗi khi lưu bài viết:", error);
+    }
+}
+
+// 🛑 Hàm kiểm tra file có tồn tại trên GitHub không
+async function checkFileExists(filename) {
+    const fileUrl = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
     const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
-    const response = await fetch(url, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": token
-        },
-        body: JSON.stringify(data)
-    });
-    if (response.ok) {
-        log(`✅ ${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`,"success");
-        document.getElementById("markdownEditor").value = newContent;
-        console.log(newContent)
-        try {
-            await updatePostsJson(filename, metadata);
-        } catch (e) {
-            console.log(e);
-        }
-    } else {
-        alert("⛔ Lỗi khi lưu bài viết.");
+
+    try {
+        const response = await fetch(fileUrl, {
+            headers: { Authorization: token}
+        });
+        return response.ok; // Trả về `true` nếu file tồn tại, `false` nếu không
+    } catch (error) {
+        console.error("Lỗi khi kiểm tra file trên GitHub:", error);
+        return false;
     }
 }
+
 async function updatePostsJson(filename, metadata) {
-    const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
-    //const url = '/.netlify/functions/savePost';
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
+    const postsFile = "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
 
-    // 🛑 Lấy nội dung hiện tại của `posts.json`
-    const response = await fetch(postsFile, { headers: { Authorization: token } });
+    try {
+        // 🛑 Lấy nội dung hiện tại của `posts.json`
+        const response = await fetch(postsFile, { headers: { Authorization: token } });
 
-    if (!response.ok) {
-        log("⛔ Lỗi khi tải `posts.json`!");
-        return;
-    }
-    
-    
-    const postsData = await response.json();
-    //console.log("postsData", postsData.content)
-    
-    let posts =[];
-    //log(decodeBase64(postsData.content))
-    
-    try{ 
-      posts = JSON.parse(decodeBase64(postsData.content));
-    //console.log('decodeBase64 postsData ok')
-    }catch(e){
-      console.log(e)
-    }
-    //console.log('posts', posts);
-    // 🛑 Kiểm tra xem bài viết đã có trong danh sách chưa
-    const newItem = {
-            id: metadata.id,
-            title: metadata.title,
-            date: metadata.date,
-            author: metadata.author,
-            description: metadata.description,
-            tags: metadata.tags,
-            image: metadata.image,
-            slug: metadata.slug,
-            filename: metadata.filename,
-            featured: metadata.featured,
-            status: metadata.status
+        if (!response.ok) {
+            log("Lỗi khi tải `posts.json`!", "error");
+            return;
         }
-    //console.log(JSON.stringify(posts, null,2));
-    const exists = posts.some(post => post.id === metadata.id);
-    const index = posts.findIndex(post => post.id === metadata.id)
-    
 
-    //console.log(posts[0].filename, newItem.filename)
-    
-    if (exists && metadata.slug === posts[index].slug) { //can cap nhat
-      if (JSON.stringify(posts[index]) !== JSON.stringify(metadata) )//co thay doi
-      {
-        posts[index] = metadata;
-        log("✅ `posts.json` đã được cập nhật!", "success")
-      }
-      else{ //
-        log(" `posts.json` không cần cập nhật!")
-        return;
-      }
-    }
-    else{ 
-      
-      // bai viet chua ton tai
-        log("📂 Đang thêm bài viết moi vào `posts.json`...", "success");
-        posts.push(metadata);
-        
-        console.log("newItem", metadata)
-        console.log('posts', posts);
-        //posts.push(newItem);
-        
-}
+        const postsData = await response.json();
+        let posts = [];
+
+        // Kiểm tra nội dung có hợp lệ trước khi parse
+        if (postsData.content) {
+            try {
+                posts = JSON.parse(decodeBase64(postsData.content));
+            } catch (e) {
+                log("Lỗi khi parse JSON!", "error");
+                return;
+            }
+        }
+
+        // 🛑 Kiểm tra bài viết
+        const index = posts.findIndex(post => post.id === metadata.id);
+        const exists = index !== -1;
+
+        if (exists) {
+            if (JSON.stringify(posts[index]) !== JSON.stringify(metadata)) {
+                posts[index] = metadata;
+                log("Cập nhật bài viết trong `posts.json`!", "success");
+            } else {
+                log("Không có thay đổi, không cập nhật.");
+                return;
+            }
+        } else {
+            log("Thêm bài viết mới vào `posts.json`!", "success");
+            posts.push(metadata);
+        }
+
+        // ✅ Mã hóa JSON & cập nhật lên GitHub
         const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
-        //console.log("updatedPosts", updatedPosts)
-        
-        // ✅ Cập nhật `posts.json` trên GitHub
-        await fetch(postsFile, {
+
+        const updateResponse = await fetch(postsFile, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -531,10 +545,15 @@ async function updatePostsJson(filename, metadata) {
             })
         });
 
-    
-        
-        //log("📜 Bài viết đã tồn tại trong `posts.json`, không cần cập nhật.");
-    
+        if (updateResponse.ok) {
+            log("`posts.json` đã được cập nhật thành công!", "success");
+        } else {
+            log("Lỗi khi cập nhật `posts.json`!", "error");
+        }
+
+    } catch (error) {
+        console.error("Lỗi trong `updatePostsJson()`:", error);
+    }
 }
 // 💾 Lưu bài viết lên GitHub
 
@@ -594,7 +613,208 @@ function log(message, type="") {
     setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
   }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
-log("box-sh adow: 0 2px 5px ,0,0.1);", "error")
-log("box-sh adow: 0 2px 5px ,0,0.1);", "success")
-log("box-sh adow: 0 2px 5px ,0,0.1);", "")
+//log("box-sh adow: 0 2px 5px ,0,0.1);", "error")
+//log("box-sh adow: 0 2px 5px ,0,0.1);", "success")
+//log("box-sh adow: 0 2px 5px ,0,0.1);", "")
 
+async function deletePost() {
+    if (!confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) return;
+
+    const markdown = document.getElementById("markdownEditor").value;
+    const { metadata , content} = extractMetadata(markdown);
+    
+    if (!metadata || !metadata.filename) {
+        log("Lỗi: Không tìm thấy bài viết cần xóa!", "error");
+        return;
+    }
+
+    const filename = metadata.filename; // Lấy tên file từ metadata
+    const fileUrl = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+
+    try {
+        // 🛑 Lấy SHA của file trước khi xóa
+        const getFileResponse = await fetch(fileUrl, {
+            headers: { Authorization: token}
+        });
+
+        if (!getFileResponse.ok) {
+            log("Lỗi: Không tìm thấy file cần xóa!", "error");
+            return;
+        }
+
+        const fileData = await getFileResponse.json();
+        const sha = fileData.sha;
+
+        // 🛑 Gửi yêu cầu xóa file trên GitHub
+        const deleteResponse = await fetch(fileUrl, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({
+                message: `Xóa bài viết: ${metadata.slug}`,
+                sha: sha
+            })
+        });
+
+        if (deleteResponse.ok) {
+            log("Bài viết đã bị xóa!", "success");
+
+            // 🛑 Cập nhật `posts.json` để loại bỏ bài viết đã xóa
+            try {
+                await removeFromPostsJson(metadata.id);
+            } catch (error) {
+                console.error("Lỗi khi cập nhật posts.json:", error);
+            }
+
+            // Xóa nội dung editor
+            document.getElementById("markdownEditor").value = "";
+            document.getElementById("deletePostBtn").style.display = "none";
+        } else {
+            const errorResponse = await deleteResponse.json();
+            log(`Lỗi khi xóa bài viết: ${errorResponse.message}`, "error");
+        }
+    } catch (error) {
+        console.error("Lỗi khi xóa bài viết:", error);
+        log("Lỗi khi gửi yêu cầu xóa bài viết!", "error");
+    }
+}
+
+async function removeFromPostsJson(postId) {
+    const postsFile = "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+
+    try {
+        const postsResponse = await fetch(postsFile, { headers: { Authorization: token } });
+
+        if (!postsResponse.ok) {
+            log("Lỗi khi tải `posts.json`!", "error");
+            return;
+        }
+
+        const postsData = await postsResponse.json();
+        let posts = JSON.parse(decodeBase64(postsData.content));
+
+        // 🛑 Xóa bài viết khỏi danh sách
+        posts = posts.filter(post => post.id !== postId);
+
+        // 🛑 Mã hóa lại JSON và cập nhật lên GitHub
+        const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
+
+        const updateResponse = await fetch(postsFile, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            },
+            body: JSON.stringify({
+                message: "Xóa bài viết khỏi danh sách",
+                content: updatedPosts,
+                sha: postsData.sha
+            })
+        });
+
+        if (updateResponse.ok) {
+            log("`posts.json` đã được cập nhật!", "success");
+        } else {
+            log("Lỗi khi cập nhật `posts.json`!", "error");
+        }
+    } catch (error) {
+        console.error("Lỗi khi cập nhật `posts.json`:", error);
+    }
+}
+async function UpdatePostsJson(filename, metadata) {
+    const postsFile = "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
+    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+
+    try {
+        // 🛑 Lấy nội dung hiện tại của `posts.json`
+        const postsData = await fetchPostsJson(postsFile, token);
+        if (!postsData) return;
+
+        let posts = parsePostsJson(postsData.content);
+        if (!posts) return;
+
+        // 🛑 Kiểm tra xem bài viết có tồn tại hay không
+        const index = posts.findIndex(post => post.id === metadata.id);
+        const exists = index !== -1;
+
+        if (exists) {
+            if (hasPostChanged(posts[index], metadata)) {
+                posts[index] = metadata;
+                log("🔄 Cập nhật bài viết trong `posts.json`!", "success");
+            } else {
+                log("✅ Không có thay đổi, không cập nhật.");
+                return;
+            }
+        } else {
+            log("🆕 Thêm bài viết mới vào `posts.json`!", "success");
+            posts.push(metadata);
+        }
+
+        // ✅ Mã hóa JSON & cập nhật lên GitHub
+        await updatePostsJsonOnGitHub(postsFile, token, posts, postsData.sha);
+
+    } catch (error) {
+        console.error("❌ Lỗi trong `updatePostsJson()`:", error);
+    }
+}
+
+async function fetchPostsJson(postsFile, token) {
+    try {
+        const response = await fetch(postsFile, {
+            headers: { Authorization: `${token}` }
+        });
+
+        if (!response.ok) {
+            log("⚠️ Lỗi khi tải `posts.json`!", "error");
+            return null;
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("❌ Lỗi khi lấy `posts.json`:", error);
+        return null;
+    }
+}
+
+function parsePostsJson(content) {
+    try {
+        return JSON.parse(decodeBase64(content));
+    } catch (error) {
+        log("❌ Lỗi khi parse `posts.json`!", "error");
+        return null;
+    }
+}
+
+function hasPostChanged(oldPost, newPost) {
+    return JSON.stringify(oldPost) !== JSON.stringify(newPost);
+}
+async function updatePostsJsonOnGitHub(postsFile, token, posts, sha) {
+    try {
+        const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
+
+        const response = await fetch(postsFile, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`
+            },
+            body: JSON.stringify({
+                message: "📜 Cập nhật danh sách bài viết",
+                content: updatedPosts,
+                sha: sha
+            })
+        });
+
+        if (response.ok) {
+            log("✅ `posts.json` đã được cập nhật thành công!", "success");
+        } else {
+            log("❌ Lỗi khi cập nhật `posts.json`!", "error");
+        }
+    } catch (error) {
+        console.error("❌ Lỗi khi cập nhật `posts.json` trên GitHub:", error);
+    }
+}
