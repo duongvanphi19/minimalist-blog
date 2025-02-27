@@ -9,7 +9,7 @@ image: "/assets/uploads/dalat.jpg"
 featured: "true"
 slug: "lich-trinh-dalat"
 filename: "lich-trinh-dalat.md"
-status: "published"
+status: "draft"
 ---
 # 🏞️ Lịch trình Chuyến Đà Lạt 3D3N
 
