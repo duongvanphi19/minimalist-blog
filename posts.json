@@ -149,5 +149,24 @@
     "slug": "lich-trinh-dalat",
     "filename": "lich-trinh-dalat.md",
     "status": "published"
+  },
+  {
+    "id": "1740664002868",
+    "title": "Cách Làm Khổ Qua Xào Trứng - Thanh Mát, Bổ Dưỡng",
+    "date": "2025-02-22",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm khổ qua xào trứng đơn giản, nhanh gọn, giữ vị thanh mát của khổ qua kết hợp trứng bùi béo.",
+    "tags": [
+      "Ẩm thực",
+      "Món Xào",
+      "Trứng",
+      "Khổ Qua",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/kho-qua-xao-trung.jpg",
+    "featured": "true",
+    "slug": "kho-qua-xao-trung",
+    "filename": "kho-qua-xao-trung.md",
+    "status": "published"
   }
 ]
