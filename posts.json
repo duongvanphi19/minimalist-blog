@@ -149,18 +149,5 @@
     "slug": "lich-trinh-dalat",
     "filename": "lich-trinh-dalat.md",
     "status": "published"
-  },
-  {
-    "id": "1740657176104",
-    "title": "999",
-    "date": "2025-02-27",
-    "author": "",
-    "description": "Lorem ipsum dolor sit atmet",
-    "tags": [],
-    "image": "/assets/uploads/sample.jpg",
-    "featured": "false",
-    "slug": "99998",
-    "filename": "99998.md",
-    "status": "draft"
   }
 ]
