@@ -1,3 +1,4 @@
+
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
@@ -204,6 +205,16 @@ async function loadPosts() {
   log(data);
   log(a);
 }
+
+function setupFuse(posts){
+  return new Fuse(posts,
+  {
+    keys: ["title", "tags", "description"],
+    includeScore: true,
+    threhold: 0.3
+  }
+  )
+}
 //index
 document.addEventListener("DOMContentLoaded", async function () {
     const blogList = document.getElementById("post-list");
@@ -219,6 +230,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(blogList, searchInput, searchButton, categoryFilter);
     }
     let posts = [];
+    let fuse;
    // loadPosts()
     
     try {
@@ -226,12 +238,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
         const response = await fetch("posts.json");
        // console.log('posts.json response', response)
-        posts = await response.json();
+        let p = await response.json()
+        posts = p.sort((a, b) => new Date(b.date) - new Date(a.date));
+       
         try{posts = posts.filter(post => post.status === "published");
         }catch(e){
           log(e)
         }
         //console.log(posts)
+        fuse = setupFuse(posts);
         // 🔹 Lấy danh sách danh mục (tags)
         const uniqueTags = new Set();
         posts.forEach(post => {
@@ -257,8 +272,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     // 🔹 Hiển thị bài viết nổi bật
         const featuredPosts = posts.filter(post => post.featured);
-        log("featured")
-        if (featuredPosts.length > 0){featuredList.innerHTML = featuredPosts.map(post => `
+        //log("featured")
+        if (featuredPosts.length > 0){
+          let featuredPostS = [];
+          if ( featuredPosts.length >3){
+            featuredPosts.splice(1);
+          }
+          featuredList.innerHTML = featuredPosts.map(post => `
                 <article class="featured">
                     <img class="skeleton skeleton-image lazy" data-src="${post.image}" alt="${post.title}"/>
                     <h3 class=""><a href="post.html?post=${post.slug}">${post.title}</a></h3>
@@ -291,28 +311,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // 🔹 Hàm lọc bài viết dựa trên tìm kiếm và danh mục
-    function filterPosts() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const selectedCategory = categoryFilter.value;
+    function fuseSearchPosts() {
+      
+        const searchTerm = searchInput.value.trim();
+        
+        
+        let results= fuse.search(searchTerm).map(result => result.item);
 
-        let filteredPosts = posts.filter(post => 
-            post.title.toLowerCase().includes(searchTerm) || 
-            post.description.toLowerCase().includes(searchTerm) || 
-            post.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-        );
-
-        if (selectedCategory !== "all") {
-            filteredPosts = filteredPosts.filter(post => post.tags.includes(selectedCategory));
-        }
-
-        renderPosts(filteredPosts);
+        renderPosts(results);
     }
 
     // 🔹 Xử lý tìm kiếm khi bấm nút
-    searchButton.addEventListener("click", filterPosts);
-
+    
+    searchInput.addEventListener("input", fuseSearchPosts)
     // 🔹 Xử lý lọc theo danh mục
-    categoryFilter.addEventListener("change", filterPosts);
     
     lazyLoadImages();
 });

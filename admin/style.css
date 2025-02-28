@@ -609,3 +609,10 @@ input[type="radio"]:checked::before {
 .filter-container label:nth-child(1) { color:#FFDDC1; } 
 .filter-container label:nth-child(2) { background: #C1E1FF; } 
 .filter-container label:nth-child(3) { background: #FFD1E1; }  */
+
+th{
+  background: #eee;
+}
+.dark-mode th{
+  background: #333;
+}
