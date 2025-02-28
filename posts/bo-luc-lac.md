@@ -9,7 +9,7 @@ image: "/assets/uploads/bo-luc-lac.webp"
 featured: "true"
 slug: "bo-luc-lac"
 filename: "bo-luc-lac.md"
-status: "undefined"
+status: "published"
 ---
 # 🥩 Cách Làm Bò Lúc Lắc - Mềm Ngon, Đậm Đà  
 
