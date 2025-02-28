@@ -171,15 +171,19 @@
   },
   {
     "id": "1740697262944",
-    "title": "test",
-    "date": "2025-02-27",
-    "author": "",
-    "description": "Lorem ipsum dolor sit atmet",
-    "tags": [],
-    "image": "/assets/uploads/sample.jpg",
-    "featured": "false",
-    "slug": "test",
-    "filename": "test.md",
-    "status": "published"
+    "title": "Cách Làm Bò Lúc Lắc - Mềm Ngon, Đậm Đà",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm bò lúc lắc với thịt bò mềm thơm, sốt đậm đà, ăn kèm rau củ giòn ngọt.",
+    "tags": [
+      "Ẩm thực",
+      "Món Xào",
+      "Thịt Bò",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/bo-luc-lac.webp",
+    "featured": "true",
+    "slug": "bo-luc-lac",
+    "filename": "bo-luc-lac.md"
   }
 ]
