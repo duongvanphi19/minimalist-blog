@@ -683,7 +683,7 @@ blockquote {
 }
 
 /* Kiểu dáng bài viết */
-.article {
+article {
     background: white;
     padding: 0px;
     border-radius: 8px;
@@ -694,4 +694,9 @@ blockquote {
 /* Hiệu ứng hover */
 article:hover {
     transform: scale(1.02);
+    transition: 0.3s;
+}
+
+.text-small{
+  font-size: 0.8rem;
 }

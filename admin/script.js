@@ -334,7 +334,6 @@ function parseYAML(yamlText) {
                     val = []; // Trả về mảng rỗng nếu lỗi
                 }
             }
-
             result[key.trim()] = val;
         }
     });
@@ -428,7 +427,7 @@ image: "${metadata.image}"
 featured: "${metadata.featured}"
 slug: "${metadata.slug}"
 filename: "${filename}"
-status: "${metadata.status}"
+status: "${metadata.status || "draft"}"
 ---
 ${content}`;
 

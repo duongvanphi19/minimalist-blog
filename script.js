@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             <article>
                     <img src="${post.image}" alt="${post.title}"/>
                 <h2><a href="post.html?post=${post.slug}">${post.title}</a></h2>
-                <p><strong>Ngày đăng:</strong> ${post.date}</p>
+                <p class=""><strong>Ngày đăng:</strong> ${post.date}</p>
                 <p>${post.description}</p>
             </article>
         `).join("");
