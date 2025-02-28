@@ -184,6 +184,7 @@
     "image": "/assets/uploads/bo-luc-lac.webp",
     "featured": "true",
     "slug": "bo-luc-lac",
-    "filename": "bo-luc-lac.md"
+    "filename": "bo-luc-lac.md",
+    "status": "published"
   }
 ]
