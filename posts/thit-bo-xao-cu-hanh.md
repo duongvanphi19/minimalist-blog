@@ -11,10 +11,6 @@ slug: "thit-bo-xao-cu-hanh"
 filename: "thit-bo-xao-cu-hanh.md"
 status: "published"
 ---
-# 🥩 Thịt Bò Xào Củ Hành
-
-![Thịt Bò Xào Củ Hành](/assets/uploads/bo-xao-cu-hanh.jpg)
-
 > **Thịt bò xào củ hành** là một món ăn quen thuộc, dễ nấu, nhưng lại cực kỳ ngon miệng. Miếng bò mềm ngọt kết hợp với vị giòn ngọt của củ hành tạo nên một món xào hấp dẫn, rất đưa cơm.
 
 ## 🛒 Nguyên Liệu
