@@ -295,6 +295,7 @@ async function handlePostPage() {
         }
 
         const { metadata, content } = extractMetadata(markdown);
+        showSuggestions(postFile, metadata.tags)
 
         // Set post metadata
         document.title = `${metadata.title || "Bài viết"} - Minimalist Blog`;
@@ -337,6 +338,7 @@ async function handlePostPage() {
         }
 
         // Generate TOC
+        
         generateTOC();
 
     } catch (error) {
@@ -407,7 +409,29 @@ async function handleIndexPage() {
         categoryFilter.appendChild(fragment);
 
         // Render posts
-        renderPosts(posts);
+        
+    /*  
+        
+      const params = new URLSearchParams(window.location.search);
+      const selectedTag = params.get("tag");
+
+    if (selectedTag) {
+        filterPostsByTag(posts,selectedTag);
+        renderFeaturedPosts(posts);
+    } else {
+        handleIndexPage(posts); // Load toàn bộ bài viết như bình thường
+        renderFeaturedPosts(posts);
+    }
+    */
+
+
+function filterPostsByTag(posts, tag) {
+    const filteredPosts = posts.filter(post => post.tags.includes(tag));
+    renderPosts(filteredPosts);
+    log(`🔍 Hiển thị bài viết có tag: #${tag}`, "info");
+}
+ 
+       renderPosts(posts);
 
         // Featured posts
         renderFeaturedPosts(posts);
@@ -556,7 +580,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Handle post detail page
         handlePostPage();
-
+       // fetchSuggestedRecipes(metadata);
         // Handle index page
         handleIndexPage();
 
@@ -565,3 +589,33 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
+
+async function suggestRecipes(currentSlug, currentTags) {
+    const response = await fetch("posts.json");
+    const posts = await response.json();
+    // Lọc bài khác bài hiện tại
+    const relatedPosts = posts
+        .filter(post => post.slug !== currentSlug)
+        .map(post => ({
+            ...post,
+            matchScore: post.tags.filter(tag => currentTags.includes(tag)).length
+        }))
+        .filter(post => post.matchScore > 0) // Chỉ lấy bài có tag trùng
+        .sort((a, b) => b.matchScore - a.matchScore) // Sắp xếp theo độ liên quan
+    return relatedPosts.slice(0, 4); // Trả về tối đa 3 món ăn liên quan
+}
+
+
+async function showSuggestions(slug, tags) {
+    const suggestions = await suggestRecipes(slug, tags);
+    const container = document.getElementById("suggested-list");
+    
+    container.innerHTML = suggestions.length
+        ? suggestions.map(post => `
+            <div class="suggested-item">
+                <img src="${post.image}" alt="${post.title}">
+                <p><a href="post.html?post=${post.slug}">${post.title}</a></p>
+            </div>`).join("")
+        : "<p>Không có món nào gợi ý.</p>";
+}

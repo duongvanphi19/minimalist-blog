@@ -1619,3 +1619,25 @@ body {
     z-index: 9999;
 }
 
+#suggested-list{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.suggested-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.suggested-item img{
+  width: 30%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+@media (min-width: 600px){
+#suggested-list{
+  grid-template-columns: repeat(2, 1fr);
+}
+}
