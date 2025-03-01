@@ -1,18 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-<<<<<<< HEAD
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Minimalist Blog</title>
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Scripts -->
   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 </head>
 <body>
+
   <!-- Header -->
   <header class="main-header">
     <h1>Minimalist Blog</h1>
@@ -25,96 +31,42 @@
       </ul>
     </nav>
   </header>
-=======
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Minimalist Blog</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <script
-      type="text/javascript"
-      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="main-header">
-      <h1>Minimalist Blog</h1>
-      <nav>
-        <ul>
-          <li>
-            <a href="https://minimblog.netlify.app/index.html">Trang chủ</a>
-          </li>
-          <li><a href="about.html">Giới thiệu</a></li>
-          <li><a href="contact.html">Liên hệ</a></li>
-          <li>
-            <button id="darkModeToggle" class="toggle-btn">Dark Mode</button>
-          </li>
-        </ul>
-      </nav>
-    </header>
->>>>>>> ab0e8f656493596433d24b808dbf02ae6f7b3766
 
-    <!-- <div data-netlify-identity-menu></div>
-  <div data-netlify-identity-button>Login with Netlify Identity</div>
--->
-
-    <!-- Danh sách bài viết -->
-    <main class="blog-list">
-      <section class="featured-posts">
-        <h2>🔥 Bài viết nổi bật</h2>
-        <div id="featured-list">
+  <!-- Danh sách bài viết -->
+  <main class="blog-list">
+   
+    <section class="featured-posts">
+      <h2>🔥 Bài viết nổi bật</h2>
+      <div id="featured-list">
           <p>Đang tải...</p>
-        </div>
-      </section>
-
-      <div class="search-filter">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Tìm kiếm bài viết..."
-        />
-        <button id="searchButton">Search</button>
-        <select id="categoryFilter">
-          <option value="all">Tất cả danh mục</option>
-        </select>
       </div>
-      <div id="post-list">
-        <p>Đang tải...</p>
-<<<<<<< HEAD
-      </div>
-    </main>
-=======
-    </div>
-  </section>
+    </section>
     
     <div class="search-filter">
-    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
-    <button id="searchButton">Search</button>
-    <select id="categoryFilter">
-        <option value="all">Tất cả danh mục</option>
-    </select>
-  
-</div>
-    <div id="post-list">
-        <p>Đang tải...</p>      
+      <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
+      <button id="searchButton">Search</button>
+      <select id="categoryFilter">
+          <option value="all">Tất cả danh mục</option>
+      </select>
     </div>
+    
+    <div id="post-list">
+      <p>Đang tải...</p>      
+    </div>
+    
   </main>
->>>>>>> 7d48f55fd3e83b480c208dde09b1cfd7d087e074
 
-    <!-- Footer -->
-    <footer class="main-footer">
-      <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
-    </footer>
-    <div id="toast-container"></div>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js"></script>
-  </body>
+  <!-- Footer -->
+  <footer class="main-footer">
+    <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+  </footer>
+
+  <!-- Toast thông báo -->
+  <div id="toast-container"></div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js"></script>
+
+</body>
 </html>
