@@ -80,27 +80,7 @@ function generateTOC() {
         const listItem = document.createElement("li");
         const link = document.createElement("a");
         link.href = `#${id}`;
-        
-        // Get text content safely
-        let headerText = "";
-        try {
-            // Extract only the text, not child elements
-            headerText = Array.from(header.childNodes)
-                .filter(node => node.nodeType === Node.TEXT_NODE)
-                .map(node => node.textContent.trim())
-                .join(" ")
-                .trim();
-                
-            // If no text was found, use the full textContent
-            if (!headerText) {
-                headerText = header.textContent;
-            }
-        } catch (e) {
-            console.warn("Error getting header text:", e);
-            headerText = `Heading ${index + 1}`;
-        }
-        
-        link.textContent = headerText;
+        link.textContent = header.textContent;
         listItem.appendChild(link);
 
         if (header.tagName === "H2") {
@@ -279,68 +259,15 @@ async function handlePostPage() {
     try {
         // Configure marked options
         if (window.marked) {
-            const renderer = new marked.Renderer();
-            
-            // Handle custom section class on headings
-            const originalHeadingRenderer = renderer.heading;
-            renderer.heading = function (text, level, raw, slugger) {
-                // Ensure text is a string before applying regex
-                text = text || '';
-                if (typeof text !== 'string') {
-                    text = String(text);
-                }
-                
-                // Check if the heading has a {.section} class
-                let className = '';
-                try {
-                    const sectionMatch = text.match(/\s*{\.([^}]+)}\s*$/);
-                    
-                    if (sectionMatch && sectionMatch[1]) {
-                        className = sectionMatch[1];
-                        text = text.replace(/\s*{\.([^}]+)}\s*$/, '');
-                    }
-                } catch (error) {
-                    console.warn("Error parsing heading class:", error);
-                }
-                
-                // Safely call the original renderer with proper fallbacks
-                let rendered;
-                try {
-                    rendered = originalHeadingRenderer.call(this, text, level, raw || '', slugger || {});
-                } catch (error) {
-                    console.warn("Error in original heading renderer:", error);
-                    rendered = `<h${level}>${text}</h${level}>`;
-                }
-                
-                // Apply class if available
-                if (className && rendered) {
-                    try {
-                        return rendered.replace(/<h(\d)>/, `<h$1 class="${className}">`);
-                    } catch (error) {
-                        console.warn("Error applying class to heading:", error);
-                    }
-                }
-                
-                return rendered;
-            };
-            
             marked.setOptions({
                 breaks: true,
                 smartLists: true,
                 smartypants: true,
                 gfm: true,
-                renderer: renderer,
+                renderer: new marked.Renderer(),
                 highlight: function(code, lang) {
-                    if (code === undefined || code === null) {
-                        return '';
-                    }
                     if (window.hljs && lang && hljs.getLanguage(lang)) {
-                        try {
-                            return hljs.highlight(code, { language: lang }).value;
-                        } catch (e) {
-                            console.warn("Error highlighting code:", e);
-                            return code;
-                        }
+                        return hljs.highlight(code, { language: lang }).value;
                     }
                     return window.hljs ? hljs.highlightAuto(code).value : code;
                 }
@@ -392,49 +319,9 @@ async function handlePostPage() {
         
         // Render markdown content
         if (window.marked) {
-            try {
-                // Make sure content is always a string
-                const contentToRender = content || '';
-                
-                // Set safe options for marked
-                marked.setOptions({
-                    silent: true,  // Don't throw errors, just warn
-                    breaks: true,
-                    smartLists: true
-                });
-                
-                let parsedHTML;
-                try {
-                    parsedHTML = marked.parse(contentToRender);
-                } catch (parseError) {
-                    console.error("Error in marked.parse():", parseError);
-                    throw new Error(`Parsing failed: ${parseError.message}`);
-                }
-                
-                // Check if we actually got HTML back
-                if (typeof parsedHTML !== 'string') {
-                    console.error("Unexpected marked.parse() result type:", typeof parsedHTML);
-                    parsedHTML = `<pre>${contentToRender}</pre>`;
-                }
-                
-                // Sanitize and display the HTML
-                if (window.DOMPurify) {
-                    postContent.innerHTML = DOMPurify.sanitize(parsedHTML);
-                } else {
-                    postContent.innerHTML = parsedHTML;
-                }
-                
-            } catch (error) {
-                console.error("Error in markdown processing:", error);
-                postContent.innerHTML = `<p class='error-message'>Lỗi xử lý Markdown: ${error.message}</p><pre>${typeof content === 'string' ? content : 'Nội dung không hợp lệ'}</pre>`;
-                
-                // Show more detailed debug info in console
-                console.debug("Content type:", typeof content);
-                console.debug("Content sample:", content ? content.substring(0, 100) : "null/undefined");
-            }
+            postContent.innerHTML = marked.parse(content);
         } else {
-            console.error("Marked.js library not loaded");
-            postContent.innerHTML = `<pre>${typeof content === 'string' ? content : 'Nội dung không hợp lệ'}</pre>`;
+            postContent.innerHTML = `<pre>${content}</pre>`;
         }
         
         // Highlight code blocks
