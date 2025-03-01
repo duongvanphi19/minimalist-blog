@@ -278,5 +278,24 @@
     "slug": "mien-tron-han-quoc",
     "filename": "mien-tron-han-quoc.md",
     "status": "published"
+  },
+  {
+    "id": "1740839802097",
+    "title": "Cách Làm Gà Xào Sả Ớt - Thơm Ngon, Đậm Đà",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm gà xào sả ớt với thịt gà mềm thơm, vị cay nhẹ, ăn kèm dưa leo tươi mát.",
+    "tags": [
+      "Ẩm thực",
+      "Món Xào",
+      "Thịt Gà",
+      "Sả",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/ga-xao-sa-ot.jpg",
+    "featured": "false",
+    "slug": "ga-xao-sa-ot",
+    "filename": "ga-xao-sa-ot.md",
+    "status": "published"
   }
 ]
