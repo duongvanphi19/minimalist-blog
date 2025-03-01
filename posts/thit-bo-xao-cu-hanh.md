@@ -1,4 +1,3 @@
-
 ---
 id: "1740134845777"
 title: "Cách Làm Thịt Bò Xào Củ Hành - Mềm Ngọt, Đậm Đà"
@@ -12,7 +11,6 @@ slug: "thit-bo-xao-cu-hanh"
 filename: "thit-bo-xao-cu-hanh.md"
 status: "published"
 ---
-
 # 🥩 Thịt Bò Xào Củ Hành
 
 ![Thịt Bò Xào Củ Hành](/assets/uploads/bo-xao-cu-hanh.jpg)
