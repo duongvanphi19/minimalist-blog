@@ -467,7 +467,7 @@ async function handleIndexPage() {
         } else {
             featuredList.innerHTML = "<p>Chưa có bài viết nổi bật.</p>";
         }
-
+        
         lazyLoadImages();
     }
 
@@ -488,7 +488,8 @@ async function handleIndexPage() {
                 <p>${post.description}</p>
             </article>
         `).join("");
-
+        
+        document.getElementById("totalPosts").innerHTML = filteredPosts.length;
         lazyLoadImages();
     }
 }

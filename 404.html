@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>404 - Không tìm thấy trang</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <p>Oops! Trang bạn tìm không tồn tại. 😢</p>
+        <a href="index.html" class="btn">← Về trang chủ</a>
+    </div>
+    <style>
+      /* Trang 404 */
+.container {
+    text-align: center;
+    padding: 50px;
+}
+.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+
+h1 {
+    font-size: 5rem;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1rem;
+    background: #ff6b6b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #ff4f4f;
+}
+    </style>
+    <script>
+      if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
+        }
+
+        // Register dark mode toggle event
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener("click", toggleDarkMode);
+        }
+    </script>
+</body>
+</html>
