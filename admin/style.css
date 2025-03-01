@@ -1,7 +1,6 @@
-/* ===== Reset CSS ===== */
-
 /* ===== Định nghĩa Biến CSS ===== */
 :root {
+  /* Colors */
   --primary-color: #007bff;
   --primary-hover: #0056b3;
   --success-color: #28a745;
@@ -11,22 +10,30 @@
   --background-dark: #222;
   --text-color: #333;
   --text-light: #ddd;
+  --toast-bg: #444;
+  --toast-error: #dc4040;
+  --toast-success: #2eb872;
+  
+  /* Sizes and spacing */
   --border-radius: 4px;
   --border-radius-l: 8px;
   --padding-small: 8px;
   --padding-medium: 12px;
+  
+  /* Effects */
   --transition-speed: 0.3s;
-  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+  --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-html{
+
+html {
   scroll-behavior: smooth;
 }
 
@@ -103,38 +110,63 @@ body {
 }
 
 #editor {
-  display: none;
+    display: none;
     background: #fff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius-l);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
 }
 
 textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     font-size: 16px;
-    margin-bottom: 16px;
+    margin: 16px 0;
+    background: #f5f5f5;
+    min-height: 250px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: border-color var(--transition-speed);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 10px;
     margin-top: 16px;
-    background: #eee;
 }
 
 /* ===== Buttons ===== */
 .btn {
-    padding: 10px 15px;
+    padding: 10px 16px;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: 0.3s;
+    transition: all var(--transition-speed);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .save-btn {
-    background: linear-gradient(135deg, #72e5a6, #2eb872); /* Xanh lá nhạt -> Xanh lá đậm */
+    background: linear-gradient(135deg, #72e5a6, #2eb872);
     color: #fff;
+    font-weight: 500;
 }
 
 .save-btn:hover {
@@ -147,25 +179,11 @@ textarea {
     color: var(--text-light);
 }
 
-.dark-mode .main-header {
-    background: #333;
-}
-
-.dark-mode .sidebar {
-    background: #333;
-    color: #ddd;
-}
-
-.dark-mode #blog-list div a {
-  color: #fff;
-}
-.dark-mode #blog-list div {
-    background: #444;
-    color: #222;
-    
-}
-
-.dark-mode #editor {
+.dark-mode .main-header,
+.dark-mode .sidebar,
+.dark-mode #editor,
+.dark-mode #preview,
+.dark-mode .upload-container {
     background: #333;
 }
 
@@ -175,14 +193,56 @@ textarea {
     border: 1px solid #666;
 }
 
+.dark-mode #blog-list div a {
+    color: #fff;
+}
+
+.dark-mode #blog-list div {
+    background: #444;
+    color: #f5f5f5;
+    transition: background 0.2s;
+}
+
+.dark-mode #blog-list div:hover {
+    background: #555;
+}
+
+.dark-mode .filter-container {
+    background: #444;
+}
+
+.dark-mode #imageNameInput,
+.dark-mode #uploadPaths input {
+    background: #444;
+    color: #fff;
+    border-color: #555;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
+        gap: 15px;
     }
 
     .sidebar, .editor-container {
-        width: 100%;
+        width: 100% !important;
+    }
+    
+    .main-header {
+        padding: 15px 10px;
+    }
+    
+    textarea {
+        min-height: 180px;
+    }
+    
+    /* Improve touch targets on mobile */
+    #blog-list div, 
+    .btn,
+    #uploadButton,
+    .upload-label {
+        padding: 12px; 
     }
 }
 a{
@@ -401,34 +461,44 @@ blockquote {
     color: #666;
 }
 
-  #toast-container {
+  /* Toast notifications */
+#toast-container {
     position: fixed;
-    bottom: 50px;
+    bottom: 20px;
     right: 20px;
     left: 20px;
+    max-width: 320px;
     z-index: 9999;
-  }
-  .toast {
-    background: #676767;
-    color: #fff;
-    padding: 8px 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    animation: fadeInOut 5s ease-in-out;
-    box-shadow: var(--box-shadow);
-  }
-  @keyframes fadeInOut {
-  0% { opacity: 1; transform: translateY(50px); }
-  10% { opacity: 1;  }
-  50% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(0px); } 
 }
 
-.error{
-  background: #dc4040;
+.toast {
+    background: var(--toast-bg);
+    color: #fff;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeInOut 3.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
 }
-.success{
-  background: #2eb872;
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); } 
+}
+
+.toast.error {
+    background: var(--toast-error);
+    border-left: 4px solid #c53030;
+}
+
+.toast.success {
+    background: var(--toast-success);
+    border-left: 4px solid #1e7e34;
 }
 
 /* Giao diện tối giản, tinh tế */

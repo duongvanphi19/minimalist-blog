@@ -186,5 +186,41 @@
     "slug": "bo-luc-lac",
     "filename": "bo-luc-lac.md",
     "status": "published"
+  },
+  {
+    "id": "1740728130917",
+    "title": "Cách Làm Canh Chua Cá Lóc - Thanh Mát, Đậm Đà",
+    "date": "2025-02-22",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm canh chua cá lóc với nước dùng chua ngọt thanh mát, cá lóc mềm ngọt và rau thơm hấp dẫn.",
+    "tags": [
+      "Ẩm thực",
+      "Món Canh",
+      "Cá",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/canh-chua-ca-loc.jpg",
+    "featured": "false",
+    "slug": "canh-chua-ca-loc",
+    "filename": "canh-chua-ca-loc.md",
+    "status": "published"
+  },
+  {
+    "id": "1740801092981",
+    "title": "Cách Làm Gà Kho Gừng - Đậm Đà, Bắt Cơm",
+    "date": "2025-02-22",
+    "author": "Admin",
+    "description": "Công thức làm gà kho gừng thơm ngon, cay nhẹ, nước kho sánh đậm, cực kỳ đưa cơm.",
+    "tags": [
+      "Ẩm thực",
+      "Món Kho",
+      "Thịt Gà",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/ga-kho-gung.jpg",
+    "featured": "false",
+    "slug": "ga-kho-gung",
+    "filename": "ga-kho-gung.md",
+    "status": "published"
   }
 ]
