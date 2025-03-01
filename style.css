@@ -462,15 +462,49 @@ pre {
 
 /* 🔹 Dark Mode TOC */
 .dark-mode .post-toc {
-    background: #333;
+    background: #2a2a2a;
     color: #ddd;
+    border-color: #ffcc00;
 }
 
 .dark-mode .post-toc a {
-    color: #ffcc00;
+    color: #ddd;
 }
 .dark-mode .post-toc a:hover {
-    color: #ffa500;
+    color: #ffcc00;
+    border-bottom: 1px solid #ffcc00;
+}
+
+.dark-mode .post-body {
+    color: #ddd;
+}
+
+.dark-mode .post-meta {
+    color: #aaa;
+}
+
+.dark-mode .post-navigation {
+    border-top: 1px solid #444;
+}
+
+.dark-mode #post-content h1,
+.dark-mode #post-content h2,
+.dark-mode #post-content h3 {
+    color: #ffcc00;
+}
+
+.dark-mode #post-content pre {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+.dark-mode #post-content code {
+    background: #333;
+}
+
+.dark-mode #post-content blockquote {
+    border-left-color: #555;
+    color: #aaa;
 }
 
 
