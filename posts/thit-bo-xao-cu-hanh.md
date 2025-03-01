@@ -13,23 +13,23 @@ filename: "thit-bo-xao-cu-hanh.md"
 status: "published"
 ---
 
-# Thịt Bò Xào Củ Hành
+# 🥩 Thịt Bò Xào Củ Hành
 
 ![Thịt Bò Xào Củ Hành](/assets/uploads/bo-xao-cu-hanh.jpg)
 
 > **Thịt bò xào củ hành** là một món ăn quen thuộc, dễ nấu, nhưng lại cực kỳ ngon miệng. Miếng bò mềm ngọt kết hợp với vị giòn ngọt của củ hành tạo nên một món xào hấp dẫn, rất đưa cơm.
 
-## Nguyên Liệu {.section}
+## 🛒 Nguyên Liệu {.section}
 
 **Cho 2-3 người ăn:**
 
 ### Thực phẩm chính:
 
-- **Thịt bò**: 300g (chọn thịt thăn hoặc bắp bò để xào mềm hơn)
-- **Củ hành tây**: 1 củ (cắt múi cau)
-- **Tỏi**: 3 tép (băm nhỏ)
-- **Hành lá, ngò rí**: Cắt nhỏ để rắc lên món ăn
-- **Ớt tươi**: 1 trái (tùy chọn)
+- 🥩 **Thịt bò**: 300g (chọn thịt thăn hoặc bắp bò để xào mềm hơn)
+- 🧅 **Củ hành tây**: 1 củ (cắt múi cau)
+- 🧄 **Tỏi**: 3 tép (băm nhỏ)
+- 🌿 **Hành lá, ngò rí**: Cắt nhỏ để rắc lên món ăn
+- 🌶️ **Ớt tươi**: 1 trái (tùy chọn)
 
 ### Gia vị:
 
@@ -41,9 +41,9 @@ status: "published"
 - **Nước mắm**: ½ thìa canh
 - **Rượu trắng**: 1 thìa canh (giúp khử mùi bò)
 
-## Cách Làm {.section}
+## 👩‍🍳 Cách Làm {.section}
 
-### 1. Sơ chế nguyên liệu
+### 1️⃣ Sơ chế nguyên liệu
 
 #### Thịt bò:
 - Rửa sạch, **thái lát mỏng**
@@ -56,28 +56,28 @@ status: "published"
 #### Tỏi & Ớt:
 - Tỏi băm nhỏ, ớt thái lát
 
-### 2. Xào thịt bò
+### 2️⃣ Xào thịt bò
 
 - **Làm nóng chảo**, cho **1 thìa dầu ăn**, phi thơm tỏi băm
 - **Cho thịt bò vào xào lửa lớn**, đảo nhanh tay trong **1-2 phút**, đến khi thịt vừa chín tới thì **gắp ra đĩa**
 
-### 3. Xào củ hành
+### 3️⃣ Xào củ hành
 
 - **Cho thêm 1 thìa dầu ăn vào chảo**, đổ **hành tây vào xào nhanh** trên lửa vừa
 - **Nêm chút muối, hạt nêm** và đảo đều trong **2 phút** đến khi hành hơi mềm
 
-### 4. Hoàn thiện món ăn
+### 4️⃣ Hoàn thiện món ăn
 
 - **Cho thịt bò trở lại chảo**, đảo nhanh tay với hành tây trong **30 giây**
 - **Nêm lại gia vị**, thêm chút nước mắm và tiêu xay cho dậy mùi
 - **Tắt bếp**, rắc hành lá, ngò rí lên trên
 
-## Thưởng Thức {.section}
+## 🍽️ Thưởng Thức {.section}
 
 - Múc ra đĩa, ăn kèm **cơm nóng** hoặc chấm bánh mì đều rất ngon
 - Có thể thêm **ớt chuông, cần tây** nếu muốn tăng hương vị
 
-## Mẹo Nấu Ăn {.section}
+## 💡 Mẹo Nấu Ăn {.section}
 
 - **Xào thịt bò lửa lớn** để giữ độ mềm, không bị dai
 - **Không xào hành tây quá lâu**, tránh bị nhũn, mất độ giòn
