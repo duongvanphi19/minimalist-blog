@@ -622,6 +622,7 @@ blockquote {
     font-style: italic;
     margin: 0;
     color: #666;
+    border-radius: 8px;
 }
 
   #toast-container {
