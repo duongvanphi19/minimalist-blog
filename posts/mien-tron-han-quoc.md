@@ -5,7 +5,7 @@ date: "2025-02-28"
 author: "Admin"
 description: "Hướng dẫn cách làm miến trộn Hàn Quốc (Japchae) với sợi miến dai ngon, rau củ giòn ngọt và nước sốt đậm đà."
 tags: ["Ẩm thực","Món Trộn","Miến Hàn Quốc","Japchae","Công Thức Nấu Ăn"]
-image: "/assets/uploads/mien-tron-han-quoc.jpg"
+image: "/assets/uploads/mien-tron-han-quoc.png"
 featured: "false"
 slug: "mien-tron-han-quoc"
 filename: "mien-tron-han-quoc.md"
