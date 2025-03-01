@@ -553,6 +553,19 @@ pre {
     border-radius: 5px;
 }
 
+/* Styling for headings with .section class */
+#post-content h1.section,
+#post-content h2.section,
+#post-content h3.section,
+#post-content h4.section,
+#post-content h5.section,
+#post-content h6.section {
+    color: #ff6347;
+    border-bottom: 2px solid #ff6347;
+    padding-bottom: 5px;
+    margin-top: 30px;
+}
+
 /*
 
 /* ✅ Danh sách */

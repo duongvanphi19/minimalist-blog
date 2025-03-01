@@ -259,12 +259,35 @@ async function handlePostPage() {
     try {
         // Configure marked options
         if (window.marked) {
+            const renderer = new marked.Renderer();
+            
+            // Handle custom section class on headings
+            const originalHeadingRenderer = renderer.heading;
+            renderer.heading = function (text, level, raw, slugger) {
+                // Check if the heading has a {.section} class
+                const sectionMatch = text.match(/\s*{\.([^}]+)}\s*$/);
+                let className = '';
+                
+                if (sectionMatch) {
+                    className = sectionMatch[1];
+                    text = text.replace(/\s*{\.([^}]+)}\s*$/, '');
+                }
+                
+                const rendered = originalHeadingRenderer.call(this, text, level, raw, slugger);
+                
+                if (className) {
+                    return rendered.replace(/<h(\d)>/, `<h$1 class="${className}">`);
+                }
+                
+                return rendered;
+            };
+            
             marked.setOptions({
                 breaks: true,
                 smartLists: true,
                 smartypants: true,
                 gfm: true,
-                renderer: new marked.Renderer(),
+                renderer: renderer,
                 highlight: function(code, lang) {
                     if (window.hljs && lang && hljs.getLanguage(lang)) {
                         return hljs.highlight(code, { language: lang }).value;
@@ -319,8 +342,14 @@ async function handlePostPage() {
         
         // Render markdown content
         if (window.marked) {
-            postContent.innerHTML = marked.parse(content);
+            // Use DOMPurify to sanitize HTML output from marked
+            if (window.DOMPurify) {
+                postContent.innerHTML = DOMPurify.sanitize(marked.parse(content));
+            } else {
+                postContent.innerHTML = marked.parse(content);
+            }
         } else {
+            console.error("Marked.js library not loaded");
             postContent.innerHTML = `<pre>${content}</pre>`;
         }
         
