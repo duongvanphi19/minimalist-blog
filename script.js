@@ -264,6 +264,12 @@ async function handlePostPage() {
             // Handle custom section class on headings
             const originalHeadingRenderer = renderer.heading;
             renderer.heading = function (text, level, raw, slugger) {
+                // Ensure text is a string before applying regex
+                text = text || '';
+                if (typeof text !== 'string') {
+                    text = String(text);
+                }
+                
                 // Check if the heading has a {.section} class
                 const sectionMatch = text.match(/\s*{\.([^}]+)}\s*$/);
                 let className = '';
