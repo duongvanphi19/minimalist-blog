@@ -295,8 +295,16 @@ async function handlePostPage() {
                 gfm: true,
                 renderer: renderer,
                 highlight: function(code, lang) {
+                    if (code === undefined || code === null) {
+                        return '';
+                    }
                     if (window.hljs && lang && hljs.getLanguage(lang)) {
-                        return hljs.highlight(code, { language: lang }).value;
+                        try {
+                            return hljs.highlight(code, { language: lang }).value;
+                        } catch (e) {
+                            console.warn("Error highlighting code:", e);
+                            return code;
+                        }
                     }
                     return window.hljs ? hljs.highlightAuto(code).value : code;
                 }
@@ -348,11 +356,16 @@ async function handlePostPage() {
         
         // Render markdown content
         if (window.marked) {
-            // Use DOMPurify to sanitize HTML output from marked
-            if (window.DOMPurify) {
-                postContent.innerHTML = DOMPurify.sanitize(marked.parse(content));
-            } else {
-                postContent.innerHTML = marked.parse(content);
+            try {
+                // Use DOMPurify to sanitize HTML output from marked
+                if (window.DOMPurify) {
+                    postContent.innerHTML = DOMPurify.sanitize(marked.parse(content || ''));
+                } else {
+                    postContent.innerHTML = marked.parse(content || '');
+                }
+            } catch (error) {
+                console.error("Error parsing markdown:", error);
+                postContent.innerHTML = `<p class='error-message'>Lỗi xử lý Markdown: ${error.message}</p><pre>${content}</pre>`;
             }
         } else {
             console.error("Marked.js library not loaded");
