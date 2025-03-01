@@ -4,11 +4,11 @@ html{
 }
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f8f8f8;
+    background-color: #f9f9f9;
     color: #333;
     margin: 0;
     padding: 0;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 a {
     color: #ff6347;
@@ -638,7 +638,7 @@ blockquote {
     padding: 8px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    animation: fadeInOut 3.5s ease-in-out;
+    animation: fadeInOut 5s ease-in-out;
   }
   @keyframes fadeInOut {
   0% { opacity: 0.8; transform: translateY(50px); }
@@ -736,28 +736,6 @@ article:hover {
   font-size: 0.8rem;
 }
 
-<<<<<<< HEAD
-hr{
-  border: 1.2px solid #eee;
-}
-
-.dark-mode hr{
-  border: 1.2px solid #444;
-}
-
-/* Search Bar */
-#searchBar {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-#searchBar:focus {
-    border-color: black;
-=======
 .image-container {
     max-width: 100%;
     height: auto;
@@ -812,12 +790,796 @@ hr{
     background-color: #3a2222;
     color: #ff8080;
     border-left: 4px solid #ff8080;
-<<<<<<< HEAD
+}/* ===== Global Styles ===== */
+html{
+  scroll-behavior: smooth;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+a {
+    color: #ff6347;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 
-.strong {
+/* ===== Header ===== */
+.main-header {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.main-header h1 {
+    margin: 0;
     font-weight: 600;
-=======
->>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
->>>>>>> 7d48f55fd3e83b480c208dde09b1cfd7d087e074
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+nav ul li {
+    display: inline;
+}
+
+/* ===== Blog List ===== */
+.blog-list {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.blog-list article {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* ===== Blog Content ===== */
+.blog-content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.blog-content h1, .blog-content h2 {
+    color: #ff6347;
+}
+.blog-content pre {
+    background: #eee;
+    padding: 10px;
+    overflow-x: auto;
+}
+/* ===== Định dạng hình ảnh trong bài viết ===== */
+img,
+.featured img,
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+img,
+.featured img{
+  aspect-ratio: 16/9;
+  object-fit: cover;
+
+}
+
+
+
+/* ===== Footer ===== */
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    margin-top: 40px;
+}
+
+/* ===== Dark Mode Styles ===== */
+.dark-mode {
+  background-color: #222;
+  color: #ddd;
+}
+
+.dark-mode a {
+  color: #ffcc00;
+}
+
+.dark-mode .main-header {
+  background-color: #333;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .main-footer {
+  background-color: #333;
+  box-shadow: 0 -2px 5px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .blog-list article,
+.dark-mode .blog-content {
+  background-color: #333;
+}
+
+/* Nút toggle Dark Mode */
+.toggle-btn {
+  background: none;
+  border: 1px solid #ff6347;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #ff6347;
+  transition: background 0.3s, color 0.3s;
+}
+
+.toggle-btn:hover {
+  background: #ff6347;
+  color: #fff;
+}
+
+/* ===== About Page Styles ===== */
+.about-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.about-container h2 {
+  color: #ff6347;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.about-container p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Nếu bạn muốn thêm hình ảnh (ví dụ avatar) */
+.about-container .avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+/* ===== Contact Page Styles ===== */
+.contact-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.contact-container h2 {
+  color: #ff6347;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form label {
+  margin-top: 15px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #ff6347;
+}
+
+.contact-form button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #e5533d;
+}
+
+.contact-container p {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+/* ===== Dark Mode cho trang About ===== */
+.dark-mode .about-container {
+  background: #333;
+  color: #ddd;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .about-container h2 {
+  color: #ffcc00;
+}
+
+.dark-mode .about-container p {
+  color: #ccc;
+}
+/* ===== Dark Mode cho trang Contact ===== */
+.dark-mode .contact-container {
+  background: #333;
+  color: #ddd;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .contact-container h2 {
+  color: #ffcc00;
+}
+
+.dark-mode .contact-form label {
+  color: #ddd;
+}
+
+.dark-mode .contact-form input,
+.dark-mode .contact-form textarea {
+  background-color: #444;
+  color: #ddd;
+  border: 1px solid #555;
+}
+
+.dark-mode .contact-form input:focus,
+.dark-mode .contact-form textarea:focus {
+  border-color: #ffcc00;
+}
+
+.dark-mode .contact-form button {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+.dark-mode .contact-container a {
+  color: #ffcc00;
+}
+
+/* ===== Search Filter Styles ===== */
+.search-filter {
+    display: flex;
+    flex-wrap: wrap;  /* ✅ Cho phép xuống dòng nếu không đủ chỗ */
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%; /* ✅ Đảm bảo không bị tràn container */
+    margin: 0 auto;
+    padding: 10px;
+    margin-bottom: 36px;
+}
+
+/* ✅ Input sẽ mở rộng nhưng không vượt quá khung chứa */
+.search-filter input {
+    flex: 1; /* ✅ Input sẽ tự mở rộng nhưng không tràn */
+    min-width: 0; /* ✅ Fix lỗi tràn trên điện thoại có màn hình lớn */
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* ✅ Đảm bảo padding không làm to input */
+}
+
+/* ✅ Nút tìm kiếm giữ kích thước cố định, không bị vỡ chữ */
+.search-filter button {
+    flex-shrink: 0; /* ✅ Ngăn nút bị co lại */
+    padding: 12px 15px;
+    font-size: 16px;
+    background-color: #ff6347;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    white-space: nowrap; /* ✅ Tránh nút bị vỡ chữ */
+}
+
+/* ✅ Dropdown có kích thước cố định */
+.search-filter select {
+    flex-shrink: 0; /* ✅ Ngăn dropdown bị co lại */
+    width: 200px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* ✅ Đảm bảo hiển thị đẹp trên điện thoại */
+@media (max-width: 768px) {
+    .search-filter {
+        flex-direction: column; /* ✅ Xếp dọc trên màn hình nhỏ */
+        align-items: stretch; /* ✅ Các phần tử full width */
+    }
+
+    .search-filter input, 
+    .search-filter button, 
+    .search-filter select {
+        width: 100%; /* ✅ Không bị tràn ra ngoài */
+    }
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.no-results {
+    color: #777;
+    font-size: 16px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ===== Bài viết nổi bật ===== */
+.featured-posts {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffeeba;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.featured-posts h2 {
+    color: #d9534f;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.featured {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.featured h3 {
+    margin: 0;
+    color: #d9534f;
+}
+
+.featured p {
+    font-size: 14px;
+    color: #333;
+}
+.dark-mode .featured p {
+    font-size: 14px;
+    color: #eee;
+}
+
+/* ===== Code Block Styles ===== */
+pre {
+
+    color:;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+}
+
+/* ✅ Đổi màu khi bật Dark Mode */
+.dark-mode pre {
+    /* 🔹 Màu nền tối */
+    color: ; /* 🔹 Màu chữ sáng */
+    border: 1px solid #555; /* 🔹 Viền nhẹ để nổi bật */
+}
+
+.dark-mode code{
+  background-color: ;
+}
+
+/* ===== Table of Contents (TOC) Styles ===== */
+.post-toc {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #ff6347;
+    border-radius: ;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.post-toc h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: #ff6347;
+}
+
+.post-toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.post-toc li {
+    margin: 5px 0;
+}
+
+.post-toc a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.post-toc a:hover {
+    color: #ff6347;
+}
+
+/* 🔹 Dark Mode TOC */
+.dark-mode .post-toc {
+    background: #2a2a2a;
+    color: #ddd;
+    border-color: #ffcc00;
+}
+
+.dark-mode .post-toc a {
+    color: #ddd;
+}
+.dark-mode .post-toc a:hover {
+    color: #ffcc00;
+    border-bottom: 1px solid #ffcc00;
+}
+
+.dark-mode .post-body {
+    color: #ddd;
+}
+
+.dark-mode .post-meta {
+    color: #aaa;
+}
+
+.dark-mode .post-navigation {
+    border-top: 1px solid #444;
+}
+
+.dark-mode #post-content h1,
+.dark-mode #post-content h2,
+.dark-mode #post-content h3 {
+    color: #ffcc00;
+}
+
+.dark-mode #post-content pre {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+.dark-mode #post-content code {
+    background: #333;
+}
+
+.dark-mode #post-content blockquote {
+    border-left-color: #555;
+    color: #aaa;
+}
+
+
+/* Skeleton loading */
+/* Skeleton Loading */
+.skeleton {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.4s infinite linear;
+    border-radius: 6px;
+}
+
+/* Skeleton cho ảnh */
+.skeleton-image {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+}
+
+/* Skeleton cho tiêu đề */
+.skeleton-title {
+    width: 80%;
+    height: 20px;
+}
+
+/* Skeleton cho nội dung */
+.skeleton-text {
+    width: 100%;
+    height: 14px;
+}
+
+/* Hiệu ứng loading */
+@keyframes loading {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 📝 Căn chỉnh bài viết Markdown */
+#post-content {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    border-radius: 5px;
+}
+
+/*
+
+/* ✅ Danh sách */
+#post-content ul, #post-content ol {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#post-content ul li {
+    list-style: disc;
+}
+
+#post-content ol li {
+    list-style: decimal;
+}
+
+/* 📊 Bảng */
+#post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: ;
+}
+
+#post-content th, #post-content td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+#post-content th {
+    background: ;
+    font-weight: bold;
+}
+
+/* 💡 Code Block */
+#post-content pre {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+#post-content code {
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    background: #f4f4f4;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+#post-content pre code {
+    background: transparent;
+    color: #fff;
+}
+
+/* 🎯 Task List */
+#post-content input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+
+blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 15px;
+    font-style: italic;
+    margin: 0;
+    color: #666;
+    border-radius: 8px;
+}
+
+  #toast-container {
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    left: 20px;
+    z-index: 9999;
+  }
+  .toast {
+    background: #676767;
+    color: #fff;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    animation: fadeInOut 5s ease-in-out;
+  }
+  @keyframes fadeInOut {
+  0% { opacity: 0.8; transform: translateY(50px); }
+  10% { opacity: 0.9;  }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(0px); } 
+}
+
+#post-toc ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+#post-toc li {
+  margin: 5px 0;
+}
+
+#post-toc ul ul {
+  padding-left: 16px; /* Thụt vào cho mục con */
+}
+
+#post-toc a:hover {
+  text-decoration: underline;
+}
+
+.error{
+  background: #dc4040;
+}
+.success{
+  background: #2eb872;
+}
+
+/* Skeleton */
+.skeleton {
+    background: #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.skeleton-text {
+    width: 100%;
+    height: 16px;
+}
+
+.skeleton-image {
+    width: 100%;
+    height: 200px;
+}
+
+/* Grid layout cho danh sách bài viết */
+#post-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Mặc định 1 cột trên mobile */
+    gap: 20px;
+
+}
+
+/* Khi màn hình lớn hơn 768px (tablet) */
+@media (min-width: 768px) {
+    #post-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 cột */
+    }
+}
+
+/* Khi màn hình lớn hơn 1024px (desktop) */
+@media (min-width: 1024px) {
+    #post-list {
+        grid-template-columns: repeat(3, 1fr); /* 3 cột */
+    }
+}
+
+/* Kiểu dáng bài viết */
+article {
+    background: white;
+    padding: 0px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Hiệu ứng hover */
+article:hover {
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+.text-small{
+  font-size: 0.8rem;
+}
+
+.image-container {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.tag {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background-color: #ff6347;
+    color: white;
+}
+
+.dark-mode .tag {
+    background-color: #444;
+    color: #ddd;
+}
+
+.dark-mode .tag:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.error-message {
+    background-color: #ffe0e0;
+    color: #d32f2f;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    text-align: center;
+    border-left: 4px solid #d32f2f;
+}
+
+.dark-mode .error-message {
+    background-color: #3a2222;
+    color: #ff8080;
+    border-left: 4px solid #ff8080;
 }
