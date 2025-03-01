@@ -271,18 +271,34 @@ async function handlePostPage() {
                 }
                 
                 // Check if the heading has a {.section} class
-                const sectionMatch = text.match(/\s*{\.([^}]+)}\s*$/);
                 let className = '';
-                
-                if (sectionMatch) {
-                    className = sectionMatch[1];
-                    text = text.replace(/\s*{\.([^}]+)}\s*$/, '');
+                try {
+                    const sectionMatch = text.match(/\s*{\.([^}]+)}\s*$/);
+                    
+                    if (sectionMatch && sectionMatch[1]) {
+                        className = sectionMatch[1];
+                        text = text.replace(/\s*{\.([^}]+)}\s*$/, '');
+                    }
+                } catch (error) {
+                    console.warn("Error parsing heading class:", error);
                 }
                 
-                const rendered = originalHeadingRenderer.call(this, text, level, raw, slugger);
+                // Safely call the original renderer with proper fallbacks
+                let rendered;
+                try {
+                    rendered = originalHeadingRenderer.call(this, text, level, raw || '', slugger || {});
+                } catch (error) {
+                    console.warn("Error in original heading renderer:", error);
+                    rendered = `<h${level}>${text}</h${level}>`;
+                }
                 
-                if (className) {
-                    return rendered.replace(/<h(\d)>/, `<h$1 class="${className}">`);
+                // Apply class if available
+                if (className && rendered) {
+                    try {
+                        return rendered.replace(/<h(\d)>/, `<h$1 class="${className}">`);
+                    } catch (error) {
+                        console.warn("Error applying class to heading:", error);
+                    }
                 }
                 
                 return rendered;
@@ -357,19 +373,48 @@ async function handlePostPage() {
         // Render markdown content
         if (window.marked) {
             try {
-                // Use DOMPurify to sanitize HTML output from marked
-                if (window.DOMPurify) {
-                    postContent.innerHTML = DOMPurify.sanitize(marked.parse(content || ''));
-                } else {
-                    postContent.innerHTML = marked.parse(content || '');
+                // Make sure content is always a string
+                const contentToRender = content || '';
+                
+                // Set safe options for marked
+                marked.setOptions({
+                    silent: true,  // Don't throw errors, just warn
+                    breaks: true,
+                    smartLists: true
+                });
+                
+                let parsedHTML;
+                try {
+                    parsedHTML = marked.parse(contentToRender);
+                } catch (parseError) {
+                    console.error("Error in marked.parse():", parseError);
+                    throw new Error(`Parsing failed: ${parseError.message}`);
                 }
+                
+                // Check if we actually got HTML back
+                if (typeof parsedHTML !== 'string') {
+                    console.error("Unexpected marked.parse() result type:", typeof parsedHTML);
+                    parsedHTML = `<pre>${contentToRender}</pre>`;
+                }
+                
+                // Sanitize and display the HTML
+                if (window.DOMPurify) {
+                    postContent.innerHTML = DOMPurify.sanitize(parsedHTML);
+                } else {
+                    postContent.innerHTML = parsedHTML;
+                }
+                
             } catch (error) {
-                console.error("Error parsing markdown:", error);
-                postContent.innerHTML = `<p class='error-message'>Lỗi xử lý Markdown: ${error.message}</p><pre>${content}</pre>`;
+                console.error("Error in markdown processing:", error);
+                postContent.innerHTML = `<p class='error-message'>Lỗi xử lý Markdown: ${error.message}</p><pre>${typeof content === 'string' ? content : 'Nội dung không hợp lệ'}</pre>`;
+                
+                // Show more detailed debug info in console
+                console.debug("Content type:", typeof content);
+                console.debug("Content sample:", content ? content.substring(0, 100) : "null/undefined");
             }
         } else {
             console.error("Marked.js library not loaded");
-            postContent.innerHTML = `<pre>${content}</pre>`;
+            postContent.innerHTML = `<pre>${typeof content === 'string' ? content : 'Nội dung không hợp lệ'}</pre>`;
         }
         
         // Highlight code blocks
