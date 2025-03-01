@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Minimalist Blog</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 </head>
 <body>
   <!-- Header -->
-  <header class="main-header">
+  <header class="main-header sticky-header">
     <h1>Minimalist Blog</h1>
     <nav>
       <ul>
@@ -25,6 +29,8 @@
 <!-- <div data-netlify-identity-menu></div>
   <div data-netlify-identity-button>Login with Netlify Identity</div>
 -->
+
+<div id="scroll-indicator"></div>
 
   <!-- Danh sách bài viết -->
   <main class="blog-list">

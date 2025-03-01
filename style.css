@@ -730,6 +730,8 @@ article {
 article:hover {
     transform: scale(1.02);
     transition: 0.3s;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
 }
 
 .text-small{
@@ -1582,4 +1584,37 @@ article:hover {
     background-color: #3a2222;
     color: #ff8080;
     border-left: 4px solid #ff8080;
+}
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.9); /* Mờ dần */
+    backdrop-filter: blur(5px); /* Hiệu ứng kính */
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s linear;
+    z-index: 1000;
+    font-size: 0.9rem;
+}
+
+.sticky-header.hidden {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+body {
+    padding-top: 60px; /* Để tránh header che mất nội dung */
+}
+
+#scroll-indicator {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 0%; /* Mặc định 0 */
+    height: 4px;
+    background: linear-gradient(to right, #ff7eb3, #ff758c); /* Gradient màu */
+    transition: width 0.2s ease-out;
+    z-index: 9999;
 }

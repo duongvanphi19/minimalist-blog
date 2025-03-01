@@ -305,11 +305,12 @@ async function handlePostPage() {
         // Set post image with fallback
         const postImage = document.getElementById("post-image");
         if (postImage) {
-            postImage.dataset.src = metadata.image || "/assets/uploads/default.jpg";
+            postImage.src = metadata.image || "/assets/uploads/default.jpg";
             postImage.alt = metadata.title || "Post image";
             postImage.onerror = function() {
                 this.src = "/assets/uploads/default.jpg";
                 this.onerror = null;
+            postImage.classList.add("lazy")
             };
         }
 
@@ -342,6 +343,7 @@ async function handlePostPage() {
         console.error("Error loading post:", error);
         postContent.innerHTML = `<p class='error-message'>Lỗi: ${error.message}</p>`;
     }
+    lazyLoadImages();
 }
 
 /**
@@ -452,7 +454,7 @@ async function handleIndexPage() {
 
         const featuredPosts = allPosts
             .filter(post => post.featured === "true")
-            .slice(0, 3);
+            .slice(0, 1);
 
         if (featuredPosts.length > 0) {
             featuredList.innerHTML = featuredPosts.map(post => `
@@ -491,8 +493,54 @@ async function handleIndexPage() {
     }
 }
 
+
+function stickyHeader () {
+    const header = document.querySelector(".main-header");
+    let lastScrollY = window.scrollY;
+    let hidden = false;
+
+    window.addEventListener("scroll", function () {
+        const currentScrollY = window.scrollY;
+        const headerHeight = header.offsetHeight;
+
+        if (currentScrollY > lastScrollY && currentScrollY > headerHeight * 1.5) {
+            // Chỉ ẩn khi cuộn xuống và đã cuộn qua 1.5 lần chiều cao header
+            if (!hidden) {
+                header.classList.add("hidden");
+                hidden = true;
+            }
+        } else if (currentScrollY < lastScrollY || currentScrollY < headerHeight) {
+            // Hiện lại khi cuộn lên hoặc ở đầu trang
+            if (hidden) {
+                header.classList.remove("hidden");
+                hidden = false;
+            }
+        }
+
+        lastScrollY = currentScrollY;
+    });
+}
+
+function scrollIndicator() {
+
+    const scrollIndicator = document.getElementById("scroll-indicator");
+
+    window.addEventListener("scroll", function () {
+        const scrollTop = window.scrollY;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        scrollIndicator.style.width = scrollPercent + "%";
+    });
+
+  
+}
+
 // Initialize on DOM content loaded
 document.addEventListener("DOMContentLoaded", function() {
+  
+    stickyHeader();
+    scrollIndicator();
+  
     try {
         // Apply dark mode if enabled
         if (localStorage.getItem("darkMode") === "enabled") {
@@ -515,3 +563,4 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Initialization error:", error);
     }
 });
+
