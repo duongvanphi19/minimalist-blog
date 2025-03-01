@@ -1,4 +1,16 @@
+<<<<<<< HEAD
+
+function autoDarkMode() {
+    const hour = new Date().getHours();
+    if (hour >= 18 || hour < 6) {
+        document.documentElement.classList.add("dark");
+    }
+}
+autoDarkMode();
+
+=======
 // Extract YAML metadata from markdown content
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
@@ -102,6 +114,110 @@ function generateTOC() {
     tocContainer.style.display = "block";
 }
 
+<<<<<<< HEAD
+// Gọi hàm generateTOC() sau khi bài viết được load
+function showExam(){
+  document.getElementById("post-content").innerHTML = marked.parse(
+`
+# 🥩 Cách Làm Bò Lúc Lắc - Mềm Ngon, Đậm Đà  
+
+> **Bò lúc lắc** là món xào nổi tiếng với thịt bò **mềm ngọt, sốt đậm đà**, kết hợp cùng **ớt chuông, hành tây giòn ngọt**.  
+
+## 📝 **Thông Tin Món Ăn**  
+- 🍽 **Khẩu phần**: 3 người  
+- ⏳ **Thời gian nấu**: 25 phút  
+- ⚡ **Calories**: ~450 kcal/phần  
+
+---
+
+## 🛒 **Nguyên Liệu**  
+### 🥩 **Phần thịt bò**  
+- **Thịt bò thăn**: 300g (cắt khối vuông)  
+- **Hành tím, tỏi băm**: 1 thìa canh  
+- **Dầu hào**: 1 thìa canh  
+- **Nước tương**: 1 thìa canh  
+- **Tiêu, đường, bột ngọt**  
+- **Bơ lạt (tùy chọn)**: 10g  
+
+### 🫑 **Phần rau củ**  
+- **Ớt chuông xanh, đỏ**: ½ quả mỗi loại  
+- **Hành tây**: ½ củ  
+- **Cà chua**: 1 quả  
+- **Xà lách**: 1 ít (ăn kèm)  
+
+---
+
+## 👩‍🍳 **Cách Làm Bò Lúc Lắc**  
+
+### 1️⃣ **Ướp thịt bò**  
+✔️ Trộn thịt bò với **nước tương, dầu hào, tiêu, đường, tỏi băm**, ướp **15 phút**.  
+
+---
+
+### 2️⃣ **Xào bò**  
+🔥 Làm nóng chảo với ít dầu ăn, cho thịt bò vào **xào lửa lớn** đến khi cháy cạnh.  
+🧈 **Thêm bơ** vào đảo đều rồi cho ra đĩa.  
+
+---
+
+### 3️⃣ **Xào rau củ**  
+🥘 Dùng chảo cũ, xào nhanh **ớt chuông, hành tây, cà chua** khoảng **2 phút**.  
+✔️ Cho thịt bò vào xào chung, đảo đều **1 phút** rồi tắt bếp.  
+
+---
+
+## 🍽️ **Thưởng thức**  
+✅ Dọn ra đĩa, ăn kèm **xà lách, cơm trắng hoặc khoai tây chiên**.  
+✅ Có thể chấm thêm **muối tiêu chanh** để đậm vị hơn.  
+
+---
+
+## 📌 **Mẹo Giúp Thịt Bò Mềm Ngon**  
+🔹 **Không ướp muối** vào thịt bò trước khi xào để bò không bị dai.  
+🔹 **Xào lửa lớn, nhanh tay** để thịt bò không ra nước.  
+🔹 **Thêm bơ lạt** giúp thịt bò có mùi thơm béo đặc trưng.  
+
+💡 **Chúc bạn thành công và ngon miệng!** 😋  
+
+---
+
+📌 **Nguồn:** #ẨmThực #MónXào #BòLúcLắc #ThịtBò
+    `)
+    
+}
+//posts
+document.addEventListener("DOMContentLoaded", async function () {
+    document.getElementById("savePostBtn").addEventListener("click", function () {
+    let savedPosts = JSON.parse(localStorage.getItem("savedPosts")) || [];
+    let postTitle = document.getElementById("post-title").textContent;
+
+    if (!savedPosts.includes(postTitle)) {
+        savedPosts.push(postTitle);
+        localStorage.setItem("savedPosts", JSON.stringify(savedPosts));
+        log("Bài viết đã được lưu!");
+    } else {
+        log("Bài viết này đã có trong danh sách!");
+    }
+});
+    showExam();
+    //generateTOC();
+    //loadPosts();
+    let markdown;
+    if (localStorage.getItem("darkMode") === "enabled") {
+    document.body.classList.add("dark-mode");
+  }
+    
+    const params = new URLSearchParams(window.location.search);
+    const postFile = params.get("post");
+    //console.log(postFile);
+    
+    
+    try{
+      const response = await fetch(`/posts/${postFile}.md`)
+    }catch(e){
+      log("error load")
+      return
+=======
 /**
  * Toggle dark mode and save preference
  */
@@ -113,6 +229,7 @@ function toggleDarkMode() {
         localStorage.setItem("darkMode", "enabled");
     } else {
         localStorage.setItem("darkMode", "disabled");
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
     }
 }
 
@@ -148,6 +265,7 @@ function lazyLoadImages() {
         return;
     }
 
+<<<<<<< HEAD
     const imageObserver = new IntersectionObserver(
         (entries, observer) => {
             entries.forEach((entry) => {
@@ -169,6 +287,37 @@ function lazyLoadImages() {
             threshold: 0.01,
         },
     );
+=======
+<<<<<<< HEAD
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", `https://minimblog.netlify.app/posts/${postFile}.md`, true);
+    
+    xhr.onload = function () {
+        //console.log("stt", xhr.status);
+        if (xhr.status >= 200 && xhr.status < 300) {
+            markdown = xhr.responseText;
+            log(markdown); // 🔍 Kiểm tra nội dung trả về
+=======
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.remove("lazy", "skeleton");
+                    img.onload = () => {
+                        img.classList.remove("skeleton-image");
+                    };
+                    observer.unobserve(img);
+                }
+            }
+        });
+    }, {
+        rootMargin: "100px 0px",
+        threshold: 0.01
+    });
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
+>>>>>>> 7d48f55fd3e83b480c208dde09b1cfd7d087e074
 
     document.querySelectorAll(".lazy").forEach((img) => {
         try {
