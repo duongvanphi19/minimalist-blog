@@ -80,7 +80,27 @@ function generateTOC() {
         const listItem = document.createElement("li");
         const link = document.createElement("a");
         link.href = `#${id}`;
-        link.textContent = header.textContent;
+        
+        // Get text content safely
+        let headerText = "";
+        try {
+            // Extract only the text, not child elements
+            headerText = Array.from(header.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .join(" ")
+                .trim();
+                
+            // If no text was found, use the full textContent
+            if (!headerText) {
+                headerText = header.textContent;
+            }
+        } catch (e) {
+            console.warn("Error getting header text:", e);
+            headerText = `Heading ${index + 1}`;
+        }
+        
+        link.textContent = headerText;
         listItem.appendChild(link);
 
         if (header.tagName === "H2") {
