@@ -638,7 +638,7 @@ blockquote {
     padding: 8px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    animation: fadeInOut 5s ease-in-out;
+    animation: fadeInOut 3.5s ease-in-out;
   }
   @keyframes fadeInOut {
   0% { opacity: 0.8; transform: translateY(50px); }
@@ -790,4 +790,8 @@ article:hover {
     background-color: #3a2222;
     color: #ff8080;
     border-left: 4px solid #ff8080;
+}
+
+.strong {
+    font-weight: 600;
 }

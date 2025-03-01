@@ -1,44 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liên hệ - Minimalist Blog</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="main-header">
-        <h1>Minimalist Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="about.html">Giới thiệu</a></li>
-                <li><a href="contact.html">Liên hệ</a></li>
-                <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
-            </ul>
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Liên hệ - Minimalist Blog</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <header class="main-header">
+            <h1>Minimalist Blog</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="about.html">Giới thiệu</a></li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                    <li>
+                        <button id="darkModeToggle" class="toggle-btn">
+                            Dark Mode
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
-    <main class="contact-container">
-        <h2>Liên hệ với tôi</h2>
-        <form action="submit_form.php" method="POST" class="contact-form">
-            <label for="name">Họ và tên:</label>
-            <input type="text" id="name" name="name" required>
+        <main class="contact-container">
+            <h2>Liên hệ với tôi</h2>
+            <form action="submit_form.php" method="POST" class="contact-form">
+                <label for="name">Họ và tên:</label>
+                <input type="text" id="name" name="name" required />
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required />
 
-            <label for="message">Tin nhắn:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+                <label for="message">Tin nhắn:</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                ></textarea>
 
-            <button type="submit">Gửi</button>
-        </form>
-        <p>Nếu bạn muốn liên hệ trực tiếp, hãy gửi email tới: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-    </main>
+                <button type="submit">Gửi</button>
+            </form>
+            <p>
+                Nếu bạn muốn liên hệ trực tiếp, hãy gửi email tới:
+                <a href="mailto:your.email@example.com"
+                    >your.email@example.com</a
+                >
+            </p>
+        </main>
 
-    <footer class="main-footer">
-        <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
-    </footer>
+        <footer class="main-footer">
+            <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+        </footer>
         <script src="script.js"></script>
-</body>
+    </body>
 </html>
