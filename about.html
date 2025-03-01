@@ -5,29 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giới thiệu - Minimalist Blog</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="main-header">
-        <h1>Minimalist Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Trang chủ</a></li>
-                <li><a href="about.html">Giới thiệu</a></li>
-                <li><a href="contact.html">Liên hệ</a></li>
-                <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
-            </ul>
-        </nav>
+        <div class="header-container">
+            <h1>Minimalist Blog</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="about.html" class="active">Giới thiệu</a></li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                    <li><button id="darkModeToggle" class="toggle-btn" aria-label="Toggle dark mode">Dark Mode</button></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main class="about-container">
-        <h2>Về tôi</h2>
-        <p>Tôi là Phi, một [nghề nghiệp/hobby] đam mê [chủ đề blog]. Blog này ra đời với mục đích chia sẻ [sứ mệnh, giá trị, kinh nghiệm].</p>
-        <p>Bạn có thể theo dõi tôi qua các kênh mạng xã hội để cập nhật thêm thông tin và các bài viết mới nhất.</p>
+        <div class="about-content">
+            <h2>Về tôi</h2>
+            <div class="profile-section">
+                <div class="profile-image">
+                    <img src="https://via.placeholder.com/150" alt="Profile Image" class="avatar">
+                </div>
+                <div class="profile-text">
+                    <p>Tôi là Phi, một người đam mê ẩm thực và chia sẻ kiến thức. Blog này ra đời với mục đích chia sẻ các công thức nấu ăn, trải nghiệm và kinh nghiệm tôi đã tích lũy.</p>
+                    <p>Bạn có thể theo dõi tôi qua các kênh mạng xã hội để cập nhật thêm thông tin và các bài viết mới nhất.</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter</a>
+            </div>
+        </div>
     </main>
 
     <footer class="main-footer">
-        <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+        <div class="footer-container">
+            <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Trang chủ</a>
+                <a href="contact.html">Liên hệ</a>
+                <a href="admin/index.html">Admin</a>
+            </div>
+        </div>
     </footer>
+    <div id="toast-container"></div>
     <script src="script.js"></script>
 </body>
 </html>

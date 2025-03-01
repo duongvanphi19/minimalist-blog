@@ -5,54 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Minimalist Blog</title>
   <link rel="stylesheet" href="style.css">
-   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
 </head>
 <body>
   <!-- Header -->
   <header class="main-header">
-    <h1>Minimalist Blog</h1>
-    <nav>
-      <ul>
-        <li><a href="https://minimblog.netlify.app/index.html">Trang chủ</a></li>
-        <li><a href="about.html">Giới thiệu</a></li>
-        <li><a href="contact.html">Liên hệ</a></li>
-        <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <h1>Minimalist Blog</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Trang chủ</a></li>
+          <li><a href="about.html">Giới thiệu</a></li>
+          <li><a href="contact.html">Liên hệ</a></li>
+          <li><button id="darkModeToggle" class="toggle-btn" aria-label="Toggle dark mode">Dark Mode</button></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-
-<!-- <div data-netlify-identity-menu></div>
-  <div data-netlify-identity-button>Login with Netlify Identity</div>
--->
 
   <!-- Danh sách bài viết -->
   <main class="blog-list">
-   
-  <section class="featured-posts">
-    <h2>🔥 Bài viết nổi bật</h2>
-    <div id="featured-list">
-
-        <p>Đang tải...</p>
-    </div>
-  </section>
+    <section class="featured-posts">
+      <h2><span class="highlight-icon">🔥</span> Bài viết nổi bật</h2>
+      <div id="featured-list" class="featured-grid">
+        <div class="skeleton-container">
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+        </div>
+      </div>
+    </section>
     
     <div class="search-filter">
-    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
-    <button id="searchButton">Search</button>
-    <select id="categoryFilter">
+      <div class="search-input-group">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
+        <button id="searchButton" class="btn search-btn">Tìm kiếm</button>
+      </div>
+      <select id="categoryFilter" class="category-select">
         <option value="all">Tất cả danh mục</option>
-    </select>
-</div>
-    <div id="post-list">
-        <p>Đang tải...</p>      
+      </select>
+    </div>
+    
+    <div id="post-list" class="post-grid">
+      <div class="skeleton-container">
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton skeleton-card"></div>
+      </div>     
     </div>
   </main>
 
   <!-- Footer -->
   <footer class="main-footer">
-    <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+    <div class="footer-container">
+      <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="about.html">Giới thiệu</a>
+        <a href="contact.html">Liên hệ</a>
+        <a href="admin/index.html">Admin</a>
+      </div>
+    </div>
   </footer>
+  
   <div id="toast-container"></div>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js"></script>
