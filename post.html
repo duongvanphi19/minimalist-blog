@@ -31,16 +31,23 @@
 
     <!-- Nội dung bài viết -->
     <div class="blog-content">
-        <h1 class="" id="post-title">Đang tải...</h1>
-        <p><strong>Ngày đăng:</strong> <span id="post-date">-</span>
-        | <strong>Tác giả:</strong> <span id="post-author">-</span></p>
-        <img class="" id="post-image" src="assets/uploads/default.jpg" alt="Bài viết">
+        <h1 id="post-title">Đang tải...</h1>
+        <div class="post-meta">
+            <span><i class="meta-icon">📅</i> <span id="post-date">-</span></span>
+            <span><i class="meta-icon">👤</i> <span id="post-author">-</span></span>
+        </div>
+        <img id="post-image" src="assets/uploads/default.jpg" alt="Bài viết">
         <div class="post-tags" id="post-tags"></div>
-        <!--<p> <strong id="post-description">Đang tải...</strong></p>-->
-        </br>
-        <div class="post-toc" id="post-toc"></div>
-        </br>
-        <div id="post-content">Đang tải nội dung...</div>
+        
+        <div class="post-toc" id="post-toc">
+            <h3>Mục lục</h3>
+        </div>
+        
+        <div id="post-content" class="post-body">Đang tải nội dung...</div>
+        
+        <div class="post-navigation">
+            <a href="index.html" class="back-link"><i class="nav-icon">←</i> Quay lại danh sách bài viết</a>
+        </div>
     </div>
     
    <!-- <main class="blog-content">
