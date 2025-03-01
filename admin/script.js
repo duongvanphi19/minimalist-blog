@@ -1,54 +1,100 @@
-const deleteBtn = document.getElementById("deletePostBtn");
-    deleteBtn.style.display = "none"; // Ẩn nút xóa mặc định
-    deleteBtn.addEventListener("click", deletePost)
-
-document.getElementById("imageUpload").addEventListener("change", function (event) {
-    const file = event.target.files[0];
-
-    // Nếu không chọn file thì reset lại toàn bộ
-    if (!file) {
-        resetUploadForm();
-        return;
+// Initialize UI elements when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    // Initial setup
+    const deleteBtn = document.getElementById("deletePostBtn");
+    if (deleteBtn) {
+        deleteBtn.style.display = "none"; // Ẩn nút xóa mặc định
+        deleteBtn.addEventListener("click", deletePost);
     }
 
-    // Hiển thị ảnh preview
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const preview = document.getElementById("imagePreview");
-        preview.src = e.target.result;
-        preview.style.display = "block";
-    };
-    reader.readAsDataURL(file);
-
-    // Cập nhật nội dung checkbox
-    const useDefaultNameLabel = document.querySelector("label[for='useDefaultName']");
-    useDefaultNameLabel.innerText = `Sử dụng tên '${file.name}'`;
-
-    // Hiển thị các tùy chọn upload
-    document.getElementById("uploadOptions").classList.remove("hidden");
+    // Setup image upload listeners
+    setupImageUploadHandlers();
+    
+    // Load posts and setup event listeners
+    loadPosts();
+    
+    // Apply dark mode if enabled
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+    
+    // Add event listeners for main actions
+    document.getElementById("darkModeToggle")?.addEventListener("click", toggleDarkMode);
+    document.getElementById("newPostButton")?.addEventListener("click", newPost);
 });
+
+function setupImageUploadHandlers() {
+    const imageUpload = document.getElementById("imageUpload");
+    if (!imageUpload) return;
+    
+    imageUpload.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+
+        // Nếu không chọn file thì reset lại toàn bộ
+        if (!file) {
+            resetUploadForm();
+            return;
+        }
+
+        // Hiển thị ảnh preview
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const preview = document.getElementById("imagePreview");
+            if (preview) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            }
+        };
+        reader.readAsDataURL(file);
+
+        // Cập nhật nội dung checkbox
+        const useDefaultNameLabel = document.querySelector("label[for='useDefaultName']");
+        if (useDefaultNameLabel) {
+            useDefaultNameLabel.innerText = `Sử dụng tên '${file.name}'`;
+        }
+
+        // Hiển thị các tùy chọn upload
+        const uploadOptions = document.getElementById("uploadOptions");
+        if (uploadOptions) {
+            uploadOptions.classList.remove("hidden");
+        }
+        
+        // Set file extension in label
+        const extensionLabel = document.getElementById("extensionLabel");
+        if (extensionLabel) {
+            extensionLabel.innerHTML = "." + file.name.split(".").pop().toLowerCase();
+        }
+    });
+}
 
 // Hàm reset khi chọn ảnh khác
 function resetUploadForm() {
-    document.getElementById("imagePreview").style.display = "none";
-    document.getElementById("uploadOptions").classList.add("hidden");
-    document.getElementById("imageUpload").value = ""; // Reset input file
+    const imagePreview = document.getElementById("imagePreview");
+    const uploadOptions = document.getElementById("uploadOptions");
+    const imageUpload = document.getElementById("imageUpload");
+    
+    if (imagePreview) imagePreview.style.display = "none";
+    if (uploadOptions) uploadOptions.classList.add("hidden");
+    if (imageUpload) imageUpload.value = ""; // Reset input file
 }
 
-document.getElementById("uploadButton").addEventListener("click", uploadImage);
+// Add event listener for upload button
+const uploadButton = document.getElementById("uploadButton");
+if (uploadButton) {
+    uploadButton.addEventListener("click", uploadImage);
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadPosts();
+// Use delegated event listeners for checkbox and image selection
+document.addEventListener("click", (e) => {
+    // Find the closest relevant element
+    const useDefaultName = e.target.closest("#useDefaultName");
     
-    if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-  }
-  
-
-// Đăng ký sự kiện cho nút toggle
-document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
-
-document.getElementById("newPostButton").addEventListener("click", newPost);
+    if (useDefaultName) {
+        const imageNameInput = document.getElementById("imageNameInput");
+        if (imageNameInput) {
+            imageNameInput.disabled = useDefaultName.checked;
+        }
+    }
 });
 
 function toggleDarkMode() {
