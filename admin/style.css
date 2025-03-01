@@ -466,6 +466,7 @@ blockquote {
     position: fixed;
     bottom: 20px;
     right: 20px;
+    left: 20px;
     max-width: 320px;
     z-index: 9999;
 }
@@ -477,7 +478,7 @@ blockquote {
     margin-bottom: 10px;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    animation: fadeInOut 4s ease-in-out;
+    animation: fadeInOut 3.5s ease-in-out;
     display: flex;
     align-items: center;
     font-weight: 500;

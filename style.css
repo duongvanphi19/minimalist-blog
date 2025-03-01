@@ -638,7 +638,7 @@ blockquote {
     padding: 8px 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    animation: fadeInOut 5s ease-in-out;
+    animation: fadeInOut 3.5s ease-in-out;
   }
   @keyframes fadeInOut {
   0% { opacity: 0.8; transform: translateY(50px); }
@@ -812,5 +812,12 @@ hr{
     background-color: #3a2222;
     color: #ff8080;
     border-left: 4px solid #ff8080;
+<<<<<<< HEAD
+}
+
+.strong {
+    font-weight: 600;
+=======
 >>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
+>>>>>>> 7d48f55fd3e83b480c208dde09b1cfd7d087e074
 }

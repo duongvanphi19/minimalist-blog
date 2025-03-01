@@ -9,24 +9,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Setup image upload listeners
     setupImageUploadHandlers();
-    
+
     // Load posts and setup event listeners
     loadPosts();
-    
+
     // Apply dark mode if enabled
     if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
     }
-    
+
     // Add event listeners for main actions
-    document.getElementById("darkModeToggle")?.addEventListener("click", toggleDarkMode);
-    document.getElementById("newPostButton")?.addEventListener("click", newPost);
+    document
+        .getElementById("darkModeToggle")
+        ?.addEventListener("click", toggleDarkMode);
+    document
+        .getElementById("newPostButton")
+        ?.addEventListener("click", newPost);
 });
 
 function setupImageUploadHandlers() {
     const imageUpload = document.getElementById("imageUpload");
     if (!imageUpload) return;
-    
+
     imageUpload.addEventListener("change", function (event) {
         const file = event.target.files[0];
 
@@ -48,7 +52,9 @@ function setupImageUploadHandlers() {
         reader.readAsDataURL(file);
 
         // Cập nhật nội dung checkbox
-        const useDefaultNameLabel = document.querySelector("label[for='useDefaultName']");
+        const useDefaultNameLabel = document.querySelector(
+            "label[for='useDefaultName']",
+        );
         if (useDefaultNameLabel) {
             useDefaultNameLabel.innerText = `Sử dụng tên '${file.name}'`;
         }
@@ -58,11 +64,12 @@ function setupImageUploadHandlers() {
         if (uploadOptions) {
             uploadOptions.classList.remove("hidden");
         }
-        
+
         // Set file extension in label
         const extensionLabel = document.getElementById("extensionLabel");
         if (extensionLabel) {
-            extensionLabel.innerHTML = "." + file.name.split(".").pop().toLowerCase();
+            extensionLabel.innerHTML =
+                "." + file.name.split(".").pop().toLowerCase();
         }
     });
 }
@@ -72,7 +79,7 @@ function resetUploadForm() {
     const imagePreview = document.getElementById("imagePreview");
     const uploadOptions = document.getElementById("uploadOptions");
     const imageUpload = document.getElementById("imageUpload");
-    
+
     if (imagePreview) imagePreview.style.display = "none";
     if (uploadOptions) uploadOptions.classList.add("hidden");
     if (imageUpload) imageUpload.value = ""; // Reset input file
@@ -88,7 +95,7 @@ if (uploadButton) {
 document.addEventListener("click", (e) => {
     // Find the closest relevant element
     const useDefaultName = e.target.closest("#useDefaultName");
-    
+
     if (useDefaultName) {
         const imageNameInput = document.getElementById("imageNameInput");
         if (imageNameInput) {
@@ -98,143 +105,152 @@ document.addEventListener("click", (e) => {
 });
 
 function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("dark-mode");
 
-  // Lưu trạng thái trong localStorage
-  if (document.body.classList.contains("dark-mode")) {
-    localStorage.setItem("darkMode", "enabled");
-  } else {
-    localStorage.setItem("darkMode", "disabled");
-  }
+    // Lưu trạng thái trong localStorage
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        localStorage.setItem("darkMode", "disabled");
+    }
 }
 
 // Sự kiện checkbox: nếu được chọn, disable input tên ảnh
-document.getElementById("useDefaultName").addEventListener("change", function () {
-  const imageNameInput = document.getElementById("imageNameInput");
-  imageNameInput.disabled = this.checked;
-});
+document
+    .getElementById("useDefaultName")
+    .addEventListener("change", function () {
+        const imageNameInput = document.getElementById("imageNameInput");
+        imageNameInput.disabled = this.checked;
+    });
 
 // Sự kiện xem trước ảnh khi chọn file
-document.getElementById("imageUpload").addEventListener("change", function (event) {
-  const file = event.target.files[0];
-  if (!file) return;
+document
+    .getElementById("imageUpload")
+    .addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
 
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const preview = document.getElementById("imagePreview");
-    preview.src = e.target.result;
-    preview.style.display = "block";
-  };
-  document.getElementById("extensionLabel").innerHTML= "." + file.name.split(".").pop().toLowerCase();
-  reader.readAsDataURL(file);
-});
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const preview = document.getElementById("imagePreview");
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        document.getElementById("extensionLabel").innerHTML =
+            "." + file.name.split(".").pop().toLowerCase();
+        reader.readAsDataURL(file);
+    });
 
 // Hàm tạo slug từ chuỗi (loại bỏ dấu, chuyển thành chữ thường, đổi khoảng trắng thành dấu -)
 function createSlug(title) {
-  return title
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
+    return title
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
 }
 
 // Sự kiện nút upload ảnh
 document.getElementById("uploadButton").addEventListener("click", uploadImage);
 
 async function uploadImage() {
-  const fileInput = document.getElementById("imageUpload");
-  const file = fileInput.files[0];
-  if (!file) {
-    log("Vui lòng chọn một ảnh!", "error");
-    return;
-  }
-  
-  document.getElementById("uploadButton").textContent = "Uploading...";
-
-  // Lấy extension của file
-  const extension = file.name.split(".").pop().toLowerCase();
-  
-  // Nếu checkbox "useDefaultName" được check, dùng tên file gốc (đã chuyển slug)
-  // Ngược lại, lấy tên từ input (và chuyển slug)
- 
-  let baseName = "";
-  if (document.getElementById("useDefaultName").checked) {
-    baseName = file.name.substring(0, file.name.lastIndexOf("."));
-  } else {
-    baseName = document.getElementById("imageNameInput").value;
-    if (!baseName) {
-      log("❌ Vui lòng nhập tên ảnh!");
-      return;
-    }
-  }
-  const slugName = createSlug(baseName);
-  const filename = `assets/uploads/${slugName}.${extension}`;
-
-  // Đọc file và chuyển thành Base64
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = async function () {
-    const base64Content = reader.result.split(",")[1]; // Lấy phần dữ liệu base64 sau dấu ,
-
-    // Cấu hình thông tin GitHub
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw=="); // Thay bằng token của bạn (đã mã hóa)
-    const repo = "duongvanphi19/minimalist-blog"; // Thay bằng repo của bạn
-    const url = `https://api.github.com/repos/${repo}/contents/${filename}`;
-
-    // Kiểm tra xem file đã tồn tại chưa
-    let sha = null;
-    const checkFile = await fetch(url, { headers: { Authorization: token } });
-    if (checkFile.ok) {
-      const fileData = await checkFile.json();
-      sha = fileData.sha;
+    const fileInput = document.getElementById("imageUpload");
+    const file = fileInput.files[0];
+    if (!file) {
+        log("Vui lòng chọn một ảnh!", "error");
+        return;
     }
 
-    // Gửi yêu cầu PUT để upload file ảnh
-    const response = await fetch(url, {
-      method: "PUT",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: "Upload ảnh mới",
-        content: base64Content,
-        sha: sha || undefined
-      })
-    });
+    document.getElementById("uploadButton").textContent = "Uploading...";
 
-    const result = await response.json();
-    if (response.ok) {
-      const absoluteUrl = result.content.download_url;
-      // Đường dẫn tương đối giả định là phần sau dấu "repos/<repo>/contents"
-      const relativeUrl = `/${filename}`;
-      log("Ảnh đã được upload thành công!");
-      // Hiển thị đường dẫn để người dùng copy
-      document.getElementById("uploadPaths").innerHTML = `
+    // Lấy extension của file
+    const extension = file.name.split(".").pop().toLowerCase();
+
+    // Nếu checkbox "useDefaultName" được check, dùng tên file gốc (đã chuyển slug)
+    // Ngược lại, lấy tên từ input (và chuyển slug)
+
+    let baseName = "";
+    if (document.getElementById("useDefaultName").checked) {
+        baseName = file.name.substring(0, file.name.lastIndexOf("."));
+    } else {
+        baseName = document.getElementById("imageNameInput").value;
+        if (!baseName) {
+            log("❌ Vui lòng nhập tên ảnh!");
+            return;
+        }
+    }
+    const slugName = createSlug(baseName);
+    const filename = `assets/uploads/${slugName}.${extension}`;
+
+    // Đọc file và chuyển thành Base64
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async function () {
+        const base64Content = reader.result.split(",")[1]; // Lấy phần dữ liệu base64 sau dấu ,
+
+        // Cấu hình thông tin GitHub
+        const token = atob(
+            "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+        ); // Thay bằng token của bạn (đã mã hóa)
+        const repo = "duongvanphi19/minimalist-blog"; // Thay bằng repo của bạn
+        const url = `https://api.github.com/repos/${repo}/contents/${filename}`;
+
+        // Kiểm tra xem file đã tồn tại chưa
+        let sha = null;
+        const checkFile = await fetch(url, {
+            headers: { Authorization: token },
+        });
+        if (checkFile.ok) {
+            const fileData = await checkFile.json();
+            sha = fileData.sha;
+        }
+
+        // Gửi yêu cầu PUT để upload file ảnh
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                message: "Upload ảnh mới",
+                content: base64Content,
+                sha: sha || undefined,
+            }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            const absoluteUrl = result.content.download_url;
+            // Đường dẫn tương đối giả định là phần sau dấu "repos/<repo>/contents"
+            const relativeUrl = `/${filename}`;
+            log("Ảnh đã được upload thành công!");
+            // Hiển thị đường dẫn để người dùng copy
+            document.getElementById("uploadPaths").innerHTML = `
         <h3><strong>Path:</strong></h3>
         <p> <input type="text" value="${absoluteUrl}" readonly style="width:100%;"></p>
         <p> <input type="text" value="${relativeUrl}" readonly style="width:100%;"></p>
       `;
-      // Tự chèn markdown của ảnh vào editor
-      //insertImageMarkdown(absoluteUrl);
-      document.getElementById("uploadButton").textContent = "✅"
-    } else {
-      log("❌ Lỗi khi upload ảnh: " + result.message);
-    }
-  };
+            // Tự chèn markdown của ảnh vào editor
+            //insertImageMarkdown(absoluteUrl);
+            document.getElementById("uploadButton").textContent = "✅";
+        } else {
+            log("❌ Lỗi khi upload ảnh: " + result.message);
+        }
+    };
 }
 
 // Hàm chèn markdown của ảnh vào vị trí con trỏ trong editor
 function insertImageMarkdown(imageUrl) {
-  const editor = document.getElementById("markdownEditor");
-  const cursorPos = editor.selectionStart;
-  const textBefore = editor.value.substring(0, cursorPos);
-  const textAfter = editor.value.substring(cursorPos);
-  editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
-  updatePreview();
+    const editor = document.getElementById("markdownEditor");
+    const cursorPos = editor.selectionStart;
+    const textBefore = editor.value.substring(0, cursorPos);
+    const textAfter = editor.value.substring(cursorPos);
+    editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
+    updatePreview();
 }
 
 // Hàm cập nhật preview sử dụng marked.js (đã được load từ CDN)
@@ -259,12 +275,12 @@ function createSlug(title) {
         .replace(/\s+/g, "-"); // Đổi khoảng trắng thành dấu "-"
 }
 
-function generateID(){
-  return Date.now().toString();
+function generateID() {
+    return Date.now().toString();
 }
 
 function newPost() {
-    const title = prompt("nhap title")
+    const title = prompt("nhap title");
 
     const slug = createSlug(title);
     const content = `---
@@ -286,7 +302,7 @@ Nội dung bài viết tại đây...
 
     document.getElementById("markdownEditor").value = content;
     document.getElementById("editor").style.display = "block";
-    
+
     updatePreview();
 
     document.getElementById("saveButton").onclick = () => savePost();
@@ -295,54 +311,57 @@ Nội dung bài viết tại đây...
 // 📝 Tải danh sách bài viết từ GitHub
 
 async function loadPosts() {
-  
-    const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`
+    const postsFile = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json`;
     //const url = '/.netlify/functions/savePost';
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==")
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     // 🛑 Lấy nội dung hiện tại của `posts.json`
-    const response = await fetch(postsFile, { headers: { Authorization: token } });
+    const response = await fetch(postsFile, {
+        headers: { Authorization: token },
+    });
 
     if (!response.ok) {
         log("Lỗi khi tải `posts.json`!");
         return;
     }
     let postsData = await response.json();
-    let posts =[];
+    let posts = [];
     //log(decodeBase64(postsData.content))
-    
-    try{ 
-      posts = JSON.parse(decodeBase64(postsData.content));
-    //console.log('decodeBase64 postsData ok')
-    }catch(e){
-      console.log(e)
+
+    try {
+        posts = JSON.parse(decodeBase64(postsData.content));
+        //console.log('decodeBase64 postsData ok')
+    } catch (e) {
+        console.log(e);
     }
-    console.log(posts)
+    console.log(posts);
     filterPosts(posts, "all");
-    document.querySelectorAll("input[name='filter']").forEach(radio => {
-            radio.addEventListener("change", (e) => {
-                filterPosts(posts,e.target.value);
-            });       
-}); 
-    
+    document.querySelectorAll("input[name='filter']").forEach((radio) => {
+        radio.addEventListener("change", (e) => {
+            filterPosts(posts, e.target.value);
+        });
+    });
 }
 
-
 function filterPosts(posts, status) {
-     
-            const filteredPosts = status === "all" ? posts : posts.filter(post => post.status === status);
-          
-           //console.log(filteredPosts)
-           const postList = document.getElementById("blog-list");
-        postList.innerHTML = "";
-        filteredPosts.forEach(post => {
+    const filteredPosts =
+        status === "all"
+            ? posts
+            : posts.filter((post) => post.status === status);
+
+    //console.log(filteredPosts)
+    const postList = document.getElementById("blog-list");
+    postList.innerHTML = "";
+    filteredPosts.forEach((post) => {
         const postItem = document.createElement("div");
-        
-        postItem.innerHTML = `<span style="margin-right:6px;">${post.status === "published" ? '✅' : '⬜'}</span><a href="#editHere" onclick="editPost('${post.filename}')">${post.filename}</a>`;
+
+        postItem.innerHTML = `<span style="margin-right:6px;">${post.status === "published" ? "✅" : "⬜"}</span><a href="#editHere" onclick="editPost('${post.filename}')">${post.filename}</a>`;
         postList.appendChild(postItem);
     });
-        }
-        
+}
+
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
@@ -360,20 +379,20 @@ function parseYAML(yamlText) {
     const lines = yamlText.split("\n");
     const result = {};
 
-    lines.forEach(line => {
+    lines.forEach((line) => {
         const [key, ...value] = line.split(": ");
-        
-          if (key && value.length) {
+
+        if (key && value.length) {
             let val = value.join(": ").trim();
-          
-          if (val.startsWith('"') && val.endsWith('"')){
-              val = val.slice(1,-1);
+
+            if (val.startsWith('"') && val.endsWith('"')) {
+                val = val.slice(1, -1);
             }
 
             // Nếu là một danh sách (array)
             if (val.startsWith("[") && val.endsWith("]")) {
                 try {
-                  //console.log(val);
+                    //console.log(val);
                     val = JSON.parse(val.replace(/'/g, '"')); // Chuyển YAML array thành JSON array hợp lệ
                 } catch (error) {
                     console.warn("Lỗi khi parse YAML array:", error);
@@ -383,40 +402,41 @@ function parseYAML(yamlText) {
             result[key.trim()] = val;
         }
     });
-   // log(json.stringify(result))
+    // log(json.stringify(result))
     return result;
 }
 
 // ✏️ Chỉnh sửa bài viết
-function FrontMatter(markdown){
-  //content = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
-  const {metadata, content} = extractMetadata(markdown);
-  
-  const head = `
+function FrontMatter(markdown) {
+    //content = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
+    const { metadata, content } = extractMetadata(markdown);
+
+    const head = `
   # ${metadata.title}
   ![${metadata.title}](../${metadata.image})
   
   `;
- 
- 
-  return content;
+
+    return content;
 }
 
-async function editPost(filename, newContent=null) {
-  //console.log("editpost")
-    const response = await fetch(`https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`);
+async function editPost(filename, newContent = null) {
+    //console.log("editpost")
+    const response = await fetch(
+        `https://raw.githubusercontent.com/duongvanphi19/minimalist-blog/main/posts/${filename}`,
+    );
     //console.log(response)
     if (!response.ok) {
         console.error("Không thể tải bài viết.");
         return;
     }
     const markdown = await response.text();
-  
+
     document.getElementById("markdownEditor").value = markdown;
     updatePreview();
     document.getElementById("editor").style.display = "block";
     document.getElementById("saveButton").onclick = () => savePost();
-    document.getElementById("deletePostBtn").style.display = "block"
+    document.getElementById("deletePostBtn").style.display = "block";
 }
 
 function encodeBase64(str) {
@@ -434,14 +454,16 @@ async function savePost() {
 
     const markdown = document.getElementById("markdownEditor").value;
     const { metadata, content } = extractMetadata(markdown);
-    
+
     if (!metadata.id) {
         metadata.id = generateID();
     }
 
     const filename = metadata.slug + ".md";
     const fileUrl = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     let sha = null;
     let fileExists = false;
@@ -449,7 +471,7 @@ async function savePost() {
     try {
         // 🛑 Lấy thông tin file hiện tại
         const getFileResponse = await fetch(fileUrl, {
-            headers: { Authorization: `${token}` }
+            headers: { Authorization: `${token}` },
         });
 
         if (getFileResponse.ok) {
@@ -481,7 +503,7 @@ ${content}`;
     const data = {
         message: fileExists ? "Cập nhật bài viết" : "Tạo bài viết mới",
         content: encodeBase64(newContent),
-        ...(fileExists && { sha }) // Chỉ gửi `sha` nếu file đã tồn tại
+        ...(fileExists && { sha }), // Chỉ gửi `sha` nếu file đã tồn tại
     };
 
     try {
@@ -490,13 +512,16 @@ ${content}`;
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                Authorization: `${token}`,
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
         });
 
         if (response.ok) {
-            log(`${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`, "success");
+            log(
+                `${fileExists ? "Bài viết đã được cập nhật!" : "Bài viết mới đã được tạo!"}`,
+                "success",
+            );
             document.getElementById("markdownEditor").value = newContent;
 
             // 🛑 Cập nhật `posts.json`
@@ -518,11 +543,13 @@ ${content}`;
 // 🛑 Hàm kiểm tra file có tồn tại trên GitHub không
 async function checkFileExists(filename) {
     const fileUrl = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     try {
         const response = await fetch(fileUrl, {
-            headers: { Authorization: token}
+            headers: { Authorization: token },
         });
         return response.ok; // Trả về `true` nếu file tồn tại, `false` nếu không
     } catch (error) {
@@ -532,12 +559,17 @@ async function checkFileExists(filename) {
 }
 
 async function updatePostsJson(filename, metadata) {
-    const postsFile = "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const postsFile =
+        "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     try {
         // 🛑 Lấy nội dung hiện tại của `posts.json`
-        const response = await fetch(postsFile, { headers: { Authorization: token } });
+        const response = await fetch(postsFile, {
+            headers: { Authorization: token },
+        });
 
         if (!response.ok) {
             log("Lỗi khi tải `posts.json`!", "error");
@@ -558,7 +590,7 @@ async function updatePostsJson(filename, metadata) {
         }
 
         // 🛑 Kiểm tra bài viết
-        const index = posts.findIndex(post => post.id === metadata.id);
+        const index = posts.findIndex((post) => post.id === metadata.id);
         const exists = index !== -1;
 
         if (exists) {
@@ -581,13 +613,13 @@ async function updatePostsJson(filename, metadata) {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": token
+                Authorization: token,
             },
             body: JSON.stringify({
                 message: "Cập nhật danh sách bài viết",
                 content: updatedPosts,
-                sha: postsData.sha
-            })
+                sha: postsData.sha,
+            }),
         });
 
         if (updateResponse.ok) {
@@ -595,7 +627,6 @@ async function updatePostsJson(filename, metadata) {
         } else {
             log("Lỗi khi cập nhật `posts.json`!", "error");
         }
-
     } catch (error) {
         console.error("Lỗi trong `updatePostsJson()`:", error);
     }
@@ -611,52 +642,50 @@ const loadScript = (url, callback) => {
 };
 
 loadScript("https://cdn.jsdelivr.net/npm/marked/marked.min.js", () => {
-  marked.setOptions({
-    gfm: true, // Bật chế độ GitHub Flavored Markdown
-    breaks: true, // Xuống dòng với dấu xuống dòng bình thường
-    tables: true, // Hỗ trợ bảng
-    smartLists: true, // Tự động nhận diện danh sách thông minh
-    smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
+    marked.setOptions({
+        gfm: true, // Bật chế độ GitHub Flavored Markdown
+        breaks: true, // Xuống dòng với dấu xuống dòng bình thường
+        tables: true, // Hỗ trợ bảng
+        smartLists: true, // Tự động nhận diện danh sách thông minh
+        smartypants: true, // Tự động thay thế dấu nháy & ký tự đặc biệt
+    });
 });
-});
-
-
-
 
 // Xử lý Live Edit
 let timeout;
-document.getElementById("markdownEditor").addEventListener("input", function () {
-    clearTimeout(timeout);
-    timeout = setTimeout(updatePreview, 300); // Chờ 300ms trước khi cập nhật
-});
+document
+    .getElementById("markdownEditor")
+    .addEventListener("input", function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(updatePreview, 300); // Chờ 300ms trước khi cập nhật
+    });
 
-function updatePreview(){
-  
-  const markdownText = document.getElementById("markdownEditor").value;
-  document.getElementById("previewContent").innerHTML = marked.parse(FrontMatter(markdownText));
+function updatePreview() {
+    const markdownText = document.getElementById("markdownEditor").value;
+    document.getElementById("previewContent").innerHTML = marked.parse(
+        FrontMatter(markdownText),
+    );
 }
 // Hiển thị Editor + Xem trước khi chỉnh sửa bài viết
 
-function log(message, type="") {
-  const toastContainer = document.getElementById("toast-container");
-  const toast = document.createElement("div");
-  toast.className = `toast ${type}`;
-  if(type === "error"){
-  toast.innerText = `⛔ ${message}`;
-  }
-  else if (type === "success"){
-  toast.innerText = `✅ ${message}`;
-  }
-  else{
-  toast.innerText = `ℹ️ ${message}`;
-  }
+function log(message, type = "") {
+    const toastContainer = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    if (type === "error") {
+        toast.innerText = `⛔ ${message}`;
+    } else if (type === "success") {
+        toast.innerText = `✅ ${message}`;
+    } else {
+        toast.innerText = `ℹ️ ${message}`;
+    }
 
-  toastContainer.appendChild(toast);
+    toastContainer.appendChild(toast);
 
-  setTimeout(() => {
-    toast.style.opacity = "0";  // Làm mờ trước
-    setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
-  }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
+    setTimeout(() => {
+        toast.style.opacity = "0"; // Làm mờ trước
+        setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
+    }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
 }
 //log("box-sh adow: 0 2px 5px ,0,0.1);", "error")
 //log("box-sh adow: 0 2px 5px ,0,0.1);", "success")
@@ -666,8 +695,8 @@ async function deletePost() {
     if (!confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) return;
 
     const markdown = document.getElementById("markdownEditor").value;
-    const { metadata , content} = extractMetadata(markdown);
-    
+    const { metadata, content } = extractMetadata(markdown);
+
     if (!metadata || !metadata.filename) {
         log("Lỗi: Không tìm thấy bài viết cần xóa!", "error");
         return;
@@ -675,12 +704,14 @@ async function deletePost() {
 
     const filename = metadata.filename; // Lấy tên file từ metadata
     const fileUrl = `https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts/${filename}`;
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     try {
         // 🛑 Lấy SHA của file trước khi xóa
         const getFileResponse = await fetch(fileUrl, {
-            headers: { Authorization: token}
+            headers: { Authorization: token },
         });
 
         if (!getFileResponse.ok) {
@@ -696,12 +727,12 @@ async function deletePost() {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": token
+                Authorization: token,
             },
             body: JSON.stringify({
                 message: `Xóa bài viết: ${metadata.slug}`,
-                sha: sha
-            })
+                sha: sha,
+            }),
         });
 
         if (deleteResponse.ok) {
@@ -728,11 +759,16 @@ async function deletePost() {
 }
 
 async function removeFromPostsJson(postId) {
-    const postsFile = "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const postsFile =
+        "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     try {
-        const postsResponse = await fetch(postsFile, { headers: { Authorization: token } });
+        const postsResponse = await fetch(postsFile, {
+            headers: { Authorization: token },
+        });
 
         if (!postsResponse.ok) {
             log("Lỗi khi tải `posts.json`!", "error");
@@ -743,7 +779,7 @@ async function removeFromPostsJson(postId) {
         let posts = JSON.parse(decodeBase64(postsData.content));
 
         // 🛑 Xóa bài viết khỏi danh sách
-        posts = posts.filter(post => post.id !== postId);
+        posts = posts.filter((post) => post.id !== postId);
 
         // 🛑 Mã hóa lại JSON và cập nhật lên GitHub
         const updatedPosts = encodeBase64(JSON.stringify(posts, null, 2));
@@ -752,13 +788,13 @@ async function removeFromPostsJson(postId) {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": token
+                Authorization: token,
             },
             body: JSON.stringify({
                 message: "Xóa bài viết khỏi danh sách",
                 content: updatedPosts,
-                sha: postsData.sha
-            })
+                sha: postsData.sha,
+            }),
         });
 
         if (updateResponse.ok) {
@@ -771,8 +807,11 @@ async function removeFromPostsJson(postId) {
     }
 }
 async function UpdatePostsJson(filename, metadata) {
-    const postsFile = "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
-    const token = atob("dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==");
+    const postsFile =
+        "https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts.json";
+    const token = atob(
+        "dG9rZW4gZ2hwX0xreG5ZWDJaWVpqNkRicE1zZ2kwZ2kzSnNXSkw5UjEySEtiVw==",
+    );
 
     try {
         // 🛑 Lấy nội dung hiện tại của `posts.json`
@@ -783,7 +822,7 @@ async function UpdatePostsJson(filename, metadata) {
         if (!posts) return;
 
         // 🛑 Kiểm tra xem bài viết có tồn tại hay không
-        const index = posts.findIndex(post => post.id === metadata.id);
+        const index = posts.findIndex((post) => post.id === metadata.id);
         const exists = index !== -1;
 
         if (exists) {
@@ -801,7 +840,6 @@ async function UpdatePostsJson(filename, metadata) {
 
         // ✅ Mã hóa JSON & cập nhật lên GitHub
         await updatePostsJsonOnGitHub(postsFile, token, posts, postsData.sha);
-
     } catch (error) {
         console.error("❌ Lỗi trong `updatePostsJson()`:", error);
     }
@@ -810,7 +848,7 @@ async function UpdatePostsJson(filename, metadata) {
 async function fetchPostsJson(postsFile, token) {
     try {
         const response = await fetch(postsFile, {
-            headers: { Authorization: `${token}` }
+            headers: { Authorization: `${token}` },
         });
 
         if (!response.ok) {
@@ -845,13 +883,13 @@ async function updatePostsJsonOnGitHub(postsFile, token, posts, sha) {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `${token}`
+                Authorization: `${token}`,
             },
             body: JSON.stringify({
                 message: "📜 Cập nhật danh sách bài viết",
                 content: updatedPosts,
-                sha: sha
-            })
+                sha: sha,
+            }),
         });
 
         if (response.ok) {
