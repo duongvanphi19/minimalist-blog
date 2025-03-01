@@ -17,7 +17,7 @@ status: "published"
 
 > **Thịt bò xào củ hành** là một món ăn quen thuộc, dễ nấu, nhưng lại cực kỳ ngon miệng. Miếng bò mềm ngọt kết hợp với vị giòn ngọt của củ hành tạo nên một món xào hấp dẫn, rất đưa cơm.
 
-## 🛒 Nguyên Liệu {.section}
+## 🛒 Nguyên Liệu
 
 **Cho 2-3 người ăn:**
 
@@ -39,7 +39,7 @@ status: "published"
 - **Nước mắm**: ½ thìa canh
 - **Rượu trắng**: 1 thìa canh (giúp khử mùi bò)
 
-## 👩‍🍳 Cách Làm {.section}
+## 👩‍🍳 Cách Làm
 
 ### 1️⃣ Sơ chế nguyên liệu
 
@@ -70,12 +70,12 @@ status: "published"
 - **Nêm lại gia vị**, thêm chút nước mắm và tiêu xay cho dậy mùi
 - **Tắt bếp**, rắc hành lá, ngò rí lên trên
 
-## 🍽️ Thưởng Thức {.section}
+## 🍽️ Thưởng Thức 
 
 - Múc ra đĩa, ăn kèm **cơm nóng** hoặc chấm bánh mì đều rất ngon
 - Có thể thêm **ớt chuông, cần tây** nếu muốn tăng hương vị
 
-## 💡 Mẹo Nấu Ăn {.section}
+## 💡 Mẹo Nấu Ăn 
 
 - **Xào thịt bò lửa lớn** để giữ độ mềm, không bị dai
 - **Không xào hành tây quá lâu**, tránh bị nhũn, mất độ giòn
