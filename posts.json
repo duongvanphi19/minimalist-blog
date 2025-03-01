@@ -259,5 +259,24 @@
     "slug": "bap-xao",
     "filename": "bap-xao.md",
     "status": "published"
+  },
+  {
+    "id": "1740831255469",
+    "title": "Cách Làm Miến Trộn Hàn Quốc (Japchae) - Dẻo Dai, Đậm Vị",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm miến trộn Hàn Quốc (Japchae) với sợi miến dai ngon, rau củ giòn ngọt và nước sốt đậm đà.",
+    "tags": [
+      "Ẩm thực",
+      "Món Trộn",
+      "Miến Hàn Quốc",
+      "Japchae",
+      "Công Thức Nấu Ăn"
+    ],
+    "image": "/assets/uploads/mien-tron-han-quoc.jpg",
+    "featured": "false",
+    "slug": "mien-tron-han-quoc",
+    "filename": "mien-tron-han-quoc.md",
+    "status": "published"
   }
 ]
