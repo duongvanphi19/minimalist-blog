@@ -3,85 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin Minimalist Blog</title>
+    <meta name="description" content="Admin dashboard for Minimalist Blog">
+    <title>Admin - Minimalist Blog</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="main-header">
         <h1>Minimalist Blog</h1>
-    <nav>
-        <button id="darkModeToggle" class="btn">Dark Mode</button>
-    </nav>
+        <nav>
+            <button id="darkModeToggle" class="btn" aria-label="Toggle dark mode">Dark Mode</button>
+        </nav>
     </header>
+    
     <div class="container">
         <aside class="sidebar">
             <h2>Danh sách bài viết</h2>
-            </br>
-            <button style="margin-bottom: 10px" class="btn save-btn" id="newPostButton">+</button>
-            </br>
-                <!-- Bộ lọc -->
-    <div class="filter-container">
-    <label><input type="radio" name="filter" value="all" checked> Tất cả</label>
-    <label><input type="radio" name="filter" value="published"> Published</label>
-    <label><input type="radio" name="filter" value="draft"> Draft</label>
-    </div>
-     </br>
-            <div id="blog-list"></div>
-        </aside>
-        
-        
-
-        <main class="editor-container">
-          
-          <div class="upload-container">
-                            <h2>Upload ảnh</h2>
-                </br>
-  <!-- Input chọn file ảnh -->
-  <label for="imageUpload" class="upload-label">📷 Chọn ảnh</label>
-  <input type="file" id="imageUpload" accept="image/*">
-
-  <!-- Preview ảnh -->
-  <img id="imagePreview" class="image-preview">
-
-  <!-- Các tùy chọn upload (ẩn ban đầu) -->
-  <div id="uploadOptions" class="hidden">
-    <div>
-      </br>
-      <input type="checkbox" id="useDefaultName" checked>
-      <label for="useDefaultName">Sử dụng tên file mặc định</label>
-    </div>
-    <div id="nameInputContainer">
-    <input type="text" id="imageNameInput" placeholder="Nhập tên ảnh" disabled>
-    <span id="extensionLabel"></span>
-    </div>
-    </br>
-    <button id="uploadButton" class="upload-btn">📤 Upload Ảnh</button>
-  </div>
-
-  <!-- Khu vực hiển thị kết quả upload -->
-  <div id="uploadPaths"></div>
-
-</div>
-          
-            <div id="editor" class="">
-                <h2 id="editHere">Chỉnh sửa bài viết</h2>
-
-                </br>
-
-                <textarea id="markdownEditor" rows="10"></textarea>
-                <button id="saveButton" class="btn save-btn">Lưu bài viết</button>
-                </br>
-                  <button style="margin-top: 16px;" class="btn" id="deletePostBtn" style="display: none;">🗑️ Xóa bài viết</button>
+            <button class="btn save-btn" id="newPostButton" style="margin: 15px 0;">+ Bài viết mới</button>
+            
+            <!-- Bộ lọc -->
+            <div class="filter-container">
+                <label><input type="radio" name="filter" value="all" checked> Tất cả</label>
+                <label><input type="radio" name="filter" value="published"> Published</label>
+                <label><input type="radio" name="filter" value="draft"> Draft</label>
             </div>
             
-            <div id="preview" class="">
-              <h2 >Preview</h2>
-              <div id="previewContent" class="preview-box">Nhập nội dung để xem preview...</div>
+            <div id="blog-list" aria-live="polite"></div>
+        </aside>
+
+        <main class="editor-container">
+            <!-- Upload container -->
+            <div class="upload-container">
+                <h2>Upload ảnh</h2>
+                
+                <!-- Input chọn file ảnh -->
+                <label for="imageUpload" class="upload-label">📷 Chọn ảnh</label>
+                <input type="file" id="imageUpload" accept="image/*">
+
+                <!-- Preview ảnh -->
+                <img id="imagePreview" class="image-preview" alt="Preview ảnh">
+
+                <!-- Các tùy chọn upload (ẩn ban đầu) -->
+                <div id="uploadOptions" class="hidden">
+                    <div>
+                        <input type="checkbox" id="useDefaultName" checked>
+                        <label for="useDefaultName">Sử dụng tên file mặc định</label>
+                    </div>
+                    <div id="nameInputContainer">
+                        <input type="text" id="imageNameInput" placeholder="Nhập tên ảnh" disabled>
+                        <span id="extensionLabel"></span>
+                    </div>
+                    <button id="uploadButton" class="upload-btn">📤 Upload Ảnh</button>
+                </div>
+
+                <!-- Khu vực hiển thị kết quả upload -->
+                <div id="uploadPaths"></div>
+            </div>
+            
+            <!-- Editor -->
+            <div id="editor" class="">
+                <h2 id="editHere">Chỉnh sửa bài viết</h2>
+                <textarea id="markdownEditor" rows="10" placeholder="Nhập nội dung markdown ở đây..."></textarea>
+                <div class="action-buttons">
+                    <button id="saveButton" class="btn save-btn">💾 Lưu bài viết</button>
+                    <button id="deletePostBtn" class="btn" style="display: none;">🗑️ Xóa bài viết</button>
+                </div>
+            </div>
+            
+            <!-- Preview -->
+            <div id="preview">
+                <h2>Preview</h2>
+                <div id="previewContent" class="preview-box">Nhập nội dung để xem preview...</div>
             </div>
         </main>
     </div>
-    <div id="toast-container"></div>
-    <script src="script.js"></script>
+    
+    <div id="toast-container" aria-live="polite"></div>
+    
+    <!-- Load marked.js for markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
 

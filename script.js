@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 function autoDarkMode() {
     const hour = new Date().getHours();
@@ -7,6 +8,9 @@ function autoDarkMode() {
 }
 autoDarkMode();
 
+=======
+// Extract YAML metadata from markdown content
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
     const match = markdown.match(yamlRegex);
@@ -21,78 +25,96 @@ function extractMetadata(markdown) {
     return { metadata, content };
 }
 
+// Parse YAML content to JavaScript object
 function parseYAML(yamlText) {
     const lines = yamlText.split("\n");
     const result = {};
 
-    lines.forEach(line => {
-      console.log(line)
-        const [key, ...value] = line.split(": ");
-        
-          if (key && value.length) {
-            let val = value.join(": ").trim();
-          
-          if (val.startsWith('"') && val.endsWith('"')){
-              val = val.slice(1,-1);
-            }
+    for (const line of lines) {
+        if (!line.trim()) continue; // Skip empty lines
 
-            // Nếu là một danh sách (array)
-            if (val.startsWith("[") && val.endsWith("]")) {
-                try {
-                    val = JSON.parse(val.replace(/'/g, '"')); // Chuyển YAML array thành JSON array hợp lệ
-                } catch (error) {
-                    console.warn("Lỗi khi parse YAML array:", error);
-                    val = []; // Trả về mảng rỗng nếu lỗi
-                }
-            }
+        const colonIndex = line.indexOf(': ');
+        if (colonIndex === -1) continue; // Skip invalid lines
 
-            result[key.trim()] = val;
+        const key = line.substring(0, colonIndex).trim();
+        let val = line.substring(colonIndex + 2).trim();
+
+        if (val.startsWith('"') && val.endsWith('"')) {
+            val = val.slice(1, -1);
         }
-    });
-   // log(json.stringify(result))
+
+        // Handle arrays
+        if (val.startsWith("[") && val.endsWith("]")) {
+            try {
+                val = JSON.parse(val.replace(/'/g, '"'));
+            } catch (error) {
+                console.warn("Error parsing YAML array:", error);
+                val = [];
+            }
+        }
+
+        result[key] = val;
+    }
+
     return result;
 }
 
 /**
- * Tạo Table of Contents (TOC) từ nội dung bài viết.
+ * Generate Table of Contents (TOC) from post content
  */
 function generateTOC() {
     const postContent = document.getElementById("post-content");
     const tocContainer = document.getElementById("post-toc");
+
+    if (!postContent || !tocContainer) return;
+
     const headers = postContent.querySelectorAll("h2, h3");
     if (headers.length === 0) {
-        tocContainer.style.display = "none"; // Ẩn TOC nếu không có tiêu đề nào
+        tocContainer.style.display = "none";
         return;
     }
 
-    tocContainer.innerHTML = "<h2>Nội dung chính</h2>";
+    // Create TOC structure with document fragment for better performance
+    const fragment = document.createDocumentFragment();
+    const heading = document.createElement("h3");
+    heading.textContent = "Nội dung chính";
+    fragment.appendChild(heading);
+
     const tocList = document.createElement("ul");
-    let lastH2Item = null; // Lưu `li` của `h2` gần nhất
-    let currentSubList = null; // Lưu `ul` chứa `h3`
+    let lastH2Item = null;
+    let currentSubList = null;
 
     headers.forEach((header, index) => {
         const id = `section-${index}`;
-        header.id = id; // Gán ID để điều hướng
+        header.id = id;
 
         const listItem = document.createElement("li");
-        listItem.innerHTML = `<a href="#${id}">${header.innerText}</a>`;
+        const link = document.createElement("a");
+        link.href = `#${id}`;
+        link.textContent = header.textContent;
+        listItem.appendChild(link);
 
         if (header.tagName === "H2") {
-            // Nếu là H2, tạo danh sách con mới cho H3 tiếp theo
             currentSubList = document.createElement("ul");
             listItem.appendChild(currentSubList);
             tocList.appendChild(listItem);
             lastH2Item = listItem;
-        } else if (header.tagName === "H3" && lastH2Item) {
-            // Nếu là H3, thêm vào danh sách con của H2 gần nhất
+        } else if (header.tagName === "H3" && lastH2Item && currentSubList) {
             currentSubList.appendChild(listItem);
+        } else {
+            tocList.appendChild(listItem);
         }
     });
 
-    tocContainer.appendChild(tocList);
-    tocContainer.style.display = "block"; // Hiển thị TOC nếu có tiêu đề
+    fragment.appendChild(tocList);
+
+    // Clear and append in one operation
+    tocContainer.innerHTML = "";
+    tocContainer.appendChild(fragment);
+    tocContainer.style.display = "block";
 }
 
+<<<<<<< HEAD
 // Gọi hàm generateTOC() sau khi bài viết được load
 function showExam(){
   document.getElementById("post-content").innerHTML = marked.parse(
@@ -195,12 +217,55 @@ document.addEventListener("DOMContentLoaded", async function () {
     }catch(e){
       log("error load")
       return
+=======
+/**
+ * Toggle dark mode and save preference
+ */
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+
+    // Save state to localStorage
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        localStorage.setItem("darkMode", "disabled");
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
     }
-    if (!postFile) {
-        document.getElementById("post-list").innerHTML = "<p>Bài viết không tồn tại.</p>";
+}
+
+/**
+ * Setup Fuse.js for search functionality
+ */
+function setupFuse(posts) {
+    if (!window.Fuse) {
+        console.warn("Fuse.js not loaded");
+        return null;
+    }
+
+    return new Fuse(posts, {
+        keys: ["title", "tags", "description"],
+        includeScore: true,
+        threshold: 0.3
+    });
+}
+
+/**
+ * Initialize lazy loading for images
+ */
+function lazyLoadImages() {
+    // Fallback for browsers without IntersectionObserver
+    if (!('IntersectionObserver' in window)) {
+        const lazyImages = document.querySelectorAll('.lazy');
+        lazyImages.forEach(img => {
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+                img.classList.remove("lazy", "skeleton");
+            }
+        });
         return;
     }
 
+<<<<<<< HEAD
     const xhr = new XMLHttpRequest();
     xhr.open("GET", `https://minimblog.netlify.app/posts/${postFile}.md`, true);
     
@@ -209,174 +274,333 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (xhr.status >= 200 && xhr.status < 300) {
             markdown = xhr.responseText;
             log(markdown); // 🔍 Kiểm tra nội dung trả về
+=======
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.remove("lazy", "skeleton");
+                    img.onload = () => {
+                        img.classList.remove("skeleton-image");
+                    };
+                    observer.unobserve(img);
+                }
+            }
+        });
+    }, {
+        rootMargin: "100px 0px",
+        threshold: 0.01
+    });
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
 
-            // Nếu nội dung bắt đầu bằng <!DOCTYPE html>, nghĩa là đang lấy nhầm file HTML
-            if (markdown.startsWith("<!DOCTYPE html>")) {
-                document.getElementById("post-content").innerHTML = "<p>Lỗi: Tải nhầm file HTML thay vì Markdown.</p>";
-                return;
-            }
-            
-           const {metadata, content} = extractMetadata(markdown);
-           //log(content)
-            
-            //log("^^^")
-            // Loại bỏ YAML Front Matter
-            markdown = markdown.replace(/^---[\s\S]+?---\s*/, '').trim();
-            // Chuyển đổi Markdown thành HTML
-          try{
-          //log(metadata.title)
-          document.getElementById("post-title").innerHTML = metadata.title || "Unknown";
-          document.getElementById("post-author").innerHTML = metadata.author || "Unknown";
-          document.getElementById("post-date").innerHTML = metadata.date || "Unknown";
-          document.getElementById("post-image").src = metadata.image || "Unknown";
-          //document.getElementById("post-description").innerHTML = metadata.description || "Unknown";
-          }catch(e){
-            log(e)
-          }
-            marked.setOptions({
-            breaks: true, // Xuống dòng đúng cách
-            smartLists: true, // Cải thiện danh sách
-            smartypants: true, // Chuyển đổi ký tự đặc biệt
-            gfm: true, // Hỗ trợ GitHub Flavored Markdown
-            renderer: new marked.Renderer(),
-            highlight: function (code, lang) {
-                return lang && hljs.getLanguage(lang) ? hljs.highlight(code, { language: lang }).value: hljs.highlightAuto(code).value;
-            }
-        });
-          document.getElementById("post-content").innerHTML = marked.parse(markdown);
-          //log(marked.parse(markdown));
-            // 🔹 Tô màu tất cả các đoạn code trong <pre><code>
-          document.querySelectorAll("pre code").forEach((block) => {
-            hljs.highlightElement(block);
-        });
-        } else {
-            document.getElementById("post-content").innerHTML = "<p>Lỗi khi tải bài viết.</p>";
+    document.querySelectorAll('.lazy').forEach(img => {
+        try {
+            imageObserver.observe(img);
+        } catch (e) {
+            console.warn("Error observing image:", e);
         }
-    generateTOC();
-    
+    });
+}
+
+/**
+ * Debounce function to limit frequent calls
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
     };
-    xhr.onerror = function () {
-        document.getElementById("post-content").innerHTML = "<p>Lỗi kết nối đến máy chủ.</p>";
-    };
-
-    xhr.send();
-  
-});
-
-// Hàm chuyển đổi Dark Mode
-// Hàm chuyển đổi Dark Mode
-function toggleDarkMode() {
-  document.body.classList.toggle("dark-mode");
-
-  // Lưu trạng thái trong localStorage
-  if (document.body.classList.contains("dark-mode")) {
-    localStorage.setItem("darkMode", "enabled");
-  } else {
-    localStorage.setItem("darkMode", "disabled");
-  }
 }
 
-// Đăng ký sự kiện cho nút toggle
-document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+// Toast notification system
+const toastQueue = [];
+let toastProcessing = false;
 
-async function loadPosts() {
-  log("load posts");
-  const response = await fetch("/posts/");
-  const data = await response.json();
-  const a = await response.text();
-  log(data);
-  log(a);
+function log(message, type = "") {
+    if (!message) return;
+
+    const toastContainer = document.getElementById("toast-container");
+    if (!toastContainer) return;
+
+    // Add toast to queue
+    toastQueue.push({ message, type });
+
+    // Start processing if not already running
+    if (!toastProcessing) {
+        processToastQueue();
+    }
 }
 
-function setupFuse(posts){
-  return new Fuse(posts,
-  {
-    keys: ["title", "tags", "description"],
-    includeScore: true,
-    threhold: 0.3
-  }
-  )
+function processToastQueue() {
+    if (toastQueue.length === 0) {
+        toastProcessing = false;
+        return;
+    }
+
+    toastProcessing = true;
+    const { message, type } = toastQueue.shift();
+
+    const toastContainer = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+
+    // Set icon based on type
+    let icon;
+    switch (type) {
+        case "error": icon = "⛔"; break;
+        case "success": icon = "✅"; break;
+        default: icon = "ℹ️";
+    }
+
+    toast.textContent = `${icon} ${message}`;
+    toastContainer.appendChild(toast);
+
+    // Animate and remove toast
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => {
+            toast.remove();
+            processToastQueue(); // Process next toast
+        }, 500);
+    }, 3000);
 }
-//index
-document.addEventListener("DOMContentLoaded", async function () {
+
+function FrontMatter(markdown){
+  const {metadata, content} = extractMetadata(markdown);
+  return content; // Return only the content without the front matter
+}
+
+/**
+ * Handle post detail page functionality
+ */
+async function handlePostPage() {
+    const postContent = document.getElementById("post-content");
+    if (!postContent) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const postFile = params.get("post");
+
+    if (!postFile) {
+        postContent.innerHTML = "<p class='error-message'>Bài viết không tồn tại.</p>";
+        return;
+    }
+
+    try {
+        // Configure marked options
+        if (window.marked) {
+            marked.setOptions({
+                breaks: true,
+                smartLists: true,
+                smartypants: true,
+                gfm: true,
+                renderer: new marked.Renderer(),
+                highlight: function(code, lang) {
+                    if (window.hljs && lang && hljs.getLanguage(lang)) {
+                        return hljs.highlight(code, { language: lang }).value;
+                    }
+                    return window.hljs ? hljs.highlightAuto(code).value : code;
+                }
+            });
+        } else {
+            console.warn("Marked.js library not loaded");
+        }
+
+        const response = await fetch(`/posts/${postFile}.md`);
+
+        if (!response.ok) {
+            postContent.innerHTML = `<p class='error-message'>Lỗi: Không thể tải bài viết (${response.status})</p>`;
+            return;
+        }
+
+        const markdown = await response.text();
+
+        if (markdown.startsWith("<!DOCTYPE html>")) {
+            postContent.innerHTML = "<p class='error-message'>Lỗi: Tải nhầm file HTML thay vì Markdown.</p>";
+            return;
+        }
+
+        const { metadata, content } = extractMetadata(markdown);
+
+        // Set post metadata
+        document.title = `${metadata.title || "Bài viết"} - Minimalist Blog`;
+        document.getElementById("post-title").textContent = metadata.title || "Unknown";
+        document.getElementById("post-author").textContent = metadata.author || "Unknown";
+        document.getElementById("post-date").textContent = metadata.date || "Unknown";
+
+        // Set post image with fallback
+        const postImage = document.getElementById("post-image");
+        if (postImage) {
+            postImage.src = metadata.image || "/assets/uploads/default.jpg";
+            postImage.alt = metadata.title || "Post image";
+            postImage.onerror = function() {
+                this.src = "/assets/uploads/default.jpg";
+                this.onerror = null;
+            };
+        }
+
+        // Set tags
+        const tagsContainer = document.getElementById("post-tags");
+        if (tagsContainer && metadata.tags && Array.isArray(metadata.tags)) {
+            tagsContainer.innerHTML = metadata.tags
+                .map(tag => `<span class="tag">${tag}</span>`)
+                .join("");
+        }
+
+        // Render markdown content
+        if (window.marked) {
+            postContent.innerHTML = marked.parse(FrontMatter(markdown)); // Use FrontMatter function here
+        } else {
+            postContent.innerHTML = `<pre>${content}</pre>`;
+        }
+
+        // Highlight code blocks
+        if (window.hljs) {
+            document.querySelectorAll("pre code").forEach(block => {
+                hljs.highlightElement(block);
+            });
+        }
+
+        // Generate TOC
+        generateTOC();
+
+    } catch (error) {
+        console.error("Error loading post:", error);
+        postContent.innerHTML = `<p class='error-message'>Lỗi: ${error.message}</p>`;
+    }
+}
+
+/**
+ * Handle index page functionality
+ */
+async function handleIndexPage() {
     const blogList = document.getElementById("post-list");
     const featuredList = document.getElementById("featured-list");
     const searchInput = document.getElementById("searchInput");
-    const searchButton = document.getElementById("searchButton");
     const categoryFilter = document.getElementById("categoryFilter");
 
-  if (!blogList || !searchInput || !searchButton || !categoryFilter) {
-        // index.html call
-        return;
-        console.error("Không tìm thấy phần tử cần thiết trong DOM.");
-        console.log(blogList, searchInput, searchButton, categoryFilter);
-    }
+    if (!blogList || !searchInput || !categoryFilter) return;
+
     let posts = [];
     let fuse;
-   // loadPosts()
-    
+
+    // Show loading state
+    blogList.innerHTML = `
+        <div class="loading-skeleton">
+            ${Array(6).fill(`
+                <article>
+                    <div class="skeleton skeleton-image"></div>
+                    <div class="skeleton skeleton-title"></div>
+                    <div class="skeleton skeleton-text"></div>
+                    <div class="skeleton skeleton-text"></div>
+                </article>
+            `).join('')}
+        </div>
+    `;
+
     try {
-        // 🔹 Fetch danh sách bài viết từ posts.json
-        //const response = await fetch("https://api.github.com/repos/duongvanphi19/minimalist-blog/contents/posts");
+        // Fetch post list
         const response = await fetch("posts.json");
-       // console.log('posts.json response', response)
-        let p = await response.json()
-        posts = p.sort((a, b) => new Date(b.date) - new Date(a.date));
-       
-        try{posts = posts.filter(post => post.status === "published");
-        }catch(e){
-          log(e)
-        }
-        //console.log(posts)
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const postsData = await response.json();
+
+        // Sort and filter posts
+        posts = postsData
+            .filter(post => post.status === "published")
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Setup search
         fuse = setupFuse(posts);
-        // 🔹 Lấy danh sách danh mục (tags)
+
+        // Populate category dropdown
         const uniqueTags = new Set();
         posts.forEach(post => {
-          if(post.tags &&  Array.isArray(post.tags))
-          {post.tags.forEach(tag => uniqueTags.add(tag))}
+            if (post.tags && Array.isArray(post.tags)) {
+                post.tags.forEach(tag => uniqueTags.add(tag));
+            }
         });
-         //log('uniqueTags', uniqueTags)
-        // 🔹 Thêm danh mục vào dropdown filter
+
+        const fragment = document.createDocumentFragment();
         uniqueTags.forEach(tag => {
             const option = document.createElement("option");
             option.value = tag;
             option.textContent = tag;
-            categoryFilter.appendChild(option);
+            fragment.appendChild(option);
         });
+        categoryFilter.appendChild(fragment);
 
-        // 🔹 Hiển thị danh sách bài viết ban đầu
+        // Render posts
         renderPosts(posts);
 
+        // Featured posts
+        renderFeaturedPosts(posts);
+
     } catch (error) {
-        blogList.innerHTML = "<p class='error-message'>Lỗi khi tải danh sách bài viết.</p>";
-        console.error("Lỗi:", error);
+        console.error("Error loading posts:", error);
+        blogList.innerHTML = `<p class='error-message'>Lỗi khi tải danh sách bài viết: ${error.message}</p>`;
     }
-    
-    // 🔹 Hiển thị bài viết nổi bật
-        const featuredPosts = posts.filter(post => post.featured);
-        //log("featured")
-        if (featuredPosts.length > 0){
-          let featuredPostS = [];
-          if ( featuredPosts.length >3){
-            featuredPosts.splice(1);
-          }
-          featuredList.innerHTML = featuredPosts.map(post => `
+
+    // Set up event listeners
+    searchInput.addEventListener("input", debounce(() => {
+        if (fuse) {
+            const searchTerm = searchInput.value.trim();
+
+            if (!searchTerm) {
+                renderPosts(posts);
+                return;
+            }
+
+            const results = fuse.search(searchTerm).map(result => result.item);
+            renderPosts(results);
+        }
+    }, 300));
+
+    categoryFilter.addEventListener("change", () => {
+        const selectedCategory = categoryFilter.value;
+
+        if (selectedCategory === "all") {
+            renderPosts(posts);
+            return;
+        }
+
+        const filtered = posts.filter(post => 
+            post.tags && Array.isArray(post.tags) && 
+            post.tags.includes(selectedCategory)
+        );
+
+        renderPosts(filtered);
+    });
+
+    // Display featured posts
+    function renderFeaturedPosts(allPosts) {
+        if (!featuredList) return;
+
+        const featuredPosts = allPosts
+            .filter(post => post.featured === "true")
+            .slice(0, 3);
+
+        if (featuredPosts.length > 0) {
+            featuredList.innerHTML = featuredPosts.map(post => `
                 <article class="featured">
-                    <img class="skeleton skeleton-image lazy" data-src="${post.image}" alt="${post.title}"/>
-                    <h3 class=""><a href="post.html?post=${post.slug}">${post.title}</a></h3>
-                    <p >${post.description}</p>
+                    <img class="lazy" data-src="${post.image}" alt="${post.title}"/>
+                    <h3><a href="post.html?post=${post.slug}">${post.title}</a></h3>
+                    <p>${post.description}</p>
                 </article>
             `).join("");
-            
-            
-            
-        
         } else {
             featuredList.innerHTML = "<p>Chưa có bài viết nổi bật.</p>";
         }
 
-    // 🔹 Hàm hiển thị bài viết
+        lazyLoadImages();
+    }
+
+    // Render post list
     function renderPosts(filteredPosts) {
+        if (!blogList) return;
+
         if (filteredPosts.length === 0) {
             blogList.innerHTML = "<p class='no-results'>Không tìm thấy bài viết nào.</p>";
             return;
@@ -384,77 +608,38 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         blogList.innerHTML = filteredPosts.map(post => `
             <article>
-                    <img src="${post.image}" alt="${post.title}"/>
+                <img class="lazy" data-src="${post.image}" alt="${post.title}"/>
                 <h2><a href="post.html?post=${post.slug}">${post.title}</a></h2>
-                <p class=""><strong>Ngày đăng:</strong> ${post.date}</p>
+                <p class="text-small"><strong>Ngày đăng:</strong> ${post.date}</p>
                 <p>${post.description}</p>
             </article>
         `).join("");
+
+        lazyLoadImages();
     }
+}
 
-    // 🔹 Hàm lọc bài viết dựa trên tìm kiếm và danh mục
-    function fuseSearchPosts() {
-      
-        const searchTerm = searchInput.value.trim();
-        
-        
-        let results= fuse.search(searchTerm).map(result => result.item);
+// Initialize on DOM content loaded
+document.addEventListener("DOMContentLoaded", function() {
+    try {
+        // Apply dark mode if enabled
+        if (localStorage.getItem("darkMode") === "enabled") {
+            document.body.classList.add("dark-mode");
+        }
 
-        renderPosts(results);
+        // Register dark mode toggle event
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener("click", toggleDarkMode);
+        }
+
+        // Handle post detail page
+        handlePostPage();
+
+        // Handle index page
+        handleIndexPage();
+
+    } catch (error) {
+        console.error("Initialization error:", error);
     }
-
-    // 🔹 Xử lý tìm kiếm khi bấm nút
-    
-    searchInput.addEventListener("input", fuseSearchPosts)
-    // 🔹 Xử lý lọc theo danh mục
-    
-    lazyLoadImages();
 });
-
-function log(message, type="") {
-  const toastContainer = document.getElementById("toast-container");
-  const toast = document.createElement("div");
-  toast.className = `toast ${type}`;
-  if(type === "error"){
-  toast.innerText = `⛔ ${message}`;
-  }
-  else if (type === "success"){
-  toast.innerText = `✅ ${message}`;
-  }
-  else{
-  toast.innerText = `ℹ️ ${message}`;
-  }
-
-  toastContainer.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.opacity = "0";  // Làm mờ trước
-    setTimeout(() => toast.remove(), 500); // Xóa sau khi hiệu ứng chạy xong
-  }, 4500); // Hiển thị trong 2.5 giây, 0.5 giây fade out
-}
-
-
-//log('Welcome!')
-//log('Welcome!', "error")
-//log('Welcome!', "success")
-
-
-function lazyLoadImages() {
-    const lazyImages = document.querySelectorAll('.lazy');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove("lazy");
-                img.classList.remove("skeleton");
-                observer.unobserve(img);
-                //console.log(img.src)
-            }
-        });
-    });
-
-    lazyImages.forEach(img => observer.observe(img));
-}
-

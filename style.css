@@ -87,10 +87,10 @@ img,
 .featured img{
   aspect-ratio: 16/9;
   object-fit: cover;
-  
+
 }
 
-  
+
 
 /* ===== Footer ===== */
 .main-footer {
@@ -406,7 +406,7 @@ img,
 
 /* ===== Code Block Styles ===== */
 pre {
-    
+
     color:;
     padding: 10px;
     border-radius: 5px;
@@ -462,15 +462,49 @@ pre {
 
 /* 🔹 Dark Mode TOC */
 .dark-mode .post-toc {
-    background: #333;
+    background: #2a2a2a;
     color: #ddd;
+    border-color: #ffcc00;
 }
 
 .dark-mode .post-toc a {
-    color: #ffcc00;
+    color: #ddd;
 }
 .dark-mode .post-toc a:hover {
-    color: #ffa500;
+    color: #ffcc00;
+    border-bottom: 1px solid #ffcc00;
+}
+
+.dark-mode .post-body {
+    color: #ddd;
+}
+
+.dark-mode .post-meta {
+    color: #aaa;
+}
+
+.dark-mode .post-navigation {
+    border-top: 1px solid #444;
+}
+
+.dark-mode #post-content h1,
+.dark-mode #post-content h2,
+.dark-mode #post-content h3 {
+    color: #ffcc00;
+}
+
+.dark-mode #post-content pre {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+.dark-mode #post-content code {
+    background: #333;
+}
+
+.dark-mode #post-content blockquote {
+    border-left-color: #555;
+    color: #aaa;
 }
 
 
@@ -588,6 +622,7 @@ blockquote {
     font-style: italic;
     margin: 0;
     color: #666;
+    border-radius: 8px;
 }
 
   #toast-container {
@@ -665,7 +700,7 @@ blockquote {
     display: grid;
     grid-template-columns: 1fr; /* Mặc định 1 cột trên mobile */
     gap: 20px;
-    
+
 }
 
 /* Khi màn hình lớn hơn 768px (tablet) */
@@ -701,6 +736,7 @@ article:hover {
   font-size: 0.8rem;
 }
 
+<<<<<<< HEAD
 hr{
   border: 1.2px solid #eee;
 }
@@ -721,4 +757,60 @@ hr{
 
 #searchBar:focus {
     border-color: black;
+=======
+.image-container {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.tag {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.tag:hover {
+    background-color: #ff6347;
+    color: white;
+}
+
+.dark-mode .tag {
+    background-color: #444;
+    color: #ddd;
+}
+
+.dark-mode .tag:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.error-message {
+    background-color: #ffe0e0;
+    color: #d32f2f;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 20px 0;
+    text-align: center;
+    border-left: 4px solid #d32f2f;
+}
+
+.dark-mode .error-message {
+    background-color: #3a2222;
+    color: #ff8080;
+    border-left: 4px solid #ff8080;
+>>>>>>> bc75bb5e3bb88986cb0113723302414a6ba19374
 }
