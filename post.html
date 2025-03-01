@@ -36,14 +36,24 @@
             <span><i class="meta-icon">📅</i> <span id="post-date">-</span></span>
             <span><i class="meta-icon">👤</i> <span id="post-author">-</span></span>
         </div>
-        <img id="post-image" src="assets/uploads/default.jpg" alt="Bài viết">
+        <div class="image-container">
+            <img id="post-image" src="assets/uploads/default.jpg" alt="Hình ảnh bài viết" class="skeleton skeleton-image">
+        </div>
         <div class="post-tags" id="post-tags"></div>
         
         <div class="post-toc" id="post-toc">
             <h3>Mục lục</h3>
         </div>
         
-        <div id="post-content" class="post-body">Đang tải nội dung...</div>
+        <div id="post-content" class="post-body">
+            <div class="loading-indicator">
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
+        </div>
         
         <div class="post-navigation">
             <a href="index.html" class="back-link"><i class="nav-icon">←</i> Quay lại danh sách bài viết</a>
