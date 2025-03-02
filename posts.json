@@ -297,5 +297,27 @@
     "slug": "ga-xao-sa-ot",
     "filename": "ga-xao-sa-ot.md",
     "status": "published"
+  },
+  {
+    "id": "1740910149356",
+    "title": "Cách Làm Trái Cây Dầm Sữa Chua - Tươi Mát, Bổ Dưỡng",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Công thức trái cây dầm sữa chua thơm ngon, thanh mát, giúp bổ sung vitamin và lợi khuẩn tốt cho hệ tiêu hóa.",
+    "tags": [
+      "Tráng Miệng",
+      "Sữa Chua",
+      "Trái Cây Dầm",
+      "Healthy",
+      "Giảm Cân",
+      "Bổ Sung Vitamin",
+      "Món Lạnh",
+      "Ăn Vặt"
+    ],
+    "image": "/assets/uploads/trai-cay-dam.jpg",
+    "featured": "true",
+    "slug": "trai-cay-dam",
+    "filename": "trai-cay-dam.md",
+    "status": "published"
   }
 ]
