@@ -359,5 +359,24 @@
     "slug": "thit-ba-chi-kho-tieu",
     "filename": "thit-ba-chi-kho-tieu.md",
     "status": "published"
+  },
+  {
+    "id": "1740911786824",
+    "title": "Cách Nấu Canh Rau Ngót Nấu Tôm - Thanh Mát, Dễ Làm",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách nấu canh rau ngót nấu tôm, nước canh ngọt thanh, giàu dinh dưỡng, thích hợp cho bữa cơm gia đình.",
+    "tags": [
+      "Canh Rau Ngót",
+      "Tôm",
+      "Món Canh",
+      "Thanh Mát",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/canh-rau-ngot-nau-tom.jpg",
+    "featured": "false",
+    "slug": "canh-rau-ngot-nau-tom",
+    "filename": "canh-rau-ngot-nau-tom.md",
+    "status": "published"
   }
 ]
