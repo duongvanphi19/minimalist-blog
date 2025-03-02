@@ -5,7 +5,7 @@ date: "2025-02-28"
 author: "Admin"
 description: "Hướng dẫn cách làm thịt ba chỉ kho tiêu thơm ngon, mềm béo, sốt đậm đà, cực kỳ đưa cơm."
 tags: ["Thịt Ba Chỉ","Món Kho","Đưa Cơm","Dễ Làm","Thịt Kho"]
-image: "/assets/uploads/thit-ba-chi-kho-tieu.jpg"
+image: "/assets/uploads/ba-chi-kho-tieu.jpg"
 featured: "false"
 slug: "thit-ba-chi-kho-tieu"
 filename: "thit-ba-chi-kho-tieu.md"
