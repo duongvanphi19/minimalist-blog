@@ -321,5 +321,24 @@
     "slug": "trai-cay-dam",
     "filename": "trai-cay-dam.md",
     "status": "published"
+  },
+  {
+    "id": "1740911517253",
+    "title": "Cách Làm Bắp Cải Xào Tỏi - Đơn Giản, Giòn Ngon",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm bắp cải xào tỏi thơm ngon, giòn ngọt, dễ làm, thích hợp cho bữa cơm gia đình.",
+    "tags": [
+      "Bắp Cải",
+      "Món Xào",
+      "Ăn Chay",
+      "Dễ Làm",
+      "Healthy"
+    ],
+    "image": "/assets/uploads/bap-cai-xao-toi.jpg",
+    "featured": "false",
+    "slug": "bap-cai-xao-toi",
+    "filename": "bap-cai-xao-toi.md",
+    "status": "published"
   }
 ]
