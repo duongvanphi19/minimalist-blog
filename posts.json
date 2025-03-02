@@ -378,5 +378,24 @@
     "slug": "canh-rau-ngot-nau-tom",
     "filename": "canh-rau-ngot-nau-tom.md",
     "status": "published"
+  },
+  {
+    "id": "1740912065978",
+    "title": "Cách Làm Gà Sốt Cam - Chua Ngọt, Thơm Ngon",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm gà sốt cam thơm ngon, đậm đà với lớp sốt chua ngọt hấp dẫn, thích hợp cho bữa ăn gia đình.",
+    "tags": [
+      "Gà Sốt Cam",
+      "Món Á",
+      "Món Sốt",
+      "Chua Ngọt",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/ga-sot-cam.jpeg",
+    "featured": "false",
+    "slug": "ga-sot-cam",
+    "filename": "ga-sot-cam.md",
+    "status": "published"
   }
 ]
