@@ -397,5 +397,24 @@
     "slug": "ga-sot-cam",
     "filename": "ga-sot-cam.md",
     "status": "published"
+  },
+  {
+    "id": "1740912310598",
+    "title": "Cách Làm Gỏi Đu Đủ Tai Heo - Giòn Ngon, Chua Ngọt Hấp Dẫn",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm gỏi đu đủ tai heo giòn ngon, chua ngọt, kết hợp với đậu phộng và rau thơm hấp dẫn.",
+    "tags": [
+      "Gỏi Đu Đủ",
+      "Tai Heo",
+      "Món Gỏi",
+      "Chua Ngọt",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/goi-du-du-tai-heo.jpg",
+    "featured": "false",
+    "slug": "goi-du-du-tai-heo",
+    "filename": "goi-du-du-tai-heo.md",
+    "status": "published"
   }
 ]
