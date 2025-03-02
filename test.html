@@ -6,8 +6,11 @@
     <title>Hóa Đơn</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
+    * {
+    box-sizing: border-box;
+}
         body {
-            font-family: Arial, sans-serif;
+            font-family: Helvetica, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,6 +18,22 @@
             height: 100vh;
             background-color: #f0f0f0;
         }
+        .container {
+  width: 300px;
+  padding: 20px;
+  background: #f8b400;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  
+  /* Tạo viền răng cưa */
+  clip-path: polygon(
+    0% 10px, 5px 0%, 10px 10px, 15px 0%, 20px 10px, 25px 0%, 
+    30px 10px, 35px 0%, 40px 10px, 45px 0%, 50px 10px, 55px 0%, 
+    60px 10px, 65px 0%, 70px 10px, 75px 0%, 80px 10px, 85px 0%, 
+    90px 10px, 95px 0%, 100% 10px, 100% 100%, 0% 100%
+  );
+}
         .form-container {
             background: white;
             padding: 20px;
@@ -37,7 +56,7 @@
             width: 100%;
             padding: 10px;
             margin-top: 10px;
-            background: green;
+            background: #444;
             color: white;
             border: none;
             border-radius: 5px;
@@ -72,10 +91,10 @@
         .items th, .items td {
             border: 0px solid #ddd;
             padding: 5px;
-            text-align: ;
+            text-align: center;
         }
         .export-btn {
-            width: 100%;
+            
             padding: 10px;
             margin-top: 10px;
             background: #333;
@@ -84,6 +103,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
+
+
+
+
     </style>
 </head>
 <body>
@@ -119,14 +143,20 @@
         <label>Phí vận chuyển:</label>
         <input type="number" id="shippingFee" value="35000">
 
-        <label>Giảm giá:</label>
-        <input type="number" id="discount" value="0">
+        <label for="discount">Giảm giá:</label>
+<input type="number" id="discount" placeholder="Nhập số tiền hoặc %" />
+
+<select id="discount-type">
+    <option value="amount">VNĐ</option>
+    <option value="percent">%</option>
+</select>
 
         <button onclick="generateInvoice()">Tạo hóa đơn</button>
     </div>
 
     <!-- Hóa đơn hiển thị -->
     <div class="invoice" id="invoice" style="display: none;">
+      <div class="invoice-container">
         <h2>HÓA ĐƠN TẠM TÍNH</h2>
         <p style="text-align: center;">Mã hóa đơn: <span id="invoiceCode"></span></p>
         <hr>
@@ -157,14 +187,22 @@
         <div class="total">
             <p><span>Tạm tính</span> <span id="subtotal"></span></p>
             <p><span>Phí vận chuyển</span> <span id="displayShippingFee"></span></p>
+            
             <p><span>Giảm giá</span> <span id="displayDiscount"></span></p>
             <p style="font-size: 18px;"><span><strong>Tổng cộng</strong></span> <span id="total"></span></p>
         </div>
 
         <hr>
+        </div>
     </div>
 
-    <button class="export-btn" onclick="exportToImage()">Xuất hóa đơn ảnh</button>
+    <button class="export-btn" onclick="exportToImage()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16L6 10H10V4H14V10H18L12 16Z"></path>
+        <path d="M4 20H20V18H4V20Z"></path>
+    </svg> 
+    
+</button>
 
     <script>
         let products = [];
@@ -192,7 +230,10 @@
             const customerAddress = document.getElementById('customerAddress').value;
             const shippingFee = parseFloat(document.getElementById('shippingFee').value);
             const discount = parseFloat(document.getElementById('discount').value);
-
+            const discountType = document.getElementById("discount-type").value;
+            
+            let discountAmount = 0;
+            
             let subtotal = 0;
             let productHTML = "";
 
@@ -204,8 +245,17 @@
                     <td>${product.price.toLocaleString()} đ</td>
                 </tr>`;
             });
+            
+            if (discountType === "percent") {
+        discountAmount = (subtotal * discount) / 100;
+        console.log(discountAmount)
+    } else {
+        discountAmount = discount;
+    }
 
-            const total = subtotal + shippingFee - discount;
+
+            let total = subtotal + shippingFee - discountAmount;
+            total = total < 0 ? 0: total;
 
             document.getElementById('invoiceCode').innerText = Math.random().toString(36).substring(7).toUpperCase();
             document.getElementById('displayCustomerName').innerText = customerName;
@@ -214,7 +264,7 @@
             document.getElementById('productList').innerHTML = productHTML;
             document.getElementById('subtotal').innerText = subtotal.toLocaleString() + " đ";
             document.getElementById('displayShippingFee').innerText = shippingFee.toLocaleString() + " đ";
-            document.getElementById('displayDiscount').innerText = "-" + discount.toLocaleString() + " đ";
+            document.getElementById('displayDiscount').innerText = "-" + discountAmount.toLocaleString() + " đ";
             document.getElementById('total').innerText = total.toLocaleString() + " đ";
 
             document.getElementById('invoice').style.display = "block";

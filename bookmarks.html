@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài viết đã lưu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Bài viết đã lưu</h1>
+    </header>
+    <main class="blog-list">
+        <div id="saved-posts"></div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedPostsContainer = document.getElementById("saved-posts");
+            const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+            if (bookmarks.length === 0) {
+                savedPostsContainer.innerHTML = "<p class='no-results'>Bạn chưa lưu bài viết nào.</p>";
+                return;
+            }
+
+            savedPostsContainer.innerHTML = bookmarks.map(post => `
+                <article>
+                    <h2><a href="post.html?post=${post.slug}">${post.title}</a></h2>
+                    <button class="bookmark-btn saved" data-slug="${post.slug}">✅ Đã lưu</button>
+                </article>
+            `).join("");
+
+            // Xử lý nút xóa bookmark
+            document.querySelectorAll(".bookmark-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    const slug = this.dataset.slug;
+                    let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+                    bookmarks = bookmarks.filter(post => post.slug !== slug);
+                    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+                    this.closest("article").remove();
+                    if (bookmarks.length === 0) {
+                        savedPostsContainer.innerHTML = "<p class='no-results'>Bạn chưa lưu bài viết nào.</p>";
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
