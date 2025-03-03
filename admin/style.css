@@ -618,9 +618,11 @@ blockquote {
 
 #extensionLabel{
   padding: 4px 8px;
-  background-color: #8588;
+  background-color: #efefef;
   border-radius: 4px;
-  background: var(--text-color);
+}
+.dark-mode #extensionLabel{
+  color: var(--text-color);
 }
 
 /* Bộ lọc radio */

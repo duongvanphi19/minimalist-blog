@@ -232,11 +232,12 @@ async function uploadImage() {
             document.getElementById("uploadPaths").innerHTML = `
         <h3><strong>Path:</strong></h3>
         <p> <input type="text" value="${absoluteUrl}" readonly style="width:100%;"></p>
+        </br>
         <p> <input type="text" value="${relativeUrl}" readonly style="width:100%;"></p>
       `;
             // Tự chèn markdown của ảnh vào editor
             //insertImageMarkdown(absoluteUrl);
-            document.getElementById("uploadButton").textContent = "✅";
+            document.getElementById("uploadButton").textContent = "Đã tải ảnh lệ thành công!";
         } else {
             log("❌ Lỗi khi upload ảnh: " + result.message);
         }
@@ -665,7 +666,7 @@ function updatePreview() {
     const {metadata, content} = extractMetadata(markdownText);
     let cover = document.getElementById("cover");
     cover.innerHTML = marked.parse(`![${metadata.slug}](${metadata.image})`)
-    log(cover.querySelector("img").src)
+    //log(cover.querySelector("img").src)
     document.getElementById("previewContent").innerHTML = marked.parse(
   content);
 
