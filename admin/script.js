@@ -370,7 +370,7 @@ async function loadPosts() {
 }
 async function loadImageList() {
     const imageDropdown = document.getElementById("coverImageDropdown");
-    const preview = document.getElementById("cover-iamge");
+    const preview = document.getElementById("cover-img");
 
     try {
         const response = await fetch("/assets/uploads/"); // 📂 Fetch danh sách ảnh

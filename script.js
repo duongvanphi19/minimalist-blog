@@ -1,3 +1,60 @@
+let posts = [];  // Danh sách bài viết
+let page = 1;     // Trang hiện tại
+const perPage = 5; // Số bài mỗi lần tải
+let isLoading = false; // Trạng thái tải
+
+// Hàm render danh sách bài viết theo trang
+function renderPosts(page) {
+    const postList = document.getElementById("post-list");
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    const postsToRender = posts.slice(start, end);
+
+    postsToRender.forEach(post => {
+        const article = document.createElement("article");
+        article.innerHTML = `
+            <img class="lazy" data-src="${post.image}" alt="${post.title}">
+            <h2><a href="post.html?post=${post.slug}">${post.title}</a></h2>
+            <p>${post.description}</p>
+        `;
+        postList.appendChild(article);
+    });
+
+    lazyLoadImages(); // Gọi lại lazy load
+}
+
+// Tải dữ liệu bài viết
+async function loadPosts() {
+    if (isLoading) return;
+    isLoading = true;
+    
+    document.getElementById("loading").style.display = "block";
+
+    try {
+        const response = await fetch("posts.json");
+        if (!response.ok) throw new Error("Lỗi tải bài viết!");
+
+        const postsData = await response.json();
+        posts = postsData.filter(post => post.status === "published").sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        renderPosts(page);
+        page++; // Tăng trang sau khi tải xong
+    } catch (error) {
+        console.error(error);
+    } finally {
+        isLoading = false;
+        document.getElementById("loading").style.display = "none";
+    }
+}
+
+// Sự kiện cuộn trang để tải thêm bài viết
+window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+        loadPosts();
+    }
+});
+
+
 // Extract YAML metadata from markdown content
 function extractMetadata(markdown) {
     const yamlRegex = /^---\n([\s\S]+?)\n---\n/;
