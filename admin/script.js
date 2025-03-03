@@ -237,11 +237,42 @@ async function uploadImage() {
       `;
             // Tự chèn markdown của ảnh vào editor
             //insertImageMarkdown(absoluteUrl);
-            document.getElementById("uploadButton").textContent = "Đã tải ảnh lệ thành công!";
+            document.getElementById("uploadButton").textContent = "Đã tải ảnh len thành công!";
+            cacheUploadedImage(filename, content )
+            
         } else {
             log("❌ Lỗi khi upload ảnh: " + result.message);
+            
         }
     };
+}
+
+// Sau khi upload thành công:
+function cacheUploadedImage(imagePath, dataUrl) {
+  const cacheData = {
+    url: dataUrl, // Base64 Data URL
+    timestamp: Date.now()
+  };
+  localStorage.setItem(imagePath, JSON.stringify(cacheData));
+  log("cached image");
+}
+
+function getImageURL(imagePath) {
+  const cached = localStorage.getItem(imagePath);
+  if (cached) {
+    try {
+      const data = JSON.parse(cached);
+      // Nếu cached được lưu trong vòng 2 phút, sử dụng cached version
+      if (Date.now() - data.timestamp < 2 * 60 * 1000) {
+        log("get cached image");
+        return data.url;
+      }
+    } catch (error) {
+      console.error("Lỗi parse cached image:", error);
+    }
+  }
+  // Nếu không có cached hoặc đã quá hạn, trả về URL GitHub
+  return imagePath;
 }
 
 // Hàm chèn markdown của ảnh vào vị trí con trỏ trong editor
@@ -665,8 +696,8 @@ function updatePreview() {
     const markdownText = document.getElementById("markdownEditor").value;
     const {metadata, content} = extractMetadata(markdownText);
     let cover = document.getElementById("cover");
-    cover.innerHTML = marked.parse(`![${metadata.slug}](${metadata.image})`)
-    //log(cover.querySelector("img").src)
+    cover.innerHTML = marked.parse(`![${metadata.slug}](${getImageURL(metadata.image)})`)
+    log(getImageURL(metadata.image))
     document.getElementById("previewContent").innerHTML = marked.parse(
   content);
 
