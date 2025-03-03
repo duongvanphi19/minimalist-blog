@@ -398,5 +398,24 @@
     "slug": "goi-du-du-tai-heo",
     "filename": "goi-du-du-tai-heo.md",
     "status": "published"
+  },
+  {
+    "id": "1740962189187",
+    "title": "Cách Làm Mì Xào Ức Gà Và Cải - Đơn Giản, Dinh Dưỡng",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm mì xào ức gà với cải xanh, đơn giản, nhanh gọn, giàu dinh dưỡng và thơm ngon.",
+    "tags": [
+      "Mì Xào",
+      "Ức Gà",
+      "Món Xào",
+      "Dễ Làm",
+      "Healthy"
+    ],
+    "image": "/assets/uploads/mi-xao-uc-ga.jpg",
+    "featured": "false",
+    "slug": "mi-xao-uc-ga",
+    "filename": "mi-xao-uc-ga.md",
+    "status": "published"
   }
 ]
