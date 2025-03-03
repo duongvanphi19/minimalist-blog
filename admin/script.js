@@ -662,9 +662,13 @@ document
 
 function updatePreview() {
     const markdownText = document.getElementById("markdownEditor").value;
+    const {metadata, content} = extractMetadata(markdownText);
+    let cover = document.getElementById("cover");
+    cover.innerHTML = marked.parse(`![${metadata.slug}](${metadata.image})`)
+    log(cover.querySelector("img").src)
     document.getElementById("previewContent").innerHTML = marked.parse(
-        FrontMatter(markdownText),
-    );
+  content);
+
 }
 // Hiển thị Editor + Xem trước khi chỉnh sửa bài viết
 

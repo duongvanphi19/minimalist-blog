@@ -345,7 +345,12 @@ a{
 }
 
 /* ===== Hình ảnh ===== */
-.preview-box img, .post-content img {
+#cover img{
+  width: 100px;
+}
+
+
+#cover img, .preview-box img, .post-content img {
     max-width: 100%;
     border-radius: 6px;
     display: block;

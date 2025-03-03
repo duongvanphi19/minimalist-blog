@@ -615,7 +615,7 @@ async function showSuggestions(slug, tags) {
         ? suggestions.map(post => `
             <div class="suggested-item">
                 <img src="${post.image}" alt="${post.title}">
-                <p><a href="post.html?post=${post.slug}">${post.title}</a></p>
+                <h3><a href="post.html?post=${post.slug}">${post.title}</a></h3>
             </div>`).join("")
         : "<p>Không có món nào gợi ý.</p>";
 }
@@ -684,56 +684,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.getElementById("invoice-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const customerName = document.getElementById("customer-name").value;
-    const phone = document.getElementById("phone").value;
-    const address = document.getElementById("address").value;
-    const product = document.getElementById("product").value;
-    const price = parseFloat(document.getElementById("price").value);
-    const quantity = parseInt(document.getElementById("quantity").value);
-    const shipping = parseFloat(document.getElementById("shipping").value);
-    const discount = parseFloat(document.getElementById("discount").value);
-
-    const subtotal = price * quantity;
-    const total = subtotal + shipping - discount;
-
-    document.getElementById("invoice").innerHTML = `
-        <div class="invoice-header">
-            HÓA ĐƠN TẠM TÍNH
-        </div>
-        <p><strong>Mã đơn:</strong> QFGJQX - ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}</p>
-        <p><strong>Khách:</strong> ${customerName}</p>
-        <p><strong>ĐT:</strong> ${phone}</p>
-        <p><strong>Địa chỉ:</strong> ${address}</p>
-        <div class="invoice-content">
-            <p><strong>Sản phẩm:</strong> ${product}</p>
-            <p><strong>Đơn giá:</strong> ${price.toLocaleString()} đ</p>
-            <p><strong>Số lượng:</strong> x${quantity}</p>
-            <hr>
-            <p><strong>Tạm tính:</strong> ${subtotal.toLocaleString()} đ</p>
-            <p><strong>Phí vận chuyển:</strong> ${shipping.toLocaleString()} đ</p>
-            <p><strong>Giảm giá:</strong> -${discount.toLocaleString()} đ</p>
-        </div>
-        <div class="invoice-footer">
-            <p><strong>Tổng cộng:</strong> ${total.toLocaleString()} đ</p>
-            <p><strong>Chưa thanh toán:</strong> ${total.toLocaleString()} đ</p>
-            <hr>
-            <p>Thanh toán tiền mặt hoặc chuyển khoản</p>
-            <p><strong>Ngân hàng TMCP Quân Đội - 0879269588</strong></p>
-            <p><strong>DUONG VAN PHI</strong></p>
-        </div>
-    `;
-
-    document.getElementById("invoice-container").style.display = "block";
-});
-
-document.getElementById("download-btn").addEventListener("click", function () {
-    html2canvas(document.getElementById("invoice")).then(canvas => {
-        const link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png");
-        link.download = "hoa_don.png";
-        link.click();
-    });
-});
