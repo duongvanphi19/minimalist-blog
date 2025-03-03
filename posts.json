@@ -547,5 +547,24 @@
     "slug": "dua-leo-tron-chua-ngot",
     "filename": "dua-leo-tron-chua-ngot.md",
     "status": "published"
+  },
+  {
+    "id": "1740993304424",
+    "title": "Cách Nấu Lẩu Thái Chua Cay - Đậm Đà, Hấp Dẫn",
+    "date": "2025-03-03",
+    "author": "Admin",
+    "description": "Hướng dẫn cách nấu lẩu Thái chua cay chuẩn vị, nước lẩu đậm đà, thơm ngon với hải sản và rau tươi.",
+    "tags": [
+      "Lẩu Thái",
+      "Món Lẩu",
+      "Chua Cay",
+      "Hải Sản",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/lau-thai-chua-cay.jpg",
+    "featured": "false",
+    "slug": "lau-thai-chua-cay",
+    "filename": "lau-thai-chua-cay.md",
+    "status": "published"
   }
 ]
