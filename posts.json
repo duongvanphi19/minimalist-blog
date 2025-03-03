@@ -623,5 +623,24 @@
     "slug": "banh-flan",
     "filename": "banh-flan.md",
     "status": "published"
+  },
+  {
+    "id": "1741004692984",
+    "title": "Cách Làm Chè Bắp - Ngọt Thanh, Dễ Làm",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm chè bắp thơm ngọt, nước cốt dừa béo ngậy, dễ làm tại nhà cho món tráng miệng thanh mát.",
+    "tags": [
+      "Chè Bắp",
+      "Món Tráng Miệng",
+      "Chè Ngọt",
+      "Nước Cốt Dừa",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/che-bap.jpg",
+    "featured": "false",
+    "slug": "che-bap",
+    "filename": "che-bap.md",
+    "status": "published"
   }
 ]
