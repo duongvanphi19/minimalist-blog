@@ -436,5 +436,24 @@
     "slug": "banh-trang-tron",
     "filename": "banh-trang-tron.md",
     "status": "published"
+  },
+  {
+    "id": "1740990123456",
+    "title": "Cách Làm Đậu Hũ Sốt Tứ Xuyên - Cay Tê, Đậm Đà",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm đậu hũ sốt Tứ Xuyên cay tê, đậm đà, chuẩn vị Trung Hoa, ăn kèm cơm trắng cực ngon.",
+    "tags": [
+      "Đậu Hũ",
+      "Món Sốt",
+      "Tứ Xuyên",
+      "Cay Tê",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/dau-hu-sot-tu-xuyen.jpg",
+    "featured": "false",
+    "slug": "dau-hu-sot-tu-xuyen",
+    "filename": "dau-hu-sot-tu-xuyen.md",
+    "status": "published"
   }
 ]
