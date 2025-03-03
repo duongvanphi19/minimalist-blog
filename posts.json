@@ -585,5 +585,24 @@
     "slug": "kho-quet",
     "filename": "kho-quet.md",
     "status": "published"
+  },
+  {
+    "id": "1741003624925",
+    "title": "Cách Làm Gà Hầm Sả - Thơm Ngon, Bổ Dưỡng",
+    "date": "2025-03-03",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm gà hầm sả thơm ngon, thịt mềm, nước hầm đậm đà, giúp bồi bổ sức khỏe.",
+    "tags": [
+      "Gà Hầm Sả",
+      "Món Hầm",
+      "Dinh Dưỡng",
+      "Thơm Ngon",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/ga-ham-sa.jpg",
+    "featured": "false",
+    "slug": "ga-ham-sa",
+    "filename": "ga-ham-sa.md",
+    "status": "published"
   }
 ]
