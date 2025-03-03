@@ -370,13 +370,13 @@ async function loadPosts() {
 }
 async function loadImageList() {
     const imageDropdown = document.getElementById("coverImageDropdown");
-    const preview = document.getElementById("post-cover-image");
+    const preview = document.getElementById("cover-iamge");
 
     try {
         const response = await fetch("/assets/uploads/"); // 📂 Fetch danh sách ảnh
         if (!response.ok) {
-          throw new Error("Không thể tải danh sách ảnh.");
           log("ko the load anh")
+          throw new Error("Không thể tải danh sách ảnh.");
         }
 
         const html = await response.text();
