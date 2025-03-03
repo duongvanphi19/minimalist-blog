@@ -474,5 +474,24 @@
     "slug": "canh-bi-do-thit-bam",
     "filename": "canh-bi-do-thit-bam.md",
     "status": "published"
+  },
+  {
+    "id": "1741012345678",
+    "title": "Cách Làm Trái Cây Dầm Sữa Chua - Thanh Mát, Dễ Làm",
+    "date": "2025-02-28",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm trái cây dầm sữa chua thanh mát, kết hợp nhiều loại trái cây tươi ngon, tốt cho sức khỏe.",
+    "tags": [
+      "Trái Cây Dầm",
+      "Sữa Chua",
+      "Món Tráng Miệng",
+      "Healthy",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/trai-cay-dam.jpg",
+    "featured": "false",
+    "slug": "trai-cay-dam-sua-chua",
+    "filename": "trai-cay-dam-sua-chua.md",
+    "status": "published"
   }
 ]
