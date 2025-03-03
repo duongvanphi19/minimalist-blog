@@ -417,5 +417,24 @@
     "slug": "mi-xao-uc-ga",
     "filename": "mi-xao-uc-ga.md",
     "status": "published"
+  },
+  {
+    "id": "1740963170214",
+    "title": "Cách Làm Bánh Tráng Trộn - Chuẩn Vị, Dễ Làm",
+    "date": "2025-03-03",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm bánh tráng trộn ngon chuẩn vị, đơn giản tại nhà, với nước sốt đậm đà, topping hấp dẫn.",
+    "tags": [
+      "Bánh Tráng Trộn",
+      "Ăn Vặt",
+      "Dễ Làm",
+      "Chua Ngọt",
+      "Món Trộn"
+    ],
+    "image": "/assets/uploads/banh-trang-tron.jpg",
+    "featured": "false",
+    "slug": "banh-trang-tron",
+    "filename": "banh-trang-tron.md",
+    "status": "published"
   }
 ]
