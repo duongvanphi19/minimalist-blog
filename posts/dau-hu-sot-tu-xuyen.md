@@ -6,7 +6,7 @@ author: "Admin"
 description: "Hướng dẫn cách làm đậu hũ sốt Tứ Xuyên cay tê, đậm đà, chuẩn vị Trung Hoa, ăn kèm cơm trắng cực ngon."
 tags: ["Đậu Hũ","Món Sốt","Tứ Xuyên","Cay Tê","Dễ Làm"]
 image: "/assets/uploads/dau-hu-sot-tu-xuyen.jpg"
-featured: "false"
+featured: "true"
 slug: "dau-hu-sot-tu-xuyen"
 filename: "dau-hu-sot-tu-xuyen.md"
 status: "published"
