@@ -5,7 +5,7 @@ date: "2025-03-03"
 author: "Admin"
 description: "Hướng dẫn cách làm kho quẹt thơm ngon, sánh đặc, chấm rau củ luộc cực kỳ hao cơm."
 tags: ["Kho Quẹt","Món Chấm","Đậm Đà","Miền Tây","Dễ Làm"]
-image: "/assets/uploads/kho-quet.jpg"
+image: "/assets/uploads/kho-quet.jpeg"
 featured: "false"
 slug: "kho-quet"
 filename: "kho-quet.md"
