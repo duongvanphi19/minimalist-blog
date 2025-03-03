@@ -566,5 +566,24 @@
     "slug": "lau-thai-chua-cay",
     "filename": "lau-thai-chua-cay.md",
     "status": "published"
+  },
+  {
+    "id": "1740993830341",
+    "title": "Cách Làm Kho Quẹt - Đậm Đà, Chuẩn Vị Miền Tây",
+    "date": "2025-03-03",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm kho quẹt thơm ngon, sánh đặc, chấm rau củ luộc cực kỳ hao cơm.",
+    "tags": [
+      "Kho Quẹt",
+      "Món Chấm",
+      "Đậm Đà",
+      "Miền Tây",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/kho-quet.jpg",
+    "featured": "false",
+    "slug": "kho-quet",
+    "filename": "kho-quet.md",
+    "status": "published"
   }
 ]
