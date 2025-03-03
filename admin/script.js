@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Load posts and setup event listeners
     loadPosts();
+    loadImageList();
 
     // Apply dark mode if enabled
     if (localStorage.getItem("darkMode") === "enabled") {
@@ -285,16 +286,7 @@ function insertImageMarkdown(imageUrl) {
     updatePreview();
 }
 
-// Hàm cập nhật preview sử dụng marked.js (đã được load từ CDN)
 
-function insertImageMarkdown(imageUrl) {
-    const editor = document.getElementById("markdownEditor");
-    const cursorPos = editor.selectionStart;
-    const textBefore = editor.value.substring(0, cursorPos);
-    const textAfter = editor.value.substring(cursorPos);
-    editor.value = `${textBefore} ![Hình ảnh](${imageUrl}) ${textAfter}`;
-    updatePreview();
-}
 
 function createSlug(title) {
     return title
@@ -376,6 +368,36 @@ async function loadPosts() {
         });
     });
 }
+async function loadImageList() {
+    const imageDropdown = document.getElementById("coverImageDropdown");
+    const preview = document.getElementById("post-cover-image");
+
+    try {
+        const response = await fetch("/assets/uploads/"); // 📂 Fetch danh sách ảnh
+        if (!response.ok) throw new Error("Không thể tải danh sách ảnh.");
+
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, "text/html");
+
+        // Lấy danh sách file ảnh từ trang index của thư mục (chỉ hoạt động nếu server hỗ trợ index)
+        const images = [...doc.querySelectorAll("a")]
+            .map(link => link.getAttribute("href"))
+            .filter(file => /\.(jpg|jpeg|png|webp)$/i.test(file));
+
+        imageDropdown.innerHTML = `<option value="">-- Chọn ảnh cover --</option>` + 
+            images.map(img => `<option value="${img}">${img}</option>`).join("");
+
+        imageDropdown.addEventListener("change", () => {
+            preview.src = imageDropdown.value ? `/assets/uploads/${imageDropdown.value}` : "";
+        });
+
+    } catch (error) {
+        console.error("Lỗi khi tải danh sách ảnh:", error);
+    }
+}
+
+
 
 function filterPosts(posts, status) {
     const filteredPosts =
@@ -386,7 +408,11 @@ function filterPosts(posts, status) {
     //console.log(filteredPosts)
     const postList = document.getElementById("blog-list");
     postList.innerHTML = "";
-    filteredPosts.forEach((post) => {
+    
+    const FPosts = filteredPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    
+    FPosts.forEach((post) => {
         const postItem = document.createElement("div");
 
         postItem.innerHTML = `<span style="margin-right:6px;">${post.status === "published" ? "✅" : "⬜"}</span><a href="#editHere" onclick="editPost('${post.filename}')">${post.filename}</a>`;
@@ -514,6 +540,9 @@ async function savePost() {
     } catch (error) {
         console.error("❌ Lỗi khi kiểm tra file trên GitHub:", error);
     }
+    
+    const selectedImage = document.getElementById("coverImageDropdown").value;
+metadata.image = selectedImage ? `/assets/uploads/${selectedImage}` : "";
 
     // 🛑 Tạo nội dung Markdown mới
     const newContent = `---
