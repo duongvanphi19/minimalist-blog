@@ -490,5 +490,24 @@
     "slug": "tra-trai-cay-nhiet-doi",
     "filename": "tra-trai-cay-nhiet-doi.md",
     "status": "published"
+  },
+  {
+    "id": "1741034567890",
+    "title": "Cách Làm Cua Rang Me - Chua Ngọt, Đậm Đà",
+    "date": "2025-03-03",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm cua rang me chua ngọt, đậm đà, nước sốt sánh quyện, thích hợp cho những bữa tiệc đặc biệt.",
+    "tags": [
+      "Cua Rang Me",
+      "Hải Sản",
+      "Món Đặc Biệt",
+      "Chua Ngọt",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/cua-rang-me.jpg",
+    "featured": "false",
+    "slug": "cua-rang-me",
+    "filename": "cua-rang-me.md",
+    "status": "published"
   }
 ]
