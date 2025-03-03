@@ -374,7 +374,10 @@ async function loadImageList() {
 
     try {
         const response = await fetch("/assets/uploads/"); // 📂 Fetch danh sách ảnh
-        if (!response.ok) throw new Error("Không thể tải danh sách ảnh.");
+        if (!response.ok) {
+          throw new Error("Không thể tải danh sách ảnh.");
+          log("ko the load anh")
+        }
 
         const html = await response.text();
         const parser = new DOMParser();
@@ -394,6 +397,7 @@ async function loadImageList() {
 
     } catch (error) {
         console.error("Lỗi khi tải danh sách ảnh:", error);
+        log("Lỗi khi tải danh sách ảnh:");
     }
 }
 
