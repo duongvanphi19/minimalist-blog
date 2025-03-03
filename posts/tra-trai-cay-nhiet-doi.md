@@ -1,7 +1,7 @@
 ---
 id: "1740972368330"
 title: "Cách Làm Trà Trái Cây Nhiệt Đới - Thanh Mát, Giải Nhiệt"
-date: "2025-02-28"
+date: "2025-03-03"
 author: "Admin"
 description: "Hướng dẫn cách làm trà trái cây nhiệt đới tươi mát, kết hợp nhiều loại trái cây giàu vitamin, giúp giải nhiệt hiệu quả."
 tags: ["Trà Trái Cây","Nước Giải Khát","Healthy","Dễ Làm","Giải Nhiệt"]
