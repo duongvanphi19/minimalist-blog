@@ -604,5 +604,24 @@
     "slug": "ga-ham-sa",
     "filename": "ga-ham-sa.md",
     "status": "published"
+  },
+  {
+    "id": "1741003807304",
+    "title": "Cách Làm Bánh Flan - Mịn Màng, Béo Ngậy",
+    "date": "2025-03-03",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm bánh flan mềm mịn, béo thơm, tan ngay trong miệng, thích hợp làm món tráng miệng.",
+    "tags": [
+      "Bánh Flan",
+      "Món Tráng Miệng",
+      "Dễ Làm",
+      "Béo Ngậy",
+      "Mịn Màng"
+    ],
+    "image": "/assets/uploads/banh-flan.jpg",
+    "featured": "false",
+    "slug": "banh-flan",
+    "filename": "banh-flan.md",
+    "status": "published"
   }
 ]
