@@ -1,3 +1,14 @@
+:root {
+  --spacing-sm: 10px;
+  --spacing-md: 20px;
+  --spacing-lg: 40px;
+}
+
+section {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+} 
+
 /* ===== Global Styles ===== */
 html{
   scroll-behavior: smooth;
@@ -803,6 +814,9 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    transition: background 0.3s;
+    transition: color 0.3s;
+  
 }
 a {
     color: #ff6b6b;
@@ -1724,40 +1738,41 @@ body {
   padding: 20px;
 }
 
-h1 {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);  /* 28px - 40px */
+    font-weight: 700;
 }
 
 h2 {
-    font-size: clamp(1.25rem, 4vw, 2rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);  /* 24px - 32px */
+    font-weight: 600;
 }
 
 h3 {
-    font-size: clamp(1.1rem, 3.5vw, 1.75rem);
+    font-size: clamp(1.3rem, 3.5vw, 1.75rem);  /* 21px - 28px */
+    font-weight: 500;
+}
+
+h4 {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);  /* 18px - 24px */
+    font-weight: 500;
 }
 
 p {
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
-}
-@media (max-width: 768px) { /* Tablet */
-    body {
-        font-size: 0.9rem;
-    }
-    h1 {
-        font-size: 2rem;
-    }
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);  /* 15px - 20px */
+    line-height: 1.6;
 }
 
-@media (max-width: 480px) { /* Mobile */
-    body {
-        font-size: 0.85rem;
-    }
-    h1 {
-        font-size: 1.75rem;
-    }
+@media (max-width: 768px) {  /* Tablet */
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.3rem; }
 }
-#loading {
-    font-size: 14px;
-    color: var(--primary-text, #555);
-    margin: 20px 0;
+
+@media (max-width: 480px) {  /* Mobile */
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.1rem; }
 }

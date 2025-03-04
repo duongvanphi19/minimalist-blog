@@ -730,7 +730,7 @@ function updatePreview() {
     const {metadata, content} = extractMetadata(markdownText);
     let cover = document.getElementById("cover");
     cover.innerHTML = marked.parse(`![${metadata.slug}](${getImageURL(metadata.image)})`)
-    log(getImageURL(metadata.image))
+    //log(getImageURL(metadata.image))
     document.getElementById("previewContent").innerHTML = marked.parse(
   content);
 

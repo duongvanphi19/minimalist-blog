@@ -564,7 +564,7 @@ function filterPostsByTag(posts, tag) {
         blogList.innerHTML = filteredPosts.map(post => `
             <article>
                 <img class="lazy" data-src="${post.image}" alt="${post.title}"/>
-                <h2><a href="post.html?post=${post.slug}">${post.title}</a></h2>
+                <h3><a href="post.html?post=${post.slug}">${post.title}</a></h3>
                 <p class="text-small"><strong>Ngày đăng:</strong> ${post.date}</p>
                 <p>${post.description}</p>
             </article>
