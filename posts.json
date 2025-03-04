@@ -661,5 +661,24 @@
     "slug": "thit-rang-chay-canh",
     "filename": "thit-rang-chay-canh.md",
     "status": "published"
+  },
+  {
+    "id": "1741079566067",
+    "title": "Cách Làm Bắp Cải Xào Trứng - Nhanh Gọn, Giòn Ngon",
+    "date": "2025-03-04",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm bắp cải xào trứng đơn giản, giòn ngọt, đầy đủ dinh dưỡng, thích hợp cho bữa ăn nhanh gọn.",
+    "tags": [
+      "Bắp Cải Xào Trứng",
+      "Bắp Cải",
+      "Món Xào",
+      "Nhanh Gọn",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/bap-cai-xao-trung.jpg",
+    "featured": "false",
+    "slug": "bap-cai-xao-trung",
+    "filename": "bap-cai-xao-trung.md",
+    "status": "published"
   }
 ]
