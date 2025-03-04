@@ -74,7 +74,29 @@ function setupImageUploadHandlers() {
         }
     });
 }
+function compressImage(file, quality = 0.8, maxWidth = 800) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = event => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
 
+                const scale = Math.min(maxWidth / img.width, 1);
+                canvas.width = img.width * scale;
+                canvas.height = img.height * scale;
+
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                canvas.toBlob(blob => resolve(blob), "image/webp", quality);
+            };
+        };
+        reader.onerror = error => reject(error);
+    });
+}
 // Hàm reset khi chọn ảnh khác
 function resetUploadForm() {
     const imagePreview = document.getElementById("imagePreview");
@@ -545,9 +567,9 @@ async function savePost() {
         console.error("❌ Lỗi khi kiểm tra file trên GitHub:", error);
     }
     
-    const selectedImage = document.getElementById("coverImageDropdown").value;
+    /*const selectedImage = document.getElementById("coverImageDropdown").value;
 metadata.image = selectedImage ? `/assets/uploads/${selectedImage}` : "";
-
+*/
     // 🛑 Tạo nội dung Markdown mới
     const newContent = `---
 id: "${metadata.id}"
