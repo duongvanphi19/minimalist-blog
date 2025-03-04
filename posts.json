@@ -680,5 +680,24 @@
     "slug": "bap-cai-xao-trung",
     "filename": "bap-cai-xao-trung.md",
     "status": "published"
+  },
+  {
+    "id": "1741080988981",
+    "title": "Cách Làm Trà Chanh Mật Ong - Thanh Mát, Giải Nhiệt",
+    "date": "2025-03-04",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm trà chanh mật ong thơm ngon, giúp thanh lọc cơ thể và tăng cường sức khỏe.",
+    "tags": [
+      "Trà Chanh",
+      "Giải Khát",
+      "Mật Ong",
+      "Trà",
+      "Thức Uống Dễ Làm"
+    ],
+    "image": "/assets/uploads/tra-chanh-mat-ong.jpg",
+    "featured": "false",
+    "slug": "tra-chanh-mat-ong",
+    "filename": "tra-chanh-mat-ong.md",
+    "status": "published"
   }
 ]
