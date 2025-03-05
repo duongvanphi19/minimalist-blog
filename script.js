@@ -3,6 +3,56 @@ let page = 1;     // Trang hiện tại
 const perPage = 5; // Số bài mỗi lần tải
 let isLoading = false; // Trạng thái tải
 
+document.addEventListener("DOMContentLoaded", async function () {
+    const searchInput = document.getElementById("searchInput");
+    const suggestionsList = document.getElementById("suggestions");
+
+    // Lấy danh sách bài viết từ `posts.json`
+    let posts = [];
+    try {
+        const response = await fetch("posts.json");
+        posts = await response.json();
+    } catch (error) {
+        console.error("Lỗi khi tải bài viết:", error);
+    }
+
+    // Hàm hiển thị gợi ý
+    function showSuggestions(query) {
+        const filtered = posts.filter(post =>
+            post.title.toLowerCase().includes(query.toLowerCase()) ||
+            post.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+        );
+
+        suggestionsList.innerHTML = "";
+        if (filtered.length === 0 || query.trim() === "") {
+            suggestionsList.style.display = "none";
+            return;
+        }
+        
+        filtered.slice(0, 5).forEach(post => {
+            const li = document.createElement("li");
+            li.textContent = post.title;
+            li.onclick = () => window.location.href = `post.html?post=${post.slug}`;
+            suggestionsList.appendChild(li);
+        });
+
+        suggestionsList.style.display = "block";
+    }
+
+    // Xử lý sự kiện nhập
+    searchInput.addEventListener("input", () => {
+        showSuggestions(searchInput.value);
+    });
+
+    // Ẩn gợi ý khi click ra ngoài
+    document.addEventListener("click", (e) => {
+        if (!searchInput.contains(e.target) && !suggestionsList.contains(e.target)) {
+            suggestionsList.style.display = "none";
+        }
+    });
+});
+
+
 // Hàm render danh sách bài viết theo trang
 function renderPosts(page) {
     const postList = document.getElementById("post-list");
@@ -502,12 +552,14 @@ function filterPostsByTag(posts, tag) {
     searchInput.addEventListener("input", debounce(() => {
         if (fuse) {
             const searchTerm = searchInput.value.trim();
-
+            
             if (!searchTerm) {
                 renderPosts(posts);
                 return;
             }
-
+            
+            
+            
             const results = fuse.search(searchTerm).map(result => result.item);
             renderPosts(results);
         }

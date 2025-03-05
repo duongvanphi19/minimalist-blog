@@ -95,6 +95,9 @@
 
     <div class="container">
         <h3>Nhập thông tin hóa đơn</h3>
+        <label for="order-info">🔽 Dán thông tin đơn hàng:</label>
+<textarea id="order-info" rows="6" placeholder="Dán nội dung đơn hàng vào đây..."></textarea>
+<button onclick="parseOrderInfo()">📌 Cập nhật thông tin</button>
         <label>Tên khách hàng:</label>
         <input type="text" id="customerName" placeholder="Nhập tên khách hàng">
         
@@ -249,6 +252,26 @@
                 link.click();
             });
         }
+        
+        function parseOrderInfo() {
+    const text = document.getElementById("order-info").value;
+
+    // Regex để trích xuất thông tin
+    const orderIdMatch = text.match(/Mã ĐH:\s*(\d+)/);
+    const receiverMatch = text.match(/Người nhận:\s*([\p{L}\d\s,]+)/u);
+    const phoneMatch = text.match(/(\d{10,11})/); 
+    const addressMatch = text.match(/Địa chỉ:\s*([\p{L}\d\s\-.]+)/u);
+    const deliveryDateMatch = text.match(/Dự kiến giao:\s*(\d{2}\/\d{2}\/\d{4})/);
+    const shippingFeeMatch = text.match(/Người nhận trả cước:\s*([\d.]+)\s*đ/);
+
+    // Điền vào các field có sẵn trong hóa đơn
+    if (orderIdMatch) document.querySelector('[name="order_id"]').value = orderIdMatch[1];
+    if (receiverMatch) document.querySelector('[name="receiver_name"]').value = receiverMatch[1].split(",")[0].trim();
+    if (phoneMatch) document.querySelector('[name="receiver_phone"]').value = phoneMatch[1];
+    if (addressMatch) document.querySelector('[name="receiver_address"]').value = addressMatch[1].trim();
+    if (deliveryDateMatch) document.querySelector('[name="delivery_date"]').value = deliveryDateMatch[1];
+    if (shippingFeeMatch) document.querySelector('[name="shipping_fee"]').value = shippingFeeMatch[1].replace(/\./g, '');
+}
     </script>
 
 </body>
