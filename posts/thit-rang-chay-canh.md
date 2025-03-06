@@ -5,7 +5,7 @@ date: "2025-03-04"
 author: "Admin"
 description: "Hướng dẫn cách làm thịt rang cháy cạnh với lớp ngoài giòn nhẹ, bên trong mềm, thấm đẫm nước mắm đậm đà."
 tags: ["Thịt Rang Cháy Cạnh","Thịt Ba Chỉ","Món Mặn","Đưa Cơm","Dễ Làm"]
-image: "thit-rang-chay-canh.jpg"
+image: "assets/uploads/thit-rang-chay-canh.jpg"
 featured: "false"
 slug: "thit-rang-chay-canh"
 filename: "thit-rang-chay-canh.md"
