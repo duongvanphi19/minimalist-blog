@@ -36,7 +36,15 @@
             animation: fadeIn 1s forwards;
         }
         
-        
+        #fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000;
+}
         
         .cell {
             background: #333;
@@ -124,6 +132,14 @@
             50% { transform: translateX(2px); }
             75% { transform: translateX(-2px); }
         }
+        @keyframes ripple {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+    100% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); }
+}
+
+.cell.ripple {
+    animation: ripple 0.5s ease-out;
+}
         
         @keyframes bubbleEffect {
     0% { transform: scale(1); }
@@ -139,6 +155,8 @@
 </head>
 
 <body>
+  <audio id="moveSound" src="move.mp3"></audio>
+  <canvas id="fireworks"></canvas>
     <h1>Car<span id="o">O</span><span id="x">X</span></h1>
     <p id="status">Lượt chơi: <span id="currentPlayer">X</span></p>
     <p class="score">X: <span id="scoreX">0</span> | O: <span id="scoreO">0</span></p>
@@ -152,12 +170,117 @@
         let currentPlayer = "X";
         let gameOver = false;
         let score = { X: 0, O: 0 };
+        const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Firework {
+    constructor(x, y) {
+        this.x = x;
+        this.y = canvas.height; // Xuất phát từ dưới màn hình
+        this.targetY = y;
+        this.color = `hsl(${Math.random() * 360}, 100%, 70%)`; // Màu sắc ngẫu nhiên
+        this.particles = [];
+        this.exploded = false;
+        this.speed = 5; // Tốc độ bay cố định
+    }
+
+    update() {
+        if (!this.exploded) {
+            this.y -= this.speed; // Pháo hoa bay lên
+            if (this.y <= this.targetY) {
+                this.explode();
+            }
+        } else {
+            this.particles.forEach(p => {
+                p.x += Math.cos(p.angle) * p.speed;
+                p.y += Math.sin(p.angle) * p.speed;
+                p.alpha -= 0.02;
+                p.speed *= 0.98; // Giảm tốc độ hạt dần để không bay quá nhanh
+            });
+            this.particles = this.particles.filter(p => p.alpha > 0);
+        }
+    }
+
+    draw() {
+        ctx.globalCompositeOperation = "lighter"; // Tăng độ sáng của pháo hoa
+
+        if (!this.exploded) {
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+        } else {
+            this.particles.forEach(p => {
+                ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+                ctx.shadowBlur = 30;
+                ctx.shadowColor = `rgba(${p.color}, 1)`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+    }
+
+    explode() {
+        this.exploded = true;
+        for (let i = 0; i < 60; i++) { // Giữ số hạt vừa phải để tránh quá tải
+            this.particles.push({
+                x: this.x,
+                y: this.y,
+                speed: Math.random() * 3 + 2, // Giảm tốc độ hạt ban đầu để không quá nhanh
+                angle: Math.random() * Math.PI * 2,
+                alpha: 1,
+                color: `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`
+            });
+        }
+    }
+}
+
+function launchFireworks(x, y) {
+    for (let i = 0; i < 5; i++) { // Tăng số lần bắn pháo
+        setTimeout(() => {
+            fireworks.push(new Firework(
+                x + (Math.random() * 100 - 50),
+                y + (Math.random() * 100 - 50)
+            ));
+            animateFireworks();
+        }, i * 500);
+    }
+}
+
+let fireworks = [];
+
+let animationFrame; // Biến để lưu trạng thái animation
+
+function animateFireworks() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach(fw => {
+        fw.update();
+        fw.draw();
+    });
+    fireworks = fireworks.filter(fw => fw.particles.length > 0 || !fw.exploded);
+
+    if (fireworks.length > 0) {
+        animationFrame = requestAnimationFrame(animateFireworks);
+    }
+}
+
+
+
+
+
 
         const gameBoard = document.getElementById("gameBoard");
         const statusText = document.getElementById("status");
         const currentPlayerText = document.getElementById("currentPlayer");
         const scoreXText = document.getElementById("scoreX");
         const scoreOText = document.getElementById("scoreO");
+        const moveSound = document.getElementById("moveSound");
+
 
         function createBoard() {
             gameBoard.innerHTML = "";
@@ -184,6 +307,7 @@
                 board[row][col] = currentPlayer;
                 e.target.textContent = currentPlayer;
                 e.target.classList.add(currentPlayer);
+               // e.target.classList.add("rippple")
 
                 const winCells = checkWin(row, col);
                 if (winCells) {
@@ -193,11 +317,13 @@
                     scoreXText.textContent = score.X;
                     scoreOText.textContent = score.O;
                     gameOver = true;
+                    launchFireworks(window.innerWidth/2, window.innerHeight/2)
                     return;
                 }
 
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
                 currentPlayerText.textContent = currentPlayer;
+                moveSound.play();
             }
         }
 

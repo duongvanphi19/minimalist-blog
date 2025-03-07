@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Chess</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: #222;
+            color: white;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+            gap: 2px;
+            background: #111;
+            padding: 10px;
+            margin: 0 auto;
+            width: fit-content;
+            border-radius: 8px;
+        }
+        .cell {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .light { background: #EEE; color: black; }
+        .dark { background: #666; color: white; }
+        .selected { background: gold !important; }
+        .move { background: rgba(0, 255, 0, 0.5) !important; }
+    </style>
+</head>
+<body>
+    <h1>Minimalist Chess</h1>
+    <div class="board" id="board"></div>
+
+    <script>
+        const boardElement = document.getElementById("board");
+        const pieces = {
+            P: "♙", R: "♖", N: "♘", B: "♗", Q: "♕", K: "♔",
+            p: "♟", r: "♜", n: "♞", b: "♝", q: "♛", k: "♚"
+        };
+
+        let board = [
+            ["r", "n", "b", "q", "k", "b", "n", "r"],
+            ["p", "p", "p", "p", "p", "p", "p", "p"],
+            ["", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", ""],
+            ["P", "P", "P", "P", "P", "P", "P", "P"],
+            ["R", "N", "B", "Q", "K", "B", "N", "R"]
+        ];
+
+        function drawBoard() {
+            boardElement.innerHTML = "";
+            board.forEach((row, r) => {
+                row.forEach((piece, c) => {
+                    const cell = document.createElement("div");
+                    cell.className = `cell ${ (r + c) % 2 === 0 ? "light" : "dark" }`;
+                    cell.textContent = pieces[piece] || "";
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    boardElement.appendChild(cell);
+                });
+            });
+        }
+
+        drawBoard();
+    </script>
+</body>
+</html>

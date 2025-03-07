@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Minimal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #111;
+            color: white;
+            flex-direction: column;
+        }
+        canvas {
+            background: #222;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        #controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #218838;
+        }
+
+        /* Animation */
+        @keyframes clearLine {
+            0% { background: white; opacity: 1; }
+            100% { background: transparent; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Tetris Minimal</h1>
+    <canvas id="tetris" width="300" height="600"></canvas>
+    <div id="controls">
+        <button onclick="moveLeft()">◀</button>
+        <button onclick="rotateBlock()">⟳</button>
+        <button onclick="moveRight()">▶</button>
+        <button onclick="dropBlock()">▼</button>
+    </div>
+    <script>
+    // Hiệu ứng khi rơi
+function dropPieceSmoothly() {
+    currentBlock.y += 1;
+    draw();
+}
+
+// Hiệu ứng khi xóa dòng
+function animateRowClear(rows) {
+    rows.forEach(row => {
+        for (let col = 0; col < cols; col++) {
+            board[row][col].style.animation = "rowClear 0.3s forwards";
+        }
+    });
+    setTimeout(() => {
+        rows.forEach(row => {
+            board[row].fill(null);
+        });
+        draw();
+    }, 300);
+}
+
+// Hiệu ứng xoay
+function animateRotate() {
+    currentBlock.element.style.animation = "rotatePiece 0.2s ease-in-out";
+}
+
+// Hiệu ứng khóa vị trí
+function animateLockIn() {
+    currentBlock.element.style.animation = "lockIn 0.2s ease-out";
+}
+
+// Hiệu ứng xuất hiện khối mới
+function animateNewPiece() {
+    currentBlock.element.style.animation = "fadeIn 0.3s ease-in";
+}
+
+// Gọi hiệu ứng tương ứng khi cần
+
+
+// CSS cho các hiệu ứng
+const styles = document.createElement("style");
+styles.innerHTML = `
+@keyframes rowClear {
+    from { transform: scaleY(1); opacity: 1; }
+    to { transform: scaleY(0); opacity: 0; }
+}
+
+@keyframes rotatePiece {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(10deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes lockIn {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+`;
+document.head.appendChild(styles);
+    
+    
+        const canvas = document.getElementById("tetris");
+        const ctx = canvas.getContext("2d");
+        const ROWS = 20, COLS = 10, BLOCK_SIZE = canvas.width / COLS;
+        let board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+
+        // Khối Tetris
+        const SHAPES = [
+            [[1, 1, 1, 1]], // I
+            [[1, 1], [1, 1]], // O
+            [[0, 1, 0], [1, 1, 1]], // T
+            [[1, 1, 0], [0, 1, 1]], // Z
+            [[0, 1, 1], [1, 1, 0]], // S
+            [[1, 0, 0], [1, 1, 1]], // L
+            [[0, 0, 1], [1, 1, 1]]  // J
+        ];
+        let currentBlock = getRandomBlock();
+        
+        let position = { x: 3, y: 0 };
+        let dropTime = 1000, lastDrop = 0;
+
+        function getRandomBlock() {
+            const shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+            return { shape, color: `hsl(${Math.random() * 360}, 100%, 50%)` };
+        }
+
+        function drawBoard() {
+            ctx.fillStyle = "#222";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let r = 0; r < ROWS; r++) {
+                for (let c = 0; c < COLS; c++) {
+                    if (board[r][c]) {
+                        ctx.fillStyle = board[r][c];
+                        ctx.fillRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                        ctx.strokeStyle = "#111";
+                        ctx.strokeRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                    }
+                }
+            }
+        }
+
+        function drawBlock() {
+            ctx.fillStyle = currentBlock.color;
+            currentBlock.shape.forEach((row, rIdx) => {
+                row.forEach((cell, cIdx) => {
+                    if (cell) {
+                        let x = (position.x + cIdx) * BLOCK_SIZE;
+                        let y = (position.y + rIdx) * BLOCK_SIZE;
+                        ctx.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+                        ctx.strokeStyle = "#111";
+                        ctx.strokeRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
+                    }
+                });
+            });
+        }
+
+        function moveBlock(dx) {
+            position.x += dx;
+            if (collision()) position.x -= dx;
+            draw();
+            
+        }
+
+        function rotateBlock() {
+            let newShape = currentBlock.shape[0].map((_, idx) => currentBlock.shape.map(row => row[idx]).reverse());
+            let prevShape = currentBlock.shape;
+            currentBlock.shape = newShape;
+            if (collision()) currentBlock.shape = prevShape;
+            draw();
+            
+        }
+
+        function dropBlock() {
+            position.y++;
+            if (collision()) {
+                position.y--;
+                placeBlock();
+                clearLines();
+                currentBlock = getRandomBlock();
+                
+                position = { x: 3, y: 0 };
+                if (collision()) {
+                    board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+                }
+            }
+            draw();
+        }
+
+        function collision() {
+            return currentBlock.shape.some((row, rIdx) =>
+                row.some((cell, cIdx) => {
+                    if (!cell) return false;
+                    let x = position.x + cIdx, y = position.y + rIdx;
+                    return x < 0 || x >= COLS || y >= ROWS || board[y][x];
+                })
+            );
+        }
+
+        function placeBlock() {
+            currentBlock.shape.forEach((row, rIdx) => {
+                row.forEach((cell, cIdx) => {
+                    if (cell) board[position.y + rIdx][position.x + cIdx] = currentBlock.color;
+                });
+            });
+        }
+
+        function clearLines() {
+            for (let r = ROWS - 1; r >= 0; r--) {
+                if (board[r].every(cell => cell)) {
+                    board[r].forEach((_, cIdx) => (board[r][cIdx] = "white")); // Effect
+                    setTimeout(() => {
+                        board.splice(r, 1);
+                        board.unshift(Array(COLS).fill(0));
+                        draw();
+                    }, 200);
+                }
+            }
+            //animateRowClear();
+        }
+
+        function update(time = 0) {
+            if (time - lastDrop > dropTime) {
+                dropBlock();
+                lastDrop = time;
+            }
+            requestAnimationFrame(update);
+        }
+
+        function draw() {
+            drawBoard();
+            drawBlock();
+        }
+
+        function moveLeft() { moveBlock(-1); }
+        function moveRight() { moveBlock(1); }
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "ArrowLeft") moveLeft();
+            if (e.key === "ArrowRight") moveRight();
+            if (e.key === "ArrowUp") rotateBlock();
+          
+            if (e.key === "ArrowDown") dropBlock();
+        });
+
+        draw();
+        update();
+    </script>
+    <script src="tetris.js"></script>
+</body>
+</html>
