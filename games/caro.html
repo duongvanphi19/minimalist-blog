@@ -156,6 +156,7 @@
 
 <body>
   <audio id="moveSound" src="move.mp3"></audio>
+  <audio id="winnerSound" src="winner.mp3"></audio>
   <canvas id="fireworks"></canvas>
     <h1>Car<span id="o">O</span><span id="x">X</span></h1>
     <p id="status">Lượt chơi: <span id="currentPlayer">X</span></p>
@@ -318,6 +319,7 @@ function animateFireworks() {
                     scoreOText.textContent = score.O;
                     gameOver = true;
                     launchFireworks(window.innerWidth/2, window.innerHeight/2)
+                    winnerSound.play();
                     return;
                 }
 
