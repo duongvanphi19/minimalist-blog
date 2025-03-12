@@ -775,5 +775,24 @@
     "slug": "cach-pha-ca-phe-phin",
     "filename": "cach-pha-ca-phe-phin.md",
     "status": "published"
+  },
+  {
+    "id": "1741760473035",
+    "title": "Cách Làm Cà Phê Trứng - Béo Mịn, Thơm Ngon",
+    "date": "2025-03-12",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm cà phê trứng chuẩn vị Hà Nội, với lớp kem trứng béo mịn hòa quyện cùng cà phê đậm đà.",
+    "tags": [
+      "Cà Phê Trứng",
+      "Cà Phê",
+      "Thức Uống Đặc Biệt",
+      "Đồ Uống",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/ca-phe-trung.jpg",
+    "featured": "false",
+    "slug": "ca-phe-trung",
+    "filename": "ca-phe-trung.md",
+    "status": "published"
   }
 ]
