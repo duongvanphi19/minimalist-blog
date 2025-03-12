@@ -756,5 +756,24 @@
     "slug": "ca-phe-muoi",
     "filename": "ca-phe-muoi.md",
     "status": "published"
+  },
+  {
+    "id": "1741760143410",
+    "title": "Cách Pha Cà Phê Phin Đúng Điệu - Đậm Đà, Chuẩn Gu",
+    "date": "2025-03-12",
+    "author": "Admin",
+    "description": "Hướng dẫn cách pha cà phê phin đúng điệu, giữ trọn hương vị đậm đà, thơm ngon và sánh mịn.",
+    "tags": [
+      "Cà Phê Phin",
+      "Cà Phê",
+      "Cách Pha Cà Phê",
+      "Đồ Uống",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/ca-phe-phin.jpg",
+    "featured": "false",
+    "slug": "cach-pha-ca-phe-phin",
+    "filename": "cach-pha-ca-phe-phin.md",
+    "status": "published"
   }
 ]
