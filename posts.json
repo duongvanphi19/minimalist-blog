@@ -794,5 +794,24 @@
     "slug": "ca-phe-trung",
     "filename": "ca-phe-trung.md",
     "status": "published"
+  },
+  {
+    "id": "1741760619503",
+    "title": "Cách Làm Whipping Cream - Mịn Mượt, Dễ Đánh Bông",
+    "date": "2025-03-12",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm whipping cream tại nhà, đảm bảo độ béo mịn, dễ đánh bông, dùng cho bánh ngọt và đồ uống.",
+    "tags": [
+      "Whipping Cream",
+      "Kem Tươi",
+      "Làm Bánh",
+      "Đồ Uống",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/whiping-cream.jpg",
+    "featured": "false",
+    "slug": "whipping-cream",
+    "filename": "whipping-cream.md",
+    "status": "published"
   }
 ]
