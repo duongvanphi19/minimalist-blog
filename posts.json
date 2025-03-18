@@ -813,5 +813,24 @@
     "slug": "whipping-cream",
     "filename": "whipping-cream.md",
     "status": "published"
+  },
+  {
+    "id": "1742291808393",
+    "title": "Cách Làm Cơm Chiên Dương Châu - Đậm Đà, Hấp Dẫn",
+    "date": "2025-03-18",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm cơm chiên Dương Châu với lạp xưởng, trứng, rau củ, hạt cơm tơi ngon, đậm đà chuẩn vị.",
+    "tags": [
+      "Cơm Chiên Dương Châu",
+      "Cơm Chiên",
+      "Lạp Xưởng",
+      "Món Chiên",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/com-chien-duong-chau.jpg",
+    "featured": "false",
+    "slug": "com-chien-duong-chau",
+    "filename": "com-chien-duong-chau.md",
+    "status": "published"
   }
 ]
