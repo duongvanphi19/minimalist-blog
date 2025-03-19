@@ -832,5 +832,24 @@
     "slug": "com-chien-duong-chau",
     "filename": "com-chien-duong-chau.md",
     "status": "published"
+  },
+  {
+    "id": "1742353359860",
+    "title": "Cách Làm Vịt Nấu Chao - Béo Ngậy, Đậm Đà",
+    "date": "2025-03-19",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm vịt nấu chao béo ngậy, thơm ngon với nước dùng đậm đà, ăn kèm bún hoặc rau sống.",
+    "tags": [
+      "Vịt Nấu Chao",
+      "Món Lẩu",
+      "Chao",
+      "Món Hầm",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/vit-nau-chao.jpg",
+    "featured": "false",
+    "slug": "vit-nau-chao",
+    "filename": "vit-nau-chao.md",
+    "status": "published"
   }
 ]
