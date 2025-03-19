@@ -1,5 +1,7 @@
 // Initialize UI elements when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
+  
+  addCopyButton();
     // Initial setup
     const deleteBtn = document.getElementById("deletePostBtn");
     if (deleteBtn) {
@@ -991,4 +993,27 @@ async function updatePostsJsonOnGitHub(postsFile, token, posts, sha) {
     } catch (error) {
         console.error("❌ Lỗi khi cập nhật `posts.json` trên GitHub:", error);
     }
+}
+
+function addCopyButton() {
+    document.querySelectorAll("pre code").forEach((codeBlock) => {
+        // Tạo nút copy
+        const button = document.createElement("button");
+        button.className = "copy-btn";
+        button.innerText = "Copy";
+
+        // Xử lý sự kiện khi nhấn nút copy
+        button.addEventListener("click", function () {
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                button.innerText = "Copied!";
+                setTimeout(() => (button.innerText = "Copy"), 1500);
+            }).catch((err) => console.error("Copy failed", err));
+        });
+
+        // Thêm nút vào code block
+        const pre = codeBlock.parentElement;
+        pre.classList.add("code-block");
+        pre.appendChild(button);
+    });
 }

@@ -48,7 +48,7 @@
         
         .cell {
             background: #333;
-            border: 1px solid #555;
+            border: 0px solid #555;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -179,33 +179,32 @@ canvas.height = window.innerHeight;
 class Firework {
     constructor(x, y) {
         this.x = x;
-        this.y = canvas.height; // Xuất phát từ dưới màn hình
+        this.y = canvas.height; // Xuất phát từ dưới lên
         this.targetY = y;
-        this.color = `hsl(${Math.random() * 360}, 100%, 70%)`; // Màu sắc ngẫu nhiên
+        this.color = `hsl(${Math.random() * 360}, 100%, 70%)`; // Màu ngẫu nhiên
         this.particles = [];
         this.exploded = false;
-        this.speed = 5; // Tốc độ bay cố định
+        this.speed = 5; // Tốc độ bay lên
+        this.gravity = 0.05; // Trọng lực
     }
 
     update() {
         if (!this.exploded) {
-            this.y -= this.speed; // Pháo hoa bay lên
-            if (this.y <= this.targetY) {
-                this.explode();
-            }
+            this.y -= this.speed; // Bay lên
+            if (this.y <= this.targetY) this.explode(); // Khi đạt độ cao, nổ
         } else {
             this.particles.forEach(p => {
                 p.x += Math.cos(p.angle) * p.speed;
-                p.y += Math.sin(p.angle) * p.speed;
+                p.y += Math.sin(p.angle) * p.speed + p.gravity; // Thêm trọng lực
                 p.alpha -= 0.02;
-                p.speed *= 0.98; // Giảm tốc độ hạt dần để không bay quá nhanh
+                p.gravity += 0.2; // Tăng trọng lực theo thời gian để hạt rơi nhanh hơn
             });
             this.particles = this.particles.filter(p => p.alpha > 0);
         }
     }
 
     draw() {
-        ctx.globalCompositeOperation = "lighter"; // Tăng độ sáng của pháo hoa
+        ctx.globalCompositeOperation = "lighter"; // Tăng độ sáng pháo hoa
 
         if (!this.exploded) {
             ctx.fillStyle = this.color;
@@ -228,13 +227,14 @@ class Firework {
 
     explode() {
         this.exploded = true;
-        for (let i = 0; i < 60; i++) { // Giữ số hạt vừa phải để tránh quá tải
+        for (let i = 0; i < 80; i++) { // Số hạt pháo hoa
             this.particles.push({
                 x: this.x,
                 y: this.y,
-                speed: Math.random() * 3 + 2, // Giảm tốc độ hạt ban đầu để không quá nhanh
+                speed: Math.random() * 5 + 2, // Giữ tốc độ ban đầu hợp lý
                 angle: Math.random() * Math.PI * 2,
                 alpha: 1,
+                gravity: 0.02, // Trọng lực ban đầu nhỏ
                 color: `${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}`
             });
         }
@@ -242,14 +242,14 @@ class Firework {
 }
 
 function launchFireworks(x, y) {
-    for (let i = 0; i < 5; i++) { // Tăng số lần bắn pháo
+    for (let i = 0; i < 12; i++) { // Tăng số lần bắn pháo
         setTimeout(() => {
             fireworks.push(new Firework(
                 x + (Math.random() * 100 - 50),
                 y + (Math.random() * 100 - 50)
             ));
             animateFireworks();
-        }, i * 500);
+        }, i * 400);
     }
 }
 
@@ -365,6 +365,8 @@ function animateFireworks() {
             currentPlayerText.textContent = currentPlayer;
             statusText.textContent = "Lượt chơi: ";
             createBoard();
+            winnerSound.pause()
+            winnerSound.currentTime = 0;
         });
 
         createBoard();

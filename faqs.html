@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs từ Google Sheets</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f5f5f5; color: #333; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 10px; margin-top:50px; }
+        h1 { text-align: center; margin-bottom: 20px; font-size: clamp(1.8em, 5vw, 2.5em); color: #2c3e50; }
+
+        /* Login Screen */
+        .login-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: #eee ; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        .login-box { 
+            background: #fff; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+            width: 100%; 
+            max-width: 400px; 
+        }
+        .login-box h2 { 
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 1.8em; 
+            color: #2c3e50; 
+        }
+        .login-box input { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            font-size: 1em; 
+        }
+        .login-box button { 
+            width: 100%; 
+            padding: 10px; 
+            background: #3498db; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+        }
+        .login-box button:hover { background: #2980b9; }
+        .login-error { 
+            color: #f84343; 
+            text-align: center; 
+            margin-top: 10px; 
+            display: none; 
+        }
+        .hidden { display: none; }
+
+        /* FAQ Styles */
+        .search-bar { margin-bottom: 20px; }
+        .search-bar input { width: 100%; padding: 10px 15px; font-size: 1em; border: 1px solid #ddd; border-radius: 25px; outline: none; transition: border-color 0.3s; }
+        .search-bar input:focus { border-color: #3498db; }
+        .chips { margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        .chip { padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; border: 2px solid transparent; }
+        .chip.active { color: #fff; }
+        .chip:hover:not(.active) { opacity: 0.8; }
+        
+        .chip.tưvấn.active { background: #2980b9; }
+        
+        .chip.xửlý.active { background: #27ae60; }
+        .chip.chốtđơn.active { background: #e67e22; }
+        .chip.khác.active { background: #c1a700; }
+       
+        .chip.kếtnối.active { background: #a170c9; }
+        .chip.all { background: #ddd; color: #333; }
+        .chip.all.active { background: #3498db; color: #fff; }
+        .category { margin-bottom: 30px; display: none; }
+        .category.active { display: block; }
+        .category h2 { font-size: clamp(1.5em, 4vw, 1.8em); margin-bottom: 15px; padding-bottom: 5px; }
+        .category.tưvấn h2 { color: #2980b9; border-bottom: 2px solid #2980b9; }
+        .category.xửlý h2 { color: #27ae60; border-bottom: 2px solid #27ae60; }
+        .category.chốtđơn h2 { color: #e67e22; border-bottom: 2px solid #e67e22; }
+        .category.kếtnối h2 { color: #a170c9; border-bottom: 2px solid #a170c9; }
+        .category.khác h2 { color: #c1a700; border-bottom: 2px solid #c1a700; }
+        .faq-item { background: #fff; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
+        .faq-question { padding: 15px; font-size: clamp(1em, 3vw, 1.2em); font-weight: 600; cursor: pointer; position: relative; transition: background 0.3s; }
+        .faq-question:hover { background: #f0f0f0; }
+        .faq-question::after { content: '+'; position: absolute; right: 15px; font-size: 1.5em; transition: transform 0.3s; }
+        .faq-question.active::after { content: '−'; transform: rotate(180deg); }
+        .faq-answer { max-height: 0; padding: 0 15px; overflow: hidden; background: #fafafa; transition: max-height 0.3s ease; position: relative; }
+        .faq-answer p { padding: 15px 0; font-size: clamp(0.9em, 2.5vw, 1em); color: #555; margin-right: 50px; }
+        .copy-btn { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); padding: 4px 8px; font-size: 0.9em; background: #3498db; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
+        .copy-btn:hover { background: #2980b9; }
+        .error { color: #f84343; text-align: center; margin-top: 20px; }
+        .highlight { background: #fff3cd; color: #856404; }
+        .scroll-top { position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; background: #3498db; color: #fff; border: none; border-radius: 50%; cursor: pointer; opacity: 0; transition: opacity 0.3s; }
+        .scroll-top.visible { opacity: 1; }
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .search-bar input { padding: 8px 12px; }
+            .chips { gap: 6px; }
+            .chip { padding: 5px 10px; font-size: 0.8em; }
+            .faq-question { padding: 12px; }
+            .faq-answer p { margin-right: 40px; }
+            .copy-btn { padding: 3px 6px; font-size: 0.8em; }
+            .login-box { padding: 20px; max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-screen" id="login-screen">
+        <div class="login-box">
+            <h2>Đăng Nhập</h2>
+            <input type="text" id="username" placeholder="Tên đăng nhập">
+            <input type="password" id="password" placeholder="Mật khẩu">
+            <button id="login-btn">Đăng Nhập</button>
+            <div class="login-error" id="login-error">Tài khoản hoặc mật khẩu không đúng!</div>
+        </div>
+    </div>
+
+    <div class="container hidden" id="faq-content">
+        <h1>Câu Hỏi Thường Gặp</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm câu hỏi...">
+        </div>
+        <div class="chips" id="chips-container"></div>
+        <div id="faq-container"></div>
+        <div id="error-message" class="error"></div>
+        <button id="scroll-top" class="scroll-top">↑</button>
+    </div>
+
+    <script>
+        // Danh sách tài khoản tĩnh (có thể thay bằng API hoặc Google Sheets)
+        const users = [
+            { username: "admin", password: "123456" },
+            { username: "user1", password: "password1" }
+        ];
+
+        // Kiểm tra đăng nhập
+        const loginScreen = document.getElementById('login-screen');
+        const faqContent = document.getElementById('faq-content');
+        const loginBtn = document.getElementById('login-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginError = document.getElementById('login-error');
+
+        loginBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                loginScreen.classList.add('hidden');
+                faqContent.classList.remove('hidden');
+                fetchSheetData(); // Tải dữ liệu FAQ sau khi đăng nhập
+            } else {
+                loginError.style.display = 'block';
+                setTimeout(() => loginError.style.display = 'none', 3000);
+            }
+        });
+
+        // Nhấn Enter để đăng nhập
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+
+        const spreadsheetId = '1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg';
+        const apiKey = 'AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8';
+        const range = 'FAQs!A2:C';
+
+        async function fetchSheetData() {
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+            const errorMessage = document.getElementById('error-message');
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Lỗi ${response.status}: ${errorData.error.message}`);
+                }
+                const data = await response.json();
+                if (!data.values || data.values.length === 0) {
+                    errorMessage.textContent = 'Không tìm thấy dữ liệu trong phạm vi FAQs!A2:C.';
+                    return;
+                }
+                renderFAQ(data.values);
+                errorMessage.textContent = '';
+            } catch (error) {
+                errorMessage.textContent = error.message;
+                console.error('Chi tiết lỗi:', error);
+            }
+        }
+
+        function renderFAQ(values) {
+            const faqContainer = document.getElementById('faq-container');
+            const chipsContainer = document.getElementById('chips-container');
+            let categories = {};
+
+            values.forEach(([category, question, answer]) => {
+                if (!categories[category]) categories[category] = [];
+                categories[category].push({ question, answer });
+            });
+
+            const allChip = document.createElement('div');
+            allChip.className = 'chip all active';
+            allChip.textContent = `Tất cả (${values.length})`;
+            allChip.dataset.category = 'all';
+            chipsContainer.appendChild(allChip);
+
+            for (const category of Object.keys(categories)) {
+                const chip = document.createElement('div');
+                chip.className = `chip ${category.toLowerCase().replace(/\s+/g, '')}`;
+                chip.textContent = `${category} (${categories[category].length})`;
+                chip.dataset.category = category.toLowerCase().replace(/\s+/g, '');
+                chip.dataset.total = categories[category].length;
+                chipsContainer.appendChild(chip);
+            }
+
+            for (const [category, items] of Object.entries(categories)) {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = `category ${category.toLowerCase().replace(/\s+/g, '')} active`;
+                categoryDiv.innerHTML = `<h2>${category} (${items.length})</h2>`;
+
+                items.forEach(item => {
+                    const faqItem = document.createElement('div');
+                    faqItem.className = 'faq-item';
+                    faqItem.innerHTML = `
+                        <div class="faq-question">${item.question}</div>
+                        <div class="faq-answer">
+                            <p>${item.answer}</p>
+                            <button class="copy-btn">Copy</button>
+                        </div>
+                    `;
+                    categoryDiv.appendChild(faqItem);
+                });
+
+                faqContainer.appendChild(categoryDiv);
+            }
+
+            document.querySelectorAll('.faq-question').forEach(item => {
+                item.addEventListener('click', () => {
+                    const answer = item.nextElementSibling;
+                    const isActive = item.classList.contains('active');
+                    document.querySelectorAll('.faq-question').forEach(q => {
+                        q.classList.remove('active');
+                        q.nextElementSibling.style.maxHeight = null;
+                    });
+                    if (!isActive) {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const answerText = btn.previousElementSibling.textContent;
+                    navigator.clipboard.writeText(answerText).then(() => {
+                        btn.textContent = 'Đã copy!';
+                        setTimeout(() => btn.textContent = 'Copy', 2000);
+                    });
+                });
+            });
+
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+                let totalMatches = 0;
+
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    const questionEl = item.querySelector('.faq-question');
+                    const answerEl = item.querySelector('.faq-answer p');
+                    const question = questionEl.textContent.toLowerCase();
+                    const answer = answerEl.textContent.toLowerCase();
+                    const isMatch = question.includes(query) || answer.includes(query);
+
+                    item.classList.toggle('hidden', !isMatch);
+                    if (isMatch) totalMatches++;
+
+                    if (query) {
+                        questionEl.innerHTML = questionEl.textContent.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
+                        answerEl.innerHTML = answerEl.textContent.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
+                    } else {
+                        questionEl.innerHTML = questionEl.textContent;
+                        answerEl.innerHTML = answerEl.textContent;
+                    }
+                });
+
+                document.querySelectorAll('.category').forEach(category => {
+                    const items = category.querySelectorAll('.faq-item:not(.hidden)');
+                    const categoryName = category.querySelector('h2').textContent.split(' (')[0];
+                    category.classList.toggle('hidden', items.length === 0);
+                    category.querySelector('h2').textContent = `${categoryName} (${items.length})`;
+                });
+
+                document.querySelectorAll('.chip:not(.all)').forEach(chip => {
+                    const categoryClass = chip.dataset.category;
+                    const matchingItems = document.querySelectorAll(`.category.${categoryClass} .faq-item:not(.hidden)`).length;
+                    const categoryName = chip.textContent.split(' (')[0];
+                    chip.textContent = `${categoryName} (${matchingItems})`;
+                });
+
+                const allChip = document.querySelector('.chip.all');
+                allChip.textContent = `Tất cả (${totalMatches})`;
+            });
+
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    const selectedCategory = chip.dataset.category;
+                    document.querySelectorAll('.category').forEach(category => {
+                        category.classList.toggle('active', selectedCategory === 'all' || category.classList.contains(selectedCategory));
+                    });
+                });
+            });
+
+            const scrollTopBtn = document.getElementById('scroll-top');
+            window.addEventListener('scroll', () => {
+                scrollTopBtn.classList.toggle('visible', window.scrollY > 200);
+            });
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    </script>
+</body>
+</html>

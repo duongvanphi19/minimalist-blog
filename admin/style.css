@@ -359,6 +359,34 @@ a{
     padding: 10px;
     border-radius: 5px;
     overflow-x: auto;
+    position: relative;
+}
+
+.code-block {
+    position: relative;
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.copy-btn:hover {
+    opacity: 1;
 }
 
 .preview-box code, .post-content code {

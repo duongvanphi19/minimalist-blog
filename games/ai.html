@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knapsack 5000 CV - UI Hiện Đại</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <h1 class="text-center fw-bold text-primary">Chọn sản phẩm ưu tiên</h1>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-secondary">Danh sách sản phẩm:</h5>
+                <ul id="productList" class="list-group mb-3"></ul>
+                <button class="btn btn-success w-100" onclick="calculate()">📊 Tính toán</button>
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="text-secondary">Kết quả tối ưu:</h5>
+                <div class="card p-3">
+                    <p id="result" class="fw-bold text-success"></p>
+                    <ul id="selectedProducts" class="list-group"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let products = [
+            { name: "VTC", price: 6185455, cv: 2850 },
+            { name: "VSG", price: 1364727, cv: 620 },
+            { name: "Genecel", price: 342655, cv: 160 },
+            { name: "Green", price: 122727, cv: 54 },
+            { name: "Vsmile", price: 702000, cv: 310 },
+            { name: "Detox", price: 343636, cv: 155 },
+            { name: "Kids", price: 378000, cv: 160 },
+            { name: "Mind", price: 373091, cv: 158 },
+            { name: "Stam nam", price: 229000, cv: 100 },
+            { name: "Stam nữ", price: 229000, cv: 100 },
+            { name: "Cafe", price: 689237, cv: 300 },
+            { name: "Cốt sâm", price: 406473, cv: 175 },
+            { name: "BXuan", price: 657818, cv: 280 },
+            { name: "Cardio", price: 353455, cv: 155 },
+            { name: "Gội", price: 325000, cv: 125 },
+            { name: "Xả", price: 325000, cv: 125 },
+            { name: "Lactto", price: 294545, cv: 130 },
+            { name: "Joint", price: 363273, cv: 155 },
+            { name: "VH-socola", price: 380945, cv: 160 },
+            { name: "VH-traxanh", price: 380945, cv: 160 },
+            { name: "Manlink", price: 554727, cv: 225 },
+            { name: "Son", price: 125000, cv: 45 },
+            { name: "DDVS", price: 155000, cv: 55 },
+            { name: "XKM", price: 510000, cv: 180 },
+            { name: "XTM", price: 528000, cv: 180 }
+        ];
+
+        function renderProductList() {
+            let list = document.getElementById("productList");
+            list.innerHTML = "";
+            products.forEach((product, index) => {
+                let li = document.createElement("li");
+                li.classList.add("list-group-item");
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.classList.add("form-check-input", "me-2");
+                checkbox.value = index;
+                checkbox.id = "product_" + index;
+                li.appendChild(checkbox);
+                li.appendChild(document.createTextNode(` ${product.name} - ${product.price.toLocaleString()} VNĐ - ${product.cv} CV`));
+                list.appendChild(li);
+            });
+        }
+
+        function knapsackWithStrictPriority(targetCV, priorityProducts) {
+            let selectedItems = {};
+            let totalPrice = 0;
+            let totalCV = 0;
+
+            for (let product of priorityProducts) {
+                selectedItems[product.name] = 1;
+                totalPrice += product.price;
+                totalCV += product.cv;
+            }
+
+            priorityProducts.sort((a, b) => (a.price / a.cv) - (b.price / b.cv)); 
+
+            for (let product of priorityProducts) {
+                while (totalCV < targetCV) {
+                    if (totalCV + product.cv > targetCV) break;
+                    selectedItems[product.name] = (selectedItems[product.name] || 0) + 1;
+                    totalPrice += product.price;
+                    totalCV += product.cv;
+                }
+            }
+
+            if (totalCV < targetCV) {
+                let extraProduct = products.filter(p => !priorityProducts.includes(p)).sort((a, b) => a.cv - b.cv)[0];
+                if (extraProduct) {
+                    selectedItems[extraProduct.name] = (selectedItems[extraProduct.name] || 0) + 1;
+                    totalPrice += extraProduct.price;
+                    totalCV += extraProduct.cv;
+                }
+            }
+
+            return { totalPrice, selectedItems, totalCV };
+        }
+
+        function calculate() {
+            let checkedIndexes = Array.from(document.querySelectorAll("#productList input:checked")).map(input => parseInt(input.value));
+            let priorityProducts = checkedIndexes.map(index => products[index]);
+
+            if (priorityProducts.length === 0) {
+                alert("Hãy chọn ít nhất 1 sản phẩm!");
+                return;
+            }
+
+            let { totalPrice, selectedItems, totalCV } = knapsackWithStrictPriority(5000, priorityProducts);
+
+            let resultText = `<span class="text-primary">Tổng giá tối ưu: </span><strong>${totalPrice.toLocaleString()} VNĐ</strong> - <span class="text-success">Tổng CV: </span><strong>${totalCV}</strong>`;
+            document.getElementById("result").innerHTML = resultText;
+
+            let list = document.getElementById("selectedProducts");
+            list.innerHTML = "";
+            Object.entries(selectedItems).forEach(([name, quantity]) => {
+                let li = document.createElement("li");
+                li.classList.add("list-group-item");
+                li.innerHTML = `<strong>${name}</strong> x <span class="badge bg-warning">${quantity}</span>`;
+                list.appendChild(li);
+            });
+        }
+
+        renderProductList();
+    </script>
+</body>
+</html>
