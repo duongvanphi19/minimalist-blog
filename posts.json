@@ -870,5 +870,25 @@
     "slug": "banh-canh-vit",
     "filename": "banh-canh-vit.md",
     "status": "published"
+  },
+  {
+    "id": "1742440412020",
+    "title": "Cách Làm Bánh Canh Vịt Chuẩn Vị Miền Tây",
+    "date": "2025-03-20",
+    "author": "Grok 3",
+    "description": "Hướng dẫn chi tiết cách nấu bánh canh vịt thơm ngon, đậm đà với sợi bánh dai mềm và nước dùng chuẩn miền Tây.",
+    "tags": [
+      "Bánh Canh Vịt",
+      "Món Nước",
+      "Ẩm Thực Miền Tây",
+      "Vịt",
+      "Dễ Làm",
+      "Ẩm Thực Việt Nam"
+    ],
+    "image": "/assets/uploads/banh-canh-vit.jpg",
+    "featured": "false",
+    "slug": "banh-canh-vit",
+    "filename": "banh-canh-vit.md",
+    "status": "published"
   }
 ]
