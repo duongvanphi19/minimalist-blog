@@ -1,0 +1,73 @@
+{
+    "header": {
+        "title": "LunaVibe",
+        "description": "Định nghĩa lại sự sáng tạo trong kỷ nguyên công nghệ cao",
+        "cta": "Khám phá tầm nhìn"
+    },
+    "nav": {
+        "logo": "LunaVibe",
+        "links": [
+            {"text": "Về tôi", "href": "#about"},
+            {"text": "Kỹ năng", "href": "#skills"},
+            {"text": "Dự án", "href": "#projects"},
+            {"text": "Liên hệ", "href": "#contact"}
+        ]
+    },
+    "about": {
+        "title": "Về tôi",
+        "icon": "fas fa-user-astronaut",
+        "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
+        "description": "Tôi là LunaVibe - một nhà tiên phong đã phá vỡ mọi giới hạn của thiết kế và công nghệ. Với 8 năm kinh nghiệm tạo ra những tuyệt phẩm số, tôi biến ý tưởng thành hiện thực với độ chính xác của một nghệ sĩ và tầm nhìn của một nhà phát minh. Đây là nơi giấc mơ gặp gỡ tương lai."
+    },
+    "skills": {
+        "title": "Kỹ năng",
+        "icon": "fas fa-tools",
+        "items": [
+            {"icon": "fas fa-paint-brush", "text": "Thiết kế tương lai"},
+            {"icon": "fas fa-code", "text": "Coding sáng tạo"},
+            {"icon": "fas fa-users", "text": "Trải nghiệm người dùng"},
+            {"icon": "fas fa-rocket", "text": "Tối ưu hiệu suất"}
+        ]
+    },
+    "projects": {
+        "title": "Dự án",
+        "icon": "fas fa-project-diagram",
+        "items": [
+            {
+                "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80",
+                "title": "Luminous Core",
+                "description": "Một nền tảng thực tế tăng cường giúp người dùng tương tác với không gian 3D, được sử dụng bởi 10 triệu kiến trúc sư toàn cầu.",
+                "link": "Xem ngay",
+                "href": "#"
+            },
+            {
+                "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80",
+                "title": "Flux Horizon",
+                "description": "Website động học với hiệu ứng chuyển động mượt mà, đạt giải thưởng Thiết kế Toàn cầu 2025.",
+                "link": "Xem ngay",
+                "href": "#"
+            },
+            {
+                "image": "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=300&q=80",
+                "title": "Eon Pulse",
+                "description": "Hệ thống thương mại điện tử tích hợp AI, tăng 300% doanh thu cho các thương hiệu lớn trong 6 tháng.",
+                "link": "Xem ngay",
+                "href": "#"
+            }
+        ]
+    },
+    "contact": {
+        "title": "Liên hệ",
+        "icon": "fas fa-envelope",
+        "description": "Đưa ý tưởng của bạn vào quỹ đạo: ",
+        "email": "lunavibe@future.io",
+        "socials": [
+            {"icon": "fab fa-linkedin", "href": "#"},
+            {"icon": "fab fa-github", "href": "#"},
+            {"icon": "fab fa-twitter", "href": "#"}
+        ]
+    },
+    "footer": {
+        "text": "© 2025 LunaVibe. Tầm nhìn không giới hạn."
+    }
+}
