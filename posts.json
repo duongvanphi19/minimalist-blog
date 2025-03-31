@@ -889,5 +889,24 @@
     "slug": "banh-xeo-mien-tay",
     "filename": "banh-xeo-mien-tay.md",
     "status": "published"
+  },
+  {
+    "id": "1743401603491",
+    "title": "Gỏi Gà Bắp Cải - Thanh Mát, Giòn Ngon",
+    "date": "2025-03-31",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm gỏi gà bắp cải đơn giản, giòn ngon, đậm đà hương vị, thích hợp cho bữa ăn gia đình hoặc tiệc tùng.",
+    "tags": [
+      "Gỏi Gà",
+      "Món Gỏi",
+      "Bắp Cải",
+      "Món Ngon Dễ Làm",
+      "Ẩm Thực Việt Nam"
+    ],
+    "image": "/assets/uploads/goi-ga-bap-cai.jpg",
+    "featured": "false",
+    "slug": "goi-ga-bap-cai",
+    "filename": "goi-ga-bap-cai.md",
+    "status": "published"
   }
 ]
