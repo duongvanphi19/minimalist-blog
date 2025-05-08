@@ -908,5 +908,24 @@
     "slug": "goi-ga-bap-cai",
     "filename": "goi-ga-bap-cai.md",
     "status": "published"
+  },
+  {
+    "id": "1746690376384",
+    "title": "Cách Làm Thạch Rau Câu Sữa - Mềm Mịn, Thanh Mát",
+    "date": "2025-05-8",
+    "author": "Admin",
+    "description": "Hướng dẫn làm thạch rau câu sữa đơn giản, dễ làm tại nhà, chỉ với vài nguyên liệu cơ bản nhưng thành phẩm mềm mịn, thơm béo, cực kỳ hấp dẫn.",
+    "tags": [
+      "Thạch Rau Câu",
+      "Tráng Miệng",
+      "Món Lạnh",
+      "Dễ Làm",
+      "Sữa Tươi"
+    ],
+    "image": "/assets/uploads/thach-rau-cau-sua.jpg",
+    "featured": "false",
+    "slug": "thach-rau-cau-sua",
+    "filename": "thach-rau-cau-sua.md",
+    "status": "published"
   }
 ]
