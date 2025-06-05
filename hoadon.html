@@ -1,278 +1,321 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hóa Đơn</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        html {
-            height: calc(var(--vh, 1vh) * 100);
-            color: #444;
-        }
-        body {
-            font-family: Helvetica, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh;
-            background-color: #f0f0f0;
-            padding: 10px;
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .container h3 {
-            text-align: center;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button {
-            background: #444;
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 16px;
-        }
-        button svg {
-            fill: white;
-            width: 18px;
-            height: 18px;
-        }
-        .invoice {
-            display: none;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            margin-top: 20px;
-        }
-        .invoice h2 {
-            text-align: center;
-        }
-        .invoice hr {
-            border: none;
-            border-top: 1px solid #ddd;
-        }
-        .items table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .items th, .items td {
-            padding: 5px;
-            text-align: center;
-        }
-        .dashed{
-          border-top: 1px dashed #444;
-          margin: 8px 0;
-        }
-        
-        #export{
-          display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hóa đơn đẹp & Hoạt động</title>
+  <!-- Thư viện -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Arial', sans-serif; background: #f1f3f5; padding: 30px; color: #333; }
+    input, textarea, select, button { padding: 10px; margin: 5px 0; width: 100%; border: 1px solid #ccc; border-radius: 8px; }
+    h3 { margin-top: 20px; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; font-weight: bold; }
+    button:hover { opacity: 0.9; }
+    .section { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    #invoice {
+      background: white;
+      padding: 25px;
+      max-width: 700px;
+      margin: 30px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-family: 'Arial', sans-serif;
+      text-align: left;
+      line-height: 1.6;
+    }
+    #invoice .header {
+      text-align: center;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+    }
+    #invoice .header h2 {
+      color: #007bff;
+      font-size: 28px;
+      margin: 0;
+    }
+    #invoice .header p {
+      color: #555;
+      font-size: 14px;
+      margin: 5px 0 0;
+    }
+    #invoice .info, #invoice .note, #invoice .total {
+      margin-bottom: 15px;
+    }
+    #invoice .info p, #invoice .note p {
+      margin: 5px 0;
+      color: #333;
+    }
+    #invoice .info p strong {
+      color: #2c3e50;
+      min-width: 80px;
+      display: inline-block;
+    }
+    #invoice #productListTable {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    #invoice #productListTable th {
+      background: #f0f4f8;
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+      color: #2c3e50;
+      font-weight: bold;
+    }
+    #invoice #productListTable td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    #invoice #productListTable tr:nth-child(even) {
+      background-color: #f9fbfc;
+    }
+    #invoice .total-line {
+      font-weight: bold;
+      margin: 8px 0;
+      text-align: right;
+      color: #2c3e50;
+    }
+    #invoice .total-line:last-child {
+      font-size: 22px;
+      color: #e74c3c;
+      border-top: 2px dashed #ddd;
+      padding-top: 10px;
+    }
+    #export, #printBtn, #clearData { display: none; margin: 15px 10px 0; padding: 12px; width: 180px; border-radius: 8px; font-size: 16px; }
+    #export { background: #28a745; }
+    #printBtn { background: #ffc107; color: #222; }
+    #clearData { background: #dc3545; color: white; }
+  </style>
 </head>
 <body>
+  <div class="section">
+    <h3>Dán nội dung đơn hàng</h3>
+    <textarea id="order-info" rows="5" placeholder="Dán nội dung đơn..."></textarea>
+    <button id="btnParse">Tách thông tin</button>
+  </div>
 
-    <div class="container">
-        <h3>Nhập thông tin hóa đơn</h3>
-        <label for="order-info">🔽 Dán thông tin đơn hàng:</label>
-<textarea id="order-info" rows="6" placeholder="Dán nội dung đơn hàng vào đây..."></textarea>
-<button onclick="parseOrderInfo()">📌 Cập nhật thông tin</button>
-        <label>Tên khách hàng:</label>
-        <input type="text" id="customerName" placeholder="Nhập tên khách hàng">
-        
-        <label>Số điện thoại:</label>
-        <input type="text" id="customerPhone" placeholder="Nhập số điện thoại">
+  <div class="section">
+    <h3>Thông tin khách</h3>
+    <input id="customerName" placeholder="Tên khách">
+    <input id="customerPhone" placeholder="Số điện thoại">
+    <input id="customerAddress" placeholder="Địa chỉ">
+  </div>
 
-        <label>Địa chỉ:</label>
-        <input type="text" id="customerAddress" placeholder="Nhập địa chỉ">
+  <div class="section">
+    <h3>Thêm sản phẩm</h3>
+    <input id="productName" placeholder="Tên sản phẩm">
+    <input id="productPrice" type="number" placeholder="Giá (vd: 150000)">
+    <input id="productQty" type="number" value="1" placeholder="Số lượng">
+    <button id="btnAdd">Thêm</button>
+    <ul id="productList"></ul>
+  </div>
 
-        <h3>Thêm sản phẩm</h3>
-        <label>Tên sản phẩm:</label>
-        <input type="text" id="productName" placeholder="Nhập tên sản phẩm">
+  <div class="section">
+    <h3>Phí giao hàng & Giảm giá</h3>
+    <input id="shippingFee" type="number" placeholder="Phí ship (vd: 20000)">
+    <input id="discount" type="number" placeholder="Giảm giá (vd: 5000)">
+    <select id="discountType">
+      <option value="fixed">VND</option>
+      <option value="percent">%</option>
+    </select>
+  </div>
 
-        <label>Giá sản phẩm:</label>
-        <input type="number" id="productPrice" placeholder="Nhập giá sản phẩm">
+  <div class="section">
+    <h3>Ghi chú</h3>
+    <textarea id="note" rows="3" placeholder="Nhập ghi chú cho hóa đơn..."></textarea>
+  </div>
 
-        <label>Số lượng:</label>
-        <input type="number" id="productQty" value="1" min="1">
+  <button id="btnCreate">Tạo hóa đơn</button>
 
-        <button onclick="addProduct()">Thêm sản phẩm</button>
-
-        <ul id="productList"></ul>
-
-        <label>Phí vận chuyển:</label>
-        <input type="number" id="shippingFee" value="35000">
-
-        <label>Giảm giá:</label>
-        <input type="number" id="discount" placeholder="Nhập số tiền hoặc %">
-        <select id="discount-type">
-            <option value="amount">VNĐ</option>
-            <option value="percent">%</option>
-        </select>
-
-        <button onclick="generateInvoice()">Tạo hóa đơn</button>
+  <div id="invoice">
+    <div class="header">
+      <h2>HÓA ĐƠN TẠM TÍNH</h2>
+      <p>CÔNG TY ABC</p>
     </div>
-
-    <div class="invoice" id="invoice">
-        <h2>HÓA ĐƠN TẠM TÍNH</h2>
-        <p style="text-align: center; color: #444;"><strong>Mã hóa đơn:</strong> <span id="invoiceCode"></span></p>
-        <p><strong style="margin-right: 15px">Khách:</strong> <span id="displayCustomerName"></span></p>
-        <p><strong style="margin-right: 40px">ĐT:</strong> <span id="displayCustomerPhone"></span></p>
-        <p><strong style="margin-right: 12px">Địa chỉ:</strong> <span id="displayCustomerAddress"></span></p>
-        <hr>
-
-        <div class="items">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Sản phẩm</th>
-                        <th>SL</th>
-                        <th>Giá</th>
-                    </tr>
-                </thead>
-                <tbody id="productListTable"></tbody>
-            </table>
-        </div>
-
-        <hr>
-        <div style="display: flex; justify-content: space-between"><strong>Tạm tính:</strong> <span id="subtotal"></span></div>
-        <div style="display: flex; justify-content: space-between"><strong>Phí vận chuyển:</strong> <span id="displayShippingFee"></span></div>
-        <div style="display: flex; justify-content: space-between"><strong>Giảm giá:</strong> <span id="displayDiscount"></span></div>
-        <div class="dashed"></div>
-        <div style="display: flex; justify-content: space-between"><strong>Tổng cộng:</strong> <strong style="text-align: right;" id="total"></strong></div>
+    <div class="info">
+      <p><strong>Mã hóa đơn:</strong> <span id="invoiceCode"></span></p>
+      <p><strong>Khách:</strong> <span id="displayCustomerName"></span></p>
+      <p><strong>ĐT:</strong> <span id="displayCustomerPhone"></span></p>
+      <p><strong>Địa chỉ:</strong> <span id="displayCustomerAddress"></span></p>
     </div>
-    </br>
-    <button id="export" style="max-width: 200px" onclick="exportToImage()">
-        <svg viewBox="0 0 24 24"><path d="M12 16L6 10H10V4H14V10H18L12 16Z"></path><path d="M4 20H20V18H4V20Z"></path></svg> Xuất Hóa Đơn Ảnh
-    </button>
+    <div class="note">
+      <p><strong>Ghi chú:</strong> <span id="displayNote"></span></p>
+    </div>
+    <table id="productListTable">
+      <thead><tr><th>Sản phẩm</th><th>SL</th><th>Giá</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="total">
+      <p class="total-line">Tạm tính: <span id="subtotal"></span></p>
+      <p class="total-line">Phí vận chuyển: <span id="displayShippingFee"></span></p>
+      <p class="total-line">Giảm giá: <span id="displayDiscount"></span></p>
+      <p class="total-line">Tổng cộng: <span id="total"></span></p>
+    </div>
+  </div>
 
-    <script>
-    function generateInvoice() {
-    const customerName = document.getElementById("customerName").value;
-    const customerPhone = document.getElementById("customerPhone").value;
-    const customerAddress = document.getElementById("customerAddress").value;
-    const shippingFee = parseFloat(document.getElementById("shippingFee").value) || 0;
-    const discount = parseFloat(document.getElementById("discount").value) || 0;
-    const discountType = document.getElementById("discount-type").value;
+  <div style="text-align:center;">
+    <button id="export">Lưu ảnh hóa đơn</button>
+    <button id="printBtn">In hóa đơn</button>
+    <button id="clearData">Xóa dữ liệu</button>
+  </div>
 
-    let subtotal = 0;
-    let productHTML = "";
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const get = id => document.getElementById(id);
+      const tbody = get('productListTable').tBodies[0];
 
-    products.forEach(product => {
-        subtotal += product.price * product.qty;
-        productHTML += `<tr>
-            <td>${product.name}</td>
-            <td>${product.qty}</td>
-            <td>${product.price.toLocaleString()} đ</td>
-        </tr>`;
-    });
+      // Tải dữ liệu từ localStorage khi khởi động
+      let products = JSON.parse(localStorage.getItem('invoiceProducts')) || [];
+      let customerData = JSON.parse(localStorage.getItem('customerData')) || {};
+      let shippingFee = localStorage.getItem('shippingFee') || 0;
+      let discount = localStorage.getItem('discount') || 0;
+      let discountType = localStorage.getItem('discountType') || 'fixed';
+      let note = localStorage.getItem('note') || '';
 
-    let discountAmount = discountType === "percent" ? (subtotal * discount) / 100 : discount;
-    let total = subtotal + shippingFee - discountAmount;
-    total = total < 0 ? 0 : total;
+      // Hiển thị dữ liệu đã lưu
+      if (products.length > 0) {
+        products.forEach(p => {
+          const li = document.createElement('li');
+          li.textContent = `${p.name} - ${p.price.toLocaleString()} đ x${p.qty}`;
+          get('productList').appendChild(li);
+        });
+      }
+      get('customerName').value = customerData.name || '';
+      get('customerPhone').value = customerData.phone || '';
+      get('customerAddress').value = customerData.address || '';
+      get('shippingFee').value = shippingFee;
+      get('discount').value = discount;
+      get('discountType').value = discountType;
+      get('note').value = note;
 
-    document.getElementById("invoiceCode").innerText = Math.random().toString(36).substring(7).toUpperCase();
-    document.getElementById("displayCustomerName").innerText = customerName;
-    document.getElementById("displayCustomerPhone").innerText = customerPhone;
-    document.getElementById("displayCustomerAddress").innerText = customerAddress;
-    document.getElementById("productListTable").innerHTML = productHTML;
-    document.getElementById("subtotal").innerText = subtotal.toLocaleString() + " đ";
-    document.getElementById("displayShippingFee").innerText = shippingFee.toLocaleString() + " đ";
-    document.getElementById("displayDiscount").innerText = "-" + discountAmount.toLocaleString() + " đ";
-    document.getElementById("total").innerText = total.toLocaleString() + " đ";
+      get('btnParse').onclick = parseOrderInfo;
+      get('btnAdd').onclick = addProduct;
+      get('btnCreate').onclick = generateInvoice;
+      get('export').onclick = exportToImage;
+      get('printBtn').onclick = () => window.print();
+      get('clearData').onclick = clearData;
 
-    document.getElementById("invoice").style.display = "block";
-    document.getElementById("export").style.display = "block";
-    
-}
-    
-        function adjustHeight() {
-            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-        }
-        window.addEventListener('resize', adjustHeight);
-        adjustHeight();
+      function addProduct() {
+        const name = get('productName').value.trim();
+        const price = parseFloat(get('productPrice').value);
+        const qty = parseInt(get('productQty').value);
+        if (!name || price <= 0 || qty <= 0) return alert('Nhập đúng thông tin sản phẩm!');
+        products.push({ name, price, qty });
+        const li = document.createElement('li');
+        li.textContent = `${name} - ${price.toLocaleString()} đ x${qty}`;
+        get('productList').appendChild(li);
+        get('productName').value = '';
+        get('productPrice').value = '';
+        get('productQty').value = 1;
+        saveData();
+      }
 
-        document.querySelectorAll('input').forEach((el) => {
-            el.addEventListener('focus', () => {
-                setTimeout(() => {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            });
+      function generateInvoice() {
+        const name = get('customerName').value.trim();
+        const phone = get('customerPhone').value.trim();
+        const address = get('customerAddress').value.trim();
+        const noteText = get('note').value.trim();
+        if (!name || !phone || !address) return alert('Nhập đầy đủ thông tin khách hàng!');
+        if (products.length === 0) return alert('Chưa có sản phẩm nào!');
+
+        const shipping = parseFloat(get('shippingFee').value) || 0;
+        const discount = parseFloat(get('discount').value) || 0;
+        const isPercent = get('discountType').value === 'percent';
+        const subtotal = products.reduce((s, p) => s + p.price * p.qty, 0);
+        const discountAmt = isPercent ? (subtotal * discount / 100) : discount;
+        const total = Math.max(0, subtotal + shipping - discountAmt);
+        const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+        get('invoiceCode').textContent = code;
+        get('displayCustomerName').textContent = name;
+        get('displayCustomerPhone').textContent = phone;
+        get('displayCustomerAddress').textContent = address;
+        get('displayNote').textContent = noteText || 'Không có ghi chú';
+
+        tbody.innerHTML = '';
+        products.forEach(p => {
+          const row = tbody.insertRow();
+          row.insertCell().textContent = p.name;
+          row.insertCell().textContent = p.qty;
+          row.insertCell().textContent = p.price.toLocaleString('vi-VN').replace(/,/g, '.') + ' đ';
         });
 
-        let products = [];
+        get('subtotal').textContent = subtotal.toLocaleString('vi-VN').replace(/,/g, '.') + ' đ';
+        get('displayShippingFee').textContent = shipping.toLocaleString('vi-VN').replace(/,/g, '.') + ' đ';
+        get('displayDiscount').textContent = '-0 đ'; // Mặc định giảm giá là 0 nếu không nhập
+        get('total').textContent = total.toLocaleString('vi-VN').replace(/,/g, '.') + ' đ';
 
-        function addProduct() {
-            let name = document.getElementById("productName").value;
-            let price = parseFloat(document.getElementById("productPrice").value);
-            let qty = parseInt(document.getElementById("productQty").value);
+        get('invoice').style.display = 'block';
+        get('export').style.display = 'inline-block';
+        get('printBtn').style.display = 'inline-block';
+        get('clearData').style.display = 'inline-block';
+        saveData();
+      }
 
-            if (!name || price <= 0 || qty <= 0) {
-                alert("Vui lòng nhập thông tin sản phẩm!");
-                return;
-            }
+      function exportToImage() {
+        html2canvas(get('invoice')).then(canvas => {
+          const link = document.createElement('a');
+          link.href = canvas.toDataURL();
+          link.download = 'hoa-don.png';
+          link.click();
+        });
+      }
 
-            products.push({ name, price, qty });
-            let productList = document.getElementById("productList");
-            let li = document.createElement("li");
-            li.textContent = `${name} - ${price.toLocaleString()} đ x${qty}`;
-            productList.appendChild(li);
+      function parseOrderInfo() {
+        const text = get('order-info').value;
+        const rec = text.match(/Người nhận:\s*([^\n,]+),\s*(\d{10,11})/i);
+        const addr = text.match(/Địa chỉ:\s*([^\n]+)/i);
+        const ship = text.match(/Người nhận trả cước:\s*([\d.]+)\s*đ/i);
 
-            document.getElementById("productName").value = "";
-            document.getElementById("productPrice").value = "";
-            document.getElementById("productQty").value = "1";
+        if (rec) {
+          get('customerName').value = rec[1].trim();
+          get('customerPhone').value = rec[2];
         }
+        if (addr) get('customerAddress').value = addr[1].trim();
+        if (ship) get('shippingFee').value = ship[1].replace(/\./g, '');
+        saveData();
+      }
 
-        function exportToImage() {
-            html2canvas(document.getElementById('invoice')).then(canvas => {
-                let link = document.createElement('a');
-                link.href = canvas.toDataURL();
-                link.download = "hoa-don.png";
-                link.click();
-            });
-        }
-        
-        function parseOrderInfo() {
-    const text = document.getElementById("order-info").value;
+      function saveData() {
+        localStorage.setItem('invoiceProducts', JSON.stringify(products));
+        localStorage.setItem('customerData', JSON.stringify({
+          name: get('customerName').value.trim(),
+          phone: get('customerPhone').value.trim(),
+          address: get('customerAddress').value.trim()
+        }));
+        localStorage.setItem('shippingFee', get('shippingFee').value || 0);
+        localStorage.setItem('discount', get('discount').value || 0);
+        localStorage.setItem('discountType', get('discountType').value);
+        localStorage.setItem('note', get('note').value || '');
+      }
 
-    // Regex để trích xuất thông tin
-    const orderIdMatch = text.match(/Mã ĐH:\s*(\d+)/);
-    const receiverMatch = text.match(/Người nhận:\s*([\p{L}\d\s,]+)/u);
-    const phoneMatch = text.match(/(\d{10,11})/); 
-    const addressMatch = text.match(/Địa chỉ:\s*([\p{L}\d\s\-.]+)/u);
-    const deliveryDateMatch = text.match(/Dự kiến giao:\s*(\d{2}\/\d{2}\/\d{4})/);
-    const shippingFeeMatch = text.match(/Người nhận trả cước:\s*([\d.]+)\s*đ/);
-
-    // Điền vào các field có sẵn trong hóa đơn
-    if (orderIdMatch) document.querySelector('[name="order_id"]').value = orderIdMatch[1];
-    if (receiverMatch) document.querySelector('[name="receiver_name"]').value = receiverMatch[1].split(",")[0].trim();
-    if (phoneMatch) document.querySelector('[name="receiver_phone"]').value = phoneMatch[1];
-    if (addressMatch) document.querySelector('[name="receiver_address"]').value = addressMatch[1].trim();
-    if (deliveryDateMatch) document.querySelector('[name="delivery_date"]').value = deliveryDateMatch[1];
-    if (shippingFeeMatch) document.querySelector('[name="shipping_fee"]').value = shippingFeeMatch[1].replace(/\./g, '');
-}
-    </script>
-
+      function clearData() {
+        localStorage.removeItem('invoiceProducts');
+        localStorage.removeItem('customerData');
+        localStorage.removeItem('shippingFee');
+        localStorage.removeItem('discount');
+        localStorage.removeItem('discountType');
+        localStorage.removeItem('note');
+        products = [];
+        get('productList').innerHTML = '';
+        get('customerName').value = '';
+        get('customerPhone').value = '';
+        get('customerAddress').value = '';
+        get('shippingFee').value = '';
+        get('discount').value = '';
+        get('discountType').value = 'fixed';
+        get('note').value = '';
+        get('invoice').style.display = 'none';
+        get('export').style.display = 'none';
+        get('printBtn').style.display = 'none';
+        get('clearData').style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>

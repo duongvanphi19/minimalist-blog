@@ -26,9 +26,11 @@
             {"icon": "fas fa-paint-brush", "text": "Thiết kế tương lai"},
             {"icon": "fas fa-code", "text": "Coding sáng tạo"},
             {"icon": "fas fa-users", "text": "Trải nghiệm người dùng"},
-            {"icon": "fas fa-rocket", "text": "Tối ưu hiệu suất"}
+            {"icon": "fas fa-rocket", "text": "Tối ưu hiệu suất"},
+            {"icon": "fas fa-user", "text": "Tối thui"}
         ]
     },
+    
     "projects": {
         "title": "Dự án",
         "icon": "fas fa-project-diagram",
@@ -40,6 +42,13 @@
                 "link": "Xem ngay",
                 "href": "#"
             },
+                       {
+                "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80",
+                "title": "Luminous Core",
+                "description": "Một nền tảng thực tế tăng cường giúp người dùng tương tác với không gian 3D, được sử dụng bởi 10 triệu kiến trúc sư toàn cầu.",
+                "link": "Xem ngay",
+                "href": "#"
+            }, 
             {
                 "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80",
                 "title": "Flux Horizon",

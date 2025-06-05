@@ -1,0 +1,45 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">Store</h1>
+        <div class="flex items-center space-x-4">
+            <a href="#" class="text-gray-700">Products</a>
+            <button class="relative">
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-2 rounded-full">33</span>
+                🛒
+            </button>
+            <button>👤</button>
+        </div>
+    </nav>
+    <div class="p-4 max-w-4xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-center md:space-x-2 mb-4">
+            <input type="text" placeholder="Search products..." class="w-full md:w-1/2 p-2 border rounded">
+            <select class="w-full md:w-1/4 p-2 border rounded mt-2 md:mt-0">
+                <option>All</option>
+            </select>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded shadow">
+                <img src="https://via.placeholder.com/400" alt="Coffee Beans" class="w-full h-48 object-cover rounded">
+                <h2 class="text-lg font-bold mt-2">Premium Coffee Beans</h2>
+                <p class="text-gray-600">Freshly roasted Arabica coffee beans from Colombian highlands</p>
+                <p class="text-lg font-bold mt-2">$19.99</p>
+                <button class="w-full bg-blue-500 text-white p-2 rounded mt-2">Add to Cart</button>
+            </div>
+            <div class="bg-white p-4 rounded shadow">
+                <img src="https://via.placeholder.com/400" alt="Green Tea" class="w-full h-48 object-cover rounded">
+                <h2 class="text-lg font-bold mt-2">Organic Green Tea</h2>
+                <p class="text-gray-600">High-quality Japanese green tea leaves</p>
+                <p class="text-lg font-bold mt-2">$14.99</p>
+                <button class="w-full bg-blue-500 text-white p-2 rounded mt-2">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

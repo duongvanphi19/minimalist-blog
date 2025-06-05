@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="manifest" href="manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
+</script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            height: calc(var(--vh, 1vh) * 100);
+            color: #444;
+        }
+        body {
+            font-family: Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h3 {
+            text-align: center;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #444;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        button svg {
+            fill: white;
+            width: 18px;
+            height: 18px;
+        }
+        .invoice {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .invoice h2 {
+            text-align: center;
+        }
+        .invoice hr {
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        .items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .items th, .items td {
+            padding: 5px;
+            text-align: center;
+        }
+        .dashed{
+          border-top: 1px dashed #444;
+          margin: 8px 0;
+        }
+        
+        #export{
+          display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Nhập thông tin hóa đơn</h3>
+        <label for="order-info">🔽 Dán thông tin đơn hàng:</label>
+<textarea id="order-info" rows="6" placeholder="Dán nội dung đơn hàng vào đây..."></textarea>
+<button onclick="parseOrderInfo()">📌 Cập nhật thông tin</button>
+        <label>Tên khách hàng:</label>
+        <input type="text" id="customerName" placeholder="Nhập tên khách hàng">
+        
+        <label>Số điện thoại:</label>
+        <input type="text" id="customerPhone" placeholder="Nhập số điện thoại">
+
+        <label>Địa chỉ:</label>
+        <input type="text" id="customerAddress" placeholder="Nhập địa chỉ">
+
+        <h3>Thêm sản phẩm</h3>
+        <label>Tên sản phẩm:</label>
+        <input type="text" id="productName" placeholder="Nhập tên sản phẩm">
+
+        <label>Giá sản phẩm:</label>
+        <input type="number" id="productPrice" placeholder="Nhập giá sản phẩm">
+
+        <label>Số lượng:</label>
+        <input type="number" id="productQty" value="1" min="1">
+
+        <button onclick="addProduct()">Thêm sản phẩm</button>
+
+        <ul id="productList"></ul>
+
+        <label>Phí vận chuyển:</label>
+        <input type="number" id="shippingFee" value="35000">
+
+        <label>Giảm giá:</label>
+        <input type="number" id="discount" placeholder="Nhập số tiền hoặc %">
+        <select id="discount-type">
+            <option value="amount">VNĐ</option>
+            <option value="percent">%</option>
+        </select>
+
+        <button onclick="generateInvoice()">Tạo hóa đơn</button>
+    </div>
+
+    <div class="invoice" id="invoice">
+        <h2>HÓA ĐƠN TẠM TÍNH</h2>
+        <p style="text-align: center; color: #444;"><strong>Mã hóa đơn:</strong> <span id="invoiceCode"></span></p>
+        <p><strong style="margin-right: 15px">Khách:</strong> <span id="displayCustomerName"></span></p>
+        <p><strong style="margin-right: 40px">ĐT:</strong> <span id="displayCustomerPhone"></span></p>
+        <p><strong style="margin-right: 12px">Địa chỉ:</strong> <span id="displayCustomerAddress"></span></p>
+        <hr>
+
+        <div class="items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>SL</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody id="productListTable"></tbody>
+            </table>
+        </div>
+
+        <hr>
+        <div style="display: flex; justify-content: space-between"><strong>Tạm tính:</strong> <span id="subtotal"></span></div>
+        <div style="display: flex; justify-content: space-between"><strong>Phí vận chuyển:</strong> <span id="displayShippingFee"></span></div>
+        <div style="display: flex; justify-content: space-between"><strong>Giảm giá:</strong> <span id="displayDiscount"></span></div>
+        <div class="dashed"></div>
+        <div style="display: flex; justify-content: space-between"><strong>Tổng cộng:</strong> <strong style="text-align: right;" id="total"></strong></div>
+    </div>
+    </br>
+    <button id="export" style="max-width: 200px" onclick="exportToImage()">
+        <svg viewBox="0 0 24 24"><path d="M12 16L6 10H10V4H14V10H18L12 16Z"></path><path d="M4 20H20V18H4V20Z"></path></svg> Xuất Hóa Đơn Ảnh
+    </button>
+
+    <script>
+    function generateInvoice() {
+    const customerName = document.getElementById("customerName").value;
+    const customerPhone = document.getElementById("customerPhone").value;
+    const customerAddress = document.getElementById("customerAddress").value;
+    const shippingFee = parseFloat(document.getElementById("shippingFee").value) || 0;
+    const discount = parseFloat(document.getElementById("discount").value) || 0;
+    const discountType = document.getElementById("discount-type").value;
+
+    let subtotal = 0;
+    let productHTML = "";
+
+    products.forEach(product => {
+        subtotal += product.price * product.qty;
+        productHTML += `<tr>
+            <td>${product.name}</td>
+            <td>${product.qty}</td>
+            <td>${product.price.toLocaleString()} đ</td>
+        </tr>`;
+    });
+
+    let discountAmount = discountType === "percent" ? (subtotal * discount) / 100 : discount;
+    let total = subtotal + shippingFee - discountAmount;
+    total = total < 0 ? 0 : total;
+
+    document.getElementById("invoiceCode").innerText = Math.random().toString(36).substring(7).toUpperCase();
+    document.getElementById("displayCustomerName").innerText = customerName;
+    document.getElementById("displayCustomerPhone").innerText = customerPhone;
+    document.getElementById("displayCustomerAddress").innerText = customerAddress;
+    document.getElementById("productListTable").innerHTML = productHTML;
+    document.getElementById("subtotal").innerText = subtotal.toLocaleString() + " đ";
+    document.getElementById("displayShippingFee").innerText = shippingFee.toLocaleString() + " đ";
+    document.getElementById("displayDiscount").innerText = "-" + discountAmount.toLocaleString() + " đ";
+    document.getElementById("total").innerText = total.toLocaleString() + " đ";
+
+    document.getElementById("invoice").style.display = "block";
+    document.getElementById("export").style.display = "block";
+    
+}
+    
+        function adjustHeight() {
+            document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+        }
+        window.addEventListener('resize', adjustHeight);
+        adjustHeight();
+
+        document.querySelectorAll('input').forEach((el) => {
+            el.addEventListener('focus', () => {
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            });
+        });
+
+        let products = [];
+
+        function addProduct() {
+            let name = document.getElementById("productName").value;
+            let price = parseFloat(document.getElementById("productPrice").value);
+            let qty = parseInt(document.getElementById("productQty").value);
+
+            if (!name || price <= 0 || qty <= 0) {
+                alert("Vui lòng nhập thông tin sản phẩm!");
+                return;
+            }
+
+            products.push({ name, price, qty });
+            let productList = document.getElementById("productList");
+            let li = document.createElement("li");
+            li.textContent = `${name} - ${price.toLocaleString()} đ x${qty}`;
+            productList.appendChild(li);
+
+            document.getElementById("productName").value = "";
+            document.getElementById("productPrice").value = "";
+            document.getElementById("productQty").value = "1";
+        }
+
+        function exportToImage() {
+            html2canvas(document.getElementById('invoice')).then(canvas => {
+                let link = document.createElement('a');
+                link.href = canvas.toDataURL();
+                link.download = "hoa-don.png";
+                link.click();
+            });
+        }
+        
+        function parseOrderInfo() {
+    const text = document.getElementById("order-info").value;
+
+    // Regex để trích xuất thông tin
+    const orderIdMatch = text.match(/Mã ĐH:\s*(\d+)/);
+    const receiverMatch = text.match(/Người nhận:\s*([\p{L}\d\s,]+)/u);
+    const phoneMatch = text.match(/(\d{10,11})/); 
+    const addressMatch = text.match(/Địa chỉ:\s*([\p{L}\d\s\-.]+)/u);
+    const deliveryDateMatch = text.match(/Dự kiến giao:\s*(\d{2}\/\d{2}\/\d{4})/);
+    const shippingFeeMatch = text.match(/Người nhận trả cước:\s*([\d.]+)\s*đ/);
+
+    // Điền vào các field có sẵn trong hóa đơn
+    if (orderIdMatch) document.querySelector('[name="order_id"]').value = orderIdMatch[1];
+    if (receiverMatch) document.querySelector('[name="receiver_name"]').value = receiverMatch[1].split(",")[0].trim();
+    if (phoneMatch) document.querySelector('[name="receiver_phone"]').value = phoneMatch[1];
+    if (addressMatch) document.querySelector('[name="receiver_address"]').value = addressMatch[1].trim();
+    if (deliveryDateMatch) document.querySelector('[name="delivery_date"]').value = deliveryDateMatch[1];
+    if (shippingFeeMatch) document.querySelector('[name="shipping_fee"]').value = shippingFeeMatch[1].replace(/\./g, '');
+}
+    </script>
+
+</body>
+</html>
