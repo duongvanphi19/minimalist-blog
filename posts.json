@@ -872,23 +872,60 @@
     "status": "published"
   },
   {
-    "id": "1742440412020",
-    "title": "Cách Làm Bánh Canh Vịt Chuẩn Vị Miền Tây",
-    "date": "2025-03-20",
-    "author": "Grok 3",
-    "description": "Hướng dẫn chi tiết cách nấu bánh canh vịt thơm ngon, đậm đà với sợi bánh dai mềm và nước dùng chuẩn miền Tây.",
+    "id": "1743339773620",
+    "title": "Bánh Xèo Miền Tây - Giòn Ngon Đúng Điệu",
+    "date": "2025-03-30",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm bánh xèo miền Tây giòn rụm, thơm ngon, chuẩn vị truyền thống.",
     "tags": [
-      "Bánh Canh Vịt",
-      "Món Nước",
+      "Bánh Xèo",
       "Ẩm Thực Miền Tây",
-      "Vịt",
-      "Dễ Làm",
+      "Món Chiên",
+      "Đặc Sản Việt Nam",
+      "Dễ Làm"
+    ],
+    "image": "/assets/uploads/banh-xeo-mien-tay.jpg",
+    "featured": "false",
+    "slug": "banh-xeo-mien-tay",
+    "filename": "banh-xeo-mien-tay.md",
+    "status": "published"
+  },
+  {
+    "id": "1743401603491",
+    "title": "Gỏi Gà Bắp Cải - Thanh Mát, Giòn Ngon",
+    "date": "2025-03-31",
+    "author": "Admin",
+    "description": "Hướng dẫn cách làm gỏi gà bắp cải đơn giản, giòn ngon, đậm đà hương vị, thích hợp cho bữa ăn gia đình hoặc tiệc tùng.",
+    "tags": [
+      "Gỏi Gà",
+      "Món Gỏi",
+      "Bắp Cải",
+      "Món Ngon Dễ Làm",
       "Ẩm Thực Việt Nam"
     ],
-    "image": "/assets/uploads/banh-canh-vit.jpg",
+    "image": "/assets/uploads/goi-ga-bap-cai.jpg",
     "featured": "false",
-    "slug": "banh-canh-vit",
-    "filename": "banh-canh-vit.md",
+    "slug": "goi-ga-bap-cai",
+    "filename": "goi-ga-bap-cai.md",
+    "status": "published"
+  },
+  {
+    "id": "1746690376384",
+    "title": "Cách Làm Thạch Rau Câu Sữa - Mềm Mịn, Thanh Mát",
+    "date": "2025-05-8",
+    "author": "Admin",
+    "description": "Hướng dẫn làm thạch rau câu sữa đơn giản, dễ làm tại nhà, chỉ với vài nguyên liệu cơ bản nhưng thành phẩm mềm mịn, thơm béo, cực kỳ hấp dẫn.",
+    "tags": [
+      "Thạch Rau Câu",
+      "Tráng Miệng",
+      "Món Lạnh",
+      "Dễ Làm",
+      "Sữa Tươi"
+    ],
+    "image": "/assets/uploads/thach-rau-cau-sua.jpg",
+    "featured": "false",
+    "slug": "thach-rau-cau-sua",
+    "filename": "thach-rau-cau-sua.md",
     "status": "published"
   }
 ]
