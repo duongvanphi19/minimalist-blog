@@ -198,7 +198,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="index.html" class="back-link">← Quay lại</a>
+            <a href="recipes.html" class="back-link">← Quay lại</a>
             <button class="share-button" onclick="shareRecipe()">➦</button>
         </div>
         <div id="recipe-detail"></div>
@@ -219,10 +219,9 @@
             try {
                 recipeDetailDiv.innerHTML = '<p class="loading">Đang tải...</p>';
                 const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:J?key=${API_KEY}`
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:M?key=${API_KEY}`
                 );
                 const data = await response.json();
-
                 if (data.values) {
                     const recipe = data.values.find(row => row[0] === id);
                     if (recipe) {
@@ -240,12 +239,13 @@
         }
 
         function displayRecipe(recipe, allRecipes) {
-            const [id, name, ingredients, instructions, time, difficulty, category, image = '', description = '', servings = ''] = recipe;
+            const [id, name, ingredients, instructions, time, difficulty, category, image = '', description = '', servings = '', tips =''] = recipe;
+            //alert(JSON.stringify(recipe))
             // Chuyển nguyên liệu thành danh sách
             const ingredientsList = ingredients.split(';').map(item => `<li>${item.trim()}</li>`).join('');
             // Parse Markdown cho cách làm
             const formattedInstructions = DOMPurify.sanitize(marked.parse(instructions.replace(/\n/g, '\n\n')));
-            
+            const formattedTips = DOMPurify.sanitize(marked.parse(tips.replace(/\n/g, '\n\n'))); 
             const relatedRecipes = allRecipes
                 .filter(r => r[6] === category && r[0] !== id)
                 .slice(0, 3)
@@ -267,16 +267,19 @@
                     <div class="info-item"><span class="icon">⏱</span> <strong>Thời gian:</strong> ${time} phút</div>
                     <div class="info-item"><span class="icon">✰</span> <strong>Độ khó:</strong> ${difficulty}</div>
                     <div class="info-item"><span class="icon">️✻</span> <strong>Loại món:</strong> ${category}</div>
-                    <div class="info-item"><span class="icon">✚</span> <strong>Khẩu phần:</strong> ${servings} người</div>
+                    <div class="info-item"><span class="icon">∷</span> <strong>Khẩu phần:</strong> ${servings} người</div>
                 </div>
                 <h2><span class="icon">⁝</span> Mô tả</h2>
                 <div class="description">${description || 'Không có mô tả'}</div>
                 <h2><span class="icon">᯽</span> Nguyên liệu</h2>
                 <div class="ingredients"><ul>${ingredientsList}</ul></div>
-                <h2><span class="icon">߷</span> Cách làm</h2>
+                <h2><span class="icon">⊷</span> Cách làm</h2>
                 <div class="instructions">${formattedInstructions}</div>
+                <h2><span class="icon">⏍</span>Mẹo nấu ăn</h2>
+                <div >${formattedTips}</div>
+                
                                 <div class="related-recipes">
-                    <h2><span class="icon">⌕</span> Công thức liên quan</h2>
+                    <h2><span class="icon">⧉</span> Công thức liên quan</h2>
                     <div class="related-recipes-grid">
                         ${relatedRecipes || '<p class="no-results">Không có công thức liên quan</p>'}
                     </div>
