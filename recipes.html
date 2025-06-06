@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tìm Kiếm Công Thức Nấu Ăn</title>
     <style>
+    * {
+      box-sizing: border-box;
+    }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             max-width: 1000px;
@@ -115,19 +118,185 @@
         .icon {
             font-size: 1em;
         }
+
         .badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 0px;
+            left: 0px;
             background: #e74c3c;
-            color: #fff2b0;
-            padding: 5px 10px;
+            color: white;
+            padding: 6px 12px;
             font-size: 0.8em;
-            border-radius: 12px;
+            letter-spacing: .06rem;
+            border-bottom-right-radius: 12px;
+          
             font-weight: bold;
+            animation: /*pulse 2s infinite ease-in-out,*/ fadeIn 0.5s ease-out;
+            overflow: hidden;
+        }
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shine 3s infinite linear;
+        }
+        .recipe-card:hover .badge {
+            background: #c0392b; /* Sáng hơn khi hover */
+        }
+        
+                .badge-new {
+            background: #e74c3c;
+        }
+        .recipe-card:hover .badge-new {
+            background: #c0392b;
+        }
+        
+        .badge-special{
+          background: #ac57e3;
+        }
+        .recipe-card:hover .badge-special{
+            background: #7b13bf;
+        }
+        
+        .badge-popular {
+            background: #27ae60;
+        }
+        .recipe-card:hover .badge-popular {
+            background: #219653;
+        }
+        .badge-quick {
+            background: #f1c40f;
+        }
+        .recipe-card:hover .badge-quick {
+            background: #e1b12c;
+        }
+         .history-section {
+            margin-top: 30px;
+        }
+        .mini-recipes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .mini-recipe-card {
+            position: relative;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .mini-recipe-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .mini-recipe-image {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+        }
+        .mini-recipe-content {
+            padding: 8px;
+            text-align: center;
+        }
+        .mini-recipe-content h4 {
+            margin: 0;
+            font-size: 0.9em;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .mini-badge {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            color: white;
+            padding: 3px 8px;
+            font-size: 0.7em;
+            border-radius: 10px;
+            font-weight: bold;
+            animation: pulse 2s infinite ease-in-out, fadeIn 0.5s ease-out;
+            overflow: hidden;
+        }
+        .mini-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shine 3s infinite linear;
+        }
+        .mini-badge-new {
+            background: #e74c3c;
+        }
+        .mini-recipe-card:hover .mini-badge-new {
+            background: #c0392b;
+        }
+        .mini-badge-popular {
+            background: #27ae60;
+        }
+        .mini-recipe-card:hover .mini-badge-popular {
+            background: #219653;
+        }
+        .mini-badge-quick {
+            background: #f1c40f;
+        }
+        .mini-recipe-card:hover .mini-badge-quick {
+            background: #e1b12c;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            50% {
+                left: 100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .b {
           font-weight: 700;
+        }
+        .mini{
+          transform: scale(.8);
+          transform-origin: top left;
         }
         .loading, .no-results {
             text-align: center;
@@ -171,19 +340,33 @@
         <h1>⏍ Tìm Công Thức</br>Nấu Ăn</h1>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Nhập tên món ăn...">
-            <button class="refresh-button" onclick="refreshRecipes()">↺</button>
+            <button class="refresh-button" onclick="refreshRecipes()">⟲</button>
         </div>
+                <div class="history-section" id="viewedRecipes">
+            <h2>↩ Món Đã Xem</h2>
+            <div id="viewed-recipes-container" class="mini-recipes-container"></div>
+        </div>
+        <div class="history-section" id="savedRecipes">
+            <h2>⎘ Món Đã Lưu</h2>
+            <div id="saved-recipes-container" class="mini-recipes-container"></div>
+        </div>
+        <h2>⇝ Khám phá công thức</h2>
         <div id="recipes" class="recipes-container"></div>
     </div>
     <script>
         const SPREADSHEET_ID = '1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg';
         const API_KEY = 'AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8';
-        const recipesPerPage = 5;
+        const recipesPerPage = 10;
         const cacheDuration = 5 * 60 * 1000; // 5 phút
         let currentPage = 1;
+        const maxHistoryLength = 5; // Giới hạn 10 món đã xem
+        const maxSavedLength = 10; // Giới hạn 20 món đã lưu
         let cachedRecipes = null;
 
         const searchInput = document.getElementById('searchInput');
+        const viewedRecipesContainer = document.getElementById('viewed-recipes-container');
+        const savedRecipesContainer = document.getElementById('saved-recipes-container');
+
         const recipesDiv = document.getElementById('recipes');
 
         function debounce(func, delay) {
@@ -193,6 +376,58 @@
                 timeoutId = setTimeout(() => func.apply(this, args), delay);
             };
         }
+     function getStoredRecipes() {
+            const storedRecipes = localStorage.getItem('recipes');
+            if (storedRecipes) {
+                const { data, timestamp } = JSON.parse(storedRecipes);
+                if (Date.now() - timestamp < cacheDuration) {
+                    return data;
+                }
+            }
+            return null;
+        }   
+    function getViewedRecipes() {
+            return JSON.parse(localStorage.getItem('viewedRecipes')) || [];
+        }
+
+        function getSavedRecipes() {
+            return JSON.parse(localStorage.getItem('savedRecipes')) || [];
+        }
+        
+function displayHistory(container, recipes, maxLength, allRecipes) {
+            container.innerHTML = '';
+            if (recipes.length === 0) {
+                container.innerHTML = '<p class="no-results">Chưa có món nào</p>';
+                return;
+            }
+
+            const maxId = Math.max(...allRecipes.map(r => parseInt(r[0])));
+            recipes.slice(0, maxLength).forEach(recipe => {
+                const { id, name, image, time, difficulty, servings } = recipe;
+             
+                let badge = '';
+                if(servings>=5){
+                  badge = '<span class="badge mini badge-special">Đặc biệt ❉</span>';
+                }else if (parseInt(id) === maxId) {
+                    badge = '<span class="badge mini badge-new">Mới ✧</span>';
+                } else if (difficulty && difficulty.toLowerCase() === 'dễ') {
+                    badge = '<span class="badge mini badge-popular">Phổ biến ✓</span>';
+                } else if (time && parseInt(time) <= 30) {
+                    badge = '<span class="badge mini badge-quick">Nhanh  ≋</span>';
+                }
+                const miniCard = document.createElement('a');
+                miniCard.className = 'mini-recipe-card';
+                miniCard.href = `recipe-detail.html?id=${id}`;
+                miniCard.innerHTML = `
+                    ${image ? `<img src="${image}" alt="${name}" class="mini-recipe-image" loading="lazy" onerror="this.src='https://via.placeholder.com/150x100?text=No+Image'">` : '<img src="https://via.placeholder.com/150x100?text=No+Image" alt="No Image" class="mini-recipe-image" loading="lazy">'}
+                    ${badge}
+                    <div class="mini-recipe-content">
+                        <h4>${name}</h4>
+                    </div>
+                `;
+                container.appendChild(miniCard);
+            });
+        }
 
         async function fetchRecipes(firstLoad = true) {
             try {
@@ -200,7 +435,7 @@
                     recipesDiv.innerHTML = '<p class="loading">Đang tải...</p>';
                 }
                 const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:M?key=${API_KEY}`
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:J?key=${API_KEY}`
                 );
                 const data = await response.json();
                 data.values = data.values.reverse();
@@ -208,6 +443,8 @@
                     cachedRecipes = data.values;
                     localStorage.setItem('recipes', JSON.stringify({ data: data.values, timestamp: Date.now() }));
                     displayRecipes(data.values);
+                    displayHistory(viewedRecipesContainer, getViewedRecipes(), maxHistoryLength, data.values);
+                    displayHistory(savedRecipesContainer, getSavedRecipes(), maxSavedLength, data.values);
                 } else {
                     recipesDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức nào</p>';
                 }
@@ -216,6 +453,7 @@
                 recipesDiv.innerHTML = '<p class="no-results">Đã có lỗi xảy ra. Vui lòng thử lại.</p>';
             }
         }
+
 
         function displayRecipes(recipes) {
             recipesDiv.innerHTML = '';
@@ -234,15 +472,24 @@
             const paginatedRecipes = filteredRecipes.slice(startIndex, endIndex);
 
             paginatedRecipes.forEach(recipe => {
-                const [id, name, , , time, difficulty, , image = '', description = ''] = recipe;
-                const isNew = parseInt(id) === maxId;
+                const [id, name, , , time, difficulty, , image = '', description = '', servings =''] = recipe;
+                let badge = '';
+                if(servings>=5){
+                  badge = '<span class="badge badge-special">Đặc biệt ❉</span>';
+                }else if (parseInt(id) === maxId) {
+                    badge = '<span class="badge badge-new">Mới ✧</span>';
+                }else if (difficulty.toLowerCase() === 'dễ' && parseInt(time) >20) {
+                    badge = '<span class="badge badge-popular">Phổ biến ✓</span>';
+                }
+                else if (parseInt(time) <= 20) {
+                    badge = '<span class="badge badge-quick">Nhanh ≋</span>';
+                } 
                 const recipeCard = document.createElement('a');
                 recipeCard.className = 'recipe-card';
                 recipeCard.href = `recipe-detail.html?id=${id}`;
                 recipeCard.innerHTML = `
                     ${image ? `<img src="${image}" alt="${name}" class="recipe-image" loading="lazy" onerror="this.src='https://via.placeholder.com/200x150?text=No+Image'">` : '<img src="https://via.placeholder.com/200x150?text=No+Image" alt="No Image" class="recipe-image" loading="lazy">'}
-                    ${isNew ? '<span class="badge">Mới ✧</span>' : ''}
-                    <div class="recipe-content">
+                    ${badge}<div class="recipe-content">
                         <h3>${name}</h3>
                         <p class="recipe-description">${description ? description.substring(0, 50) + '...' : 'Không có mô tả'}</p>
                         <div class="recipe-info">
@@ -289,15 +536,12 @@
         }
 
         function loadRecipes() {
-            const storedRecipes = localStorage.getItem('recipes');
+            const storedRecipes = getStoredRecipes();
             if (storedRecipes) {
-                const { data, timestamp } = JSON.parse(storedRecipes);
-                if (Date.now() - timestamp < cacheDuration) {
-                    cachedRecipes = data;
-                    displayRecipes(data);
-                } else {
-                    fetchRecipes();
-                }
+                cachedRecipes = storedRecipes;
+                displayRecipes(storedRecipes);
+                displayHistory(viewedRecipesContainer, getViewedRecipes(), maxHistoryLength, storedRecipes);
+                displayHistory(savedRecipesContainer, getSavedRecipes(), maxSavedLength, storedRecipes);
             } else {
                 fetchRecipes();
             }

@@ -103,9 +103,17 @@
             margin-bottom: 20px;
         }
         .description {
+            position:relative;
             background: #f9f9f9;
             padding: 15px;
             border-radius: 8px;
+        }
+        .description::before{
+          content: "";
+          font-size: 4rem;
+          position: absolute;
+          right:0;
+          opacity: .4;
         }
         .ingredients ul, .instructions ul {
             padding-left: 20px;
@@ -199,14 +207,19 @@
     <div class="container">
         <div class="header">
             <a href="recipes.html" class="back-link">← Quay lại</a>
-            <button class="share-button" onclick="shareRecipe()">➦</button>
+            <button class="share-button" onclick="shareRecipe()">Chia sẻ ↗</button>
         </div>
         <div id="recipe-detail"></div>
     </div>
     <script>
         const SPREADSHEET_ID = '1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg';
         const API_KEY = 'AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8';
+         const cacheDuration = 5 * 60 * 1000;
+        const maxHistoryLength = 5;
+        const maxSavedLength = 10;
+        let cachedRecipes = null;
         const recipeDetailDiv = document.getElementById('recipe-detail');
+        const saveButton = document.getElementById('saveButton');
 
         async function fetchRecipe() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -225,6 +238,7 @@
                 if (data.values) {
                     const recipe = data.values.find(row => row[0] === id);
                     if (recipe) {
+                      saveViewedRecipe(recipe);
                         displayRecipe(recipe, data.values);
                     } else {
                         recipeDetailDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức</p>';
@@ -237,19 +251,44 @@
                 recipeDetailDiv.innerHTML = '<p class="no-results">Đã có lỗi xảy ra. Vui lòng thử lại.</p>';
             }
         }
-
+        function getViewedRecipes() {
+            return JSON.parse(localStorage.getItem('viewedRecipes')) || [];
+        }
+function saveViewedRecipe(recipe) {
+            const viewedRecipes = getViewedRecipes();
+            const recipeData = {
+                id: recipe[0],
+                name: recipe[1],
+                image: recipe[7] || '',
+                time: recipe[4],
+                difficulty: recipe[5],
+                servings: recipe[9]
+            };
+            const existingIndex = viewedRecipes.findIndex(r => r.id === recipeData.id);
+            if (existingIndex !== -1) {
+                viewedRecipes.splice(existingIndex, 1);
+            }
+            viewedRecipes.unshift(recipeData);
+            if (viewedRecipes.length > maxHistoryLength) {
+                viewedRecipes.pop();
+            }
+            localStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes));
+        }
         function displayRecipe(recipe, allRecipes) {
             const [id, name, ingredients, instructions, time, difficulty, category, image = '', description = '', servings = '', tips =''] = recipe;
             //alert(JSON.stringify(recipe))
             // Chuyển nguyên liệu thành danh sách
+            categoryList = category.split(',').map(c => c.trim());
             const ingredientsList = ingredients.split(';').map(item => `<li>${item.trim()}</li>`).join('');
             // Parse Markdown cho cách làm
             const formattedInstructions = DOMPurify.sanitize(marked.parse(instructions.replace(/\n/g, '\n\n')));
             const formattedTips = DOMPurify.sanitize(marked.parse(tips.replace(/\n/g, '\n\n'))); 
             const relatedRecipes = allRecipes
-                .filter(r => r[6] === category && r[0] !== id)
-                .slice(0, 3)
-                .map(r => {
+                .filter(r => {
+                  if (r[0] === id) return false;
+                  const otherCategories = r[6] ? r[6].split(',').map(c => c.trim()) : [];
+                    return categoryList.some(c => otherCategories.includes(c));
+                }).sort((a,b)=>parseInt(b) - parseInt(a)).slice(0, 3).map(r => {
                     const [relatedId, relatedName, , , , , , relatedImage = ''] = r;
                     return `
                         <a href="recipe-detail.html?id=${relatedId}" class="related-recipe-card">
@@ -266,8 +305,8 @@
                 <div class="info-grid">
                     <div class="info-item"><span class="icon">⏱</span> <strong>Thời gian:</strong> ${time} phút</div>
                     <div class="info-item"><span class="icon">✰</span> <strong>Độ khó:</strong> ${difficulty}</div>
-                    <div class="info-item"><span class="icon">️✻</span> <strong>Loại món:</strong> ${category}</div>
-                    <div class="info-item"><span class="icon">∷</span> <strong>Khẩu phần:</strong> ${servings} người</div>
+                    <div class="info-item"><span class="icon">♨</span> <strong>Loại món:</strong> ${categoryList.join(', ')}</div>
+                    <div class="info-item"><span class="icon">⚖</span> <strong>Khẩu phần:</strong> ${servings} người</div>
                 </div>
                 <h2><span class="icon">⁝</span> Mô tả</h2>
                 <div class="description">${description || 'Không có mô tả'}</div>
