@@ -1,342 +1,574 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Tiết Công Thức</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
-            color: #333;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .back-link {
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1em;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-        .back-link:hover {
-            background: #e0e0e0;
-        }
-        .share-button {
-            background: #2c3e50;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background 0.2s;
-        }
-        .share-button:hover {
-            background: #34495e;
-        }
-        .recipe-image {
-            width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 2em;
-            margin: 0 0 20px;
-            text-align: center;
-        }
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9em;
-        }
-        .info-item .icon {
-            font-size: 1.2em;
-            color: #2c3e50;
-        }
-        .info-item strong {
-            color: #2c3e50;
-        }
-        h2 {
-            color: #2c3e50;
-            font-size: 1.4em;
-            margin: 30px 0 15px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .description, .ingredients, .instructions {
-            line-height: 1.6;
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-        .description {
-            position:relative;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .description::before{
-          content: "";
-          font-size: 4rem;
-          position: absolute;
-          right:0;
-          opacity: .4;
-        }
-        .ingredients ul, .instructions ul {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-        .ingredients li, .instructions li {
-            margin-bottom: 8px;
-        }
-        .instructions li {
-            padding: 10px;
-            
-            background: #f9f9f9;
-            border-radius: 6px;
-        }
-        
-                .related-recipes {
-            margin-top: 40px;
-        }
-        .related-recipes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .related-recipe-card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            color: inherit;
-        }
-        .related-recipe-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .related-recipe-image {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            display: block;
-        }
-        .related-recipe-content {
-            padding: 10px;
-            text-align: center;
-        }
-        .related-recipe-content h3 {
-            margin: 0;
-            color: #2c3e50;
-            font-size: 1em;
-        }
-        .icon {
-            font-size: 1.2em;
-            color: #2c3e50;
-        }
-        .loading, .no-results {
-            text-align: center;
-            color: #666;
-            font-size: 1em;
-            margin: 20px 0;
-        }
-        
-        @media (max-width: 600px) {
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chi Tiết Công Thức</title>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    Roboto, sans-serif;
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+                background: #f5f5f5;
+                color: #333;
+            }
             .container {
-                padding: 15px;
-            }
-            h1 {
-                font-size: 1.5em;
-            }
-            h2 {
-                font-size: 1.2em;
-            }
-            .recipe-image {
-                max-height: 300px;
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             }
             .header {
-                flex-direction: column;
-                gap: 10px;
-                align-items: flex-start;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .back-link {
+                color: #2c3e50;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 1em;
+                padding: 8px 12px;
+                border-radius: 4px;
+                transition: background 0.2s;
+            }
+            .back-link:hover {
+                background: #e0e0e0;
+            }
+            .share-button,
+            .download-button {
+                background: #2c3e50;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9em;
+                transition: background 0.2s;
+            }
+            .share-button:hover,
+            .download-button:hover {
+                background: #34495e;
+            }
+            .recipe-image {
+                width: 100%;
+                max-height: 400px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+            h1 {
+                color: #2c3e50;
+                font-size: 2em;
+                margin: 0 0 20px;
+                text-align: center;
             }
             .info-grid {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                margin-bottom: 20px;
+                padding: 15px;
+                background: #f9f9f9;
+                border-radius: 8px;
+            }
+            .info-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.9em;
+            }
+            .info-item .icon {
+                font-size: 1.2em;
+                color: #2c3e50;
+            }
+            .info-item strong {
+                color: #2c3e50;
+            }
+            h2 {
+                color: #2c3e50;
+                font-size: 1.4em;
+                margin: 30px 0 15px;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 5px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .description,
+            .ingredients,
+            .instructions {
+                line-height: 1.6;
+                font-size: 1em;
+                margin-bottom: 20px;
+            }
+            .description {
+                position: relative;
+                background: #f9f9f9;
+                padding: 15px;
+                border-radius: 8px;
+            }
+            .description::before {
+                content: "";
+                font-size: 4rem;
+                position: absolute;
+                right: 0;
+                opacity: 0.4;
+            }
+            .ingredients ul,
+            .instructions ul {
+                padding-left: 20px;
+                margin: 10px 0;
+            }
+            .ingredients li,
+            .instructions li {
+                margin-bottom: 8px;
             }
             .instructions li {
-                padding: 4px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <a href="recipes.html" class="back-link">← Quay lại</a>
-            <button class="share-button" onclick="shareRecipe()">Chia sẻ ↗</button>
-        </div>
-        <div id="recipe-detail"></div>
-    </div>
-    <script>
-        const SPREADSHEET_ID = '1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg';
-        const API_KEY = 'AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8';
-         const cacheDuration = 5 * 60 * 1000;
-        const maxHistoryLength = 5;
-        const maxSavedLength = 10;
-        let cachedRecipes = null;
-        const recipeDetailDiv = document.getElementById('recipe-detail');
-        const saveButton = document.getElementById('saveButton');
+                padding: 10px;
 
-        async function fetchRecipe() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-            if (!id) {
-                recipeDetailDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức</p>';
-                return;
+                background: #f9f9f9;
+                border-radius: 6px;
             }
 
-            try {
-                recipeDetailDiv.innerHTML = '<p class="loading">Đang tải...</p>';
-                const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:M?key=${API_KEY}`
-                );
-                const data = await response.json();
-                if (data.values) {
-                    const recipe = data.values.find(row => row[0] === id);
-                    if (recipe) {
-                      saveViewedRecipe(recipe);
-                        displayRecipe(recipe, data.values);
-                    } else {
-                        recipeDetailDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức</p>';
-                    }
-                } else {
-                    recipeDetailDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức</p>';
+            .related-recipes {
+                margin-top: 40px;
+            }
+            .related-recipes-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+            }
+            .related-recipe-card {
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+                text-decoration: none;
+                color: inherit;
+            }
+            .related-recipe-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            .related-recipe-image {
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+                display: block;
+            }
+            .related-recipe-content {
+                padding: 10px;
+                text-align: center;
+            }
+            .related-recipe-content h3 {
+                margin: 0;
+                color: #2c3e50;
+                font-size: 1em;
+            }
+            .icon {
+                font-size: 1.2em;
+                color: #2c3e50;
+            }
+            .loading,
+            .no-results {
+                text-align: center;
+                color: #666;
+                font-size: 1em;
+                margin: 20px 0;
+            }
+
+            @media (max-width: 600px) {
+                .recipe-info {
+                    gap: 0.375rem; /* Giảm khoảng cách */
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                recipeDetailDiv.innerHTML = '<p class="no-results">Đã có lỗi xảy ra. Vui lòng thử lại.</p>';
+                .container {
+                    padding: 15px;
+                }
+                h1 {
+                    font-size: 1.5em;
+                }
+                h2 {
+                    font-size: 1.2em;
+                }
+                .recipe-image {
+                    max-height: 300px;
+                }
+                .header {
+                    flex-direction: column;
+                    gap: 10px;
+                    align-items: flex-start;
+                }
+                .info-grid {
+                    grid-template-columns: 1fr;
+                }
+                .instructions li {
+                    padding: 4px;
+                }
             }
-        }
-        function getViewedRecipes() {
-            return JSON.parse(localStorage.getItem('viewedRecipes')) || [];
-        }
-function saveViewedRecipe(recipe) {
-            const viewedRecipes = getViewedRecipes();
-            const recipeData = {
-                id: recipe[0],
-                name: recipe[1],
-                image: recipe[7] || '',
-                time: recipe[4],
-                difficulty: recipe[5],
-                servings: recipe[9]
-            };
-            const existingIndex = viewedRecipes.findIndex(r => r.id === recipeData.id);
-            if (existingIndex !== -1) {
-                viewedRecipes.splice(existingIndex, 1);
+
+            .recipe-info {
+                flex-wrap: wrap; /* Cho phép wrap nếu chật */
+                gap: 0.5rem; /* Khoảng cách giữa các item */
             }
-            viewedRecipes.unshift(recipeData);
-            if (viewedRecipes.length > maxHistoryLength) {
-                viewedRecipes.pop();
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <a href="recipes.html" class="back-link">← Quay lại</a>
+            </div>
+            <div id="recipe-detail"></div>
+        </div>
+        <script>
+            const SPREADSHEET_ID =
+                "1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg";
+            const API_KEY = "AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8";
+            const cacheDuration = 5 * 60 * 1000;
+            const maxHistoryLength = 5;
+            const maxSavedLength = 10;
+            let cachedRecipes = null;
+            const recipeDetailDiv = document.getElementById("recipe-detail");
+            const saveButton = document.getElementById("saveButton");
+
+            function downloadRecipe(recipe) {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.setFont("DejaVuSans", "normal"); // Dùng font DejaVuSans
+                let yOffset = 10;
+
+                // Tiêu đề
+                doc.setFontSize(20);
+                doc.text(`Công thức: ${recipe[1]}`, 10, yOffset);
+                yOffset += 10;
+
+                // Hình ảnh (nếu có)
+                if (recipe[7]) {
+                    try {
+                        const img = new Image();
+                        img.crossOrigin = "Anonymous";
+                        img.src = recipe[7];
+                        img.onload = () => {
+                            doc.addImage(img, "JPEG", 10, yOffset, 80, 60);
+                            yOffset += 70;
+                            addRecipeContent(doc, recipe, yOffset);
+                            doc.save(`Công thức - ${recipe[1]}.pdf`);
+                        };
+                        img.onerror = () => {
+                            addRecipeContent(doc, recipe, yOffset);
+                            doc.save(`Công thức - ${recipe[1]}.pdf`);
+                        };
+                    } catch (e) {
+                        addRecipeContent(doc, recipe, yOffset);
+                        doc.save(`Công thức - ${recipe[1]}.pdf`);
+                    }
+                    return;
+                }
+
+                addRecipeContent(doc, recipe, yOffset);
+                doc.save(`Công thức - ${recipe[1]}.pdf`);
             }
-            localStorage.setItem('viewedRecipes', JSON.stringify(viewedRecipes));
-        }
-        function displayRecipe(recipe, allRecipes) {
-            const [id, name, ingredients, instructions, time, difficulty, category, image = '', description = '', servings = '', tips =''] = recipe;
-            //alert(JSON.stringify(recipe))
-            // Chuyển nguyên liệu thành danh sách
-            categoryList = category.split(',').map(c => c.trim());
-            const ingredientsList = ingredients.split(';').map(item => `<li>${item.trim()}</li>`).join('');
-            // Parse Markdown cho cách làm
-            const formattedInstructions = DOMPurify.sanitize(marked.parse(instructions.replace(/\n/g, '\n\n')));
-            const formattedTips = DOMPurify.sanitize(marked.parse(tips.replace(/\n/g, '\n\n'))); 
-            const relatedRecipes = allRecipes
-                .filter(r => {
-                  if (r[0] === id) return false;
-                  const otherCategories = r[6] ? r[6].split(',').map(c => c.trim()) : [];
-                    return categoryList.some(c => otherCategories.includes(c));
-                }).sort((a,b)=>parseInt(b) - parseInt(a)).slice(0, 3).map(r => {
-                    const [relatedId, relatedName, , , , , , relatedImage = ''] = r;
-                    return `
+
+            function addRecipeContent(doc, recipe, yOffset) {
+                doc.setFontSize(12);
+
+                // Mô tả
+                if (recipe[8]) {
+                    doc.text("Mô tả:", 10, yOffset);
+                    const description = doc.splitTextToSize(recipe[8], 180);
+                    doc.text(description, 10, yOffset + 7);
+                    yOffset += description.length * 7 + 10;
+                }
+
+                // Thông tin
+                doc.text(`Thời gian: ${recipe[4]} phút`, 10, yOffset);
+                yOffset += 7;
+                doc.text(`Độ khó: ${recipe[5]}`, 10, yOffset);
+                yOffset += 7;
+                if (recipe[6]) {
+                    doc.text(`Loại món: ${recipe[6]}`, 10, yOffset);
+                    yOffset += 10;
+                }
+
+                // Nguyên liệu (bảng)
+                if (recipe[2]) {
+                    doc.text("Nguyên liệu:", 10, yOffset);
+                    const ingredients = recipe[2]
+                        .split(";")
+                        .map((i) => [i.trim()]);
+                    doc.autoTable({
+                        startY: yOffset + 5,
+                        head: [["Nguyên liệu"]],
+                        body: ingredients,
+                        theme: "grid",
+                        styles: {
+                            font: "DejaVuSans",
+                            fontSize: 10,
+                            cellPadding: 2
+                        },
+                        headStyles: { font: "DejaVuSans" }
+                    });
+                    yOffset = doc.lastAutoTable.finalY + 10;
+                }
+
+                // Cách làm
+                if (recipe[3]) {
+                    doc.text("Cách làm:", 10, yOffset);
+                    const steps = recipe[3]
+                        .split(".")
+                        .filter((s) => s.trim())
+                        .map((s) => [s.trim()]);
+                    doc.autoTable({
+                        startY: yOffset + 5,
+                        head: [["Bước"]],
+                        body: steps,
+                        theme: "grid",
+                        styles: {
+                            font: "DejaVuSans",
+                            fontSize: 10,
+                            cellPadding: 2
+                        },
+                        headStyles: { font: "DejaVuSans" }
+                    });
+                }
+            }
+
+            function getSavedRecipes() {
+                return JSON.parse(localStorage.getItem("savedRecipes")) || [];
+            }
+
+            function toggleSaveRecipe(recipe) {
+                let savedRecipes = getSavedRecipes();
+                const isSaved = savedRecipes.some((r) => r.id === recipe.id);
+                if (isSaved) {
+                    savedRecipes = savedRecipes.filter(
+                        (r) => r.id !== recipe.id
+                    );
+                } else {
+                    if (savedRecipes.length >= maxSavedLength) {
+                        savedRecipes.pop();
+                    }
+                    savedRecipes.unshift({
+                        id: recipe.id,
+                        name: recipe.name,
+                        image: recipe.image,
+                        time: recipe.time,
+                        difficulty: recipe.difficulty
+                    });
+                }
+                localStorage.setItem(
+                    "savedRecipes",
+                    JSON.stringify(savedRecipes)
+                );
+                updateSaveButton(recipe.id, !isSaved);
+            }
+
+            function updateSaveButton(recipeId, isSaved) {
+                const saveButton = document.querySelector(".save-button");
+                if (saveButton) {
+                    saveButton.classList.toggle("saved", isSaved);
+                    saveButton.innerHTML = isSaved
+                        ? '<span class="icon">⭐</span> Bỏ lưu'
+                        : '<span class="icon">💾</span> Lưu';
+                }
+            }
+            async function fetchRecipe() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get("id");
+                if (!id) {
+                    recipeDetailDiv.innerHTML =
+                        '<p class="no-results">Không tìm thấy công thức</p>';
+                    return;
+                }
+
+                try {
+                    recipeDetailDiv.innerHTML =
+                        '<p class="loading">Đang tải...</p>';
+                    const response = await fetch(
+                        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:M?key=${API_KEY}`
+                    );
+                    const data = await response.json();
+                    if (data.values) {
+                        const recipe = data.values.find((row) => row[0] === id);
+                        if (recipe) {
+                            saveViewedRecipe(recipe);
+                            displayRecipe(recipe, data.values);
+                        } else {
+                            recipeDetailDiv.innerHTML =
+                                '<p class="no-results">Không tìm thấy công thức</p>';
+                        }
+                    } else {
+                        recipeDetailDiv.innerHTML =
+                            '<p class="no-results">Không tìm thấy công thức</p>';
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    recipeDetailDiv.innerHTML =
+                        '<p class="no-results">Đã có lỗi xảy ra. Vui lòng thử lại.</p>';
+                }
+            }
+            function getViewedRecipes() {
+                return JSON.parse(localStorage.getItem("viewedRecipes")) || [];
+            }
+            function saveViewedRecipe(recipe) {
+                const viewedRecipes = getViewedRecipes();
+                const recipeData = {
+                    id: recipe[0],
+                    name: recipe[1],
+                    image: recipe[7] || "",
+                    time: recipe[4],
+                    difficulty: recipe[5],
+                    servings: recipe[9]
+                };
+                const existingIndex = viewedRecipes.findIndex(
+                    (r) => r.id === recipeData.id
+                );
+                if (existingIndex !== -1) {
+                    viewedRecipes.splice(existingIndex, 1);
+                }
+                viewedRecipes.unshift(recipeData);
+                if (viewedRecipes.length > maxHistoryLength) {
+                    viewedRecipes.pop();
+                }
+                localStorage.setItem(
+                    "viewedRecipes",
+                    JSON.stringify(viewedRecipes)
+                );
+            }
+            function displayRecipe(recipe, allRecipes) {
+                const [
+                    id,
+                    name,
+                    ingredients,
+                    instructions,
+                    time,
+                    difficulty,
+                    category,
+                    image = "",
+                    description = "",
+                    servings = "",
+                    tips = ""
+                ] = recipe;
+                //alert(JSON.stringify(recipe))
+
+                // Chuyển nguyên liệu thành danh sách
+                categoryList = category.split(",").map((c) => c.trim());
+                const ingredientsList = ingredients
+                    .split(";")
+                    .map((item) => `<li>${item.trim()}</li>`)
+                    .join("");
+                // Parse Markdown cho cách làm
+                const formattedInstructions = DOMPurify.sanitize(
+                    marked.parse(instructions.replace(/\n/g, "\n\n"))
+                );
+                const formattedTips = DOMPurify.sanitize(
+                    marked.parse(tips.replace(/\n/g, "\n\n"))
+                );
+                const relatedRecipes = allRecipes
+                    .filter((r) => {
+                        if (r[0] === id) return false;
+                        const otherCategories = r[6]
+                            ? r[6].split(",").map((c) => c.trim())
+                            : [];
+                        return categoryList.some((c) =>
+                            otherCategories.includes(c)
+                        );
+                    })
+                    .sort((a, b) => parseInt(b) - parseInt(a))
+                    .slice(0, 3)
+                    .map((r) => {
+                        const [
+                            relatedId,
+                            relatedName,
+                            ,
+                            ,
+                            ,
+                            ,
+                            ,
+                            relatedImage = ""
+                        ] = r;
+                        return `
                         <a href="recipe-detail.html?id=${relatedId}" class="related-recipe-card">
-                            ${relatedImage ? `<img src="${relatedImage}" alt="${relatedName}" class="related-recipe-image">` : ''}
+                            ${
+                                relatedImage
+                                    ? `<img src="${relatedImage}" alt="${relatedName}" class="related-recipe-image">`
+                                    : ""
+                            }
                             <div class="related-recipe-content">
                                 <h3>${relatedName}</h3>
                             </div>
                         </a>
                     `;
-                }).join('');
-            recipeDetailDiv.innerHTML = `
+                    })
+                    .join("");
+                recipeDetailDiv.innerHTML = `
                 <h1>${name}</h1>
-                ${image ? `<img src="${image}" alt="${name}" class="recipe-image" loading="lazy">` : ''}
+                ${
+                    image
+                        ? `<img src="${image}" alt="${name}" class="recipe-image" loading="lazy">`
+                        : ""
+                }
                 <div class="info-grid">
                     <div class="info-item"><span class="icon">⏱</span> <strong>Thời gian:</strong> ${time} phút</div>
                     <div class="info-item"><span class="icon">✰</span> <strong>Độ khó:</strong> ${difficulty}</div>
-                    <div class="info-item"><span class="icon">♨</span> <strong>Loại món:</strong> ${categoryList.join(', ')}</div>
+                    <div class="info-item"><span class="icon">♨</span> <strong>Loại món:</strong> ${categoryList.join(
+                        ", "
+                    )}</div>
                     <div class="info-item"><span class="icon">⚖</span> <strong>Khẩu phần:</strong> ${servings} người</div>
                 </div>
-                <h2><span class="icon">⁝</span> Mô tả</h2>
-                <div class="description">${description || 'Không có mô tả'}</div>
-                <h2><span class="icon">᯽</span> Nguyên liệu</h2>
+                <h2><span class="icon">⁝</span> Mô tả món ăn</h2>
+                <div class="description">${
+                    description || "Không có mô tả"
+                }</div>
+                <h2><span class="icon">᯽</span> Nguyên liệu cần chuẩn bị</h2>
                 <div class="ingredients"><ul>${ingredientsList}</ul></div>
-                <h2><span class="icon">⊷</span> Cách làm</h2>
+                <h2><span class="icon">⊷</span> Các bước thực hiện</h2>
                 <div class="instructions">${formattedInstructions}</div>
-                <h2><span class="icon">⏍</span>Mẹo nấu ăn</h2>
+                <h2><span class="icon">⏍</span>Mẹo nhỏ khi làm món này</h2>
                 <div >${formattedTips}</div>
-                
+                <button style="margin-top: 2rem;" class="share-button" onclick="shareRecipe()">Chia sẻ ↗</button>
+                <button style="" class="download-button" onclick="">Download PDF ⤓</button>
                                 <div class="related-recipes">
                     <h2><span class="icon">⧉</span> Công thức liên quan</h2>
                     <div class="related-recipes-grid">
-                        ${relatedRecipes || '<p class="no-results">Không có công thức liên quan</p>'}
+                        ${
+                            relatedRecipes ||
+                            '<p class="no-results">Không có công thức liên quan</p>'
+                        }
                     </div>
                 
             `;
-            
-        }
+                document
+                    .querySelector(".download-button")
+                    .addEventListener("click", (e) => {
+                        e.preventDefault();
+                        downloadRecipe(recipe);
+                    });
+            }
 
-        function shareRecipe() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Đã sao chép liên kết công thức!');
-            }).catch(() => {
-                alert('Không thể sao chép, vui lòng thử lại.');
-            });
-        }
+            function shareRecipe() {
+                const url = window.location.href;
+                navigator.clipboard
+                    .writeText(url)
+                    .then(() => {
+                        alert("Đã sao chép liên kết công thức!");
+                    })
+                    .catch(() => {
+                        alert("Không thể sao chép, vui lòng thử lại.");
+                    });
+            }
 
-        fetchRecipe();
-    </script>
-</body>
+            fetchRecipe();
+        </script>
+    </body>
 </html>

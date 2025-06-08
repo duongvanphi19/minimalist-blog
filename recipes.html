@@ -1,568 +1,799 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm Kiếm Công Thức Nấu Ăn</title>
-    <style>
-    * {
-      box-sizing: border-box;
-    }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background: #f5f5f5;
-            color: #333;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .search-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        input {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .refresh-button {
-            padding: 12px 16px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .refresh-button:hover {
-            background: #34495e;
-        }
-        .recipes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Tăng từ 200px */
-            gap: 20px;
-        }
-        .recipe-card {
-            position: relative;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
-            text-decoration: none;
-            color: inherit;
-            border: 1px solid transparent;
-        }
-        .recipe-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid #2c3e50;
-        }
-        .recipe-card:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .recipe-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .recipe-card:hover .recipe-image {
-            transform: scale(1.05);
-        }
-        .recipe-content {
-            padding: 15px;
-            text-align: left;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
-        h3 {
-            margin: 0;
-            color: #2c3e50;
-            font-size: 1.1em;
-            font-weight: 600; /* Đậm hơn */
-        }
-        .recipe-description {
-            font-size: 0.9em;
-            color: #666;
-            margin: 5px 0;
-            line-height: 1.4;
-        }
-        .recipe-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8em;
-            color: #2c3e50;
-            margin-top: 10px;
-        }
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .icon {
-            font-size: 1em;
-        }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tìm Kiếm Công Thức Nấu Ăn</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                font-size: 16px; /* Base font size */
+            }
 
-        .badge {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            background: #e74c3c;
-            color: white;
-            padding: 6px 12px;
-            font-size: 0.8em;
-            letter-spacing: .06rem;
-            border-bottom-right-radius: 12px;
-          
-            font-weight: bold;
-            animation: /*pulse 2s infinite ease-in-out,*/ fadeIn 0.5s ease-out;
-            overflow: hidden;
-        }
-        .badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            animation: shine 3s infinite linear;
-        }
-        .recipe-card:hover .badge {
-            background: #c0392b; /* Sáng hơn khi hover */
-        }
-        
-                .badge-new {
-            background: #e74c3c;
-        }
-        .recipe-card:hover .badge-new {
-            background: #c0392b;
-        }
-        
-        .badge-special{
-          background: #ac57e3;
-        }
-        .recipe-card:hover .badge-special{
-            background: #7b13bf;
-        }
-        
-        .badge-popular {
-            background: #27ae60;
-        }
-        .recipe-card:hover .badge-popular {
-            background: #219653;
-        }
-        .badge-quick {
-            background: #f1c40f;
-        }
-        .recipe-card:hover .badge-quick {
-            background: #e1b12c;
-        }
-         .history-section {
-            margin-top: 30px;
-        }
-        .mini-recipes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-        }
-        .mini-recipe-card {
-            position: relative;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .mini-recipe-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-        .mini-recipe-image {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            display: block;
-        }
-        .mini-recipe-content {
-            padding: 8px;
-            text-align: center;
-        }
-        .mini-recipe-content h4 {
-            margin: 0;
-            font-size: 0.9em;
-            color: #2c3e50;
-            font-weight: 500;
-        }
-        .mini-badge {
-            position: absolute;
-            top: 5px;
-            left: 5px;
-            color: white;
-            padding: 3px 8px;
-            font-size: 0.7em;
-            border-radius: 10px;
-            font-weight: bold;
-            animation: pulse 2s infinite ease-in-out, fadeIn 0.5s ease-out;
-            overflow: hidden;
-        }
-        .mini-badge::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            animation: shine 3s infinite linear;
-        }
-        .mini-badge-new {
-            background: #e74c3c;
-        }
-        .mini-recipe-card:hover .mini-badge-new {
-            background: #c0392b;
-        }
-        .mini-badge-popular {
-            background: #27ae60;
-        }
-        .mini-recipe-card:hover .mini-badge-popular {
-            background: #219653;
-        }
-        .mini-badge-quick {
-            background: #f1c40f;
-        }
-        .mini-recipe-card:hover .mini-badge-quick {
-            background: #e1b12c;
-        }
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    Roboto, sans-serif;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 1rem;
+                background: #f5f5f5;
+                color: #333;
+                line-height: 1.6;
             }
-            50% {
-                transform: scale(1.1);
+            .container {
+                background: white;
+                padding: 1.25rem;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
-        }
-        @keyframes shine {
-            0% {
-                left: -100%;
+            .search-bar {
+                display: flex;
+                gap: 0.625rem;
+                margin-bottom: 1.25rem;
             }
-            50% {
-                left: 100%;
+            input {
+                flex: 1;
+                padding: 0.75rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                box-sizing: border-box;
             }
-            100% {
-                left: 100%;
+            .refresh-button {
+                padding: 0.75rem 1rem;
+                background: #2c3e50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.2s;
+                font-size: 1rem;
             }
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
+            .refresh-button:hover {
+                background: #34495e;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .b {
-          font-weight: 700;
-        }
-        .mini{
-          transform: scale(.8);
-          transform-origin: top left;
-        }
-        .loading, .no-results {
-            text-align: center;
-            color: #666;
-            grid-column: 1 / -1;
-            font-size: 1em;
-        }
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
-        }
-        button {
-            padding: 8px 16px;
-            background: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin: 0 5px;
-        }
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        button:hover:not(:disabled) {
-            background: #34495e;
-        }
-        @media (max-width: 600px) {
             .recipes-container {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(
+                    auto-fill,
+                    minmax(220px, 1fr)
+                ); /* Tăng từ 200px */
+                gap: 1.25rem;
+            }
+            .recipe-card {
+                position: relative;
+                background: #fff;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s,
+                    border 0.2s;
+                text-decoration: none;
+                color: inherit;
+                border: 1px solid transparent;
+            }
+            .recipe-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                border: 1px solid #2c3e50;
+            }
+            .recipe-card:active {
+                transform: translateY(0);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            .recipe-image {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.3s ease;
+            }
+            .recipe-card:hover .recipe-image {
+                transform: scale(1.05);
             }
             .recipe-content {
-                padding: 10px;
+                padding: 1rem;
+                text-align: left;
             }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>⏍ Tìm Công Thức</br>Nấu Ăn</h1>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Nhập tên món ăn...">
-            <button class="refresh-button" onclick="refreshRecipes()">⟲</button>
-        </div>
-                <div class="history-section" id="viewedRecipes">
-            <h2>↩ Món Đã Xem</h2>
-            <div id="viewed-recipes-container" class="mini-recipes-container"></div>
-        </div>
-        <div class="history-section" id="savedRecipes">
-            <h2>⎘ Món Đã Lưu</h2>
-            <div id="saved-recipes-container" class="mini-recipes-container"></div>
-        </div>
-        <h2>⇝ Khám phá công thức</h2>
-        <div id="recipes" class="recipes-container"></div>
-    </div>
-    <script>
-        const SPREADSHEET_ID = '1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg';
-        const API_KEY = 'AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8';
-        const recipesPerPage = 10;
-        const cacheDuration = 5 * 60 * 1000; // 5 phút
-        let currentPage = 1;
-        const maxHistoryLength = 5; // Giới hạn 10 món đã xem
-        const maxSavedLength = 10; // Giới hạn 20 món đã lưu
-        let cachedRecipes = null;
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+                font-size: 2rem;
+                margin-bottom: 1.875rem;
+            }
 
-        const searchInput = document.getElementById('searchInput');
-        const viewedRecipesContainer = document.getElementById('viewed-recipes-container');
-        const savedRecipesContainer = document.getElementById('saved-recipes-container');
+            h2 {
+                color: #2c3e50;
+                font-size: 1.5rem;
+                margin: 1.25rem 0 0.625rem;
+            }
+            h3 {
+                margin: 0;
+                color: #2c3e50;
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            .recipe-description {
+                font-size: 0.95rem;
+                color: #666;
+                margin: 0.3125rem 0;
+                line-height: 1.4;
+            }
+            .recipe-info {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.875rem;
+                color: #2c3e50;
+                margin-top: 0.625rem;
+            }
+            .info-item {
+                display: flex;
+                align-items: center;
+                gap: 0.3125rem;
+            }
+            .icon {
+                font-size: 1rem;
+            }
 
-        const recipesDiv = document.getElementById('recipes');
+            .badge {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                background: #e74c3c;
+                color: white;
+                padding: 0.3125rem 0.75rem;
+                font-size: 1.2rem;
+                letter-spacing: 0.06rem;
+                border-bottom-right-radius: 8px;
 
-        function debounce(func, delay) {
-            let timeoutId;
-            return function (...args) {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => func.apply(this, args), delay);
-            };
-        }
-     function getStoredRecipes() {
-            const storedRecipes = localStorage.getItem('recipes');
-            if (storedRecipes) {
-                const { data, timestamp } = JSON.parse(storedRecipes);
-                if (Date.now() - timestamp < cacheDuration) {
-                    return data;
+                font-weight: bold;
+                animation: fadeIn 0.5s ease-out;
+                overflow: hidden;
+            }
+            .badge::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.4),
+                    transparent
+                );
+                animation: shine 3s infinite linear;
+            }
+            .recipe-card:hover .badge {
+                background: #c0392b; /* Sáng hơn khi hover */
+            }
+
+            .badge-new {
+                background: #e74c3c;
+            }
+            .recipe-card:hover .badge-new {
+                background: #c0392b;
+            }
+
+            .badge-special {
+                background: #ac57e3;
+            }
+            .recipe-card:hover .badge-special {
+                background: #7b13bf;
+            }
+
+            .badge-popular {
+                background: #27ae60;
+            }
+            .recipe-card:hover .badge-popular {
+                background: #219653;
+            }
+            .badge-quick {
+                background: #f1c40f;
+            }
+            .recipe-card:hover .badge-quick {
+                background: #e1b12c;
+            }
+            .history-section {
+                margin-top: 1.875rem;
+            }
+            .mini-recipes-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.9375rem;
+            }
+            .mini-recipe-card {
+                position: relative;
+                background: #fff;
+                border-radius: 6px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                text-decoration: none;
+                color: inherit;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+            .mini-recipe-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            }
+            .mini-recipe-image {
+                width: 100%;
+                height: 100px;
+                object-fit: cover;
+                display: block;
+            }
+            .mini-recipe-content {
+                padding: 0.5rem;
+                text-align: center;
+            }
+            .mini-recipe-content h4 {
+                margin: 0;
+                font-size: 0.95rem;
+                color: #2c3e50;
+                font-weight: 500;
+            }
+            .mini-badge {
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                color: white;
+                padding: 3px 8px;
+                font-size: 0.7em;
+                border-radius: 10px;
+                font-weight: bold;
+                animation:
+                    pulse 2s infinite ease-in-out,
+                    fadeIn 0.5s ease-out;
+                overflow: hidden;
+            }
+            .mini-badge::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.4),
+                    transparent
+                );
+                animation: shine 3s infinite linear;
+            }
+            .mini-badge-new {
+                background: #e74c3c;
+            }
+            .mini-recipe-card:hover .mini-badge-new {
+                background: #c0392b;
+            }
+            .mini-badge-popular {
+                background: #27ae60;
+            }
+            .mini-recipe-card:hover .mini-badge-popular {
+                background: #219653;
+            }
+            .mini-badge-quick {
+                background: #f1c40f;
+            }
+            .mini-recipe-card:hover .mini-badge-quick {
+                background: #e1b12c;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.1);
                 }
             }
-            return null;
-        }   
-    function getViewedRecipes() {
-            return JSON.parse(localStorage.getItem('viewedRecipes')) || [];
-        }
-
-        function getSavedRecipes() {
-            return JSON.parse(localStorage.getItem('savedRecipes')) || [];
-        }
-        
-function displayHistory(container, recipes, maxLength, allRecipes) {
-            container.innerHTML = '';
-            if (recipes.length === 0) {
-                container.innerHTML = '<p class="no-results">Chưa có món nào</p>';
-                return;
+            @keyframes shine {
+                0% {
+                    left: -100%;
+                }
+                50% {
+                    left: 100%;
+                }
+                100% {
+                    left: 100%;
+                }
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .b {
+                font-weight: 700;
+            }
+            .mini {
+                transform: scale(0.8);
+                transform-origin: top left;
+            }
+            .loading,
+            .no-results {
+                text-align: center;
+                color: #666;
+                grid-column: 1 / -1;
+                font-size: 1em;
+            }
+            .pagination {
+                text-align: center;
+                margin-top: 20px;
+            }
+            button {
+                padding: 8px 16px;
+                background: #2c3e50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+            button:disabled {
+                background: #ccc;
+                cursor: not-allowed;
+            }
+            button:hover:not(:disabled) {
+                background: #34495e;
             }
 
-            const maxId = Math.max(...allRecipes.map(r => parseInt(r[0])));
-            recipes.slice(0, maxLength).forEach(recipe => {
-                const { id, name, image, time, difficulty, servings } = recipe;
-             
-                let badge = '';
-                if(servings>=5){
-                  badge = '<span class="badge mini badge-special">Đặc biệt ❉</span>';
-                }else if (parseInt(id) === maxId) {
-                    badge = '<span class="badge mini badge-new">Mới ✧</span>';
-                } else if (difficulty && difficulty.toLowerCase() === 'dễ') {
-                    badge = '<span class="badge mini badge-popular">Phổ biến ✓</span>';
-                } else if (time && parseInt(time) <= 30) {
-                    badge = '<span class="badge mini badge-quick">Nhanh  ≋</span>';
+            @media (max-width: 600px) {
+                html {
+                    font-size: 14px;
                 }
-                const miniCard = document.createElement('a');
-                miniCard.className = 'mini-recipe-card';
-                miniCard.href = `recipe-detail.html?id=${id}`;
-                miniCard.innerHTML = `
-                    ${image ? `<img src="${image}" alt="${name}" class="mini-recipe-image" loading="lazy" onerror="this.src='https://via.placeholder.com/150x100?text=No+Image'">` : '<img src="https://via.placeholder.com/150x100?text=No+Image" alt="No Image" class="mini-recipe-image" loading="lazy">'}
+                body {
+                    padding: 0.625rem;
+                }
+                .container {
+                    padding: 1rem;
+                }
+                .search-bar {
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+                input,
+                .refresh-button {
+                    font-size: 0.95rem;
+                    padding: 0.625rem;
+                }
+                .recipes-container,
+                .mini-recipes-container {
+                    grid-template-columns: 1fr;
+                    gap: 0.9375rem;
+                }
+                .recipe-card {
+                    font-size: 0.95rem;
+                }
+                .recipe-content {
+                    padding: 0.75rem;
+                }
+                .recipe-image {
+                    height: 180px;
+                }
+                .badge {
+                    font-size: 0.75rem;
+                    padding: 0.1875rem 0.5rem;
+                }
+                .mini-recipe-image {
+                    height: 80px;
+                }
+                .mini-badge {
+                    font-size: 0.6875rem;
+                    padding: 0.125rem 0.375rem;
+                }
+                h1 {
+                    font-size: 1.75rem;
+                }
+                h2 {
+                    font-size: 1.25rem;
+                }
+                h3 {
+                    font-size: 1.1rem;
+                }
+                .recipe-description,
+                .recipe-info {
+                    font-size: 0.875rem;
+                }
+            }
+            @media (min-width: 600px) and (max-width: 900px) {
+                html {
+                    font-size: 15px;
+                }
+                .recipes-container {
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(200px, 1fr)
+                    );
+                }
+                .mini-recipes-container {
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(140px, 1fr)
+                    );
+                }
+                .recipe-content {
+                    padding: 0.875rem;
+                }
+                .badge {
+                    font-size: 0.8125rem;
+                }
+                .mini-badge {
+                    font-size: 0.75rem;
+                }
+                h1 {
+                    font-size: 2rem;
+                }
+                h2 {
+                    font-size: 1.375rem;
+                }
+            }
+            @media (min-width: 900px) {
+                html {
+                    font-size: 16px;
+                }
+                .recipes-container {
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(240px, 1fr)
+                    );
+                }
+                .mini-recipes-container {
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(160px, 1fr)
+                    );
+                }
+                .recipe-content {
+                    padding: 1.25rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 style="margin-top: 2rem">⏍ Tìm Công Thức Nấu Ăn</h1>
+            <div class="search-bar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Nhập tên món ăn..." />
+                <button class="refresh-button" onclick="refreshRecipes()">
+                    Làm mới ⟲
+                </button>
+            </div>
+            <div class="history-section" id="viewedRecipes">
+                <h2>↩ Món Đã Xem</h2>
+                <div
+                    id="viewed-recipes-container"
+                    class="mini-recipes-container"></div>
+            </div>
+            <div class="history-section" id="savedRecipes">
+                <h2>⎘ Món Đã Lưu</h2>
+                <div
+                    id="saved-recipes-container"
+                    class="mini-recipes-container"></div>
+            </div>
+            <h2>⇝ Khám phá công thức</h2>
+            <div id="recipes" class="recipes-container"></div>
+        </div>
+        <script>
+            const SPREADSHEET_ID =
+                "1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg";
+            const API_KEY = "AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8";
+            const recipesPerPage = 10;
+            const cacheDuration = 5 * 60 * 1000; // 5 phút
+            let currentPage = 1;
+            const maxHistoryLength = 5; // Giới hạn 10 món đã xem
+            const maxSavedLength = 10; // Giới hạn 20 món đã lưu
+            let cachedRecipes = null;
+
+            const searchInput = document.getElementById("searchInput");
+            const viewedRecipesContainer = document.getElementById(
+                "viewed-recipes-container"
+            );
+            const savedRecipesContainer = document.getElementById(
+                "saved-recipes-container"
+            );
+
+            const recipesDiv = document.getElementById("recipes");
+
+            function debounce(func, delay) {
+                let timeoutId;
+                return function (...args) {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => func.apply(this, args), delay);
+                };
+            }
+            function getStoredRecipes() {
+                const storedRecipes = localStorage.getItem("recipes");
+                if (storedRecipes) {
+                    const { data, timestamp } = JSON.parse(storedRecipes);
+                    if (Date.now() - timestamp < cacheDuration) {
+                        return data;
+                    }
+                }
+                return null;
+            }
+            function getViewedRecipes() {
+                return JSON.parse(localStorage.getItem("viewedRecipes")) || [];
+            }
+
+            function getSavedRecipes() {
+                return JSON.parse(localStorage.getItem("savedRecipes")) || [];
+            }
+
+            function displayHistory(container, recipes, maxLength, allRecipes) {
+                container.innerHTML = "";
+                if (recipes.length === 0) {
+                    container.innerHTML =
+                        '<p class="no-results">Chưa có món nào</p>';
+                    return;
+                }
+
+                const maxId = Math.max(
+                    ...allRecipes.map((r) => parseInt(r[0]))
+                );
+                recipes.slice(0, maxLength).forEach((recipe) => {
+                    const { id, name, image, time, difficulty, servings } =
+                        recipe;
+
+                    let badge = "";
+                    if (servings >= 5) {
+                        badge =
+                            '<span class="mini badge badge-special">Đặc biệt ❉</span>';
+                    } else if (parseInt(id) === maxId) {
+                        badge =
+                            '<span class="badge mini badge-new">Mới ✧</span>';
+                    } else if (
+                        difficulty &&
+                        difficulty.toLowerCase() === "dễ"
+                    ) {
+                        badge =
+                            '<span class="badge mini badge-popular">Phổ biến ✓</span>';
+                    } else if (time && parseInt(time) <= 30) {
+                        badge =
+                            '<span class="badge mini badge-quick">Nhanh  ≋</span>';
+                    }
+                    const miniCard = document.createElement("a");
+                    miniCard.className = "mini-recipe-card";
+                    miniCard.href = `recipe-detail.html?id=${id}`;
+                    miniCard.innerHTML = `
+                    ${
+                        image
+                            ? `<img src="${image}" alt="${name}" class="mini-recipe-image" loading="lazy" onerror="this.src='https://via.placeholder.com/150x100?text=No+Image'">`
+                            : '<img src="https://via.placeholder.com/150x100?text=No+Image" alt="No Image" class="mini-recipe-image" loading="lazy">'
+                    }
                     ${badge}
                     <div class="mini-recipe-content">
                         <h4>${name}</h4>
                     </div>
                 `;
-                container.appendChild(miniCard);
-            });
-        }
+                    container.appendChild(miniCard);
+                });
+            }
 
-        async function fetchRecipes(firstLoad = true) {
-            try {
-                if (firstLoad) {
-                    recipesDiv.innerHTML = '<p class="loading">Đang tải...</p>';
+            async function fetchRecipes(firstLoad = true) {
+                try {
+                    if (firstLoad) {
+                        recipesDiv.innerHTML =
+                            '<p class="loading">Đang tải...</p>';
+                    }
+                    const response = await fetch(
+                        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:J?key=${API_KEY}`
+                    );
+                    const data = await response.json();
+                    data.values = data.values.reverse();
+                    if (data.values) {
+                        cachedRecipes = data.values;
+                        localStorage.setItem(
+                            "recipes",
+                            JSON.stringify({
+                                data: data.values,
+                                timestamp: Date.now()
+                            })
+                        );
+                        displayRecipes(data.values);
+                        displayHistory(
+                            viewedRecipesContainer,
+                            getViewedRecipes(),
+                            maxHistoryLength,
+                            data.values
+                        );
+                        displayHistory(
+                            savedRecipesContainer,
+                            getSavedRecipes(),
+                            maxSavedLength,
+                            data.values
+                        );
+                    } else {
+                        recipesDiv.innerHTML =
+                            '<p class="no-results">Không tìm thấy công thức nào</p>';
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    recipesDiv.innerHTML =
+                        '<p class="no-results">Đã có lỗi xảy ra. Vui lòng thử lại.</p>';
                 }
-                const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/recipes!A2:J?key=${API_KEY}`
+            }
+
+            function displayRecipes(recipes) {
+                recipesDiv.innerHTML = "";
+                const searchTerm = searchInput.value.toLowerCase();
+                const filteredRecipes = recipes.filter((recipe) =>
+                    recipe[1].toLowerCase().includes(searchTerm)
                 );
-                const data = await response.json();
-                data.values = data.values.reverse();
-                if (data.values) {
-                    cachedRecipes = data.values;
-                    localStorage.setItem('recipes', JSON.stringify({ data: data.values, timestamp: Date.now() }));
-                    displayRecipes(data.values);
-                    displayHistory(viewedRecipesContainer, getViewedRecipes(), maxHistoryLength, data.values);
-                    displayHistory(savedRecipesContainer, getSavedRecipes(), maxSavedLength, data.values);
-                } else {
-                    recipesDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức nào</p>';
+                if (filteredRecipes.length === 0) {
+                    recipesDiv.innerHTML =
+                        '<p class="no-results">Không tìm thấy công thức phù hợp</p>';
+                    return;
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                recipesDiv.innerHTML = '<p class="no-results">Đã có lỗi xảy ra. Vui lòng thử lại.</p>';
-            }
-        }
 
+                const maxId = Math.max(...recipes.map((r) => parseInt(r[0])));
+                const startIndex = (currentPage - 1) * recipesPerPage;
+                const endIndex = startIndex + recipesPerPage;
+                const paginatedRecipes = filteredRecipes.slice(
+                    startIndex,
+                    endIndex
+                );
 
-        function displayRecipes(recipes) {
-            recipesDiv.innerHTML = '';
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredRecipes = recipes.filter(recipe => 
-                recipe[1].toLowerCase().includes(searchTerm)
-            );
-            if (filteredRecipes.length === 0) {
-                recipesDiv.innerHTML = '<p class="no-results">Không tìm thấy công thức phù hợp</p>';
-                return;
-            }
-
-            const maxId = Math.max(...recipes.map(r => parseInt(r[0])));
-            const startIndex = (currentPage - 1) * recipesPerPage;
-            const endIndex = startIndex + recipesPerPage;
-            const paginatedRecipes = filteredRecipes.slice(startIndex, endIndex);
-
-            paginatedRecipes.forEach(recipe => {
-                const [id, name, , , time, difficulty, , image = '', description = '', servings =''] = recipe;
-                let badge = '';
-                if(servings>=5){
-                  badge = '<span class="badge badge-special">Đặc biệt ❉</span>';
-                }else if (parseInt(id) === maxId) {
-                    badge = '<span class="badge badge-new">Mới ✧</span>';
-                }else if (difficulty.toLowerCase() === 'dễ' && parseInt(time) >20) {
-                    badge = '<span class="badge badge-popular">Phổ biến ✓</span>';
-                }
-                else if (parseInt(time) <= 20) {
-                    badge = '<span class="badge badge-quick">Nhanh ≋</span>';
-                } 
-                const recipeCard = document.createElement('a');
-                recipeCard.className = 'recipe-card';
-                recipeCard.href = `recipe-detail.html?id=${id}`;
-                recipeCard.innerHTML = `
-                    ${image ? `<img src="${image}" alt="${name}" class="recipe-image" loading="lazy" onerror="this.src='https://via.placeholder.com/200x150?text=No+Image'">` : '<img src="https://via.placeholder.com/200x150?text=No+Image" alt="No Image" class="recipe-image" loading="lazy">'}
+                paginatedRecipes.forEach((recipe) => {
+                    const [
+                        id,
+                        name,
+                        ,
+                        ,
+                        time,
+                        difficulty,
+                        ,
+                        image = "",
+                        description = "",
+                        servings = ""
+                    ] = recipe;
+                    let badge = "";
+                    if (servings >= 5) {
+                        badge =
+                            '<span class="badge badge-special">Đặc biệt ❉</span>';
+                    } else if (parseInt(id) === maxId) {
+                        badge = '<span class="badge badge-new">Mới ✧</span>';
+                    } else if (
+                        difficulty.toLowerCase() === "dễ" &&
+                        parseInt(time) > 20
+                    ) {
+                        badge =
+                            '<span class="badge badge-popular">Phổ biến ✓</span>';
+                    } else if (parseInt(time) <= 20) {
+                        badge =
+                            '<span class="badge badge-quick">Nhanh ≋</span>';
+                    }
+                    const recipeCard = document.createElement("a");
+                    recipeCard.className = "recipe-card";
+                    recipeCard.href = `recipe-detail.html?id=${id}`;
+                    recipeCard.innerHTML = `
+                    ${
+                        image
+                            ? `<img src="${image}" alt="${name}" class="recipe-image" loading="lazy" onerror="this.src='https://via.placeholder.com/200x150?text=No+Image'">`
+                            : '<img src="https://via.placeholder.com/200x150?text=No+Image" alt="No Image" class="recipe-image" loading="lazy">'
+                    }
                     ${badge}<div class="recipe-content">
                         <h3>${name}</h3>
-                        <p class="recipe-description">${description ? description.substring(0, 50) + '...' : 'Không có mô tả'}</p>
+                        <p class="recipe-description">${
+                            description
+                                ? description.substring(0, 60) + "..."
+                                : "Không có mô tả"
+                        }</p>
                         <div class="recipe-info">
                             <span class="b info-item"><span class="icon">️⏱</span> ${time} phút</span>
+                            <span class="b info-item"><span class="icon">⚖</span> ${servings} người</span>
                             <span class="b info-item"><span class="icon">✰</span> ${difficulty}</span>
                         </div>
                     </div>
                 `;
-                recipesDiv.appendChild(recipeCard);
-            });
+                    recipesDiv.appendChild(recipeCard);
+                });
 
-            const paginationDiv = document.createElement('div');
-            paginationDiv.className = 'pagination';
-            const prevButton = document.createElement('button');
-            prevButton.textContent = 'Trang trước';
-            prevButton.disabled = currentPage === 1;
-            prevButton.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    displayRecipes(recipes);
-                }
-            });
+                const paginationDiv = document.createElement("div");
+                paginationDiv.className = "pagination";
+                const prevButton = document.createElement("button");
+                prevButton.textContent = "Trang trước";
+                prevButton.disabled = currentPage === 1;
+                prevButton.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayRecipes(recipes);
+                    }
+                });
 
-            const nextButton = document.createElement('button');
-            nextButton.textContent = 'Trang sau';
-            nextButton.disabled = endIndex >= filteredRecipes.length;
-            nextButton.addEventListener('click', () => {
-                if (endIndex < filteredRecipes.length) {
-                    currentPage++;
-                    displayRecipes(recipes);
-                }
-            });
+                const nextButton = document.createElement("button");
+                nextButton.textContent = "Trang sau";
+                nextButton.disabled = endIndex >= filteredRecipes.length;
+                nextButton.addEventListener("click", () => {
+                    if (endIndex < filteredRecipes.length) {
+                        currentPage++;
+                        displayRecipes(recipes);
+                    }
+                });
 
-            paginationDiv.appendChild(prevButton);
-            paginationDiv.appendChild(nextButton);
-            recipesDiv.appendChild(paginationDiv);
-        }
+                paginationDiv.appendChild(prevButton);
+                paginationDiv.appendChild(nextButton);
+                recipesDiv.appendChild(paginationDiv);
+            }
 
-        function refreshRecipes() {
-            localStorage.removeItem('recipes');
-            cachedRecipes = null;
-            currentPage = 1;
-            fetchRecipes();
-        }
-
-        function loadRecipes() {
-            const storedRecipes = getStoredRecipes();
-            if (storedRecipes) {
-                cachedRecipes = storedRecipes;
-                displayRecipes(storedRecipes);
-                displayHistory(viewedRecipesContainer, getViewedRecipes(), maxHistoryLength, storedRecipes);
-                displayHistory(savedRecipesContainer, getSavedRecipes(), maxSavedLength, storedRecipes);
-            } else {
+            function refreshRecipes() {
+                localStorage.removeItem("recipes");
+                cachedRecipes = null;
+                currentPage = 1;
                 fetchRecipes();
             }
-        }
 
-        loadRecipes();
-
-        searchInput.addEventListener('input', debounce(() => {
-            currentPage = 1;
-            const storedRecipes = localStorage.getItem('recipes');
-            if (storedRecipes) {
-                const { data, timestamp } = JSON.parse(storedRecipes);
-                if (Date.now() - timestamp < cacheDuration) {
-                    displayRecipes(data);
+            function loadRecipes() {
+                const storedRecipes = getStoredRecipes();
+                if (storedRecipes) {
+                    cachedRecipes = storedRecipes;
+                    displayRecipes(storedRecipes);
+                    displayHistory(
+                        viewedRecipesContainer,
+                        getViewedRecipes(),
+                        maxHistoryLength,
+                        storedRecipes
+                    );
+                    displayHistory(
+                        savedRecipesContainer,
+                        getSavedRecipes(),
+                        maxSavedLength,
+                        storedRecipes
+                    );
                 } else {
-                    fetchRecipes(false);
+                    fetchRecipes();
                 }
-            } else {
-                fetchRecipes(false);
             }
-        }, 300));
-    </script>
-</body>
+
+            loadRecipes();
+
+            searchInput.addEventListener(
+                "input",
+                debounce(() => {
+                    currentPage = 1;
+                    const storedRecipes = localStorage.getItem("recipes");
+                    if (storedRecipes) {
+                        const { data, timestamp } = JSON.parse(storedRecipes);
+                        if (Date.now() - timestamp < cacheDuration) {
+                            displayRecipes(data);
+                        } else {
+                            fetchRecipes(false);
+                        }
+                    } else {
+                        fetchRecipes(false);
+                    }
+                }, 300)
+            );
+
+            // Tối ưu tương tác chip trên mobile: Ngăn scroll khi chạm chip
+            function preventTouchScroll(e) {
+                if (e.target.classList.contains("chip")) {
+                    e.preventDefault(); // Ngăn scroll khi chạm chip
+                }
+            }
+
+            // Thêm sự kiện touchstart cho chip-container
+            categoryChips.addEventListener("touchstart", preventTouchScroll, {
+                passive: false
+            });
+        </script>
+    </body>
 </html>
