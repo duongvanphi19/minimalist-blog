@@ -341,24 +341,28 @@
                         }
 
                         .badge-new {
-                            background: #e74c3c;
+                            background: #e91e63;
                         }
                         .recipe-card:hover .badge-new {
                             background: #c0392b;
                         }
 
                         .badge-special {
-                            background: #ac57e3;
+                            background: #8e44ad;
                         }
+                        .badge-vegan {
+                            background:#26b436;
+                        }
+
                         .recipe-card:hover .badge-special {
                             background: #7b13bf;
                         }
 
                         .badge-popular {
-                            background: #27ae60;
+                            background:#3498db ;
                         }
                         .recipe-card:hover .badge-popular {
-                            background: #219653;
+                            background:;
                         }
                         .badge-quick {
                             background: #f1c40f;
@@ -975,17 +979,20 @@
                         ,
                         time,
                         difficulty,
-                        ,
+                        category,
                         image = "",
                         description = "",
                         servings = ""
                     ] = recipe;
                     let badge = "";
-                    if (servings >= 5) {
+                    if (parseInt(id) === maxId) {
+                        badge = '<span class="badge badge-new">Mới ✧</span>';
+                    } else if (/chay/i.test(category)) {
+                        badge =
+                            '<span class="badge badge-vegan">Món chay ☘</span>';
+                    } else if (servings >= 5) {
                         badge =
                             '<span class="badge badge-special">Đặc biệt ❉</span>';
-                    } else if (parseInt(id) === maxId) {
-                        badge = '<span class="badge badge-new">Mới ✧</span>';
                     } else if (
                         difficulty.toLowerCase() === "dễ" &&
                         parseInt(time) > 20
