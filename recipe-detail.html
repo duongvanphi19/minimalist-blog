@@ -277,6 +277,15 @@
                 font-size: 1.2em;
                 color: #2c3e50;
             }
+            .loading {
+              animation: spin 2s ease;
+            }
+            
+                                    @keyframes spin {
+                            to {
+                                transform: rotate(360deg);
+                            }
+                        }
             .loading,
             .no-results {
                 text-align: center;
@@ -591,7 +600,7 @@
                         );
                     })
                     .sort((a, b) => parseInt(b) - parseInt(a))
-                    .slice(0, 3)
+                    .slice(0, 4)
                     .map((r) => {
                         const [
                             relatedId,

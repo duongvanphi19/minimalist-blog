@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="A minimalist product showcase website for perfumes and cosmetics using Google Sheets API." />
+        <title>Showcase Sản Phẩm - Nước Hoa & Mỹ Phẩm</title>
+        <link
+            href="stylesheet(https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+            rel="stylesheet" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: "Roboto", sans-serif;
+            }
+
+            body {
+                background-color: #f5f5f5;
+                color: #333;
+            }
+
+            header {
+                background-color: #fff;
+                padding: 1rem;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #2c3e50;
+            }
+
+            nav ul {
+                list-style: none;
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                text-decoration: none;
+                color: #333;
+                font-weight: 400;
+            }
+
+            nav a:hover {
+                color: #e74c3c;
+            }
+
+            .search-bar {
+                display: flex;
+                align-items: center;
+                flex-grow: 1;
+                max-width: 300px;
+            }
+
+            #searchInput {
+                padding: 0.5rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 1rem;
+                width: 100%;
+            }
+
+            main {
+                max-width: 1200px;
+                margin: 1.5rem auto;
+                padding: 0 0.5rem;
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: #2c3e50;
+                font-size: 1.8rem;
+            }
+
+            .product-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                background-color: #fff;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                transition: transform 0.2s;
+            }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .product-card img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .product-card .content {
+                padding: 0.8rem;
+            }
+
+            .product-card h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.4rem;
+                color: #2c3e50;
+            }
+
+            .product-card p {
+                font-size: 0.85rem;
+                color: #666;
+            }
+
+            .product-card .price {
+                font-size: 1rem;
+                font-weight: 700;
+                color: #e74c3c;
+                margin-top: 0.4rem;
+            }
+
+            footer {
+                text-align: center;
+                padding: 1rem;
+                background-color: #fff;
+                margin-top: 1.5rem;
+                box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                header {
+                    flex-direction: column;
+                    gap: 0.8rem;
+                    padding: 0.8rem;
+                }
+
+                nav ul {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 0.8rem;
+                }
+
+                nav a {
+                    font-size: 0.9rem;
+                }
+
+                .search-bar {
+                    max-width: 100%;
+                    padding: 0 0.5rem;
+                }
+
+                #searchInput {
+                    font-size: 0.9rem;
+                }
+
+                h1 {
+                    font-size: 1.5rem;
+                }
+
+                .product-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                    gap: 1rem;
+                }
+
+                .product-card img {
+                    height: 150px;
+                }
+
+                .product-card h3 {
+                    font-size: 1rem;
+                }
+
+                .product-card p {
+                    font-size: 0.8rem;
+                }
+
+                .product-card .price {
+                    font-size: 0.9rem;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .logo {
+                    font-size: 1.2rem;
+                }
+
+                nav ul {
+                    gap: 0.5rem;
+                }
+
+                nav a {
+                    font-size: 0.8rem;
+                }
+
+                .product-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .product-card img {
+                    height: 140px;
+                }
+
+                h1 {
+                    font-size: 1.3rem;
+                }
+
+                footer {
+                    font-size: 0.8rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="logo">Elegance</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Trang chủ</a></li>
+                    <li><a href="#products">Sản phẩm</a></li>
+                    <li><a href="#contact">Liên hệ</a></li>
+                </ul>
+            </nav>
+            <div class="search-bar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Tìm kiếm sản phẩm..." />
+            </div>
+        </header>
+
+        <main id="products">
+            <h1>Sản Phẩm Nước Hoa & Mỹ Phẩm</h1>
+            <div id="product-grid" class="product-grid"></div>
+        </main>
+
+        <footer>
+            <p>
+                © 2025 Elegance. Liên hệ: contact@elegance.com | 0123 456 789
+            </p>
+        </footer>
+
+        <script>
+            // Thay thế bằng API Key và Sheet ID của bạn
+            const SHEET_ID =
+                "1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg";
+            const API_KEY = "AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8";
+
+            const RANGE = "products!A2:D"; // Phạm vi dữ liệu trong Google Sheet
+
+            // Lấy dữ liệu từ Google Sheets
+            async function fetchProducts() {
+                try {
+                    const response = await fetch(
+                        `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`
+                    );
+                    const data = await response.json();
+                    const products = data.values.map((row) => ({
+                        name: row[0],
+                        price: row[1],
+                        description: row[2],
+                        image: row[3]
+                    }));
+                    displayProducts(products);
+                } catch (error) {
+                    console.error("Error fetching products:", error);
+                }
+            }
+
+            // Hiển thị sản phẩm
+            function displayProducts(products) {
+                const productGrid = document.getElementById("product-grid");
+                productGrid.innerHTML = "";
+
+                products.forEach((product) => {
+                    const productCard = document.createElement("div");
+                    productCard.className = "product-card";
+                    productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <div class="content">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p class="price">${product.price}</p>
+                    </div>
+                `;
+                    productGrid.appendChild(productCard);
+                });
+            }
+
+            // Tìm kiếm sản phẩm
+            const searchInput = document.getElementById("searchInput");
+            let debounceTimer;
+            searchInput.addEventListener("input", () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(async () => {
+                    const response = await fetch(
+                        `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${RANGE}?key=${API_KEY}`
+                    );
+                    const data = await response.json();
+                    const products = data.values.map((row) => ({
+                        name: row[0],
+                        price: row[1],
+                        description: row[2],
+                        image: row[3]
+                    }));
+                    const searchTerm = searchInput.value.toLowerCase();
+                    const filteredProducts = products.filter((product) =>
+                        product.name.toLowerCase().includes(searchTerm)
+                    );
+                    displayProducts(filteredProducts);
+                }, 300);
+            });
+
+            // Tải sản phẩm khi trang web khởi động
+            fetchProducts();
+        </script>
+    </body>
+</html>

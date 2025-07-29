@@ -1,400 +1,588 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>FAQs từ Google Sheets</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #f5f5f5; color: #333; padding: 20px; line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 10px; }
-        h1 { text-align: center; margin-bottom: 20px; font-size: clamp(1.8em, 5vw, 2.5em); color: #2c3e50; }
-        .search-bar { margin-bottom: 20px; }
-        .search-bar input { width: 100%; padding: 10px 15px; font-size: 1em; border: 1px solid #ddd; border-radius: 25px; outline: none; transition: border-color 0.3s; }
-        .search-bar input:focus { border-color: #3498db; }
-        .chips { margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-        .chip { padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 0.9em; transition: all 0.3s; border: 2px solid transparent; }
-        .chip.active { color: #fff; }
-        .chip:hover:not(.active) { opacity: 0.8; }
-       
-        .chip.tưvấn.active { background: #2980b9; }
-      
-        .chip.xửlý.active { background: #27ae60; }
-       
-        .chip.chốtđơn.active { background: #e67e22; }
-        
-        .chip.kếtnối.active { background: #a170c9; }
-        .chip.khác.active { background: #235; }
-        .chip.all { background: #ddd; color: #333; }
-        .chip.all.active { background: #3498db; color: #fff; }
-        .category { margin-bottom: 30px; display: none; }
-        .category.active { display: block; }
-        .category h2 { font-size: clamp(1.5em, 4vw, 1.8em); margin-bottom: 15px; padding-bottom: 5px; }
-        .category.tưvấn h2 { color: #2980b9; border-bottom: 2px solid #2980b9; }
-        .category.xửlý h2 { color: #27ae60; border-bottom: 2px solid #27ae60; }
-        .category.chốtđơn h2 { color: #e67e22; border-bottom: 2px solid #e67e22; }
-        .category.kếtnối h2 { color: #a170c9; border-bottom: 2px solid #a170c9; }
-        .category.khác h2 { color: #235; border-bottom: 2px solid #235; }
-        .faq-item { background: #fff; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); overflow: hidden; }
-        .faq-question { padding: 15px; font-size: clamp(1em, 3vw, 1.2em); font-weight: 600; cursor: pointer; position: relative; transition: background 0.3s; }
-        .faq-question:hover { background: #f0f0f0; }
-        .faq-question::after { content: '+'; position: absolute; right: 15px; font-size: 1.5em; transition: transform 0.3s; }
-        .faq-question.active::after { content: '−'; transform: rotate(180deg); }
-        .faq-answer { max-height: 0; padding: 0 15px; overflow: hidden; background: #fafafa; transition: max-height 0.3s ease; position: relative; }
-        .faq-answer p { padding: 15px 0; font-size: clamp(0.9em, 2.5vw, 1em); color: #555; margin-right: 50px; }
-        .reply-copy, .copy-btn { position: absolute; top: 50%; right: 15px; transform: translateY(-50%); padding: 4px 8px; font-size: 0.9em; background: #3498db; color: #fff; border: none; border-radius: 5px; cursor: pointer; transition: background 0.3s; }
-        .copy-btn:hover { background: #2980b9; }
-        .hidden { display: none; }
-        .error { color: red; text-align: center; margin-top: 20px; }
-        .highlight { background: #fff3cd; color: #856404; }
-        .scroll-top { position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; background: #3498db; color: #fff; border: none; border-radius: 50%; cursor: pointer; opacity: 0; transition: opacity 0.3s; }
-        .scroll-top.visible { opacity: 1; }
-                .replies-container h2 { 
-            font-size: clamp(1.5em, 4vw, 1.8em); 
-            margin-bottom: 15px; 
-            padding-bottom: 5px; 
-            color: #2c3e50; 
-        }
-        .reply-group { margin-bottom: 15px; display: none; }
-        .reply-group.active { display: block; }
-        .reply-group h3 { 
-            font-size: clamp(1em, 3vw, 1.2em); 
-            font-weight: 600; 
-            padding: 15px; 
-            background: #fff; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            position: relative; 
-            transition: background 0.3s; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-            margin-bottom: 10px; 
-        }
-        .reply-group h3:hover { background: #f0f0f0; }
-        .reply-group h3::after { 
-            content: '+'; 
-            position: absolute; 
-            right: 15px; 
-            font-size: 1.5em; 
-            transition: transform 0.3s; 
-        }
-        .reply-group h3.active::after { content: '−'; transform: rotate(180deg); }
-        .reply-items { 
-            max-height: 0; 
-            overflow: hidden; 
-            transition: max-height 0.3s ease; 
-            background: #fafafa; 
-            border-radius: 8px; 
-            padding: 0 15px; 
-        }
-        .reply-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 15px 0; 
-            border-bottom: 1px solid #eee; 
-            position: relative; 
-        }
-        .reply-item:last-child { border-bottom: none; }
-        .reply-text { 
-            flex: 1; 
-            font-size: clamp(0.9em, 2.5vw, 1em); 
-            color: #555; 
-            margin-right: 50px; 
-        }
-        .rly-copy { 
-            position: absolute; 
-            top: 50%; 
-            right: 0; 
-            transform: translateY(-50%); 
-            padding: 4px 8px; 
-            font-size: 0.9em; 
-            background: #3498db; 
-            color: #fff; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            transition: background 0.3s; 
-        }
-        .reply-copy:hover { background: #2980b9; }
-
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .search-bar input { padding: 8px 12px; }
-            .chips { gap: 6px; }
-            .chip { padding: 5px 10px; font-size: 0.8em; }
-            .faq-question { padding: 12px; }
-            .faq-answer p { margin-right: 40px; }
-            .copy-btn { padding: 3px 6px; font-size: 0.8em; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Câu Hỏi Thường Gặp</h1>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Tìm kiếm câu hỏi...">
-        </div>
-        <div class="chips" id="chips-container"></div>
-        <div id="faq-container"></div>
-                <div class="replies-container">
-            <h2>Câu trả lời mẫu</h2>
-            <div class="replies-list" id="replies-list"></div>
-        </div>
-        <div id="error-message" class="error"></div>
-        <button id="scroll-top" class="scroll-top">↑</button>
-    </div>
-
-    <script>
-        const spreadsheetId = '1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg';
-        const apiKey = 'AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8';
-        const range = 'FAQs!A2:C';
-
-        async function fetchSheetData() {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
-            const errorMessage = document.getElementById('error-message');
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`Lỗi ${response.status}: ${errorData.error.message}`);
-                }
-                const data = await response.json();
-                if (!data.values || data.values.length === 0) {
-                    errorMessage.textContent = 'Không tìm thấy dữ liệu trong phạm vi FAQs!A2:C.';
-                    return;
-                }
-                renderFAQ(data.values);
-                errorMessage.textContent = '';
-            } catch (error) {
-                errorMessage.textContent = error.message;
-                console.error('Chi tiết lỗi:', error);
-            }
-        }
-
-        function renderFAQ(values) {
-            const faqContainer = document.getElementById('faq-container');
-            const chipsContainer = document.getElementById('chips-container');
-            let categories = {};
-
-            values.forEach(([category, question, answer]) => {
-                if (!categories[category]) categories[category] = [];
-                categories[category].push({ question, answer });
-            });
-
-            const allChip = document.createElement('div');
-            allChip.className = 'chip all active';
-            allChip.textContent = `Tất cả (${values.length})`;
-            allChip.dataset.category = 'all';
-            chipsContainer.appendChild(allChip);
-
-            for (const category of Object.keys(categories)) {
-                const chip = document.createElement('div');
-                chip.className = `chip ${category.toLowerCase().replace(/\s+/g, '')}`;
-                chip.textContent = `${category} (${categories[category].length})`;
-                chip.dataset.category = category.toLowerCase().replace(/\s+/g, '');
-                chip.dataset.total = categories[category].length; // Lưu tổng số
-                chipsContainer.appendChild(chip);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <title>FAQs từ Google Sheets</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
-            for (const [category, items] of Object.entries(categories)) {
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = `category ${category.toLowerCase().replace(/\s+/g, '')} active`;
-                categoryDiv.innerHTML = `<h2>${category} (${items.length})</h2>`;
+            body {
+                font-family: "Inter", "Segoe UI", sans-serif;
+                background-color: #fff;
+                color: #111;
+                padding: 40px 20px;
+                line-height: 1.7;
+            }
 
-                items.forEach(item => {
-                    const faqItem = document.createElement('div');
-                    faqItem.className = 'faq-item';
-                    faqItem.innerHTML = `
+            .container {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 3rem;
+                font-weight: 800;
+                text-align: center;
+                margin-bottom: 40px;
+                color: #000;
+            }
+
+            .search-bar input {
+                width: 100%;
+                padding: 18px;
+                font-size: 1.1rem;
+                border: 2px solid #000;
+                border-radius: 0;
+                outline: none;
+                background-color: #fff;
+                margin-bottom: 40px;
+                font-weight: 600;
+            }
+
+            .chip {
+                display: inline-block;
+                padding: 10px 18px;
+                margin: 6px 6px;
+                font-size: 0.95rem;
+                font-weight: 700;
+                border-radius: 0;
+                background-color: #f5f5f5;
+                color: #000;
+                border: 1.5px solid #000;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            .chip:hover {
+                background-color: #000;
+                color: #fff;
+            }
+
+            .chip.active {
+                background-color: #000;
+                color: #fff;
+            }
+
+            .category h2 {
+                font-size: 1.5rem;
+                font-weight: 800;
+                margin: 50px 0 20px;
+                padding-left: 0;
+                border-left: none;
+                color: #000;
+                text-transform: uppercase;
+            }
+
+            .faq-item {
+                border-top: 1.5px solid #000;
+                padding: 20px 0;
+                transition: rotate 0.3s ease;
+            }
+
+            .faq-question {
+                font-size: 1.1rem;
+                font-weight: 700;
+                cursor: pointer;
+
+                align-items: center;
+                color: #111;
+                transition: rotate 0.3s ease;
+            }
+
+            .faq-question::before {
+                content: "▶ ";
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            .faq-question.active::before {
+                content: "▼ ";
+                transform: rotate(180deg);
+            }
+
+            .faq-answer {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                font-size: 0.95rem;
+                color: #444;
+                margin-top: 12px;
+            }
+
+            .faq-answer p {
+                margin-top: 12px;
+            }
+
+            .copy-btn,
+            .reply-copy {
+                font-size: 0.85rem;
+                padding: 6px 12px;
+                background: #000;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                margin-top: 8px;
+                transition: background 0.3s ease;
+            }
+
+            .copy-btn:hover,
+            .reply-copy:hover {
+                background: #444;
+            }
+
+            .scroll-top {
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background-color: #000;
+                color: #fff;
+                border: none;
+                padding: 12px 16px;
+                font-size: 1rem;
+                font-weight: 700;
+                opacity: 0.85;
+                cursor: pointer;
+                display: none;
+                border-radius: 0;
+                transition: all 0.3s ease;
+            }
+
+            .scroll-top.visible {
+                display: block;
+            }
+
+            .replies-container h2 {
+                font-size: 1.4rem;
+                font-weight: 800;
+                margin: 50px 0 20px;
+                color: #000;
+                text-transform: uppercase;
+            }
+
+            .reply-group h3 {
+                font-size: 1.1rem;
+                font-weight: 700;
+                padding: 15px;
+                background: #f7f7f7;
+                cursor: pointer;
+                position: relative;
+                margin-bottom: 10px;
+            }
+
+            .reply-group h3::after {
+                content: "+";
+                position: absolute;
+                right: 20px;
+                font-size: 1.3rem;
+            }
+
+            .reply-group h3.active::after {
+                content: "−";
+            }
+
+            .reply-items {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                background: #fafafa;
+                padding: 0 15px;
+            }
+
+            .reply-item {
+                border-top: 1px solid #ccc;
+                padding: 18px 0;
+            }
+
+            .reply-text {
+                font-size: 1rem;
+                color: #333;
+            }
+
+            .highlight {
+                background-color: #ffff00;
+            }
+
+            .error {
+                color: red;
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            @media (max-width: 600px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .faq-question {
+                    font-size: 1rem;
+                }
+
+                .faq-answer,
+                .reply-text {
+                    font-size: 0.9rem;
+                }
+
+                .chip {
+                    font-size: 0.8rem;
+                    padding: 8px 14px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Câu Hỏi Thường Gặp</h1>
+            <div class="search-bar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Tìm kiếm câu hỏi..." />
+            </div>
+            <div class="chips" id="chips-container"></div>
+            <div id="faq-container"></div>
+            <div class="replies-container">
+                <h2>Câu trả lời mẫu</h2>
+                <div class="replies-list" id="replies-list"></div>
+            </div>
+            <div id="error-message" class="error"></div>
+            <button id="scroll-top" class="scroll-top">🔝</button>
+        </div>
+
+        <script>
+            const spreadsheetId =
+                "1ZkmUGU8EzIKNAJ_-_zXTrZ2CyqzsE3GaDDzimwMhIPg";
+            const apiKey = "AIzaSyB_3MXA6ysK_6OGSTKtnfwCfNTB8Ovpod8";
+            const range = "FAQs!A2:C";
+
+            async function fetchSheetData() {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+                const errorMessage = document.getElementById("error-message");
+
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(
+                            `Lỗi ${response.status}: ${errorData.error.message}`
+                        );
+                    }
+                    const data = await response.json();
+                    if (!data.values || data.values.length === 0) {
+                        errorMessage.textContent =
+                            "Không tìm thấy dữ liệu trong phạm vi FAQs!A2:C.";
+                        return;
+                    }
+                    renderFAQ(data.values);
+                    errorMessage.textContent = "";
+                } catch (error) {
+                    errorMessage.textContent = error.message;
+                    console.error("Chi tiết lỗi:", error);
+                }
+            }
+
+            function renderFAQ(values) {
+                const faqContainer = document.getElementById("faq-container");
+                const chipsContainer =
+                    document.getElementById("chips-container");
+                let categories = {};
+
+                values.forEach(([category, question, answer]) => {
+                    if (!categories[category]) categories[category] = [];
+                    categories[category].push({ question, answer });
+                });
+
+                const allChip = document.createElement("div");
+                allChip.className = "chip all active";
+                allChip.textContent = `Tất cả (${values.length})`;
+                allChip.dataset.category = "all";
+                chipsContainer.appendChild(allChip);
+
+                for (const category of Object.keys(categories)) {
+                    const chip = document.createElement("div");
+                    chip.className = `chip ${category
+                        .toLowerCase()
+                        .replace(/\s+/g, "")}`;
+
+                    chip.setAttribute(
+                        "href",
+                        `#${category.toLowerCase().replace(/\s+/g, "")}`
+                    );
+                    chip.textContent = `${category} (${categories[category].length})`;
+                    chip.dataset.category = category
+                        .toLowerCase()
+                        .replace(/\s+/g, "");
+                    chip.dataset.total = categories[category].length; // Lưu tổng số
+                    chipsContainer.appendChild(chip);
+                }
+
+                for (const [category, items] of Object.entries(categories)) {
+                    const categoryDiv = document.createElement("div");
+                    categoryDiv.className = `category ${category
+                        .toLowerCase()
+                        .replace(/\s+/g, "")} active`;
+                    categoryDiv.innerHTML = `<h2 id="${category
+                        .toLowerCase()
+                        .replace(/\s+/g, "")}">${category} (${
+                        items.length
+                    })</h2>`;
+
+                    items.forEach((item) => {
+                        const faqItem = document.createElement("div");
+                        faqItem.className = "faq-item";
+                        faqItem.innerHTML = `
                         <div class="faq-question">${item.question}</div>
                         <div class="faq-answer">
                             <p>${item.answer}</p>
                             <button class="copy-btn">Copy</button>
                         </div>
                     `;
-                    categoryDiv.appendChild(faqItem);
-                });
-
-                faqContainer.appendChild(categoryDiv);
-            }
-
-            document.querySelectorAll('.faq-question').forEach(item => {
-                item.addEventListener('click', () => {
-                    const answer = item.nextElementSibling;
-                    const isActive = item.classList.contains('active');
-                    document.querySelectorAll('.faq-question').forEach(q => {
-                        q.classList.remove('active');
-                        q.nextElementSibling.style.maxHeight = null;
+                        categoryDiv.appendChild(faqItem);
                     });
-                    if (!isActive) {
-                        item.classList.add('active');
-                        answer.style.maxHeight = answer.scrollHeight + 'px';
-                    }
-                });
-            });
 
-            document.querySelectorAll('.copy-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const answerText = btn.previousElementSibling.textContent;
-                    navigator.clipboard.writeText(answerText).then(() => {
-                        btn.textContent = 'Đã copy!';
-                        setTimeout(() => btn.textContent = 'Copy', 2000);
-                    });
-                });
-            });
-
-            const searchInput = document.getElementById('searchInput');
-            searchInput.addEventListener('input', () => {
-                const query = searchInput.value.toLowerCase();
-                let totalMatches = 0;
-
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    const questionEl = item.querySelector('.faq-question');
-                    const answerEl = item.querySelector('.faq-answer p');
-                    const question = questionEl.textContent.toLowerCase();
-                    const answer = answerEl.textContent.toLowerCase();
-                    const isMatch = question.includes(query) || answer.includes(query);
-
-                    item.classList.toggle('hidden', !isMatch);
-                    if (isMatch) totalMatches++;
-
-                    if (query) {
-                        questionEl.innerHTML = questionEl.textContent.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
-                        answerEl.innerHTML = answerEl.textContent.replace(new RegExp(query, 'gi'), match => `<span class="highlight">${match}</span>`);
-                    } else {
-                        questionEl.innerHTML = questionEl.textContent;
-                        answerEl.innerHTML = answerEl.textContent;
-                    }
-                });
-
-                document.querySelectorAll('.category').forEach(category => {
-                    const items = category.querySelectorAll('.faq-item:not(.hidden)');
-                    const categoryName = category.querySelector('h2').textContent.split(' (')[0];
-                    category.classList.toggle('hidden', items.length === 0);
-                    category.querySelector('h2').textContent = `${categoryName} (${items.length})`;
-                });
-
-                document.querySelectorAll('.chip:not(.all)').forEach(chip => {
-                    const categoryClass = chip.dataset.category;
-                    const matchingItems = document.querySelectorAll(`.category.${categoryClass} .faq-item:not(.hidden)`).length;
-                    const categoryName = chip.textContent.split(' (')[0];
-                    chip.textContent = `${categoryName} (${matchingItems})`;
-                });
-
-                const allChip = document.querySelector('.chip.all');
-                allChip.textContent = `Tất cả (${totalMatches})`;
-            });
-
-            document.querySelectorAll('.chip').forEach(chip => {
-                chip.addEventListener('click', () => {
-                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    const selectedCategory = chip.dataset.category;
-                    document.querySelectorAll('.category').forEach(category => {
-                        category.classList.toggle('active', selectedCategory === 'all' || category.classList.contains(selectedCategory));
-                    });
-                });
-            });
-
-            const scrollTopBtn = document.getElementById('scroll-top');
-            window.addEventListener('scroll', () => {
-                scrollTopBtn.classList.toggle('visible', window.scrollY > 200);
-            });
-            scrollTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-async function fetchRepliesData() {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Replies!A1:A?key=${apiKey}`;
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`Lỗi ${response.status}`);
-                const data = await response.json();
-                if (data.values && data.values.length) renderReplies(data.values);
-            } catch (error) {
-                console.error('Lỗi fetch Replies:', error);
-            }
-        }
-
-        function renderReplies(values) {
-            const repliesList = document.getElementById('replies-list');
-            repliesList.innerHTML = '';
-            let currentGroup = null;
-            let replies = [];
-
-            values.forEach(row => {
-                const text = row[0];
-                if (!text) return;
-
-                if (text.trim().startsWith('!')) {
-                    if (currentGroup && replies.length) {
-                        addRepliesGroup(repliesList, currentGroup.slice(1), replies);
-                    }
-                    currentGroup = text;
-                    replies = [];
-                } else if (currentGroup) {
-                    replies.push(text);
+                    faqContainer.appendChild(categoryDiv);
                 }
-            });
 
-            if (currentGroup && replies.length) {
-                addRepliesGroup(repliesList, currentGroup.slice(1), replies);
-            }
+                document.querySelectorAll(".faq-question").forEach((item) => {
+                    item.addEventListener("click", () => {
+                        const answer = item.nextElementSibling;
+                        const isActive = item.classList.contains("active");
+                        document
+                            .querySelectorAll(".faq-question")
+                            .forEach((q) => {
+                                q.classList.remove("active");
+                                q.nextElementSibling.style.maxHeight = null;
+                            });
+                        if (!isActive) {
+                            item.classList.add("active");
+                            answer.style.maxHeight = answer.scrollHeight + "px";
+                        }
+                    });
+                });
 
-            document.querySelectorAll('.reply-group h3').forEach(header => {
-                header.addEventListener('click', () => {
-                    const items = header.nextElementSibling;
-                    const isActive = header.classList.contains('active');
+                document.querySelectorAll(".copy-btn").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const answerText =
+                            btn.previousElementSibling.textContent;
+                        navigator.clipboard.writeText(answerText).then(() => {
+                            btn.textContent = "Đã copy!";
+                            setTimeout(() => (btn.textContent = "Copy"), 2000);
+                        });
+                    });
+                });
 
-                    document.querySelectorAll('.reply-group h3').forEach(h => {
-                        h.classList.remove('active');
-                        h.nextElementSibling.style.maxHeight = null;
+                const searchInput = document.getElementById("searchInput");
+                searchInput.addEventListener("input", () => {
+                    const query = searchInput.value.toLowerCase();
+                    let totalMatches = 0;
+
+                    document.querySelectorAll(".faq-item").forEach((item) => {
+                        const questionEl = item.querySelector(".faq-question");
+                        const answerEl = item.querySelector(".faq-answer p");
+                        const question = questionEl.textContent.toLowerCase();
+                        const answer = answerEl.textContent.toLowerCase();
+                        const isMatch =
+                            question.includes(query) || answer.includes(query);
+
+                        item.classList.toggle("hidden", !isMatch);
+                        if (isMatch) totalMatches++;
+
+                        if (query) {
+                            questionEl.innerHTML =
+                                questionEl.textContent.replace(
+                                    new RegExp(query, "gi"),
+                                    (match) =>
+                                        `<span class="highlight">${match}</span>`
+                                );
+                            answerEl.innerHTML = answerEl.textContent.replace(
+                                new RegExp(query, "gi"),
+                                (match) =>
+                                    `<span class="highlight">${match}</span>`
+                            );
+                        } else {
+                            questionEl.innerHTML = questionEl.textContent;
+                            answerEl.innerHTML = answerEl.textContent;
+                        }
                     });
 
-                    if (!isActive) {
-                        header.classList.add('active');
-                        items.style.maxHeight = items.scrollHeight + 'px';
+                    document
+                        .querySelectorAll(".category")
+                        .forEach((category) => {
+                            const items = category.querySelectorAll(
+                                ".faq-item:not(.hidden)"
+                            );
+                            const categoryName = category
+                                .querySelector("h2")
+                                .textContent.split(" (")[0];
+                            category.classList.toggle(
+                                "hidden",
+                                items.length === 0
+                            );
+                            category.querySelector(
+                                "h2"
+                            ).textContent = `${categoryName} (${items.length})`;
+                        });
+
+                    document
+                        .querySelectorAll(".chip:not(.all)")
+                        .forEach((chip) => {
+                            const categoryClass = chip.dataset.category;
+                            const matchingItems = document.querySelectorAll(
+                                `.category.${categoryClass} .faq-item:not(.hidden)`
+                            ).length;
+                            const categoryName =
+                                chip.textContent.split(" (")[0];
+                            chip.textContent = `${categoryName} (${matchingItems})`;
+                        });
+
+                    const allChip = document.querySelector(".chip.all");
+                    allChip.textContent = `Tất cả (${totalMatches})`;
+                });
+
+                document.querySelectorAll(".chip").forEach((chip) => {
+                    chip.addEventListener("click", () => {
+                        document
+                            .querySelectorAll(".chip")
+                            .forEach((c) => c.classList.remove("active"));
+                        chip.classList.add("active");
+                        const selectedCategory = chip.dataset.category;
+                        document
+                            .querySelectorAll(".category")
+                            .forEach((category) => {
+                                category.classList.toggle(
+                                    "active",
+                                    selectedCategory === "all" ||
+                                        category.classList.contains(
+                                            selectedCategory
+                                        )
+                                );
+                            });
+                    });
+                });
+
+                const scrollTopBtn = document.getElementById("scroll-top");
+                window.addEventListener("scroll", () => {
+                    scrollTopBtn.classList.toggle(
+                        "visible",
+                        window.scrollY > 200
+                    );
+                });
+                scrollTopBtn.addEventListener("click", () => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            }
+            async function fetchRepliesData() {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Replies!A1:A?key=${apiKey}`;
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Lỗi ${response.status}`);
+                    const data = await response.json();
+                    if (data.values && data.values.length)
+                        renderReplies(data.values);
+                } catch (error) {
+                    console.error("Lỗi fetch Replies:", error);
+                }
+            }
+
+            function renderReplies(values) {
+                const repliesList = document.getElementById("replies-list");
+                repliesList.innerHTML = "";
+                let currentGroup = null;
+                let replies = [];
+
+                values.forEach((row) => {
+                    const text = row[0];
+                    if (!text) return;
+
+                    if (text.trim().startsWith("!")) {
+                        if (currentGroup && replies.length) {
+                            addRepliesGroup(
+                                repliesList,
+                                currentGroup.slice(1),
+                                replies
+                            );
+                        }
+                        currentGroup = text;
+                        replies = [];
+                    } else if (currentGroup) {
+                        replies.push(text);
                     }
                 });
-            });
-        }
 
-        function addRepliesGroup(container, title, replies) {
-            const group = document.createElement('div');
-            group.className = 'reply-group active';
-            group.innerHTML = `<h3>${title}</h3><div class="reply-items"></div>`;
+                if (currentGroup && replies.length) {
+                    addRepliesGroup(
+                        repliesList,
+                        currentGroup.slice(1),
+                        replies
+                    );
+                }
 
-            const itemsContainer = group.querySelector('.reply-items');
-            replies.forEach(reply => {
-                const item = document.createElement('div');
-                item.className = 'reply-item';
-                item.innerHTML = `
+                document
+                    .querySelectorAll(".reply-group h3")
+                    .forEach((header) => {
+                        header.addEventListener("click", () => {
+                            const items = header.nextElementSibling;
+                            const isActive =
+                                header.classList.contains("active");
+
+                            document
+                                .querySelectorAll(".reply-group h3")
+                                .forEach((h) => {
+                                    h.classList.remove("active");
+                                    h.nextElementSibling.style.maxHeight = null;
+                                });
+
+                            if (!isActive) {
+                                header.classList.add("active");
+                                items.style.maxHeight =
+                                    items.scrollHeight + "px";
+                            }
+                        });
+                    });
+            }
+
+            function addRepliesGroup(container, title, replies) {
+                const group = document.createElement("div");
+                group.className = "reply-group active";
+                group.innerHTML = `<h3>${title}</h3><div class="reply-items"></div>`;
+
+                const itemsContainer = group.querySelector(".reply-items");
+                replies.forEach((reply) => {
+                    const item = document.createElement("div");
+                    item.className = "reply-item";
+                    item.innerHTML = `
                     <span class="reply-text">${reply}</span>
                     <button class="reply-copy">Copy</button>
                 `;
-                itemsContainer.appendChild(item);
-            });
+                    itemsContainer.appendChild(item);
+                });
 
-            container.appendChild(group);
+                container.appendChild(group);
 
-            group.querySelectorAll('.reply-copy').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const text = btn.previousElementSibling.textContent;
-                    navigator.clipboard.writeText(text).then(() => {
-                        btn.textContent = 'Đã copy!';
-                        setTimeout(() => btn.textContent = 'Copy', 2000);
+                group.querySelectorAll(".reply-copy").forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        const text = btn.previousElementSibling.textContent;
+                        navigator.clipboard.writeText(text).then(() => {
+                            btn.textContent = "Đã copy!";
+                            setTimeout(() => (btn.textContent = "Copy"), 2000);
+                        });
                     });
                 });
+            }
+            document.addEventListener("DOMContentLoaded", () => {
+                fetchSheetData();
+                fetchRepliesData();
             });
-        }
-        document.addEventListener('DOMContentLoaded', ()=>{ fetchSheetData();
-        fetchRepliesData();
-        fetch
-        
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>
