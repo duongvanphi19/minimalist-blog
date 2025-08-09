@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
     <script
         async
@@ -243,6 +243,49 @@
                 flex-wrap: wrap;
                 margin-top: 8px;
             }
+                    /* CSS cho lịch sử đơn hàng */
+        #history-list li {
+            position: relative; /* Quan trọng: để định vị hình hoa */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: background-color 0.3s ease;
+            overflow: hidden; /* Giúp các phần tử bên trong không tràn ra ngoài */
+        }
+        /* Áp dụng màu nền từ các theme */
+        #history-list li.theme-1 { background: var(--page-bg); }
+        #history-list li.theme-2 { background: var(--page-bg); }
+        #history-list li.theme-3 { background: var(--page-bg); }
+        #history-list li.theme-4 { background: var(--page-bg); }
+        #history-list li.theme-5 { background: var(--page-bg); }
+        #history-list li.theme-6 { background: var(--page-bg); }
+        #history-list li.theme-7 { background: var(--page-bg); }
+        #history-list li.theme-8 { background: var(--page-bg); }
+
+        /* CSS cho hình hoa nhỏ ở góc */
+        #history-list .flower-thumbnail {
+            position: absolute;
+            top: -2px; /* Điều chỉnh vị trí */
+            left: -2px; /* Điều chỉnh vị trí */
+            width: 50px;
+            height: 50px;
+            opacity: 0.8;
+            object-fit: contain;
+            border-radius: 8px 0 0 0;
+            z-index: 1; /* Đảm bảo hình hoa nằm dưới nội dung chính */
+        }
+
+        /* Đảm bảo nội dung chính nằm trên hình hoa */
+        #history-list .invoice-details,
+        #history-list .invoice-actions {
+            position: relative;
+            z-index: 2;
+        }
+
 
             /* product list */
             .product-item {
@@ -450,6 +493,7 @@
                 justify-content: space-between;
                 align-items: center;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                
             }
             #history-list .invoice-details {
                 text-align: left;
@@ -794,7 +838,7 @@
                                             height: 24px;
                                             background: linear-gradient(
                                                 #fff,
-                                                 #7eb8f3
+                                                #7eb8f3
                                             );
                                             border-radius: 6px;
                                         "></div>
@@ -836,7 +880,13 @@
                                 type="button">
                                 Reset
                             </button>
-                            <button id="saveToHistoryBtn" class="btn" type="button" style="background-color: #28a745;">Lưu vào Lịch sử</button>
+                            <button
+                                id="saveToHistoryBtn"
+                                class="btn"
+                                type="button"
+                                style="background-color: #28a745">
+                                Lưu vào Lịch sử
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -966,17 +1016,30 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="panel" id="history-container" style="max-width: 600px; margin: 24px auto;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                  
+
+            <div
+                class="panel"
+                id="history-container"
+                style="max-width: 600px; margin: 24px auto">
+                <div
+                    style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+                    ">
                     <div>
-                            <strong class="small">Lịch sử các đơn đã tạo</strong>
-                        </div>
-                    <button id="clearHistoryBtn" class="btn warn" type="button" style="padding: 5px 10px;">Xóa Lịch sử</button>
+                        <strong class="small">Lịch sử các đơn đã tạo</strong>
+                    </div>
+                    <button
+                        id="clearHistoryBtn"
+                        class="btn warn"
+                        type="button"
+                        style="padding: 5px 10px">
+                        Xóa Lịch sử
+                    </button>
                 </div>
-                <ul id="history-list">
-                    </ul>
+                <ul id="history-list"></ul>
             </div>
 
             <footer
@@ -993,7 +1056,7 @@
                     >
                 </div>
                 <div>Được tạo bởi duongvanphi19</div>
-                <div style="margin:0 4px">
+                <div style="margin: 0 4px">
                     Nếu bạn thấy hữu ích, hãy ủng hộ một ly cafe nhé!
                     <a
                         href="https://www.buymeacoffee.com/phi19"
@@ -1044,21 +1107,32 @@
                         })[m]
                 );
             }
-            
+
             /* ======== History Functions ======== */
             function getFormData() {
                 const formState = {};
                 const ids = [
-                    "shopName", "customerName", "customerPhone", "customerAddress",
-                    "orderDate", "expectedDate", "orderId", "paymentMethod",
-                    "shippingFee", "shortNote", "note", "thankYouText"
+                    "shopName",
+                    "customerName",
+                    "customerPhone",
+                    "customerAddress",
+                    "orderDate",
+                    "expectedDate",
+                    "orderId",
+                    "paymentMethod",
+                    "shippingFee",
+                    "shortNote",
+                    "note",
+                    "thankYouText"
                 ];
-                ids.forEach(id => {
+                ids.forEach((id) => {
                     const el = $(id);
                     if (el) formState[id] = el.value;
                 });
                 formState.products = getProducts();
-                formState.images = JSON.parse(localStorage.getItem(LS_IMAGES) || "{}");
+                formState.images = JSON.parse(
+                    localStorage.getItem(LS_IMAGES) || "{}"
+                );
                 formState.theme = localStorage.getItem(LS_THEME) || "theme-1";
                 return formState;
             }
@@ -1066,28 +1140,41 @@
             function loadFormData(data) {
                 if (!data) return;
                 const ids = [
-                    "shopName", "customerName", "customerPhone", "customerAddress",
-                    "orderDate", "expectedDate", "orderId", "paymentMethod",
-                    "shippingFee", "shortNote", "note", "thankYouText"
+                    "shopName",
+                    "customerName",
+                    "customerPhone",
+                    "customerAddress",
+                    "orderDate",
+                    "expectedDate",
+                    "orderId",
+                    "paymentMethod",
+                    "shippingFee",
+                    "shortNote",
+                    "note",
+                    "thankYouText"
                 ];
-                ids.forEach(id => {
+                ids.forEach((id) => {
                     if ($(id) && data[id] !== undefined) $(id).value = data[id];
                 });
 
                 if (data.products) {
                     $("productList").innerHTML = "";
-                    data.products.forEach(p => addProduct(p));
+                    data.products.forEach((p) => addProduct(p));
                 }
-                
+
                 if (data.images) {
-                    localStorage.setItem(LS_IMAGES, JSON.stringify(data.images));
+                    localStorage.setItem(
+                        LS_IMAGES,
+                        JSON.stringify(data.images)
+                    );
                     loadImages();
                 }
 
                 if (data.theme) {
                     setTheme(data.theme);
                     document.querySelectorAll(".theme-btn").forEach((b) => {
-                        if (b.dataset.theme === data.theme) b.classList.add("selected");
+                        if (b.dataset.theme === data.theme)
+                            b.classList.add("selected");
                         else b.classList.remove("selected");
                     });
                 }
@@ -1098,15 +1185,19 @@
                 const invoiceData = getFormData();
                 invoiceData.timestamp = Date.now();
 
-                let history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
+                let history = JSON.parse(
+                    localStorage.getItem(LS_HISTORY) || "[]"
+                );
                 history.unshift(invoiceData);
                 localStorage.setItem(LS_HISTORY, JSON.stringify(history));
-                
+
                 renderHistory();
                 alert("Đã lưu hóa đơn vào lịch sử.");
             }
 
             // Hàm hiển thị danh sách hóa đơn đã lưu
+            // Hàm hiển thị danh sách hóa đơn đã lưu
+// Hàm hiển thị danh sách hóa đơn đã lưu
 function renderHistory() {
     const history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
     const historyList = $("history-list");
@@ -1119,10 +1210,13 @@ function renderHistory() {
     
     history.forEach(inv => {
         const li = document.createElement('li');
+        li.classList.add(inv.theme || 'theme-1'); // Thêm class theme vào item
         li.innerHTML = `
+            <img class="flower-thumbnail" src="${escapeHtml(inv.images.flowerImg)}" alt="Decor" style="display: ${inv.images.flowerImg ? 'block' : 'none'};">
+            
             <div class="invoice-details">
-                <span class="history-shop-name">${escapeHtml(inv.customerName || 'Đơn hàng')} - ${escapeHtml(inv.customerPhone || '')}</span>
-                <span class="small history-date">${new Date(inv.timestamp).toLocaleString('vi-VN')}</span>
+                <span class="history-shop-name">${escapeHtml(inv.customerName || 'Đơn hàng')} - ${escapeHtml(inv.customerPhone || 'Không có SĐT')}</span>
+                <span class="history-date">${new Date(inv.timestamp).toLocaleString('vi-VN')}</span>
             </div>
             <div class="invoice-actions">
                 <button class="load-btn" data-id="${inv.timestamp}">Tải lại</button>
@@ -1133,9 +1227,15 @@ function renderHistory() {
     });
 }
 
+
+
             function loadInvoiceFromHistory(id) {
-                const history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
-                const invoiceToLoad = history.find(inv => inv.timestamp == id);
+                const history = JSON.parse(
+                    localStorage.getItem(LS_HISTORY) || "[]"
+                );
+                const invoiceToLoad = history.find(
+                    (inv) => inv.timestamp == id
+                );
                 if (invoiceToLoad) {
                     loadFormData(invoiceToLoad);
                     alert(`Đã tải lại hóa đơn "${invoiceToLoad.shopName}".`);
@@ -1143,21 +1243,26 @@ function renderHistory() {
             }
 
             function deleteInvoiceFromHistory(id) {
-                let history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
-                history = history.filter(inv => inv.timestamp != id);
+                let history = JSON.parse(
+                    localStorage.getItem(LS_HISTORY) || "[]"
+                );
+                history = history.filter((inv) => inv.timestamp != id);
                 localStorage.setItem(LS_HISTORY, JSON.stringify(history));
                 renderHistory();
-                alert('Đã xóa hóa đơn khỏi lịch sử.');
+                alert("Đã xóa hóa đơn khỏi lịch sử.");
             }
 
             function clearHistory() {
-                if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử hóa đơn?')) {
+                if (
+                    confirm(
+                        "Bạn có chắc chắn muốn xóa toàn bộ lịch sử hóa đơn?"
+                    )
+                ) {
                     localStorage.removeItem(LS_HISTORY);
                     renderHistory();
-                    alert('Đã xóa toàn bộ lịch sử.');
+                    alert("Đã xóa toàn bộ lịch sử.");
                 }
             }
-
 
             /* ======== Products ======== */
             function createProductElement(p = {}) {
@@ -1494,15 +1599,18 @@ function renderHistory() {
                 });
 
                 // Lịch sử đơn hàng
-                $("saveToHistoryBtn").addEventListener('click', saveInvoiceToHistory);
-                $("clearHistoryBtn").addEventListener('click', clearHistory);
-                $("history-list").addEventListener('click', (event) => {
+                $("saveToHistoryBtn").addEventListener(
+                    "click",
+                    saveInvoiceToHistory
+                );
+                $("clearHistoryBtn").addEventListener("click", clearHistory);
+                $("history-list").addEventListener("click", (event) => {
                     const target = event.target;
-                    const id = target.getAttribute('data-id');
-                    if (target.classList.contains('load-btn')) {
+                    const id = target.getAttribute("data-id");
+                    if (target.classList.contains("load-btn")) {
                         loadInvoiceFromHistory(id);
-                    } else if (target.classList.contains('delete-btn')) {
-                        if (confirm('Bạn có muốn xóa hóa đơn này không?')) {
+                    } else if (target.classList.contains("delete-btn")) {
+                        if (confirm("Bạn có muốn xóa hóa đơn này không?")) {
                             deleteInvoiceFromHistory(id);
                         }
                     }
@@ -1547,70 +1655,75 @@ function renderHistory() {
                         });
                     });
 
-                // download (safe)
-                $("downloadBtn").addEventListener("click", async () => {
-                    const btn = $("downloadBtn");
-                    btn.disabled = true;
-                    btn.textContent = "Đang tạo ảnh...";
-                    try {
-                        // wait images inside card to load (logo/flower/qr)
-                        const imgs = Array.from(
-                            document.querySelectorAll("#card img")
-                        );
-                        await Promise.all(
-                            imgs.map(
-                                (img) =>
-                                    new Promise((resolve) => {
-                                        if (!img.src) return resolve();
-                                        if (img.complete) return resolve();
-                                        img.onload = () => resolve();
-                                        img.onerror = () => resolve();
-                                    })
-                            )
-                        );
+// download (safe)
+$("downloadBtn").addEventListener("click", async () => {
+    const btn = $("downloadBtn");
+    btn.disabled = true;
+    btn.textContent = "Đang tạo ảnh...";
+    try {
+        // wait images inside card to load (logo/flower/qr)
+        const imgs = Array.from(
+            document.querySelectorAll("#card img")
+        );
+        await Promise.all(
+            imgs.map(
+                (img) =>
+                    new Promise((resolve) => {
+                        if (!img.src) return resolve();
+                        if (img.complete) return resolve();
+                        img.onload = () => resolve();
+                        img.onerror = () => resolve();
+                    })
+            )
+        );
 
-                        // compute safe scale: don't exceed 3 to avoid memory spikes
-                        const card = $("card");
-                        const origWidth = card.clientWidth || 360;
-                        const targetWidth = 1080;
-                        let scale = Math.min(
-                            3,
-                            Math.max(1.5, targetWidth / origWidth)
-                        );
-                        // render with html2canvas
-                        const canvas = await html2canvas(card, {
-                            useCORS: true,
-                            scale: scale,
-                            backgroundColor: null
-                        });
-                        // export via blob to avoid huge dataURL memory peak
-                        canvas.toBlob(
-                            (blob) => {
-                                const url = URL.createObjectURL(blob);
-                                const a = document.createElement("a");
-                                a.href = url;
-                                a.download = `invoice_${
-                                    $("orderId").value || "order"
-                                }.png`;
-                                document.body.appendChild(a);
-                                a.click();
-                                a.remove();
-                                setTimeout(
-                                    () => URL.revokeObjectURL(url),
-                                    10000
-                                );
-                            },
-                            "image/png",
-                            0.95
-                        );
-                    } catch (err) {
-                        console.error(err);
-                        alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
-                    } finally {
-                        btn.disabled = false;
-                        btn.textContent = "📥 Tải hóa đơn (PNG)";
-                    }
-                });
+        // compute safe scale: don't exceed 3 to avoid memory spikes
+        const card = $("card");
+        const origWidth = card.clientWidth || 360;
+        const targetWidth = 1080;
+        let scale = Math.min(
+            3,
+            Math.max(1.5, targetWidth / origWidth)
+        );
+        // render with html2canvas
+        const canvas = await html2canvas(card, {
+            useCORS: true,
+            scale: scale,
+            backgroundColor: null
+        });
+        // export via blob to avoid huge dataURL memory peak
+        canvas.toBlob(
+            (blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `invoice_${
+                    $("orderId").value || "order"
+                }.png`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(
+                    () => URL.revokeObjectURL(url),
+                    10000
+                );
+            },
+            "image/png",
+            0.95
+        );
+        
+        // Gọi hàm để lưu hóa đơn vào lịch sử sau khi tải xong
+        saveInvoiceToHistory();
+
+    } catch (err) {
+        console.error(err);
+        alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "📥 Tải hóa đơn (PNG)";
+    }
+});
+
             }); // end DOMContentLoaded
         </script>
     </body>
