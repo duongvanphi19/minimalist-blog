@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Hóa Đơn Online Nhanh Chóng & Chuyên Nghiệp | (Tên trang của bạn)</title>
+    <meta name="description" content="Công cụ tạo hóa đơn bán hàng online miễn phí, nhanh chóng. Hỗ trợ lưu trữ cục bộ trên trình duyệt, tải về file PNG chất lượng cao, tối ưu cho cửa hàng nhỏ và cá nhân.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lato:wght@400;700&family=Playfair+Display:wght@700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --text: #333;
+            --accent: #007bff;
+            --muted: #666;
+            --card-bg: #fff;
+        }
+
+        /* CSS chung cho toàn bộ trang */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .content-section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+            text-align: center;
+        }
+        .content-section h2 {
+            font-size: 24px;
+            color: var(--text);
+            margin-top: 30px;
+        }
+        .content-section p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Animation cho tiêu đề */
+        @keyframes drawUnderline {
+            to {
+                transform: scaleX(1);
+            }
+        }
+        header h1 {
+            position: relative;
+            display: inline-block;
+            color: var(--text);
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            margin: 0;
+            line-height: 1.2;
+        }
+        header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: bottom left;
+            animation: drawUnderline 1.5s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+            animation-delay: 0.5s;
+        }
+
+        /* CSS cho hóa đơn */
+        .invoice-card {
+            width: 360px;
+            background: var(--card-bg);
+            border-radius: 14px;
+            padding: 16px;
+            position: relative;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            font-family: 'Lato', sans-serif; /* Font mặc định */
+        }
+        /* CSS cho các font tùy chọn */
+        .font-dancing-script .shop-name { font-family: 'Dancing Script', cursive; }
+        .font-playfair-display .shop-name { font-family: 'Playfair Display', serif; }
+        .font-roboto-mono { font-family: 'Roboto Mono', monospace; }
+        .font-lato { font-family: 'Lato', sans-serif; }
+
+        .shop-name {
+            text-align: center;
+            font-family: 'Dancing Script', cursive; /* Font mặc định cho tên shop */
+            font-size: 28px;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .title {
+            text-align: center;
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .meta, .products, .total, .note, .footer {
+            font-family: 'Lato', sans-serif;
+        }
+        .prod-row {
+            font-size: 14px;
+            padding: 6px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+        }
+
+        /* CSS cho phần tùy chọn font */
+        .font-selector-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .font-selector-container label {
+            margin-right: 10px;
+            color: var(--text);
+            font-weight: bold;
+        }
+        .font-selector-container select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tạo Hóa Đơn Đẹp & Chuyên Nghiệp</h1>
+    </header>
+
+    <main class="content-section">
+        <h2>Công cụ tạo hóa đơn online miễn phí</h2>
+        <p>
+            Chào mừng bạn đến với công cụ tạo hóa đơn online nhanh chóng và chuyên nghiệp. Với giao diện trực quan và dễ sử dụng, bạn có thể tạo các mẫu hóa đơn bán hàng, hóa đơn dịch vụ chỉ trong vài phút. Hóa đơn được lưu trữ ngay trên trình duyệt của bạn và có thể tải về dưới dạng hình ảnh chất lượng cao để in ấn hoặc gửi cho khách hàng. Công cụ này hoàn toàn miễn phí và lý tưởng cho các cửa hàng nhỏ, freelancer và cá nhân.
+        </p>
+
+        <div class="font-selector-container">
+            <label for="font-select">Chọn font chữ:</label>
+            <select id="font-select">
+                <option value="lato" selected>Lato (Mặc định)</option>
+                <option value="playfair-display">Playfair Display (Serif)</option>
+                <option value="roboto-mono">Roboto Mono (Monospace)</option>
+                <option value="dancing-script">Dancing Script (Viết tay)</option>
+            </select>
+        </div>
+
+        <div id="invoice-preview" class="invoice-card font-lato">
+            <div class="shop-name">Cửa Hàng ABC</div>
+            <div class="title">HÓA ĐƠN BÁN HÀNG</div>
+            </div>
+
+    </main>
+    
+    <footer style="text-align: center; font-size: 12px; color: var(--muted); margin-top: 6px;">
+        <div>
+            Được tạo bởi [TÊN CỦA BẠN]
+        </div>
+        <div style="margin-top: 4px;">
+            Nếu bạn thấy hữu ích, hãy ủng hộ một ly cafe nhé!
+            <a href="https://www.buymeacoffee.com/your-username" target="_blank" style="text-decoration: none; display: inline-block; margin-left: 8px;">
+                <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=your-username&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff" alt="Buy Me A Coffee">
+            </a>
+        </div>
+        <div style="margin-top: 4px;">
+            <span style="font-style: italic;">Lưu cục bộ trên trình duyệt — Không upload server</span>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fontSelect = document.getElementById('font-select');
+            const invoiceCard = document.getElementById('invoice-preview');
+
+            fontSelect.addEventListener('change', function(event) {
+                const selectedFont = event.target.value;
+                
+                // Xóa tất cả các class font cũ
+                invoiceCard.classList.remove('font-lato', 'font-playfair-display', 'font-roboto-mono', 'font-dancing-script');
+
+                // Thêm class font mới
+                invoiceCard.classList.add(`font-${selectedFont}`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
     <script
         async
@@ -425,6 +425,59 @@
                     width: 420px;
                 }
             }
+
+            /* CSS mới cho Lịch sử đơn hàng */
+            #history-container {
+                margin-top: 24px;
+            }
+            #history-container .h3 {
+                font-size: 20px;
+                color: var(--text);
+                border-bottom: 2px solid var(--accent);
+                padding-bottom: 5px;
+                margin-bottom: 16px;
+            }
+            #history-list {
+                list-style: none;
+                padding: 0;
+            }
+            #history-list li {
+                background: var(--card-bg);
+                border-radius: 8px;
+                padding: 12px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+            #history-list .invoice-details {
+                text-align: left;
+            }
+            #history-list .invoice-details .history-shop-name {
+                font-weight: 600;
+                font-size: 14px;
+            }
+            #history-list .invoice-details .history-date {
+                font-size: 12px;
+                color: var(--muted);
+            }
+            #history-list .invoice-actions button {
+                margin-left: 8px;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 12px;
+            }
+            #history-list .invoice-actions .load-btn {
+                background: var(--accent);
+                color: white;
+            }
+            #history-list .invoice-actions .delete-btn {
+                background: #dc3545;
+                color: white;
+            }
         </style>
     </head>
     <body class="theme-1">
@@ -783,6 +836,7 @@
                                 type="button">
                                 Reset
                             </button>
+                            <button id="saveToHistoryBtn" class="btn" type="button" style="background-color: #28a745;">Lưu vào Lịch sử</button>
                         </div>
                     </div>
                 </div>
@@ -912,6 +966,18 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="panel" id="history-container" style="max-width: 600px; margin: 24px auto;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  
+                    <div>
+                            <strong class="small">Lịch sử các đơn đã tạo</strong>
+                        </div>
+                    <button id="clearHistoryBtn" class="btn warn" type="button" style="padding: 5px 10px;">Xóa Lịch sử</button>
+                </div>
+                <ul id="history-list">
+                    </ul>
+            </div>
 
             <footer
                 style="
@@ -952,6 +1018,7 @@
             const LS_PRODUCTS = "invoice_v3_products";
             const LS_IMAGES = "invoice_v3_images";
             const LS_THEME = "invoice_v3_theme";
+            const LS_HISTORY = "invoice_v3_history"; // Khóa mới cho lịch sử
 
             function toCurrency(n) {
                 return (Number(n) || 0).toLocaleString("vi-VN");
@@ -977,6 +1044,120 @@
                         })[m]
                 );
             }
+            
+            /* ======== History Functions ======== */
+            function getFormData() {
+                const formState = {};
+                const ids = [
+                    "shopName", "customerName", "customerPhone", "customerAddress",
+                    "orderDate", "expectedDate", "orderId", "paymentMethod",
+                    "shippingFee", "shortNote", "note", "thankYouText"
+                ];
+                ids.forEach(id => {
+                    const el = $(id);
+                    if (el) formState[id] = el.value;
+                });
+                formState.products = getProducts();
+                formState.images = JSON.parse(localStorage.getItem(LS_IMAGES) || "{}");
+                formState.theme = localStorage.getItem(LS_THEME) || "theme-1";
+                return formState;
+            }
+
+            function loadFormData(data) {
+                if (!data) return;
+                const ids = [
+                    "shopName", "customerName", "customerPhone", "customerAddress",
+                    "orderDate", "expectedDate", "orderId", "paymentMethod",
+                    "shippingFee", "shortNote", "note", "thankYouText"
+                ];
+                ids.forEach(id => {
+                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
+                });
+
+                if (data.products) {
+                    $("productList").innerHTML = "";
+                    data.products.forEach(p => addProduct(p));
+                }
+                
+                if (data.images) {
+                    localStorage.setItem(LS_IMAGES, JSON.stringify(data.images));
+                    loadImages();
+                }
+
+                if (data.theme) {
+                    setTheme(data.theme);
+                    document.querySelectorAll(".theme-btn").forEach((b) => {
+                        if (b.dataset.theme === data.theme) b.classList.add("selected");
+                        else b.classList.remove("selected");
+                    });
+                }
+                updateInvoice();
+            }
+
+            function saveInvoiceToHistory() {
+                const invoiceData = getFormData();
+                invoiceData.timestamp = Date.now();
+
+                let history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
+                history.unshift(invoiceData);
+                localStorage.setItem(LS_HISTORY, JSON.stringify(history));
+                
+                renderHistory();
+                alert("Đã lưu hóa đơn vào lịch sử.");
+            }
+
+            // Hàm hiển thị danh sách hóa đơn đã lưu
+function renderHistory() {
+    const history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
+    const historyList = $("history-list");
+    historyList.innerHTML = '';
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<li>Chưa có hóa đơn nào được lưu.</li>';
+        return;
+    }
+    
+    history.forEach(inv => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="invoice-details">
+                <span class="history-shop-name">${escapeHtml(inv.customerName || 'Đơn hàng')} - ${escapeHtml(inv.customerPhone || '')}</span>
+                <span class="small history-date">${new Date(inv.timestamp).toLocaleString('vi-VN')}</span>
+            </div>
+            <div class="invoice-actions">
+                <button class="load-btn" data-id="${inv.timestamp}">Tải lại</button>
+                <button class="delete-btn" data-id="${inv.timestamp}">Xóa</button>
+            </div>
+        `;
+        historyList.appendChild(li);
+    });
+}
+
+            function loadInvoiceFromHistory(id) {
+                const history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
+                const invoiceToLoad = history.find(inv => inv.timestamp == id);
+                if (invoiceToLoad) {
+                    loadFormData(invoiceToLoad);
+                    alert(`Đã tải lại hóa đơn "${invoiceToLoad.shopName}".`);
+                }
+            }
+
+            function deleteInvoiceFromHistory(id) {
+                let history = JSON.parse(localStorage.getItem(LS_HISTORY) || "[]");
+                history = history.filter(inv => inv.timestamp != id);
+                localStorage.setItem(LS_HISTORY, JSON.stringify(history));
+                renderHistory();
+                alert('Đã xóa hóa đơn khỏi lịch sử.');
+            }
+
+            function clearHistory() {
+                if (confirm('Bạn có chắc chắn muốn xóa toàn bộ lịch sử hóa đơn?')) {
+                    localStorage.removeItem(LS_HISTORY);
+                    renderHistory();
+                    alert('Đã xóa toàn bộ lịch sử.');
+                }
+            }
+
 
             /* ======== Products ======== */
             function createProductElement(p = {}) {
@@ -1268,6 +1449,7 @@
                 loadProducts();
                 loadImages();
                 loadTheme();
+                renderHistory(); // Tải lịch sử khi trang được load
                 updateInvoice();
 
                 // input live update
@@ -1308,6 +1490,21 @@
                     if (confirm("Reset toàn bộ dữ liệu?")) {
                         localStorage.clear();
                         location.reload();
+                    }
+                });
+
+                // Lịch sử đơn hàng
+                $("saveToHistoryBtn").addEventListener('click', saveInvoiceToHistory);
+                $("clearHistoryBtn").addEventListener('click', clearHistory);
+                $("history-list").addEventListener('click', (event) => {
+                    const target = event.target;
+                    const id = target.getAttribute('data-id');
+                    if (target.classList.contains('load-btn')) {
+                        loadInvoiceFromHistory(id);
+                    } else if (target.classList.contains('delete-btn')) {
+                        if (confirm('Bạn có muốn xóa hóa đơn này không?')) {
+                            deleteInvoiceFromHistory(id);
+                        }
                     }
                 });
 
