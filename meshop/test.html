@@ -1,5 +1,17 @@
 <!doctype html>
 <html lang="vi">
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-BCJ7KX3WXT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "G-BCJ7KX3WXT");
+    </script>
+
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -50,6 +62,36 @@
                 --text: #3d2b2b;
                 --accent: #ffb3c6;
             }
+            .theme-5 {
+                --card-bg: #fff;
+                --page-bg: #fff8e1; /* vàng pastel nhẹ */
+                --text: #5d4037; /* nâu nhạt, dễ đọc */
+                --accent: #ffc107; /* vàng tươi nổi bật */
+            }
+            /* Theme 6: Vàng pastel sang trọng */
+            /* Theme 6: Xanh đen sang trọng */
+            .theme-6 {
+                --card-bg: #fff;
+                --page-bg: #e3f2fd; /* xanh nhạt nền */
+                --text: #0d1b2a; /* xanh đen */
+                --accent: #7eb8f3; /* xanh dương đậm */
+            }
+
+            /* Theme 7: Tím lavender nhẹ nhàng */
+            .theme-7 {
+                --card-bg: #fff;
+                --page-bg: #f3e5f5; /* tím pastel */
+                --text: rgb(15, 1, 24); /* tím đậm */
+                --accent: #ba68c8; /* tím lavender nổi */
+            }
+
+            /* Theme 8: Cam đào ấm áp */
+            .theme-8 {
+                --card-bg: #fff;
+                --page-bg: #fff3e0; /* cam đào pastel */
+                --text: #4e342e; /* nâu đậm */
+                --accent: #da6d51; /* cam pastel */
+            }
 
             * {
                 box-sizing: border-box;
@@ -87,6 +129,34 @@
                 margin: 0;
 
                 font-size: 13px;
+            }
+
+            /* Thêm đoạn CSS này vào file của bạn */
+            @keyframes drawUnderline {
+                to {
+                    transform: scaleX(1);
+                }
+            }
+
+            header h1 {
+                position: relative; /* Quan trọng: để gạch chân có thể định vị */
+                display: inline-block; /* Giúp gạch chân chỉ rộng bằng chữ */
+                color: var(--text);
+            }
+
+            header h1::after {
+                content: "";
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: var(--accent);
+                transform: scaleX(0); /* Ban đầu không thấy gạch chân */
+                transform-origin: bottom left;
+                animation: drawUnderline 1.5s cubic-bezier(0.2, 1, 0.3, 1)
+                    forwards; /* Áp dụng animation */
+                animation-delay: 0.5s; /* Độ trễ 0.5 giây sau khi trang tải */
             }
 
             /* MOBILE-FIRST layout */
@@ -233,22 +303,6 @@
                 display: flex;
                 justify-content: center;
             }
-            .history-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-}
-.history-list-item:last-child {
-    border-bottom: none;
-}
-.history-list-item button {
-    padding: 4px 8px;
-    font-size: 11px;
-    border-radius: 6px;
-}
-
             .card {
                 width: 360px;
                 background: var(--card-bg);
@@ -260,7 +314,7 @@
             }
             .corner {
                 position: absolute;
-                opacity: 0.22;
+                opacity: 0.3;
                 z-index: 0;
                 width: 150px;
             }
@@ -349,6 +403,7 @@
                 color: var(--muted);
                 margin-top: 8px;
                 font-family: "Dancing Script", cursive;
+                font-family: "Great Vibes", cursive;
             }
 
             /* Desktop */
@@ -375,7 +430,7 @@
     <body class="theme-1">
         <div class="wrap">
             <header>
-                <h1>Tạo Hóa Đơn Đẹp & Chuyên Nghiệp chỉ trong 30 giây</h1>
+                <h1>Tạo Hóa Đơn Đẹp & Chuyên Nghiệp chỉ trong 30 GIÂY!</h1>
                 <p class="small" style="text-align: center">
                     Tùy chỉnh, xem trước trực tiếp, lưu lại và xuất ảnh PNG an
                     toàn ngay trên điện thoại
@@ -411,189 +466,463 @@
             </header>
 
             <div class="main">
-    <div class="left panel">
-        <div id="invoiceForm" style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="text-align: center">
-                <strong class="small">Tạo hóa đơn mới</strong>
-                <p class="small">
-                    Điền thông tin vào form bên dưới để tạo hóa đơn của bạn.
-                </p>
-            </div>
-            <div>
-                <label class="small">Tên shop</label>
-                <input id="shopName" placeholder="Diễm Thúy Shop" />
-                <label class="small">Logo (upload)</label>
-                <input id="shopLogo" type="file" accept="image/*" />
-            </div>
-            <div>
-                <label class="small">Tên khách</label>
-                <input id="customerName" placeholder="Nguyễn Văn A" />
-                <div class="row" style="margin-top: 6px">
-                    <div class="col">
-                        <label class="small">SĐT</label>
-                        <input id="customerPhone" placeholder="0909xxxxxx" />
-                    </div>
-                    <div class="col">
-                        <label class="small">Ngày đặt</label>
-                        <input id="orderDate" type="date" />
-                    </div>
-                </div>
-                <label class="small" style="margin-top: 6px">Địa chỉ nhận</label>
-                <textarea id="customerAddress" placeholder="123 Lê Lợi, Quận 1, TP.HCM"></textarea>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col">
-                        <label class="small">Mã đơn</label>
-                        <input id="orderId" placeholder="DH001" />
-                    </div>
-                    <div class="col">
-                        <label class="small">Ngày nhận dự kiến</label>
-                        <input id="expectedDate" type="date" />
-                    </div>
-                </div>
-                <div class="row" style="margin-top: 6px">
-                    <div class="col">
-                        <label class="small">Phương thức</label>
-                        <select id="paymentMethod">
-                            <option>Tiền mặt</option>
-                            <option>Chuyển khoản</option>
-                            <option>COD</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label class="small">Phí ship (VNĐ)</label>
-                        <input id="shippingFee" type="number" placeholder="0" />
-                    </div>
-                </div>
-                <label class="small" style="margin-top: 6px">Mã giảm / note ngắn</label>
-                <input id="shortNote" placeholder="Voucher / ghi chú ngắn" />
-            </div>
-            <div>
-                <label class="small">Sản phẩm</label>
-                <div id="productList"></div>
-                <div class="actions">
-                    <button id="addProductBtn" class="btn" type="button">
-                        + Thêm sản phẩm
-                    </button>
-                    <button id="clearProducts" class="btn ghost" type="button">
-                        Xóa hết
-                    </button>
-                </div>
-                <div class="small" style="margin-top: 8px"></div>
-            </div>
-            <div style="margin-top: 8px">
-                <label class="small">Ghi chú dài (nếu cần)</label>
-                <textarea id="note" placeholder="Ghi chú cho đơn"></textarea>
-            </div>
-            <div style="margin-top: 8px">
-                <label class="small">Ảnh hoa góc (PNG)</label>
-                <input id="flowerImage" type="file" accept="image/*" />
-                <label class="small" style="margin-top: 6px">QR chuyển khoản (upload)</label>
-                <input id="qrImage" type="file" accept="image/*" />
-                <label class="small" style="margin-top: 6px">Lời cảm ơn (footer)</label>
-                <input id="thankYouText" placeholder="Cảm ơn anh/chị đã tin tưởng Diễm Thúy Shop 🌿" />
-                <div style="margin-top: 8px">
-                    <div class="small">Chọn bộ màu</div>
-                    <div style="display: flex; gap: 8px; margin-top: 6px;">
-                        <div class="swatch theme-btn" data-theme="theme-1" style="width: 34px; height: 24px; background: linear-gradient(#fff, #f6efe6); border-radius: 6px;"></div>
-                        <div class="swatch theme-btn" data-theme="theme-2" style="width: 34px; height: 24px; background: linear-gradient(#fffaf7, #e7f6f3); border-radius: 6px;"></div>
-                        <div class="swatch theme-btn" data-theme="theme-3" style="width: 34px; height: 24px; background: linear-gradient(#fff, #eef5ff); border-radius: 6px;"></div>
-                        <div class="swatch theme-btn" data-theme="theme-4" style="width: 34px; height: 24px; background: linear-gradient(#fff, #fff1f4); border-radius: 6px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div style="display: flex; gap: 8px; margin-top: 10px;">
-                <button id="saveBtn" class="btn" type="button">
-                    Lưu hóa đơn
-                </button>
-                <button id="resetBtn" class="btn ghost" type="button">
-                    Reset
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="right panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <div>
-                <strong class="small">Preview</strong>
-            </div>
-        </div>
-        <div class="preview-wrap">
-            <div id="card" class="card" role="img" aria-label="Invoice preview">
-                <img id="flowerTL" class="corner tl" src="" alt="" style="display: none" />
-                <img id="flowerBR" class="corner br" src="" alt="" style="display: none" />
-                <img id="outLogo" class="logo" src="" alt="" style="display: none" />
-                <div class="shop-name" id="outShopName">
-                    Diễm Thúy Shop
-                </div>
-                <div class="title">XÁC NHẬN ĐƠN HÀNG</div>
-                <div class="meta">
-                    <div class="row">
+                <div class="left panel">
+                    <div
+                        id="invoiceForm"
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                        ">
                         <div>
-                            <strong>Khách:</strong>
-                            <span id="outCustomerName">Nguyễn Văn A</span>
+                            <label class="small">Tên shop</label>
+                            <input
+                                id="shopName"
+                                placeholder="Cô Chủ Nhỏ Shop" />
+                            <label class="small">Logo (upload)</label>
+                            <input id="shopLogo" type="file" accept="image/*" />
+                            <div id="shopLogoIndicator" class="upload-indicator"></div>
                         </div>
-                        <div>
-                            <strong>SĐT:</strong>
-                            <span id="outCustomerPhone">0909xxxxxx</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 6px">
-                        <strong>Địa chỉ:</strong>
-                        <span id="outCustomerAddress">123 Lê Lợi, Q1</span>
-                    </div>
-                    <div style="margin-top: 6px" class="row">
-                        <div>
-                            <strong>Ngày đặt:</strong>
-                            <span id="outOrderDate">__/__/____</span>
-                        </div>
-                        <div>
-                            <strong>Nhận dự kiến:</strong>
-                            <span id="outExpectedDate">__/__/____</span>
-                        </div>
-                    </div>
-                    <div style="margin-top: 6px" class="row">
-                        <div>
-                            <strong>Mã:</strong>
-                            <span id="outOrderId">DH001</span>
-                        </div>
-                        <div>
-                            <strong>Thanh toán:</strong>
-                            <span id="outPaymentMethod">Tiền mặt</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="products" id="outProducts"></div>
-                <div class="total">
-                    <div>Tổng</div>
-                    <div id="outTotal">0 ₫</div>
-                </div>
-                <div class="note" id="outShortNote"></div>
-                <img id="outQr" class="qr" src="" alt="" style="display: none" />
-                <div class="footer" id="outThank">
-                    Cảm ơn anh/chị đã tin tưởng Diễm Thúy Shop!
-                </div>
-            </div>
-        </div>
-        <div style="display: flex; gap: 8px; margin-top: 10px; justify-content: center;">
-            <button id="downloadBtn" class="btn">
-                📥 Tải hóa đơn (PNG)
-            </button>
-        </div>
-    </div>
-</div>
 
-<div class="panel">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <strong class="small">Hóa đơn đã lưu</strong>
-        <button id="clearAllHistoryBtn" class="btn warn" type="button">Xóa tất cả</button>
-    </div>
-    <div id="invoiceHistoryList" style="margin-top: 12px">
-        <div style="text-align: center; color: var(--muted)">Chưa có hóa đơn nào được lưu.</div>
-    </div>
-</div>
+                        <div>
+                            <label class="small">Tên khách</label>
+                            <input
+                                id="customerName"
+                                placeholder="Nguyễn Văn A" />
+                            <div class="row" style="margin-top: 6px">
+                                <div class="col">
+                                    <label class="small">SĐT</label>
+                                    <input
+                                        id="customerPhone"
+                                        placeholder="0909xxxxxx"
+                                        type="tel" />
+                                </div>
+                                <div class="col">
+                                    <label class="small">Ngày đặt</label>
+                                    <input id="orderDate" type="date" />
+                                </div>
+                            </div>
+                            <label class="small" style="margin-top: 6px"
+                                >Địa chỉ nhận</label
+                            >
+                            <textarea
+                                id="customerAddress"
+                                placeholder="123 Lê Lợi, Quận 1, TP.HCM"></textarea>
+                        </div>
 
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="small">Mã đơn</label>
+                                    <input id="orderId" placeholder="DH001" />
+                                </div>
+                                <div class="col">
+                                    <label class="small"
+                                        >Ngày nhận dự kiến</label
+                                    >
+                                    <input id="expectedDate" type="date" />
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 6px">
+                                <div class="col">
+                                    <label class="small">Phương thức</label>
+                                    <select id="paymentMethod">
+                                        <option>Tiền mặt</option>
+                                        <option>Chuyển khoản</option>
+                                        <option>COD</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="small">Phí ship (VNĐ)</label>
+                                    <input
+                                        id="shippingFee"
+                                        type="number"
+                                        placeholder="0" />
+                                </div>
+                            </div>
+
+                            <label class="small" style="margin-top: 6px"
+                                >Mã giảm / note ngắn</label
+                            >
+                            <input
+                                id="shortNote"
+                                placeholder="Voucher / ghi chú ngắn" />
+                        </div>
+
+                        <div>
+                            <label class="small">Sản phẩm</label>
+                            <div id="productList"></div>
+                            <div class="actions">
+                                <button
+                                    id="addProductBtn"
+                                    class="btn"
+                                    type="button">
+                                    + Thêm sản phẩm
+                                </button>
+                                <button
+                                    id="clearProducts"
+                                    class="btn ghost"
+                                    type="button">
+                                    Xóa hết
+                                </button>
+                            </div>
+                            <div class="small" style="margin-top: 8px"></div>
+                        </div>
+
+                        <div style="margin-top: 8px">
+                            <label class="small">Ghi chú dài (nếu cần)</label>
+                            <textarea
+                                id="note"
+                                placeholder="Ghi chú cho đơn"></textarea>
+                        </div>
+
+                        <div style="margin-top: 8px">
+                            <label class="small">Ảnh decor góc (PNG)</label>
+                            <input
+                                id="flowerImage"
+                                type="file"
+                                accept="image/*" />
+                            <div id="flowerImageIndicator" class="upload-indicator"></div>
+
+                            <label class="small" style="margin-top: 6px"
+                                >Chọn ảnh decor góc có sẵn</label
+                            >
+                            <div
+                                style="
+                                    display: flex;
+                                    gap: 8px;
+                                    margin-top: 6px;
+                                ">
+                                <img
+                                    class="predefined-flower-img"
+                                    src="assets/uploads/flower1.png"
+                                    data-image="assets/uploads/flower1.png"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        cursor: pointer;
+                                        border: 2px solid transparent;
+                                        border-radius: 4px;
+                                    "
+                                    alt="Flower 1" />
+                                <img
+                                    class="predefined-flower-img"
+                                    src="assets/uploads/flower2.png"
+                                    data-image="assets/uploads/flower2.png"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        cursor: pointer;
+                                        border: 2px solid transparent;
+                                        border-radius: 4px;
+                                    "
+                                    alt="Flower 2" />
+                                <img
+                                    class="predefined-flower-img"
+                                    src="assets/uploads/flower3.png"
+                                    data-image="assets/uploads/flower3.png"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        cursor: pointer;
+                                        border: 2px solid transparent;
+                                        border-radius: 4px;
+                                    "
+                                    alt="Flower 3" />
+                                <img
+                                    class="predefined-flower-img"
+                                    src="assets/uploads/flower4.png"
+                                    data-image="assets/uploads/flower4.png"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        cursor: pointer;
+                                        border: 2px solid transparent;
+                                        border-radius: 4px;
+                                    "
+                                    alt="Flower 4" />
+                                <img
+                                    class="predefined-flower-img"
+                                    src="assets/uploads/flower5.png"
+                                    data-image="assets/uploads/flower5.png"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        cursor: pointer;
+                                        border: 2px solid transparent;
+                                        border-radius: 4px;
+                                    "
+                                    alt="Flower 5" />
+                            </div>
+
+                            <label class="small" style="margin-top: 6px"
+                                >QR chuyển khoản (upload)</label
+                            >
+                            <input id="qrImage" type="file" accept="image/*" />
+                            <div id="qrImageIndicator" class="upload-indicator"></div>
+
+                            <label class="small" style="margin-top: 6px"
+                                >Lời cảm ơn (footer)</label
+                            >
+                            <input
+                                id="thankYouText"
+                                placeholder="Cảm ơn anh/chị đã tin tưởng Cô Chủ Nhỏ Shop 🌿" />
+                            <div style="margin-top: 8px">
+                                <div class="small">Chọn bộ màu</div>
+                                <div
+                                    style="
+                                        display: flex;
+                                        gap: 8px;
+                                        margin-top: 6px;
+                                    ">
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-1"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #f6efe6
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-2"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fffaf7,
+                                                #e7f6f3
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-3"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #eef5ff
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-4"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #fff1f4
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-5"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #ffc107
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-6"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                 #7eb8f3
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-7"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #ba68c8
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-8"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #da6d51
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-top: 10px">
+                            <button id="saveBtn" class="btn" type="button">
+                                Lưu (local)
+                            </button>
+                             <button
+                                id="clearImagesBtn"
+                                class="btn ghost"
+                                type="button"
+                                style="color:var(--text)">
+                                Xóa ảnh đã lưu
+                            </button>
+                            <button
+                                id="resetBtn"
+                                class="btn ghost"
+                                type="button">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right panel">
+                    <div
+                        style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 8px;
+                        ">
+                        <div>
+                            <strong class="small">Preview</strong>
+                        </div>
+                        <div class="small"></div>
+                    </div>
+
+                    <div class="preview-wrap">
+                        <div
+                            id="card"
+                            class="card"
+                            role="img"
+                            aria-label="Invoice preview">
+                            <img
+                                id="flowerTL"
+                                class="corner tl"
+                                src=""
+                                alt=""
+                                style="display: none" />
+                            <img
+                                id="flowerBR"
+                                class="corner br"
+                                src=""
+                                alt=""
+                                style="display: none" />
+                            <img
+                                id="outLogo"
+                                class="logo"
+                                src=""
+                                alt=""
+                                style="display: none" />
+                            <div class="shop-name" id="outShopName">
+                                Cô Chủ Nhỏ Shop
+                            </div>
+                            <div class="title">XÁC NHẬN ĐƠN HÀNG</div>
+
+                            <div class="meta">
+                                <div class="row">
+                                    <div>
+                                        <strong>Khách:</strong>
+                                        <span id="outCustomerName"
+                                            >Nguyễn Văn A</span
+                                        >
+                                    </div>
+                                    <div>
+                                        <strong>SĐT:</strong>
+                                        <span id="outCustomerPhone"
+                                            >0909xxxxxx</span
+                                        >
+                                    </div>
+                                </div>
+                                <div style="margin-top: 6px">
+                                    <strong>Địa chỉ:</strong>
+                                    <span id="outCustomerAddress"
+                                        >123 Lê Lợi, Q1</span
+                                    >
+                                    <div style="margin-top: 6px" class="row">
+                                        <div>
+                                            <strong>Ngày đặt:</strong>
+                                            <span id="outOrderDate"
+                                                >__/__/____</span
+                                            >
+                                        </div>
+                                        <div>
+                                            <strong>Nhận dự kiến:</strong>
+                                            <span id="outExpectedDate"
+                                                >__/__/____</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 6px" class="row">
+                                        <div>
+                                            <strong>Mã:</strong>
+                                            <span id="outOrderId">DH001</span>
+                                        </div>
+                                        <div>
+                                            <strong>Thanh toán:</strong>
+                                            <span id="outPaymentMethod"
+                                                >Tiền mặt</span
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="products" id="outProducts"></div>
+
+                            <div class="total">
+                                <div>Tổng</div>
+                                <div id="outTotal">0 ₫</div>
+                            </div>
+
+                            <div class="note" id="outShortNote"></div>
+                            <img
+                                id="outQr"
+                                class="qr"
+                                src=""
+                                alt=""
+                                style="display: none" />
+                            <div class="footer" id="outThank">
+                                Cảm ơn anh/chị đã tin tưởng Shop!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        style="
+                            display: flex;
+                            gap: 8px;
+                            margin-top: 10px;
+                            justify-content: center;
+                        ">
+                        <button id="downloadBtn" class="btn">
+                            📥 Tải hóa đơn (PNG)
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <footer
                 style="
@@ -602,8 +931,28 @@
                     color: var(--muted);
                     margin-top: 6px;
                 ">
-                Lưu cục bộ trên trình duyệt — Không upload server - Không lo bị
-                lộ thông tin
+                <div style="margin-top: 4px; margin-bottom: 24px">
+                    <span style="font-style: italic"
+                        >Lưu cục bộ trên trình duyệt — Không upload server -
+                        Không lo bị lộ thông tin</span
+                    >
+                </div>
+                <div>Được tạo bởi duongvanphi19</div>
+                <div style="margin: 0 4px">
+                    Nếu bạn thấy hữu ích, hãy ủng hộ một ly cafe nhé!
+                    <a
+                        href="https://www.buymeacoffee.com/phi19"
+                        target="_blank"
+                        style="
+                            text-decoration: none;
+                            display: inline-block;
+                            margin-left: 8px;
+                        ">
+                        <img
+                            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=phi19&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"
+                            alt="Buy Me A Coffee" />
+                    </a>
+                </div>
             </footer>
         </div>
 
@@ -612,19 +961,25 @@
             const $ = (id) => document.getElementById(id);
             const LS_FORM = "invoice_v3_form";
             const LS_PRODUCTS = "invoice_v3_products";
-            const LS_IMAGES = "invoice_v3_images";
             const LS_THEME = "invoice_v3_theme";
+            const MAX_FILE_SIZE = 1024 * 1024; // 1MB
+
+            // IndexedDB
+            const DB_NAME = "InvoiceDB";
+            const DB_VERSION = 1;
+            const STORE_NAME = "images";
+            let db;
+
+            // Bạn có thể tùy chỉnh ảnh decor theo từng tháng tại đây
+            const MONTHLY_DECOR_MAP = {
+                2: 'assets/uploads/valentine.png', // Tháng 2: Valentine
+                3: 'assets/uploads/flower2.png', // Ví dụ tháng 3
+                8: 'assets/uploads/flower5.png', // Ví dụ tháng 8
+                // Thêm các tháng khác vào đây
+            };
 
             function toCurrency(n) {
                 return (Number(n) || 0).toLocaleString("vi-VN");
-            }
-            function dataURLFromFile(file) {
-                return new Promise((res, rej) => {
-                    const r = new FileReader();
-                    r.onload = (e) => res(e.target.result);
-                    r.onerror = rej;
-                    r.readAsDataURL(file);
-                });
             }
             function escapeHtml(s) {
                 return String(s || "").replace(
@@ -638,6 +993,72 @@
                             "'": "&#39;"
                         })[m]
                 );
+            }
+            
+            /* ======== IndexedDB functions ======== */
+            function initDB() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(DB_NAME, DB_VERSION);
+                    request.onerror = (event) => {
+                        console.error("IndexedDB error:", event.target.errorCode);
+                        reject("IndexedDB error: " + event.target.errorCode);
+                    };
+                    request.onsuccess = (event) => {
+                        db = event.target.result;
+                        resolve(db);
+                    };
+                    request.onupgradeneeded = (event) => {
+                        db = event.target.result;
+                        if (!db.objectStoreNames.contains(STORE_NAME)) {
+                            db.createObjectStore(STORE_NAME, { keyPath: "id" });
+                        }
+                    };
+                });
+            }
+
+            function saveImageToDB(id, dataUrl) {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction([STORE_NAME], "readwrite");
+                    const store = transaction.objectStore(STORE_NAME);
+                    store.put({ id: id, data: dataUrl });
+
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject(event.target.error);
+                });
+            }
+            
+            function loadImageFromDB(id) {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction([STORE_NAME], "readonly");
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.get(id);
+
+                    request.onsuccess = (event) => {
+                        const result = event.target.result;
+                        resolve(result ? result.data : null);
+                    };
+                    request.onerror = (event) => reject(event.target.error);
+                });
+            }
+
+            function deleteImagesFromDB() {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction([STORE_NAME], "readwrite");
+                    const store = transaction.objectStore(STORE_NAME);
+                    store.clear();
+
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject(event.target.error);
+                });
             }
 
             /* ======== Products ======== */
@@ -656,13 +1077,10 @@
                     }">
                     <button class="remove-btn" title="Xóa">×</button>
                 `;
-                el.querySelector(".remove-btn").addEventListener(
-                    "click",
-                    () => {
-                        el.remove();
-                        debouncedUpdateInvoice();
-                    }
-                );
+                el.querySelector(".remove-btn").addEventListener("click", () => {
+                    el.remove();
+                    debouncedUpdateInvoice();
+                });
                 el.querySelectorAll("input").forEach((i) =>
                     i.addEventListener("input", debouncedUpdateInvoice)
                 );
@@ -677,25 +1095,18 @@
                 debouncedUpdateInvoice();
             }
             function getProducts() {
-                const nodes = document.querySelectorAll(
-                    "#productList .product-item"
-                );
+                const nodes = document.querySelectorAll("#productList .product-item");
                 const arr = [];
                 nodes.forEach((n) => {
                     const name = n.querySelector(".productName").value.trim();
-                    const qty =
-                        Number(n.querySelector(".productQty").value) || 0;
-                    const price =
-                        Number(n.querySelector(".productPrice").value) || 0;
+                    const qty = Number(n.querySelector(".productQty").value) || 0;
+                    const price = Number(n.querySelector(".productPrice").value) || 0;
                     if (name) arr.push({ name, qty, price });
                 });
                 return arr;
             }
             function saveProducts() {
-                localStorage.setItem(
-                    LS_PRODUCTS,
-                    JSON.stringify(getProducts())
-                );
+                localStorage.setItem(LS_PRODUCTS, JSON.stringify(getProducts()));
             }
 
             /* ======== Form save/load ======== */
@@ -729,46 +1140,101 @@
                 });
             }
 
-            /* ======== Images save/load (base64) ======== */
+            /* ======== Images save/load (IndexedDB) ======== */
             async function handleImageUpload(inputId, outIds, storageKey) {
                 const input = $(inputId);
                 if (!input) return;
+
+                const indicator = $(`${inputId}Indicator`);
+
                 input.addEventListener("change", async (e) => {
+                    indicator.textContent = '';
+                    indicator.className = 'upload-indicator';
+                    
                     const f = e.target.files[0];
-                    if (!f) return;
-                    const data = await dataURLFromFile(f);
-                    const imgs = JSON.parse(
-                        localStorage.getItem(LS_IMAGES) || "{}"
-                    );
-                    imgs[storageKey] = data;
-                    localStorage.setItem(LS_IMAGES, JSON.stringify(imgs));
-                    outIds.forEach((id) => {
-                        if ($(id)) {
-                            $(id).src = data;
-                            $(id).style.display = "block";
+                    if (!f) {
+                        indicator.style.display = 'none';
+                        return;
+                    }
+                    
+                    indicator.textContent = 'Đang tải...';
+                    indicator.className = 'upload-indicator loading';
+                    indicator.style.display = 'block';
+
+                    if (f.size > MAX_FILE_SIZE) {
+                        indicator.textContent = `Lỗi: File quá lớn (> 1MB). Vui lòng chọn file khác.`;
+                        indicator.className = 'upload-indicator error';
+                        input.value = '';
+                        return;
+                    }
+
+                    try {
+                        const data = await new Promise((res, rej) => {
+                            const r = new FileReader();
+                            r.onload = (e) => res(e.target.result);
+                            r.onerror = rej;
+                            r.readAsDataURL(f);
+                        });
+                        
+                        await saveImageToDB(storageKey, data);
+
+                        outIds.forEach((id) => {
+                            if ($(id)) {
+                                $(id).src = data;
+                                $(id).style.display = "block";
+                            }
+                        });
+
+                        indicator.textContent = 'Tải lên thành công!';
+                        indicator.className = 'upload-indicator success';
+                        setTimeout(() => {
+                            indicator.style.display = 'none';
+                        }, 3000);
+
+                        if (storageKey === "flowerImg") {
+                            document
+                                .querySelectorAll(".predefined-flower-img")
+                                .forEach((img) => {
+                                    img.style.border = "2px solid transparent";
+                                });
                         }
-                    });
-                    // Bỏ chọn ảnh có sẵn khi người dùng upload ảnh mới
-                    if (storageKey === "flowerImg") {
-                        document
-                            .querySelectorAll(".predefined-flower-img")
-                            .forEach((img) => {
-                                img.style.border = "2px solid transparent";
-                            });
+                    } catch (error) {
+                        console.error("Lỗi khi tải file:", error);
+                        indicator.textContent = 'Lỗi khi tải file. Vui lòng thử lại.';
+                        indicator.className = 'upload-indicator error';
+                        input.value = '';
                     }
                 });
             }
-            
-            
-            function loadImages() {
-                const imgs = JSON.parse(
-                    localStorage.getItem(LS_IMAGES) || "{}"
-                );
-                if (!imgs) return;
+
+            async function setMonthlyDecor() {
+                const currentMonth = new Date().getMonth() + 1; // getMonth() is 0-indexed
+                const monthlyImagePath = MONTHLY_DECOR_MAP[currentMonth];
+                
+                if (monthlyImagePath) {
+                    const savedImage = await loadImageFromDB('flowerImg');
+                    // Chỉ cập nhật nếu người dùng chưa tự chọn ảnh khác
+                    if (!savedImage || savedImage.startsWith('assets/uploads/flower')) {
+                        await saveImageToDB('flowerImg', monthlyImagePath);
+                    }
+                }
+            }
+
+            async function loadImages() {
+                const imgs = {};
+                imgs.shopLogo = await loadImageFromDB('shopLogo');
+                imgs.flowerImg = await loadImageFromDB('flowerImg');
+                imgs.qrImg = await loadImageFromDB('qrImg');
+                
+                // Xử lý logo
                 if (imgs.shopLogo && $("outLogo")) {
                     $("outLogo").src = imgs.shopLogo;
                     $("outLogo").style.display = "block";
+                } else if ($("outLogo")) {
+                    $("outLogo").style.display = "none";
                 }
+
+                // Xử lý ảnh decor góc
                 if (imgs.flowerImg) {
                     if ($("flowerTL")) {
                         $("flowerTL").src = imgs.flowerImg;
@@ -778,24 +1244,35 @@
                         $("flowerBR").src = imgs.flowerImg;
                         $("flowerBR").style.display = "block";
                     }
-                    // Đánh dấu ảnh có sẵn nếu đường dẫn khớp
                     document
                         .querySelectorAll(".predefined-flower-img")
                         .forEach((img) => {
-                            if (
-                                img.getAttribute("data-image") ===
-                                imgs.flowerImg
-                            ) {
+                            if (img.getAttribute("data-image") === imgs.flowerImg) {
                                 img.style.border = "2px solid var(--accent)";
                             } else {
                                 img.style.border = "2px solid transparent";
                             }
                         });
+                } else {
+                    if ($("flowerTL")) $("flowerTL").style.display = "none";
+                    if ($("flowerBR")) $("flowerBR").style.display = "none";
+                    document
+                        .querySelectorAll(".predefined-flower-img")
+                        .forEach((img) => {
+                            img.style.border = "2px solid transparent";
+                        });
                 }
+
+                // Xử lý QR Code
                 if (imgs.qrImg && $("outQr")) {
                     $("outQr").src = imgs.qrImg;
                     $("outQr").style.display = "block";
+                } else if ($("outQr")) {
+                    $("outQr").style.display = "none";
                 }
+
+                // Ẩn tất cả các indicator khi tải lại trang
+                document.querySelectorAll('.upload-indicator').forEach(ind => ind.style.display = 'none');
             }
 
             /* ======== Theme ======== */
@@ -804,7 +1281,11 @@
                     "theme-1",
                     "theme-2",
                     "theme-3",
-                    "theme-4"
+                    "theme-4",
+                    "theme-5",
+                    "theme-6",
+                    "theme-7",
+                    "theme-8"
                 );
                 document.body.classList.add(cls);
                 localStorage.setItem(LS_THEME, cls);
@@ -832,7 +1313,7 @@
             /* ======== Update preview ======== */
             function updateInvoice() {
                 $("outShopName").innerText =
-                    $("shopName").value.trim() || "Diễm Thúy Shop";
+                    $("shopName").value.trim() || "Cô Chủ Nhỏ Shop";
                 $("outCustomerName").innerText =
                     $("customerName").value.trim() || "Tên khách hàng";
                 $("outCustomerPhone").innerText =
@@ -850,7 +1331,7 @@
                 $("outShortNote").innerText = $("shortNote").value.trim() || "";
                 $("outThank").innerText =
                     $("thankYouText").value.trim() ||
-                    "Cảm ơn anh/chị đã tin tưởng Diễm Thúy Shop!";
+                    "Cảm ơn anh/chị đã tin tưởng ủng hộ Cô Chủ Nhỏ Shop!";
 
                 const prods = getProducts();
                 const out = $("outProducts");
@@ -861,6 +1342,19 @@
                         '<div style="text-align:center;color:var(--muted);padding:8px">Không có sản phẩm</div>';
                 } else {
                     const frag = document.createDocumentFragment();
+                    const row = document.createElement("div");
+                    row.className = "callout prod-row";
+                    row.style = "color: var(--accent)";
+                    row.innerHTML = `<div style="flex:1">
+                            Sản phẩm
+                        </div><div style="width:24px;text-align:right">
+                            SL
+                        </div><div style="width:90px;text-align:right">
+                            Đơn giá
+                        </div><div style="width:90px;text-align:right">
+                            Thành tiền
+                        </div>`;
+                    frag.appendChild(row);
                     prods.forEach((p) => {
                         const subtotal = p.qty * p.price;
                         total += subtotal;
@@ -868,11 +1362,11 @@
                         row.className = "prod-row";
                         row.innerHTML = `<div style="flex:1">${escapeHtml(
                             p.name
-                        )}</div><div style="width:36px;text-align:center">${
+                        )}</div><div style="width:24px;text-align:right">${
                             p.qty
                         }</div><div style="width:90px;text-align:right">${toCurrency(
                             p.price
-                        )} ₫</div><div style="width:110px;text-align:right">${toCurrency(
+                        )} ₫</div><div style="width:90px;text-align:right">${toCurrency(
                             subtotal
                         )} ₫</div>`;
                         frag.appendChild(row);
@@ -908,11 +1402,15 @@
             }
 
             /* ======== Events init ======== */
-            document.addEventListener("DOMContentLoaded", () => {
+            document.addEventListener("DOMContentLoaded", async () => {
+                // Init IndexedDB
+                await initDB();
+
                 // load saved
                 loadForm();
+                await setMonthlyDecor();
                 loadProducts();
-                loadImages();
+                await loadImages();
                 loadTheme();
                 updateInvoice();
 
@@ -925,7 +1423,7 @@
                         inp.addEventListener("input", debouncedUpdateInvoice)
                     );
 
-                // file uploads (store base64)
+                // file uploads (store in IndexedDB)
                 handleImageUpload("shopLogo", ["outLogo"], "shopLogo");
                 handleImageUpload(
                     "flowerImage",
@@ -946,10 +1444,31 @@
 
                 // save/reset
                 $("saveBtn").addEventListener("click", () => {
-                    saveForm();
-                    saveProducts();
-                    alert("Đã lưu vào trình duyệt.");
+                    try {
+                        saveForm();
+                        saveProducts();
+                        alert("Đã lưu dữ liệu vào trình duyệt.");
+                    } catch (e) {
+                        console.error(e);
+                        alert("Lỗi khi lưu dữ liệu. Vui lòng thử lại.");
+                    }
                 });
+                
+                $("clearImagesBtn").addEventListener("click", async () => {
+                    if (confirm("Bạn có chắc chắn muốn xóa toàn bộ ảnh (logo, decor, QR) đã lưu không?")) {
+                        try {
+                            await deleteImagesFromDB();
+                            // Lưu lại ảnh decor mặc định nếu đang là tháng có decor
+                            await setMonthlyDecor(); 
+                            await loadImages();
+                            alert("Đã xóa toàn bộ ảnh đã lưu.");
+                        } catch (e) {
+                            console.error("Lỗi khi xóa ảnh:", e);
+                            alert("Có lỗi xảy ra khi xóa ảnh. Vui lòng thử lại.");
+                        }
+                    }
+                });
+                
                 $("resetBtn").addEventListener("click", () => {
                     if (confirm("Reset toàn bộ dữ liệu?")) {
                         localStorage.clear();
@@ -972,27 +1491,11 @@
                 document
                     .querySelectorAll(".predefined-flower-img")
                     .forEach((btn) => {
-                        btn.addEventListener("click", () => {
+                        btn.addEventListener("click", async () => {
                             const imagePath = btn.getAttribute("data-image");
-                            const imgs = JSON.parse(
-                                localStorage.getItem(LS_IMAGES) || "{}"
-                            );
-                            imgs.flowerImg = imagePath;
-                            localStorage.setItem(
-                                LS_IMAGES,
-                                JSON.stringify(imgs)
-                            );
-                            $("flowerTL").src = imagePath;
-                            $("flowerBR").src = imagePath;
-                            $("flowerTL").style.display = "block";
-                            $("flowerBR").style.display = "block";
-                            // Cập nhật trạng thái "đã chọn"
-                            document
-                                .querySelectorAll(".predefined-flower-img")
-                                .forEach((img) => {
-                                    img.style.border = "2px solid transparent";
-                                });
-                            btn.style.border = "2px solid var(--accent)";
+                            await saveImageToDB('flowerImg', imagePath);
+                            loadImages();
+                            updateInvoice();
                         });
                     });
 
@@ -1013,7 +1516,10 @@
                                         if (!img.src) return resolve();
                                         if (img.complete) return resolve();
                                         img.onload = () => resolve();
-                                        img.onerror = () => resolve();
+                                        img.onerror = () => {
+                                            console.error('Lỗi khi tải ảnh:', img.src);
+                                            resolve();
+                                        };
                                     })
                             )
                         );
@@ -1062,457 +1568,5 @@
                 });
             }); // end DOMContentLoaded
         </script>
-        <script>
-    /* ======== Helpers ======== */
-    const $ = (id) => document.getElementById(id);
-    const LS_INVOICES = "invoice_v4_invoices";
-    const LS_THEME = "invoice_v4_theme";
-
-    function toCurrency(n) {
-        return (Number(n) || 0).toLocaleString("vi-VN");
-    }
-    function dataURLFromFile(file) {
-        return new Promise((res, rej) => {
-            const r = new FileReader();
-            r.onload = (e) => res(e.target.result);
-            r.onerror = rej;
-            r.readAsDataURL(file);
-        });
-    }
-    function escapeHtml(s) {
-        return String(s || "").replace(
-            /[&<>"']/g,
-            (m) =>
-                ({
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    '"': "&quot;",
-                    "'": "&#39;"
-                })[m]
-        );
-    }
-
-    /* ======== Invoice Data Management ======== */
-    function getInvoices() {
-        try {
-            return JSON.parse(localStorage.getItem(LS_INVOICES) || "[]");
-        } catch (e) {
-            console.error("Lỗi khi đọc hóa đơn từ localStorage:", e);
-            return [];
-        }
-    }
-
-    function saveInvoices(invoices) {
-        localStorage.setItem(LS_INVOICES, JSON.stringify(invoices));
-        renderInvoiceHistory();
-    }
-
-    function getFormData() {
-        const formFields = [
-            "shopName", "customerName", "customerPhone", "customerAddress",
-            "orderDate", "expectedDate", "orderId", "paymentMethod",
-            "shippingFee", "shortNote", "note", "thankYouText"
-        ];
-        const data = {};
-        formFields.forEach((id) => (data[id] = $(id).value));
-        return data;
-    }
-
-    function loadFormData(data) {
-        const formFields = [
-            "shopName", "customerName", "customerPhone", "customerAddress",
-            "orderDate", "expectedDate", "orderId", "paymentMethod",
-            "shippingFee", "shortNote", "note", "thankYouText"
-        ];
-        formFields.forEach((id) => {
-            if ($(id)) $(id).value = data[id] || "";
-        });
-    }
-
-    function getProducts() {
-        const nodes = document.querySelectorAll(
-            "#productList .product-item"
-        );
-        const arr = [];
-        nodes.forEach((n) => {
-            const name = n.querySelector(".productName").value.trim();
-            const qty = Number(n.querySelector(".productQty").value) || 0;
-            const price = Number(n.querySelector(".productPrice").value) || 0;
-            if (name) arr.push({ name, qty, price });
-        });
-        return arr;
-    }
-
-    function setProducts(products) {
-        const productListEl = $("productList");
-        productListEl.innerHTML = "";
-        products.forEach(p => addProduct(p));
-    }
-
-    async function saveCurrentInvoice() {
-        const name = prompt("Nhập tên cho hóa đơn:");
-        if (!name) return;
-
-        const invoices = getInvoices();
-        const newInvoice = {
-            id: Date.now(),
-            name: name,
-            formData: getFormData(),
-            products: getProducts(),
-            images: JSON.parse(localStorage.getItem("invoice_v4_images") || "{}"),
-            theme: localStorage.getItem(LS_THEME) || "theme-1",
-            dateSaved: new Date().toISOString()
-        };
-        invoices.unshift(newInvoice);
-        saveInvoices(invoices);
-    }
-
-    function loadInvoice(invoiceId) {
-        const invoices = getInvoices();
-        const invoice = invoices.find(inv => inv.id === invoiceId);
-        if (!invoice) return alert("Không tìm thấy hóa đơn!");
-
-        loadFormData(invoice.formData);
-        setProducts(invoice.products);
-        localStorage.setItem("invoice_v4_images", JSON.stringify(invoice.images));
-        loadImages();
-        setTheme(invoice.theme);
-
-        debouncedUpdateInvoice();
-        alert(`Đã tải hóa đơn "${invoice.name}".`);
-    }
-
-    function deleteInvoice(invoiceId) {
-        if (!confirm("Bạn có chắc chắn muốn xóa hóa đơn này?")) return;
-        const invoices = getInvoices().filter(inv => inv.id !== invoiceId);
-        saveInvoices(invoices);
-        alert("Đã xóa hóa đơn.");
-    }
-
-    function clearAllHistory() {
-        if (!confirm("Bạn có chắc chắn muốn xóa TẤT CẢ hóa đơn đã lưu?")) return;
-        saveInvoices([]);
-        alert("Đã xóa toàn bộ lịch sử hóa đơn.");
-    }
-    
-    function renderInvoiceHistory() {
-        const listEl = $("invoiceHistoryList");
-        const invoices = getInvoices();
-        listEl.innerHTML = "";
-        if (invoices.length === 0) {
-            listEl.innerHTML = '<div style="text-align: center; color: var(--muted)">Chưa có hóa đơn nào được lưu.</div>';
-            return;
-        }
-
-        invoices.forEach(inv => {
-            const item = document.createElement("div");
-            item.className = "history-list-item";
-            item.innerHTML = `
-                <div style="flex:1;">
-                    <strong style="display:block">${escapeHtml(inv.name)}</strong>
-                    <span class="small">${new Date(inv.dateSaved).toLocaleDateString()} - ${escapeHtml(inv.formData.customerName || "Khách hàng")}</span>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn ghost" onclick="loadInvoice(${inv.id})">Sửa</button>
-                    <button class="btn warn" onclick="deleteInvoice(${inv.id})">Xóa</button>
-                </div>
-            `;
-            listEl.appendChild(item);
-        });
-    }
-
-
-    /* ======== Products (re-used) ======== */
-    function createProductElement(p = {}) {
-        const el = document.createElement("div");
-        el.className = "product-item";
-        el.innerHTML = `
-            <input class="productName" placeholder="Tên sản phẩm" value="${escapeHtml(
-                p.name || ""
-            )}">
-            <input class="productQty" placeholder="SL" type="number" min="0" value="${
-                p.qty || ""
-            }">
-            <input class="productPrice" placeholder="Giá (VNĐ)" type="number" min="0" value="${
-                p.price || ""
-            }">
-            <button class="remove-btn" title="Xóa">✕</button>
-        `;
-        el.querySelector(".remove-btn").addEventListener(
-            "click",
-            () => {
-                el.remove();
-                debouncedUpdateInvoice();
-            }
-        );
-        el.querySelectorAll("input").forEach((i) =>
-            i.addEventListener("input", debouncedUpdateInvoice)
-        );
-        return el;
-    }
-
-    function addProduct(p) {
-        $("productList").appendChild(createProductElement(p || {}));
-    }
-    
-    function clearProducts() {
-        $("productList").innerHTML = "";
-        debouncedUpdateInvoice();
-    }
-
-    /* ======== Images (re-used) ======== */
-    async function handleImageUpload(inputId, outIds, storageKey) {
-        const input = $(inputId);
-        if (!input) return;
-        input.addEventListener("change", async (e) => {
-            const f = e.target.files[0];
-            if (!f) return;
-            const imgs = JSON.parse(
-                localStorage.getItem("invoice_v4_images") || "{}"
-            );
-            imgs[storageKey] = await dataURLFromFile(f);
-            localStorage.setItem("invoice_v4_images", JSON.stringify(imgs));
-            loadImages();
-        });
-    }
-    
-    function loadImages() {
-        const imgs = JSON.parse(
-            localStorage.getItem("invoice_v4_images") || "{}"
-        );
-        if (!imgs) return;
-        const images = {
-            shopLogo: "outLogo",
-            flowerImg: ["flowerTL", "flowerBR"],
-            qrImg: "outQr",
-        };
-        for (const key in images) {
-            const imgEl = $(images[key]);
-            if (imgEl) {
-                imgEl.src = imgs[key] || "";
-                imgEl.style.display = imgs[key] ? "block" : "none";
-            } else if (Array.isArray(images[key])) {
-                images[key].forEach(id => {
-                    const el = $(id);
-                    if (el) {
-                        el.src = imgs[key] || "";
-                        el.style.display = imgs[key] ? "block" : "none";
-                    }
-                })
-            }
-        }
-    }
-
-
-    /* ======== Theme (re-used) ======== */
-    function setTheme(cls) {
-        document.body.classList.remove(
-            "theme-1",
-            "theme-2",
-            "theme-3",
-            "theme-4"
-        );
-        document.body.classList.add(cls);
-        localStorage.setItem(LS_THEME, cls);
-    }
-    function loadTheme() {
-        const t = localStorage.getItem(LS_THEME) || "theme-1";
-        setTheme(t);
-        document.querySelectorAll(".theme-btn").forEach((b) => {
-            if (b.dataset.theme === t) b.classList.add("selected");
-            else b.classList.remove("selected");
-        });
-    }
-
-    /* ======== Debounced Update (re-used) ======== */
-    let updateTimeout = null;
-    function debouncedUpdateInvoice() {
-        clearTimeout(updateTimeout);
-        updateTimeout = setTimeout(() => {
-            updateInvoice();
-        }, 300);
-    }
-
-    /* ======== Update preview (re-used) ======== */
-    function updateInvoice() {
-        $("outShopName").innerText = $("shopName").value.trim() || "Diễm Thúy Shop";
-        $("outCustomerName").innerText = $("customerName").value.trim() || "Tên khách hàng";
-        $("outCustomerPhone").innerText = $("customerPhone").value.trim() || "SĐT";
-        $("outCustomerAddress").innerText = $("customerAddress").value.trim() || "Địa chỉ nhận";
-        $("outOrderDate").innerText = $("orderDate").value || "__/__/____";
-        $("outExpectedDate").innerText = $("expectedDate").value || "__/__/____";
-        $("outOrderId").innerText = $("orderId").value.trim() || "Mã đơn";
-        $("outPaymentMethod").innerText = $("paymentMethod").value || "Tiền mặt";
-        $("outShortNote").innerText = $("shortNote").value.trim() || "";
-        $("outThank").innerText = $("thankYouText").value.trim() || "Cảm ơn anh/chị đã tin tưởng Diễm Thúy Shop!";
-
-        const prods = getProducts();
-        const out = $("outProducts");
-        out.innerHTML = "";
-        let total = 0;
-        if (prods.length === 0) {
-            out.innerHTML = '<div style="text-align:center;color:var(--muted);padding:8px">Không có sản phẩm</div>';
-        } else {
-            const frag = document.createDocumentFragment();
-            prods.forEach((p) => {
-                const subtotal = p.qty * p.price;
-                total += subtotal;
-                const row = document.createElement("div");
-                row.className = "prod-row";
-                row.innerHTML = `<div style="flex:1">${escapeHtml(p.name)}</div><div style="width:36px;text-align:center">${p.qty}</div><div style="width:90px;text-align:right">${toCurrency(p.price)} ₫</div><div style="width:110px;text-align:right">${toCurrency(subtotal)} ₫</div>`;
-                frag.appendChild(row);
-            });
-            out.appendChild(frag);
-        }
-        const shipping = Number($("shippingFee").value) || 0;
-        if (shipping > 0) {
-            const r = document.createElement("div");
-            r.className = "prod-row";
-            r.innerHTML = `<div style="flex:1">Phí ship</div><div style="width:36px"></div><div style="width:90px;text-align:right"></div><div style="width:110px;text-align:right">${toCurrency(shipping)} ₫</div>`;
-            out.appendChild(r);
-            total += shipping;
-        }
-        $("outTotal").innerText = toCurrency(total) + " ₫";
-    }
-
-    /* ======== Initial load ======== */
-    function loadLastSavedInvoiceOrDefaults() {
-        const invoices = getInvoices();
-        if (invoices.length > 0) {
-            const latest = invoices[0];
-            loadFormData(latest.formData);
-            setProducts(latest.products);
-            localStorage.setItem("invoice_v4_images", JSON.stringify(latest.images));
-            loadImages();
-            setTheme(latest.theme);
-        } else {
-            setProducts([{ name: "B.Begin Non-Alcohol Perfume", qty: 1, price: 1200000 }]);
-            loadTheme();
-            loadImages();
-        }
-        debouncedUpdateInvoice();
-    }
-
-    function resetFormToDefaults() {
-        const inputs = document.querySelectorAll(
-            '#invoiceForm input:not([type="file"]), #invoiceForm textarea, #invoiceForm select'
-        );
-        inputs.forEach(inp => {
-            inp.value = "";
-        });
-        const initialProducts = [{ name: "B.Begin Non-Alcohol Perfume", qty: 1, price: 1200000 }];
-        setProducts(initialProducts);
-        localStorage.removeItem("invoice_v4_images");
-        loadImages();
-        loadTheme();
-        debouncedUpdateInvoice();
-    }
-
-
-    /* ======== Events init ======== */
-    document.addEventListener("DOMContentLoaded", () => {
-        // load saved
-        loadLastSavedInvoiceOrDefaults();
-        renderInvoiceHistory();
-
-        // input live update
-        document
-            .querySelectorAll(
-                '#invoiceForm input:not([type="file"]), #invoiceForm textarea, #invoiceForm select'
-            )
-            .forEach((inp) =>
-                inp.addEventListener("input", debouncedUpdateInvoice)
-            );
-
-        // file uploads (store base64)
-        handleImageUpload("shopLogo", ["outLogo"], "shopLogo");
-        handleImageUpload("flowerImage", ["flowerTL", "flowerBR"], "flowerImg");
-        handleImageUpload("qrImage", ["outQr"], "qrImg");
-
-        // add/clear product
-        $("addProductBtn").addEventListener("click", () => {
-            addProduct({});
-            debouncedUpdateInvoice();
-        });
-        $("clearProducts").addEventListener("click", () => {
-            if (confirm("Xóa hết sản phẩm?")) {
-                clearProducts();
-            }
-        });
-
-        // save/reset
-        $("saveBtn").addEventListener("click", saveCurrentInvoice);
-        $("resetBtn").addEventListener("click", () => {
-            if (confirm("Reset form về mặc định?")) {
-                resetFormToDefaults();
-            }
-        });
-        $("clearAllHistoryBtn").addEventListener("click", clearAllHistory);
-
-
-        // theme buttons
-        document.querySelectorAll(".theme-btn").forEach((btn) =>
-            btn.addEventListener("click", () => {
-                setTheme(btn.dataset.theme);
-                btn.classList.add("selected");
-                document.querySelectorAll(".theme-btn").forEach((b) => {
-                    if (b !== btn) b.classList.remove("selected");
-                });
-            })
-        );
-
-        // download (safe)
-        $("downloadBtn").addEventListener("click", async () => {
-            const btn = $("downloadBtn");
-            btn.disabled = true;
-            btn.textContent = "Đang tạo ảnh...";
-            try {
-                const imgs = Array.from(document.querySelectorAll("#card img"));
-                await Promise.all(
-                    imgs.map(
-                        (img) =>
-                            new Promise((resolve) => {
-                                if (!img.src) return resolve();
-                                if (img.complete) return resolve();
-                                img.onload = () => resolve();
-                                img.onerror = () => resolve();
-                            })
-                    )
-                );
-                const card = $("card");
-                const origWidth = card.clientWidth || 360;
-                const targetWidth = 1080;
-                let scale = Math.min(3, Math.max(1.5, targetWidth / origWidth));
-                const canvas = await html2canvas(card, {
-                    useCORS: true,
-                    scale: scale,
-                    backgroundColor: null
-                });
-                canvas.toBlob(
-                    (blob) => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = `invoice_${$("orderId").value || "order"}.png`;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        setTimeout(() => URL.revokeObjectURL(url), 10000);
-                    },
-                    "image/png",
-                    0.95
-                );
-            } catch (err) {
-                console.error(err);
-                alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "📥 Tải hóa đơn (PNG)";
-            }
-        });
-    }); // end DOMContentLoaded
-</
-
     </body>
 </html>

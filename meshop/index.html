@@ -141,8 +141,10 @@
                 background-image: var(--flower-image); /* Sử dụng biến CSS */
                 background-repeat: no-repeat;
                 background-position: top left;
-                background-size: 150px; /* Điều chỉnh kích thước ảnh hoa */
-                opacity: 0.3; /* Làm mờ để trở thành nền */
+                background-size: 180px; /* Điều chỉnh kích thước ảnh hoa */
+                opacity: 0.9
+                
+            ; /* Làm mờ để trở thành nền */
                 pointer-events: none; /* Đảm bảo không cản trở tương tác */
                 z-index: 1;
             }
@@ -184,7 +186,7 @@
             .cta-button {
                 display: inline-block;
                 padding: 14px 30px;
-                margin: 32px 0;
+                margin-top: 32px;
                 background: var(--text);
                 color: var(--page-bg);
                 text-decoration: none;
@@ -454,12 +456,14 @@
                 position: relative;
                 box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
                 overflow: hidden;
+                z-index: 1;
             }
             .corner {
                 position: absolute;
-                opacity: 0.3;
+                opacity: 0.45;
                 z-index: 0;
-                width: 150px;
+                width: 140px;
+                z-index: -1;
             }
             .corner.tl {
                 top: -6px;
@@ -627,22 +631,43 @@
                 background: #dc3545;
                 color: white;
             }
+
+            /* CSS mới cho chỉ báo upload */
+            .upload-indicator {
+                font-size: 12px;
+                margin-top: 4px;
+                padding: 4px 8px;
+                border-radius: 4px;
+                display: none; /* Mặc định ẩn */
+            }
+            .upload-indicator.loading {
+                background-color: #f0f0f0;
+                color: #555;
+            }
+            .upload-indicator.success {
+                background-color: #d4edda;
+                color: #155724;
+            }
+            .upload-indicator.error {
+                background-color: #f8d7da;
+                color: #721c24;
+            }
         </style>
     </head>
     <body class="theme-1">
         <div class="wrap">
             <header>
-                <h1>
-                    Tạo Hóa Đơn Bán Hàng Chuyên Nghiệp <br />
-                    Chỉ Trong 30 GIÂY
-                </h1>
+                <h1>Tạo hóa đơn bán hàng siêu nhanh</h1>
                 <p class="subtitle">
-                    Công cụ tạo hóa đơn online miễn phí, an toàn và dễ sử dụng
-                    cho mọi cửa hàng nhỏ & freelancer.
+                    Hoàn thành trong 30 giây - Miễn phí - Tiện lợi - Dành cho
+                    shop online, freelancer & doanh nghiệp nhỏ.
                 </p>
                 <a href="#invoiceForm" class="cta-button"
                     ><span class="cta-emoji">📃</span>Tạo Hóa Đơn Ngay Bây
-                    Giờ</a
+                    Giờ!</a
+                >
+                <span style="margin-top: 8px; margin-bottom: 18px" class="small"
+                    >(Nhanh - Miễn phí - Không cần đăng ký)</span
                 >
                 <div class="feature-list">
                     <div class="feature-item">
@@ -687,15 +712,18 @@
                             <input
                                 id="shopName"
                                 placeholder="Cô Chủ Nhỏ Shop" />
-                            <label class="small">Logo (upload)</label>
+                            <label class="small">Logo (upload ảnh <1MB)</label>
                             <input id="shopLogo" type="file" accept="image/*" />
+                            <div
+                                id="shopLogoIndicator"
+                                class="upload-indicator"></div>
                         </div>
 
                         <div>
                             <label class="small">Tên khách</label>
                             <input
                                 id="customerName"
-                                placeholder="Nguyễn Văn A" />
+                                placeholder="VD: Nguyễn Văn A" />
                             <div class="row" style="margin-top: 6px">
                                 <div class="col">
                                     <label class="small">SĐT</label>
@@ -705,7 +733,7 @@
                                         type="tel" />
                                 </div>
                                 <div class="col">
-                                    <label class="small">Ngày đặt</label>
+                                    <label class="small">Ngày đặt hàng</label>
                                     <input id="orderDate" type="date" />
                                 </div>
                             </div>
@@ -733,11 +761,15 @@
 
                             <div class="row" style="margin-top: 6px">
                                 <div class="col">
-                                    <label class="small">Phương thức</label>
+                                    <label class="small"
+                                        >Phương thức thanh toán</label
+                                    >
                                     <select id="paymentMethod">
                                         <option>Tiền mặt</option>
                                         <option>Chuyển khoản</option>
-                                        <option>COD</option>
+                                        <option>
+                                            Thanh toán khi nhận hàng (COD)
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="col">
@@ -750,11 +782,11 @@
                             </div>
 
                             <label class="small" style="margin-top: 6px"
-                                >Mã giảm / note ngắn</label
+                                >Ghi chú ngắn</label
                             >
                             <input
                                 id="shortNote"
-                                placeholder="Voucher / ghi chú ngắn" />
+                                placeholder="VD: Giao giờ hành chính" />
                         </div>
 
                         <div>
@@ -765,7 +797,7 @@
                                     id="addProductBtn"
                                     class="btn"
                                     type="button">
-                                    + Thêm sản phẩm
+                                    + Thêm SP
                                 </button>
                                 <button
                                     id="clearProducts"
@@ -785,11 +817,16 @@
                         </div>
 
                         <div style="margin-top: 8px">
-                            <label class="small">Ảnh decor góc (PNG)</label>
+                            <label class="small"
+                                >Ảnh decor góc (upload ảnh <1MB)</label
+                            >
                             <input
                                 id="flowerImage"
                                 type="file"
                                 accept="image/*" />
+                            <div
+                                id="flowerImageIndicator"
+                                class="upload-indicator"></div>
 
                             <label class="small" style="margin-top: 6px"
                                 >Chọn ảnh decor góc có sẵn</label
@@ -863,15 +900,18 @@
                             </div>
 
                             <label class="small" style="margin-top: 6px"
-                                >QR chuyển khoản (upload)</label
+                                >QR chuyển khoản (upload ảnh <1MB)</label
                             >
                             <input id="qrImage" type="file" accept="image/*" />
+                            <div
+                                id="qrImageIndicator"
+                                class="upload-indicator"></div>
                             <label class="small" style="margin-top: 6px"
                                 >Lời cảm ơn (footer)</label
                             >
                             <input
                                 id="thankYouText"
-                                placeholder="Cảm ơn anh/chị đã tin tưởng Cô Chủ Nhỏ Shop 🌿" />
+                                placeholder="Cảm ơn anh/chị đã tin tưởng Shop 🌿" />
                             <div style="margin-top: 8px">
                                 <div class="small">Chọn bộ màu</div>
                                 <div
@@ -983,20 +1023,13 @@
 
                         <div style="display: flex; gap: 8px; margin-top: 10px">
                             <button id="saveBtn" class="btn" type="button">
-                                Lưu (local)
+                                Lưu tùy chọn
                             </button>
                             <button
                                 id="resetBtn"
                                 class="btn ghost"
                                 type="button">
                                 Reset
-                            </button>
-                            <button
-                                id="saveToHistoryBtn"
-                                class="btn"
-                                type="button"
-                                style="background-color: #28a745">
-                                Lưu vào Lịch sử
                             </button>
                         </div>
                     </div>
@@ -1011,7 +1044,7 @@
                             margin-bottom: 8px;
                         ">
                         <div>
-                            <strong class="small">Preview</strong>
+                            <strong class="small">Xem trước hóa đơn</strong>
                         </div>
                         <div class="small"></div>
                     </div>
@@ -1113,6 +1146,9 @@
                             </div>
                         </div>
                     </div>
+                    <p class="small">
+                        Kiểm tra kỹ thông tin trước khi in hoặc gửi cho khách
+                    </p>
 
                     <div
                         style="
@@ -1123,6 +1159,13 @@
                         ">
                         <button id="downloadBtn" class="btn">
                             📥 Tải hóa đơn (PNG)
+                        </button>
+                        <button
+                            id="saveToHistoryBtn"
+                            class="btn"
+                            type="button"
+                            style="background-color: #28a745">
+                            💾 Lưu vào Lịch sử
                         </button>
                     </div>
                 </div>
@@ -1140,7 +1183,7 @@
                         margin-bottom: 12px;
                     ">
                     <div>
-                        <strong class="small">Lịch sử các đơn đã tạo</strong>
+                        <strong class="small">Lịch sử các đơn gần đây</strong>
                     </div>
                     <button
                         id="clearHistoryBtn"
@@ -1162,13 +1205,16 @@
                 ">
                 <div style="margin-top: 4px; margin-bottom: 24px">
                     <span style="font-style: italic"
-                        >Lưu cục bộ trên trình duyệt — Không upload server -
-                        Không lo bị lộ thông tin</span
+                        >Dữ liệu được lưu cục bộ trên trình duyệt của bạn – Hoàn
+                        toàn riêng tư</span
                     >
                 </div>
                 <div>Được tạo bởi duongvanphi19</div>
                 <div style="margin: 0 4px">
-                    <p>Nếu bạn thấy hữu ích, hãy ủng hộ một ly cafe nhé!</p>
+                    <p>
+                        Bạn thích công cụ này? Ủng hộ mình để duy trì và phát
+                        triển thêm tính năng nhé!
+                    </p>
                     <a
                         href="https://www.buymeacoffee.com/phi19"
                         target="_blank"
@@ -1193,7 +1239,104 @@
             const LS_IMAGES = "invoice_v3_images";
             const LS_THEME = "invoice_v3_theme";
             const LS_HISTORY = "invoice_v3_history"; // Khóa mới cho lịch sử
+            const MAX_FILE_SIZE = 1024 * 1024;
+            // Bạn có thể tùy chỉnh ảnh decor theo từng tháng tại đây
+            const MONTHLY_DECOR_MAP = {
+                12: "assets/uploads/xmas.png", // Tháng 2: Valentine
+                8: "assets/uploads/flower2.png", // Ví dụ tháng 3
+                8: "assets/uploads/mid-autum-festival.png" // Ví dụ tháng 8
+                // Thêm các tháng khác vào đây
+            };
 
+            function setMonthlyDecor() {
+                const currentMonth = new Date().getMonth() + 1; // getMonth() is 0-indexed
+                const monthlyImagePath = MONTHLY_DECOR_MAP[currentMonth];
+                // Cập nhật hoa ở nền hero section
+                console.log(currentMonth);
+                document.documentElement.style.setProperty(
+                    "--flower-image",
+                    monthlyImagePath ? `url(${monthlyImagePath})` : "none"
+                );
+                return;
+            }
+
+            /* ======== IndexedDB functions ======== */
+            function initDB() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(DB_NAME, DB_VERSION);
+                    request.onerror = (event) => {
+                        console.error(
+                            "IndexedDB error:",
+                            event.target.errorCode
+                        );
+                        reject("IndexedDB error: " + event.target.errorCode);
+                    };
+                    request.onsuccess = (event) => {
+                        db = event.target.result;
+                        resolve(db);
+                    };
+                    request.onupgradeneeded = (event) => {
+                        db = event.target.result;
+                        if (!db.objectStoreNames.contains(STORE_NAME)) {
+                            db.createObjectStore(STORE_NAME, { keyPath: "id" });
+                        }
+                    };
+                });
+            }
+
+            function saveImageToDB(id, dataUrl) {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction(
+                        [STORE_NAME],
+                        "readwrite"
+                    );
+                    const store = transaction.objectStore(STORE_NAME);
+                    store.put({ id: id, data: dataUrl });
+
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject(event.target.error);
+                });
+            }
+
+            function loadImageFromDB(id) {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction(
+                        [STORE_NAME],
+                        "readonly"
+                    );
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.get(id);
+
+                    request.onsuccess = (event) => {
+                        const result = event.target.result;
+                        resolve(result ? result.data : null);
+                    };
+                    request.onerror = (event) => reject(event.target.error);
+                });
+            }
+
+            function deleteImagesFromDB() {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction(
+                        [STORE_NAME],
+                        "readwrite"
+                    );
+                    const store = transaction.objectStore(STORE_NAME);
+                    store.clear();
+
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject(event.target.error);
+                });
+            }
             function toCurrency(n) {
                 return (Number(n) || 0).toLocaleString("vi-VN");
             }
@@ -1478,28 +1621,61 @@
             async function handleImageUpload(inputId, outIds, storageKey) {
                 const input = $(inputId);
                 if (!input) return;
+
+                const indicator = $(`${inputId}Indicator`);
+
                 input.addEventListener("change", async (e) => {
+                    indicator.textContent = "";
+                    indicator.className = "upload-indicator";
+
                     const f = e.target.files[0];
-                    if (!f) return;
-                    const data = await dataURLFromFile(f);
-                    const imgs = JSON.parse(
-                        localStorage.getItem(LS_IMAGES) || "{}"
-                    );
-                    imgs[storageKey] = data;
-                    localStorage.setItem(LS_IMAGES, JSON.stringify(imgs));
-                    outIds.forEach((id) => {
-                        if ($(id)) {
-                            $(id).src = data;
-                            $(id).style.display = "block";
+                    if (!f) {
+                        indicator.style.display = "none";
+                        return;
+                    }
+                    indicator.textContent = "Đang tải...";
+                    indicator.className = "upload-indicator loading";
+                    indicator.style.display = "block";
+
+                    if (f.size > MAX_FILE_SIZE) {
+                        indicator.textContent = `Lỗi: File quá lớn (> 1MB). Vui lòng chọn file khác.`;
+                        indicator.className = "upload-indicator error";
+                        input.value = "";
+                        return;
+                    }
+                    try {
+                        const data = await dataURLFromFile(f);
+                        const imgs = JSON.parse(
+                            localStorage.getItem(LS_IMAGES) || "{}"
+                        );
+                        imgs[storageKey] = data;
+                        localStorage.setItem(LS_IMAGES, JSON.stringify(imgs));
+                        outIds.forEach((id) => {
+                            if ($(id)) {
+                                $(id).src = data;
+                                $(id).style.display = "block";
+                            }
+                        });
+
+                        indicator.textContent = "Tải lên thành công!";
+                        indicator.className = "upload-indicator success";
+                        setTimeout(() => {
+                            indicator.style.display = "none";
+                        }, 3000);
+                        // Bỏ chọn ảnh có sẵn khi người dùng upload ảnh mới
+                        if (storageKey === "flowerImg") {
+                            document
+                                .querySelectorAll(".predefined-flower-img")
+                                .forEach((img) => {
+                                    img.style.border = "2px solid transparent";
+                                });
                         }
-                    });
-                    // Bỏ chọn ảnh có sẵn khi người dùng upload ảnh mới
-                    if (storageKey === "flowerImg") {
-                        document
-                            .querySelectorAll(".predefined-flower-img")
-                            .forEach((img) => {
-                                img.style.border = "2px solid transparent";
-                            });
+                    } catch (error) {
+                        console.error("Lỗi khi tải file:", error);
+                        indicator.textContent =
+                            "Lỗi khi tải file. Vui lòng thử lại.";
+                        indicator.className = "upload-indicator error";
+                        input.value = "";
                     }
                 });
             }
@@ -1566,47 +1742,43 @@
                     }
                 }
 
-                // Cập nhật hoa ở góc trên hóa đơn
-                const flowerTL = $("flowerTL");
-                const flowerBR = $("flowerBR");
-                if (flowerTL && flowerBR) {
-                    if (imgs.flowerImg) {
-                        flowerTL.src = imgs.flowerImg;
-                        flowerBR.src = imgs.flowerImg;
-                        flowerTL.style.display = "block";
-                        flowerBR.style.display = "block";
-                        // Đánh dấu ảnh có sẵn nếu đường dẫn khớp
-                        document
-                            .querySelectorAll(".predefined-flower-img")
-                            .forEach((img) => {
-                                if (
-                                    img.getAttribute("data-image") ===
-                                    imgs.flowerImg
-                                ) {
-                                    img.style.border =
-                                        "2px solid var(--accent)";
-                                } else {
-                                    img.style.border = "2px solid transparent";
-                                }
-                            });
-                    } else {
-                        flowerTL.src = "";
-                        flowerBR.src = "";
-                        flowerTL.style.display = "none";
-                        flowerBR.style.display = "none";
-                        document
-                            .querySelectorAll(".predefined-flower-img")
-                            .forEach((img) => {
-                                img.style.border = "2px solid transparent";
-                            });
+                // Xử lý ảnh decor góc
+                if (imgs.flowerImg) {
+                    if ($("flowerTL")) {
+                        $("flowerTL").src = imgs.flowerImg;
+                        $("flowerTL").style.display = "block";
                     }
+                    if ($("flowerBR")) {
+                        $("flowerBR").src = imgs.flowerImg;
+                        $("flowerBR").style.display = "block";
+                    }
+                    document
+                        .querySelectorAll(".predefined-flower-img")
+                        .forEach((img) => {
+                            if (
+                                img.getAttribute("data-image") ===
+                                imgs.flowerImg
+                            ) {
+                                img.style.border = "2px solid var(--accent)";
+                            } else {
+                                img.style.border = "2px solid transparent";
+                            }
+                        });
+                } else {
+                    if ($("flowerTL")) $("flowerTL").style.display = "none";
+                    if ($("flowerBR")) $("flowerBR").style.display = "none";
+                    document
+                        .querySelectorAll(".predefined-flower-img")
+                        .forEach((img) => {
+                            img.style.border = "2px solid transparent";
+                        });
                 }
 
                 // Cập nhật hoa ở nền hero section
-                document.documentElement.style.setProperty(
+                /*document.documentElement.style.setProperty(
                     "--flower-image",
                     imgs.flowerImg ? `url(${imgs.flowerImg})` : "none"
-                );
+                );*/
 
                 // Cập nhật QR Code
                 const outQr = $("outQr");
@@ -1679,6 +1851,7 @@
                 loadForm();
                 loadProducts();
                 loadImages();
+                setMonthlyDecor();
                 loadTheme();
                 renderHistory(); // Tải lịch sử khi trang được load
                 updateInvoice();
@@ -1779,6 +1952,7 @@
                 // download (safe)
                 $("downloadBtn").addEventListener("click", async () => {
                     const btn = $("downloadBtn");
+
                     btn.disabled = true;
                     btn.textContent = "Đang tạo ảnh...";
                     try {
