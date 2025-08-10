@@ -1,21 +1,9 @@
 <!doctype html>
 <html lang="vi">
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-BCJ7KX3WXT"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-        gtag("config", "G-BCJ7KX3WXT");
-    </script>
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Invoice Generator — Mobile First (Safe Export)</title>
+        <title>Tạo Hóa Đơn - Mobile First</title>
 
         <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
@@ -96,9 +84,6 @@
             * {
                 box-sizing: border-box;
             }
-            html {
-                scroll-behavior: smooth;
-            }
             html,
             body {
                 height: 100%;
@@ -115,133 +100,45 @@
                 flex-direction: column;
                 gap: 12px;
             }
-
-            /* Hero Section - Tinh chỉnh mới */
             header {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                text-align: center;
-                padding: 50px 10px 30px;
-                background: var(--card-bg); /* Nền đơn giản hơn */
-                border-radius: 16px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-                position: relative;
-                overflow: hidden;
+                gap: 4px;
             }
-
-            /* Thêm lớp nền hoa bằng pseudo-element */
-            header::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: var(--flower-image); /* Sử dụng biến CSS */
-                background-repeat: no-repeat;
-                background-position: top left;
-                background-size: 150px; /* Điều chỉnh kích thước ảnh hoa */
-                opacity: 0.3; /* Làm mờ để trở thành nền */
-                pointer-events: none; /* Đảm bảo không cản trở tương tác */
-                z-index: 1;
-            }
-
             header h1 {
                 font-family: "Playfair Display", serif;
-                font-size: 32px;
-                font-weight: 700;
-                margin: 0 0 10px;
-                line-height: 1.2;
-                color: var(--text);
-                position: relative;
-                z-index: 2;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+                margin: 0;
+                font-size: 24px;
+                text-align: center;
+                margin-top: 16px;
             }
+            header p {
+                margin: 0;
+
+                font-size: 13px;
+            }
+
+            /* Thêm đoạn CSS này vào file của bạn */
+            @keyframes drawUnderline {
+                to {
+                    transform: scaleX(1);
+                }
+            }
+
             header h1::after {
                 content: "";
                 position: absolute;
                 bottom: -5px;
                 left: 0;
                 width: 100%;
-                height: 4px;
+                height: 3px;
                 background: var(--accent);
-                transform: scaleX(0);
+                transform: scaleX(0); /* Ban đầu không thấy gạch chân */
                 transform-origin: bottom left;
                 animation: drawUnderline 1.5s cubic-bezier(0.2, 1, 0.3, 1)
-                    forwards;
-                animation-delay: 0.5s;
-            }
-            header .subtitle {
-                margin: 0;
-                font-size: 18px;
-                font-weight: 400;
-                color: var(--muted);
-                max-width: 600px;
-                z-index: 2;
-            }
-
-            .cta-button {
-                display: inline-block;
-                padding: 14px 30px;
-                margin: 32px 0;
-                background: var(--text);
-                color: var(--page-bg);
-                text-decoration: none;
-                font-weight: 600;
-                font-size: 18px;
-                border-radius: 10px;
-                transition:
-                    transform 0.3s ease,
-                    background-color 0.3s ease,
-                    box-shadow 0.3s ease;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                z-index: 2;
-            }
-            .cta-button:hover {
-                background: var(--accent);
-                transform: translateY(-2px) scale(1.02);
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-            }
-            .cta-button {
-                position: relative; /* Để định vị absolute cho emoji bên trong */
-                overflow: hidden; /* Để emoji không tràn ra ngoài khi xoay */
-                padding-left: 25px; /* Tạo khoảng trống cho emoji bên trái */
-            }
-            .cta-emoji {
-                position: absolute;
-                top: -12px; /* Điều chỉnh vị trí từ trên xuống */
-                left: -8px; /* Điều chỉnh vị trí từ trái sang */
-                font-size: 1.9em; /* Điều chỉnh kích thước emoji */
-                opacity: 0.7; /* Điều chỉnh độ mờ */
-                transform: rotate(-20deg); /* Xoay một góc */
-                z-index: -1;
-            }
-            .feature-list {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-                margin-top: 30px;
-                max-width: 800px;
-                z-index: 2;
-            }
-            .feature-item {
-                background: rgba(255, 255, 255, 0.6);
-                backdrop-filter: blur(5px);
-                padding: 8px 12px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--text);
-                transition: transform 0.2s ease;
-            }
-            .feature-item:hover {
-                transform: translateY(-2px);
+                    forwards; /* Áp dụng animation */
+                animation-delay: 0.5s; /* Độ trễ 0.5 giây sau khi trang tải */
             }
 
             /* MOBILE-FIRST layout */
@@ -328,64 +225,6 @@
                 flex-wrap: wrap;
                 margin-top: 8px;
             }
-            /* CSS cho lịch sử đơn hàng */
-            #history-list li {
-                position: relative; /* Quan trọng: để định vị hình hoa */
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 12px;
-                margin-bottom: 10px;
-                border-radius: 8px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-                transition: background-color 0.3s ease;
-                overflow: hidden; /* Giúp các phần tử bên trong không tràn ra ngoài */
-            }
-            /* Áp dụng màu nền từ các theme */
-            #history-list li.theme-1 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-2 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-3 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-4 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-5 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-6 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-7 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-8 {
-                background: var(--page-bg);
-            }
-
-            /* CSS cho hình hoa nhỏ ở góc */
-            #history-list .flower-thumbnail {
-                position: absolute;
-                top: 0; /* Điều chỉnh vị trí */
-                left: 0; /* Điều chỉnh vị trí */
-                width: 50px;
-                height: 50px;
-                opacity: 0.8;
-                object-fit: contain;
-                border-radius: 8px 0 0 0;
-                z-index: 1; /* Đảm bảo hình hoa nằm dưới nội dung chính */
-            }
-
-            /* Đảm bảo nội dung chính nằm trên hình hoa */
-            #history-list .invoice-details,
-            #history-list .invoice-actions {
-                position: relative;
-                z-index: 2;
-            }
 
             /* product list */
             .product-item {
@@ -441,6 +280,24 @@
                 }
             }
 
+            .upload-indicator {
+                display: none;
+                margin-top: 6px;
+                font-size: 12px;
+                padding: 6px 8px;
+                border-radius: 4px;
+                color: #fff;
+                background-color: var(--accent);
+                text-align: center;
+                transition: all 0.3s ease;
+            }
+            .upload-indicator.success {
+                background-color: #28a745;
+            }
+            .upload-indicator.error {
+                background-color: #dc3545;
+            }
+
             /* preview */
             .preview-wrap {
                 display: flex;
@@ -462,12 +319,12 @@
                 width: 150px;
             }
             .corner.tl {
-                top: 0;
-                left: 0;
+                top: -6px;
+                left: -6px;
             }
             .corner.br {
-                bottom: 0;
-                right: 0;
+                bottom: -6px;
+                right: -6px;
 
                 transform: rotate(180deg);
             }
@@ -568,102 +425,18 @@
                     width: 420px;
                 }
             }
-
-            /* CSS mới cho Lịch sử đơn hàng */
-            #history-container {
-                margin-top: 24px;
-            }
-            #history-container .h3 {
-                font-size: 20px;
-                color: var(--text);
-                border-bottom: 2px solid var(--accent);
-                padding-bottom: 5px;
-                margin-bottom: 16px;
-            }
-            #history-list {
-                list-style: none;
-                padding: 0;
-            }
-            #history-list li {
-                background: var(--card-bg);
-                border-radius: 8px;
-                padding: 12px;
-                margin-bottom: 10px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            }
-            #history-list .invoice-details {
-                text-align: left;
-            }
-            #history-list .invoice-details .history-shop-name {
-                font-weight: 600;
-                font-size: 12px;
-            }
-            #history-list .invoice-details .history-date {
-                font-size: 12px;
-                color: var(--muted);
-            }
-            .invoice-actions {
-                display: flex;
-                justify-content: space-between;
-                flex-shrink: 0;
-            }
-            #history-list .invoice-actions button {
-                margin-left: 8px;
-                padding: 5px 10px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 12px;
-                text-align: right;
-            }
-            #history-list .invoice-actions .load-btn {
-                background: var(--accent);
-                color: white;
-            }
-            #history-list .invoice-actions .delete-btn {
-                background: #dc3545;
-                color: white;
-            }
-            /* CSS mới cho chỉ báo upload */
-            .upload-indicator {
-                font-size: 12px;
-                margin-top: 4px;
-                padding: 4px 8px;
-                border-radius: 4px;
-                display: none; /* Mặc định ẩn */
-            }
-            .upload-indicator.loading {
-                background-color: #f0f0f0;
-                color: #555;
-            }
-            .upload-indicator.success {
-                background-color: #d4edda;
-                color: #155724;
-            }
-            .upload-indicator.error {
-                background-color: #f8d7da;
-                color: #721c24;
-            }
         </style>
     </head>
     <body class="theme-1">
         <div class="wrap">
             <header>
-                <h1>
-                    Tạo Hóa Đơn Bán Hàng Chuyên Nghiệp <br />
-                    Chỉ Trong 30 GIÂY
-                </h1>
-                <p class="subtitle">
-                    Công cụ tạo hóa đơn online miễn phí, an toàn và dễ sử dụng
-                    cho mọi cửa hàng nhỏ & freelancer.
+                <h1>Tạo Hóa Đơn Chuyên Nghiệp</h1>
+                <p class="small" style="text-align: center">
+                    Công cụ miễn phí giúp bạn tạo hóa đơn chuyên nghiệp và nhanh chóng.
                 </p>
-                <a href="#invoiceForm" class="cta-button"
-                    ><span class="cta-emoji">📃</span>Tạo Hóa Đơn Ngay Bây
-                    Giờ</a
-                >
+                <p class="callout">
+                    "Tạo, tùy chỉnh và lưu lại mẫu hóa đơn yêu thích ngay trong trình duyệt. Phù hợp cho các shop online, freelancer hay doanh nghiệp nhỏ."
+                </p>
                 <div class="feature-list">
                     <div class="feature-item">
                         <span class="icon">✨</span>
@@ -672,10 +445,6 @@
                     <div class="feature-item">
                         <span class="icon">🔒</span>
                         <span>An toàn & Riêng tư</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🔑</span>
-                        <span>Không cần đăng nhập</span>
                     </div>
                     <div class="feature-item">
                         <span class="icon">🖌️</span>
@@ -701,39 +470,36 @@
                             flex-direction: column;
                             gap: 10px;
                         ">
-                        <strong class="small">Nhập thông tin hóa đơn</strong>
                         <div>
-                            <label class="small">Tên shop</label>
+                            <label class="small">Tên Shop của bạn</label>
                             <input
                                 id="shopName"
                                 placeholder="Cô Chủ Nhỏ Shop" />
-                            <label class="small">Logo (upload)</label>
+                            <label class="small" style="margin-top: 6px">Logo (PNG, JPG, tối đa 1MB)</label>
                             <input id="shopLogo" type="file" accept="image/*" />
-                            <div
-                                id="shopLogoIndicator"
-                                class="upload-indicator"></div>
+                            <div id="shopLogoIndicator" class="upload-indicator"></div>
                         </div>
 
                         <div>
-                            <label class="small">Tên khách</label>
+                            <label class="small">Tên khách hàng</label>
                             <input
                                 id="customerName"
                                 placeholder="Nguyễn Văn A" />
                             <div class="row" style="margin-top: 6px">
                                 <div class="col">
-                                    <label class="small">SĐT</label>
+                                    <label class="small">Số điện thoại</label>
                                     <input
                                         id="customerPhone"
                                         placeholder="0909xxxxxx"
                                         type="tel" />
                                 </div>
                                 <div class="col">
-                                    <label class="small">Ngày đặt</label>
+                                    <label class="small">Ngày đặt hàng</label>
                                     <input id="orderDate" type="date" />
                                 </div>
                             </div>
                             <label class="small" style="margin-top: 6px"
-                                >Địa chỉ nhận</label
+                                >Địa chỉ giao hàng</label
                             >
                             <textarea
                                 id="customerAddress"
@@ -743,12 +509,12 @@
                         <div>
                             <div class="row">
                                 <div class="col">
-                                    <label class="small">Mã đơn</label>
+                                    <label class="small">Mã đơn hàng</label>
                                     <input id="orderId" placeholder="DH001" />
                                 </div>
                                 <div class="col">
                                     <label class="small"
-                                        >Ngày nhận dự kiến</label
+                                        >Ngày giao dự kiến</label
                                     >
                                     <input id="expectedDate" type="date" />
                                 </div>
@@ -764,7 +530,7 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label class="small">Phí ship (VNĐ)</label>
+                                    <label class="small">Phí vận chuyển (VNĐ)</label>
                                     <input
                                         id="shippingFee"
                                         type="number"
@@ -773,7 +539,7 @@
                             </div>
 
                             <label class="small" style="margin-top: 6px"
-                                >Mã giảm / note ngắn</label
+                                >Mã giảm giá / Ghi chú</label
                             >
                             <input
                                 id="shortNote"
@@ -788,36 +554,35 @@
                                     id="addProductBtn"
                                     class="btn"
                                     type="button">
-                                    + Thêm sản phẩm
+                                    + Thêm dòng sản phẩm
                                 </button>
                                 <button
                                     id="clearProducts"
                                     class="btn ghost"
                                     type="button">
-                                    Xóa hết
+                                    Xóa tất cả
                                 </button>
                             </div>
                             <div class="small" style="margin-top: 8px"></div>
                         </div>
 
                         <div style="margin-top: 8px">
-                            <label class="small">Ghi chú dài (nếu cần)</label>
+                            <label class="small">Ghi chú chung cho đơn</label>
                             <textarea
                                 id="note"
-                                placeholder="Ghi chú cho đơn"></textarea>
+                                placeholder="Ghi chú cho đơn hàng"></textarea>
                         </div>
 
                         <div style="margin-top: 8px">
-                            <label class="small">Ảnh decor góc (PNG)</label>
+                            <label class="small">Ảnh decor góc (PNG, tối đa 1MB)</label>
                             <input
                                 id="flowerImage"
                                 type="file"
                                 accept="image/*" />
-                            <div
-                                id="flowerImageIndicator"
-                                class="upload-indicator"></div>
+                            <div id="flowerImageIndicator" class="upload-indicator"></div>
+
                             <label class="small" style="margin-top: 6px"
-                                >Chọn ảnh decor góc có sẵn</label
+                                >Chọn ảnh decor có sẵn</label
                             >
                             <div
                                 style="
@@ -888,20 +653,19 @@
                             </div>
 
                             <label class="small" style="margin-top: 6px"
-                                >QR chuyển khoản (upload)</label
+                                >QR chuyển khoản (PNG, tối đa 1MB)</label
                             >
                             <input id="qrImage" type="file" accept="image/*" />
-                            <div
-                                id="qrImageIndicator"
-                                class="upload-indicator"></div>
+                            <div id="qrImageIndicator" class="upload-indicator"></div>
+
                             <label class="small" style="margin-top: 6px"
-                                >Lời cảm ơn (footer)</label
+                                >Lời cảm ơn cuối hóa đơn</label
                             >
                             <input
                                 id="thankYouText"
-                                placeholder="Cảm ơn anh/chị đã tin tưởng Cô Chủ Nhỏ Shop 🌿" />
+                                placeholder="Cảm ơn anh/chị đã tin tưởng ủng hộ Cô Chủ Nhỏ Shop!" />
                             <div style="margin-top: 8px">
-                                <div class="small">Chọn bộ màu</div>
+                                <div class="small">Chọn chủ đề màu</div>
                                 <div
                                     style="
                                         display: flex;
@@ -954,7 +718,7 @@
                                                 #fff,
                                                 #fff1f4
                                             );
-                                            border-radius: 6px;
+                                            border-radius: 6-px;
                                         "></div>
 
                                     <div
@@ -977,7 +741,7 @@
                                             height: 24px;
                                             background: linear-gradient(
                                                 #fff,
-                                                #7eb8f3
+                                                 #7eb8f3
                                             );
                                             border-radius: 6px;
                                         "></div>
@@ -1011,20 +775,19 @@
 
                         <div style="display: flex; gap: 8px; margin-top: 10px">
                             <button id="saveBtn" class="btn" type="button">
-                                Lưu (local)
+                                Lưu thông tin
+                            </button>
+                            <button
+                                id="clearImagesBtn"
+                                class="btn ghost"
+                                type="button">
+                                Xóa ảnh đã lưu
                             </button>
                             <button
                                 id="resetBtn"
-                                class="btn ghost"
+                                class="btn warn"
                                 type="button">
-                                Reset
-                            </button>
-                            <button
-                                id="saveToHistoryBtn"
-                                class="btn"
-                                type="button"
-                                style="background-color: #28a745">
-                                Lưu vào Lịch sử
+                                Xóa hết & Làm lại
                             </button>
                         </div>
                     </div>
@@ -1039,7 +802,7 @@
                             margin-bottom: 8px;
                         ">
                         <div>
-                            <strong class="small">Preview</strong>
+                            <strong class="small">Xem trước hóa đơn</strong>
                         </div>
                         <div class="small"></div>
                     </div>
@@ -1125,7 +888,7 @@
                             <div class="products" id="outProducts"></div>
 
                             <div class="total">
-                                <div>Tổng</div>
+                                <div>Tổng cộng</div>
                                 <div id="outTotal">0 ₫</div>
                             </div>
 
@@ -1150,35 +913,10 @@
                             justify-content: center;
                         ">
                         <button id="downloadBtn" class="btn">
-                            📥 Tải hóa đơn (PNG)
+                            📥 Tải hóa đơn (Chất lượng cao)
                         </button>
                     </div>
                 </div>
-            </div>
-
-            <div
-                class="panel"
-                id="history-container"
-                style="max-width: 600px; margin: 24px auto">
-                <div
-                    style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-bottom: 12px;
-                    ">
-                    <div>
-                        <strong class="small">Lịch sử các đơn đã tạo</strong>
-                    </div>
-                    <button
-                        id="clearHistoryBtn"
-                        class="btn warn"
-                        type="button"
-                        style="padding: 5px 10px">
-                        Xóa Lịch sử
-                    </button>
-                </div>
-                <ul id="history-list"></ul>
             </div>
 
             <footer
@@ -1190,13 +928,12 @@
                 ">
                 <div style="margin-top: 4px; margin-bottom: 24px">
                     <span style="font-style: italic"
-                        >Lưu cục bộ trên trình duyệt — Không upload server -
-                        Không lo bị lộ thông tin</span
+                        >Dữ liệu được lưu cục bộ trên trình duyệt của bạn — Hoàn toàn riêng tư</span
                     >
                 </div>
                 <div>Được tạo bởi duongvanphi19</div>
-                <div style="margin: 0 4px">
-                    <p>Nếu bạn thấy hữu ích, hãy ủng hộ một ly cafe nhé!</p>
+                <div style="margin:0 4px">
+                    Nếu bạn thấy hữu ích, hãy ủng hộ một ly cafe nhé!
                     <a
                         href="https://www.buymeacoffee.com/phi19"
                         target="_blank"
@@ -1212,26 +949,45 @@
                 </div>
             </footer>
         </div>
-
         <script>
             /* ======== Helpers ======== */
             const $ = (id) => document.getElementById(id);
             const LS_FORM = "invoice_v3_form";
             const LS_PRODUCTS = "invoice_v3_products";
-            const LS_IMAGES = "invoice_v3_images";
             const LS_THEME = "invoice_v3_theme";
-            const LS_HISTORY = "invoice_v3_history"; // Khóa mới cho lịch sử
-            const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2 MB
+            const MAX_FILE_SIZE = 1024 * 1024; // 1MB
+            
+            // Thêm biến để lưu trữ ảnh decor gốc của người dùng
+            let originalFlowerImageSrc = null;
+
+            // IndexedDB
+            const DB_NAME = "InvoiceDB";
+            const DB_VERSION = 1;
+            const STORE_NAME = "images";
+            let db;
+
+            // Ảnh decor cho ngày lễ cụ thể (Ưu tiên cao hơn)
+            const SPECIAL_DECOR_MAP = {
+                // Định dạng: "tháng-ngày": "đường_dẫn_ảnh"
+                "9-2": "assets/uploads/quockhanh.png", // 2/9 - Lễ Quốc khánh
+                "12-25": "assets/uploads/christmas.png", // 25/12 - Giáng Sinh
+                "1-1": "assets/uploads/newyear.png", // 1/1 - Tết Dương lịch
+                "2-14": "assets/uploads/valentine.png", // 14/2 - Valentine
+            };
+            const NEKO_DECOR_PATH = "assets/uploads/maneki-neko.png";
+
+            // Ảnh decor cho tháng mặc định (Ưu tiên thấp hơn)
+            const MONTHLY_DECOR_MAP = {
+                // Định dạng: "tháng": "đường_dẫn_ảnh"
+                1: 'assets/uploads/flower1.png',
+                2: 'assets/uploads/valentine.png',
+                3: 'assets/uploads/flower2.png',
+                8: 'assets/uploads/flower5.png',
+                // Thêm các tháng khác vào đây
+            };
+
             function toCurrency(n) {
                 return (Number(n) || 0).toLocaleString("vi-VN");
-            }
-            function dataURLFromFile(file) {
-                return new Promise((res, rej) => {
-                    const r = new FileReader();
-                    r.onload = (e) => res(e.target.result);
-                    r.onerror = rej;
-                    r.readAsDataURL(file);
-                });
             }
             function escapeHtml(s) {
                 return String(s || "").replace(
@@ -1246,170 +1002,71 @@
                         })[m]
                 );
             }
-
-            /* ======== History Functions ======== */
-            function getFormData() {
-                const formState = {};
-                const ids = [
-                    "shopName",
-                    "customerName",
-                    "customerPhone",
-                    "customerAddress",
-                    "orderDate",
-                    "expectedDate",
-                    "orderId",
-                    "paymentMethod",
-                    "shippingFee",
-                    "shortNote",
-                    "note",
-                    "thankYouText"
-                ];
-                ids.forEach((id) => {
-                    const el = $(id);
-                    if (el) formState[id] = el.value;
-                });
-                formState.products = getProducts();
-                formState.images = JSON.parse(
-                    localStorage.getItem(LS_IMAGES) || "{}"
-                );
-                formState.theme = localStorage.getItem(LS_THEME) || "theme-1";
-                return formState;
-            }
-
-            function loadFormData(data) {
-                if (!data) return;
-                const ids = [
-                    "shopName",
-                    "customerName",
-                    "customerPhone",
-                    "customerAddress",
-                    "orderDate",
-                    "expectedDate",
-                    "orderId",
-                    "paymentMethod",
-                    "shippingFee",
-                    "shortNote",
-                    "note",
-                    "thankYouText"
-                ];
-                ids.forEach((id) => {
-                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
-                });
-
-                if (data.products) {
-                    $("productList").innerHTML = "";
-                    data.products.forEach((p) => addProduct(p));
-                }
-
-                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu
-                localStorage.setItem(LS_IMAGES, JSON.stringify(data.images));
-                loadImages();
-
-                if (data.theme) {
-                    setTheme(data.theme);
-                    document.querySelectorAll(".theme-btn").forEach((b) => {
-                        if (b.dataset.theme === data.theme)
-                            b.classList.add("selected");
-                        else b.classList.remove("selected");
-                    });
-                }
-                updateInvoice();
-            }
-
-            function saveInvoiceToHistory() {
-                const invoiceData = getFormData();
-                invoiceData.timestamp = Date.now();
-
-                let history = JSON.parse(
-                    localStorage.getItem(LS_HISTORY) || "[]"
-                );
-                history.unshift(invoiceData);
-                localStorage.setItem(LS_HISTORY, JSON.stringify(history));
-
-                alert("Đã lưu hóa đơn vào lịch sử.");
-                renderHistory();
-            }
-
-            // Hàm hiển thị danh sách hóa đơn đã lưu
-            // Hàm hiển thị danh sách hóa đơn đã lưu
-            // Hàm hiển thị danh sách hóa đơn đã lưu
-            function renderHistory() {
-                const history = JSON.parse(
-                    localStorage.getItem(LS_HISTORY) || "[]"
-                );
-                const historyList = $("history-list");
-                historyList.innerHTML = "";
-
-                if (history.length === 0) {
-                    historyList.innerHTML =
-                        "<li>Chưa có hóa đơn nào được lưu.</li>";
-                    return;
-                }
-
-                history.forEach((inv) => {
-                    const li = document.createElement("li");
-                    li.classList.add(inv.theme || "theme-1"); // Thêm class theme vào item
-                    li.innerHTML = `
-            <img class="flower-thumbnail" src="${escapeHtml(
-                inv.images.flowerImg
-            )}" alt="Decor" style="display: ${
-                inv.images.flowerImg ? "block" : "none"
-            };">
             
-            <div class="invoice-details">
-                <span class="history-shop-name">${escapeHtml(
-                    inv.customerName || "Đơn hàng"
-                )} - ${inv.customerPhone || "Không có SĐT"}</span>
-                <span class="history-date">${new Date(
-                    inv.timestamp
-                ).toLocaleString("vi-VN")}</span>
-            </div>
-            <div class="invoice-actions">
-                <button class="load-btn" data-id="${
-                    inv.timestamp
-                }">Tải lại</button>
-                <button class="delete-btn" data-id="${
-                    inv.timestamp
-                }">Xóa</button>
-            </div>
-        `;
-                    historyList.appendChild(li);
+            /* ======== IndexedDB functions ======== */
+            function initDB() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(DB_NAME, DB_VERSION);
+                    request.onerror = (event) => {
+                        console.error("IndexedDB error:", event.target.errorCode);
+                        reject("IndexedDB error: " + event.target.errorCode);
+                    };
+                    request.onsuccess = (event) => {
+                        db = event.target.result;
+                        resolve(db);
+                    };
+                    request.onupgradeneeded = (event) => {
+                        db = event.target.result;
+                        if (!db.objectStoreNames.contains(STORE_NAME)) {
+                            db.createObjectStore(STORE_NAME, { keyPath: "id" });
+                        }
+                    };
                 });
             }
 
-            function loadInvoiceFromHistory(id) {
-                const history = JSON.parse(
-                    localStorage.getItem(LS_HISTORY) || "[]"
-                );
-                const invoiceToLoad = history.find(
-                    (inv) => inv.timestamp == id
-                );
-                if (invoiceToLoad) {
-                    loadFormData(invoiceToLoad);
-                    alert(`Đã tải lại hóa đơn "${invoiceToLoad.shopName}".`);
-                }
+            function saveImageToDB(id, dataUrl) {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction([STORE_NAME], "readwrite");
+                    const store = transaction.objectStore(STORE_NAME);
+                    store.put({ id: id, data: dataUrl });
+
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject(event.target.error);
+                });
+            }
+            
+            function loadImageFromDB(id) {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction([STORE_NAME], "readonly");
+                    const store = transaction.objectStore(STORE_NAME);
+                    const request = store.get(id);
+
+                    request.onsuccess = (event) => {
+                        const result = event.target.result;
+                        resolve(result ? result.data : null);
+                    };
+                    request.onerror = (event) => reject(event.target.error);
+                });
             }
 
-            function deleteInvoiceFromHistory(id) {
-                let history = JSON.parse(
-                    localStorage.getItem(LS_HISTORY) || "[]"
-                );
-                history = history.filter((inv) => inv.timestamp != id);
-                localStorage.setItem(LS_HISTORY, JSON.stringify(history));
-                renderHistory();
-                alert("Đã xóa hóa đơn khỏi lịch sử.");
-            }
+            function deleteImagesFromDB() {
+                return new Promise((resolve, reject) => {
+                    if (!db) {
+                        return reject("IndexedDB not initialized.");
+                    }
+                    const transaction = db.transaction([STORE_NAME], "readwrite");
+                    const store = transaction.objectStore(STORE_NAME);
+                    store.clear();
 
-            function clearHistory() {
-                if (
-                    confirm(
-                        "Bạn có chắc chắn muốn xóa toàn bộ lịch sử hóa đơn?"
-                    )
-                ) {
-                    localStorage.removeItem(LS_HISTORY);
-                    renderHistory();
-                    alert("Đã xóa toàn bộ lịch sử.");
-                }
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = (event) => reject(event.target.error);
+                });
             }
 
             /* ======== Products ======== */
@@ -1428,13 +1085,10 @@
                     }">
                     <button class="remove-btn" title="Xóa">×</button>
                 `;
-                el.querySelector(".remove-btn").addEventListener(
-                    "click",
-                    () => {
-                        el.remove();
-                        debouncedUpdateInvoice();
-                    }
-                );
+                el.querySelector(".remove-btn").addEventListener("click", () => {
+                    el.remove();
+                    debouncedUpdateInvoice();
+                });
                 el.querySelectorAll("input").forEach((i) =>
                     i.addEventListener("input", debouncedUpdateInvoice)
                 );
@@ -1448,27 +1102,19 @@
                 $("productList").innerHTML = "";
                 debouncedUpdateInvoice();
             }
-
             function getProducts() {
-                const nodes = document.querySelectorAll(
-                    "#productList .product-item"
-                );
+                const nodes = document.querySelectorAll("#productList .product-item");
                 const arr = [];
                 nodes.forEach((n) => {
                     const name = n.querySelector(".productName").value.trim();
-                    const qty =
-                        Number(n.querySelector(".productQty").value) || 0;
-                    const price =
-                        Number(n.querySelector(".productPrice").value) || 0;
+                    const qty = Number(n.querySelector(".productQty").value) || 0;
+                    const price = Number(n.querySelector(".productPrice").value) || 0;
                     if (name) arr.push({ name, qty, price });
                 });
                 return arr;
             }
             function saveProducts() {
-                localStorage.setItem(
-                    LS_PRODUCTS,
-                    JSON.stringify(getProducts())
-                );
+                localStorage.setItem(LS_PRODUCTS, JSON.stringify(getProducts()));
             }
 
             /* ======== Form save/load ======== */
@@ -1502,7 +1148,7 @@
                 });
             }
 
-            /* ======== Images save/load (base64) ======== */
+            /* ======== Images save/load (IndexedDB) ======== */
             async function handleImageUpload(inputId, outIds, storageKey) {
                 const input = $(inputId);
                 if (!input) return;
@@ -1510,33 +1156,35 @@
                 const indicator = $(`${inputId}Indicator`);
 
                 input.addEventListener("change", async (e) => {
-                    indicator.textContent = "";
-                    indicator.className = "upload-indicator";
-
+                    indicator.textContent = '';
+                    indicator.className = 'upload-indicator';
+                    
                     const f = e.target.files[0];
                     if (!f) {
-                        indicator.style.display = "none";
+                        indicator.style.display = 'none';
                         return;
                     }
-
-                    indicator.textContent = "Đang tải...";
-                    indicator.className = "upload-indicator loading";
-                    indicator.style.display = "block";
+                    
+                    indicator.textContent = 'Đang tải...';
+                    indicator.className = 'upload-indicator loading';
+                    indicator.style.display = 'block';
 
                     if (f.size > MAX_FILE_SIZE) {
                         indicator.textContent = `Lỗi: File quá lớn (> 1MB). Vui lòng chọn file khác.`;
-                        indicator.className = "upload-indicator error";
-                        input.value = "";
+                        indicator.className = 'upload-indicator error';
+                        input.value = '';
                         return;
                     }
 
                     try {
-                        const data = await dataURLFromFile(f);
-                        const imgs = JSON.parse(
-                            localStorage.getItem(LS_IMAGES) || "{}"
-                        );
-                        imgs[storageKey] = data;
-                        localStorage.setItem(LS_IMAGES, JSON.stringify(imgs));
+                        const data = await new Promise((res, rej) => {
+                            const r = new FileReader();
+                            r.onload = (e) => res(e.target.result);
+                            r.onerror = rej;
+                            r.readAsDataURL(f);
+                        });
+                        
+                        await saveImageToDB(storageKey, data);
 
                         outIds.forEach((id) => {
                             if ($(id)) {
@@ -1545,10 +1193,10 @@
                             }
                         });
 
-                        indicator.textContent = "Tải lên thành công!";
-                        indicator.className = "upload-indicator success";
+                        indicator.textContent = 'Tải lên thành công!';
+                        indicator.className = 'upload-indicator success';
                         setTimeout(() => {
-                            indicator.style.display = "none";
+                            indicator.style.display = 'none';
                         }, 3000);
 
                         if (storageKey === "flowerImg") {
@@ -1560,19 +1208,74 @@
                         }
                     } catch (error) {
                         console.error("Lỗi khi tải file:", error);
-                        indicator.textContent =
-                            "Lỗi khi tải file. Vui lòng thử lại.";
-                        indicator.className = "upload-indicator error";
-                        input.value = "";
+                        indicator.textContent = 'Lỗi khi tải file. Vui lòng thử lại.';
+                        indicator.className = 'upload-indicator error';
+                        input.value = '';
                     }
                 });
             }
 
-            function loadImages() {
-                const imgs = JSON.parse(
-                    localStorage.getItem(LS_IMAGES) || "{}"
-                );
+            async function setDecor(customPath = null) {
+                const flowerTL = $("flowerTL");
+                const flowerBR = $("flowerBR");
+                
+                let decorImagePath;
+                if (customPath) {
+                    decorImagePath = customPath;
+                    await saveImageToDB('flowerImg', decorImagePath);
+                } else {
+                    const savedImage = await loadImageFromDB('flowerImg');
+                    const isUserImage = savedImage && !savedImage.startsWith('assets/uploads/');
 
+                    if (!isUserImage) {
+                         const now = new Date();
+                        const currentMonth = now.getMonth() + 1;
+                        const currentDay = now.getDate();
+                        const specialDateKey = `${currentMonth}-${currentDay}`;
+                        // Ưu tiên kiểm tra ngày đặc biệt
+                        if (SPECIAL_DECOR_MAP[specialDateKey]) {
+                            decorImagePath = SPECIAL_DECOR_MAP[specialDateKey];
+                        } 
+                        // Nếu không có ngày đặc biệt, kiểm tra decor của tháng
+                        else if (MONTHLY_DECOR_MAP[currentMonth]) {
+                            decorImagePath = MONTHLY_DECOR_MAP[currentMonth];
+                        }
+                    } else {
+                        decorImagePath = savedImage;
+                    }
+                    
+                     if (decorImagePath && savedImage !== decorImagePath) {
+                        await saveImageToDB('flowerImg', decorImagePath);
+                    }
+                }
+                
+                // Cập nhật ảnh decor chỉ khi người dùng chưa tự chọn ảnh khác
+                if (decorImagePath) {
+                    flowerTL.src = decorImagePath;
+                    flowerBR.src = decorImagePath;
+                    flowerTL.style.display = "block";
+                    flowerBR.style.display = "block";
+                } else {
+                    flowerTL.style.display = "none";
+                    flowerBR.style.display = "none";
+                }
+                
+                // Cập nhật border của ảnh decor có sẵn
+                document.querySelectorAll(".predefined-flower-img").forEach((img) => {
+                    if (decorImagePath && img.getAttribute("data-image") === decorImagePath) {
+                        img.style.border = "2px solid var(--accent)";
+                    } else {
+                        img.style.border = "2px solid transparent";
+                    }
+                });
+            }
+
+            async function loadImages() {
+                const imgs = {};
+                imgs.shopLogo = await loadImageFromDB('shopLogo');
+                imgs.flowerImg = await loadImageFromDB('flowerImg');
+                imgs.qrImg = await loadImageFromDB('qrImg');
+                
                 // Xử lý logo
                 if (imgs.shopLogo && $("outLogo")) {
                     $("outLogo").src = imgs.shopLogo;
@@ -1580,38 +1283,15 @@
                 } else if ($("outLogo")) {
                     $("outLogo").style.display = "none";
                 }
-
-                // Xử lý ảnh decor góc
+                
+                // Lưu trữ ảnh decor gốc của người dùng
                 if (imgs.flowerImg) {
-                    if ($("flowerTL")) {
-                        $("flowerTL").src = imgs.flowerImg;
-                        $("flowerTL").style.display = "block";
-                    }
-                    if ($("flowerBR")) {
-                        $("flowerBR").src = imgs.flowerImg;
-                        $("flowerBR").style.display = "block";
-                    }
-                    document
-                        .querySelectorAll(".predefined-flower-img")
-                        .forEach((img) => {
-                            if (
-                                img.getAttribute("data-image") ===
-                                imgs.flowerImg
-                            ) {
-                                img.style.border = "2px solid var(--accent)";
-                            } else {
-                                img.style.border = "2px solid transparent";
-                            }
-                        });
-                } else {
-                    if ($("flowerTL")) $("flowerTL").style.display = "none";
-                    if ($("flowerBR")) $("flowerBR").style.display = "none";
-                    document
-                        .querySelectorAll(".predefined-flower-img")
-                        .forEach((img) => {
-                            img.style.border = "2px solid transparent";
-                        });
+                    originalFlowerImageSrc = imgs.flowerImg;
                 }
+                
+                // Xử lý ảnh decor góc
+                setDecor(imgs.flowerImg);
+
 
                 // Xử lý QR Code
                 if (imgs.qrImg && $("outQr")) {
@@ -1622,377 +1302,7 @@
                 }
 
                 // Ẩn tất cả các indicator khi tải lại trang
-                document
-                    .querySelectorAll(".upload-indicator")
-                    .forEach((ind) => (ind.style.display = "none"));
-            }
-
-            /* ======== Form save/load ======== */
-            function loadFormData(data) {
-                if (!data) return;
-                const ids = [
-                    "shopName",
-                    "customerName",
-                    "customerPhone",
-                    "customerAddress",
-                    "orderDate",
-                    "expectedDate",
-                    "orderId",
-                    "paymentMethod",
-                    "shippingFee",
-                    "shortNote",
-                    "note",
-                    "thankYouText"
-                ];
-                ids.forEach((id) => {
-                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
-                });
-
-                if (data.products) {
-                    $("productList").innerHTML = "";
-                    data.products.forEach((p) => addProduct(p));
-                }
-
-                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu.
-                // Nếu không có, `data.images` sẽ là một object rỗng.
-                localStorage.setItem(
-                    LS_IMAGES,
-                    JSON.stringify(data.images || {})
-                );
-                loadImages();
-
-                if (data.theme) {
-                    setTheme(data.theme);
-                    document.querySelectorAll(".theme-btn").forEach((b) => {
-                        if (b.dataset.theme === data.theme)
-                            b.classList.add("selected");
-                        else b.classList.remove("selected");
-                    });
-                }
-                updateInvoice();
-            }
-
-            function loadImages() {
-                const imgs = JSON.parse(
-                    localStorage.getItem(LS_IMAGES) || "{}"
-                );
-
-                // Cập nhật logo
-                const outLogo = $("outLogo");
-                if (outLogo) {
-                    if (imgs.shopLogo) {
-                        outLogo.src = imgs.shopLogo;
-                        outLogo.style.display = "block";
-                    } else {
-                        outLogo.src = "";
-                        outLogo.style.display = "none";
-                    }
-                }
-
-                // Cập nhật hoa ở góc trên hóa đơn
-                const flowerTL = $("flowerTL");
-                const flowerBR = $("flowerBR");
-                if (flowerTL && flowerBR) {
-                    if (imgs.flowerImg) {
-                        flowerTL.src = imgs.flowerImg;
-                        flowerBR.src = imgs.flowerImg;
-                        flowerTL.style.display = "block";
-                        flowerBR.style.display = "block";
-                        // Đánh dấu ảnh có sẵn nếu đường dẫn khớp
-                        document
-                            .querySelectorAll(".predefined-flower-img")
-                            .forEach((img) => {
-                                if (
-                                    img.getAttribute("data-image") ===
-                                    imgs.flowerImg
-                                ) {
-                                    img.style.border =
-                                        "2px solid var(--accent)";
-                                } else {
-                                    img.style.border = "2px solid transparent";
-                                }
-                            });
-                    } else {
-                        flowerTL.src = "";
-                        flowerBR.src = "";
-                        flowerTL.style.display = "none";
-                        flowerBR.style.display = "none";
-                        document
-                            .querySelectorAll(".predefined-flower-img")
-                            .forEach((img) => {
-                                img.style.border = "2px solid transparent";
-                            });
-                    }
-                }
-
-                // Cập nhật hoa ở nền hero section
-                document.documentElement.style.setProperty(
-                    "--flower-image",
-                    imgs.flowerImg ? `url(${imgs.flowerImg})` : "none"
-                );
-
-                // Cập nhật QR Code
-                const outQr = $("outQr");
-                if (outQr) {
-                    if (imgs.qrImg) {
-                        outQr.src = imgs.qrImg;
-                        outQr.style.display = "block";
-                    } else {
-                        outQr.src = "";
-                        outQr.style.display = "none";
-                    }
-                }
-            }
-
-            /* ======== Form save/load ======== */
-            function loadFormData(data) {
-                if (!data) return;
-                const ids = [
-                    "shopName",
-                    "customerName",
-                    "customerPhone",
-                    "customerAddress",
-                    "orderDate",
-                    "expectedDate",
-                    "orderId",
-                    "paymentMethod",
-                    "shippingFee",
-                    "shortNote",
-                    "note",
-                    "thankYouText"
-                ];
-                ids.forEach((id) => {
-                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
-                });
-
-                if (data.products) {
-                    $("productList").innerHTML = "";
-                    data.products.forEach((p) => addProduct(p));
-                }
-
-                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu.
-                // Nếu không có, `data.images` sẽ là một object rỗng.
-                localStorage.setItem(
-                    LS_IMAGES,
-                    JSON.stringify(data.images || {})
-                );
-                loadImages();
-
-                if (data.theme) {
-                    setTheme(data.theme);
-                    document.querySelectorAll(".theme-btn").forEach((b) => {
-                        if (b.dataset.theme === data.theme)
-                            b.classList.add("selected");
-                        else b.classList.remove("selected");
-                    });
-                }
-                updateInvoice();
-            }
-
-            document.addEventListener("DOMContentLoaded", () => {
-                // load saved
-                loadForm();
-                loadProducts();
-                loadImages();
-                loadTheme();
-                renderHistory();
-                updateInvoice();
-
-                // input live update
-                document
-                    .querySelectorAll(
-                        '#invoiceForm input:not([type="file"]), #invoiceForm textarea, #invoiceForm select'
-                    )
-                    .forEach((inp) =>
-                        inp.addEventListener("input", debouncedUpdateInvoice)
-                    );
-
-                // file uploads (store base64)
-                handleImageUpload("shopLogo", ["outLogo"], "shopLogo");
-                handleImageUpload(
-                    "flowerImage",
-                    ["flowerTL", "flowerBR"],
-                    "flowerImg"
-                );
-                handleImageUpload("qrImage", ["outQr"], "qrImg");
-
-                // add/clear product
-                $("addProductBtn").addEventListener("click", () => {
-                    addProduct({});
-                });
-                $("clearProducts").addEventListener("click", () => {
-                    if (confirm("Xóa hết sản phẩm?")) {
-                        clearProducts();
-                    }
-                });
-
-                // save/reset
-                $("saveBtn").addEventListener("click", () => {
-                    saveForm();
-                    saveProducts();
-                    alert("Đã lưu vào trình duyệt.");
-                });
-                $("resetBtn").addEventListener("click", () => {
-                    if (confirm("Reset toàn bộ dữ liệu?")) {
-                        localStorage.clear();
-                        location.reload();
-                    }
-                });
-
-                // Lịch sử đơn hàng
-                $("saveToHistoryBtn").addEventListener(
-                    "click",
-                    saveInvoiceToHistory
-                );
-                $("clearHistoryBtn").addEventListener("click", clearHistory);
-                $("history-list").addEventListener("click", (event) => {
-                    const target = event.target;
-                    const id = target.getAttribute("data-id");
-                    if (target.classList.contains("load-btn")) {
-                        loadInvoiceFromHistory(id);
-                    } else if (target.classList.contains("delete-btn")) {
-                        if (confirm("Bạn có muốn xóa hóa đơn này không?")) {
-                            deleteInvoiceFromHistory(id);
-                        }
-                    }
-                });
-
-                // theme buttons
-                document.querySelectorAll(".theme-btn").forEach((btn) =>
-                    btn.addEventListener("click", () => {
-                        setTheme(btn.dataset.theme);
-                        btn.classList.add("selected");
-                        document.querySelectorAll(".theme-btn").forEach((b) => {
-                            if (b !== btn) b.classList.remove("selected");
-                        });
-                    })
-                );
-
-                // Predefined flower images
-                document
-                    .querySelectorAll(".predefined-flower-img")
-                    .forEach((btn) => {
-                        btn.addEventListener("click", () => {
-                            const imagePath = btn.getAttribute("data-image");
-                            const imgs = JSON.parse(
-                                localStorage.getItem(LS_IMAGES) || "{}"
-                            );
-                            imgs.flowerImg = imagePath;
-                            localStorage.setItem(
-                                LS_IMAGES,
-                                JSON.stringify(imgs)
-                            );
-                            loadImages();
-                            updateInvoice();
-                        });
-                    });
-
-                // download (safe)
-                $("downloadBtn").addEventListener("click", async () => {
-                    const btn = $("downloadBtn");
-                    btn.disabled = true;
-                    btn.textContent = "Đang tạo ảnh...";
-                    try {
-                        const imgs = Array.from(
-                            document.querySelectorAll("#card img")
-                        );
-                        await Promise.all(
-                            imgs.map(
-                                (img) =>
-                                    new Promise((resolve) => {
-                                        if (!img.src) return resolve();
-                                        if (img.complete) return resolve();
-                                        img.onload = () => resolve();
-                                        img.onerror = () => resolve();
-                                    })
-                            )
-                        );
-
-                        const card = $("card");
-                        const origWidth = card.clientWidth || 360;
-                        const targetWidth = 1080;
-                        let scale = Math.min(
-                            3,
-                            Math.max(1.5, targetWidth / origWidth)
-                        );
-                        const canvas = await html2canvas(card, {
-                            useCORS: true,
-                            scale: scale,
-                            backgroundColor: null
-                        });
-                        canvas.toBlob(
-                            (blob) => {
-                                const url = URL.createObjectURL(blob);
-                                const a = document.createElement("a");
-                                a.href = url;
-                                a.download = `invoice_${
-                                    $("orderId").value || "order"
-                                }.png`;
-                                document.body.appendChild(a);
-                                a.click();
-                                a.remove();
-                                setTimeout(
-                                    () => URL.revokeObjectURL(url),
-                                    10000
-                                );
-                            },
-                            "image/png",
-                            0.95
-                        );
-                        saveInvoiceToHistory();
-                    } catch (err) {
-                        console.error(err);
-                        alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
-                    } finally {
-                        btn.disabled = false;
-                        btn.textContent = "📥 Tải hóa đơn (PNG)";
-                    }
-                });
-            });
-
-            /* ======== Form save/load ======== */
-            function loadFormData(data) {
-                if (!data) return;
-                const ids = [
-                    "shopName",
-                    "customerName",
-                    "customerPhone",
-                    "customerAddress",
-                    "orderDate",
-                    "expectedDate",
-                    "orderId",
-                    "paymentMethod",
-                    "shippingFee",
-                    "shortNote",
-                    "note",
-                    "thankYouText"
-                ];
-                ids.forEach((id) => {
-                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
-                });
-
-                if (data.products) {
-                    $("productList").innerHTML = "";
-                    data.products.forEach((p) => addProduct(p));
-                }
-
-                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu.
-                // Nếu không có, `data.images` sẽ là một object rỗng.
-                localStorage.setItem(
-                    LS_IMAGES,
-                    JSON.stringify(data.images || {})
-                );
-                loadImages();
-
-                if (data.theme) {
-                    setTheme(data.theme);
-                    document.querySelectorAll(".theme-btn").forEach((b) => {
-                        if (b.dataset.theme === data.theme)
-                            b.classList.add("selected");
-                        else b.classList.remove("selected");
-                    });
-                }
-                updateInvoice();
+                document.querySelectorAll('.upload-indicator').forEach(ind => ind.style.display = 'none');
             }
 
             /* ======== Theme ======== */
@@ -2010,7 +1320,6 @@
                 document.body.classList.add(cls);
                 localStorage.setItem(LS_THEME, cls);
             }
-
             function loadTheme() {
                 const t = localStorage.getItem(LS_THEME) || "theme-1";
                 setTheme(t);
@@ -2068,7 +1377,6 @@
                     row.style = "color: var(--accent)";
                     row.innerHTML = `<div style="flex:1">
                             Sản phẩm
-                      
                         </div><div style="width:24px;text-align:right">
                             SL
                         </div><div style="width:90px;text-align:right">
@@ -2122,6 +1430,193 @@
                     });
                 } else arr.forEach((p) => addProduct(p));
             }
+
+            /* ======== Events init ======== */
+            document.addEventListener("DOMContentLoaded", async () => {
+                // Init IndexedDB
+                await initDB();
+
+                // load saved
+                loadForm();
+                await setDecor();
+                loadProducts();
+                await loadImages();
+                loadTheme();
+                updateInvoice();
+
+                // input live update
+                document
+                    .querySelectorAll(
+                        '#invoiceForm input:not([type="file"]), #invoiceForm textarea, #invoiceForm select'
+                    )
+                    .forEach((inp) =>
+                        inp.addEventListener("input", debouncedUpdateInvoice)
+                    );
+
+                // Thêm logic cho tính năng ẩn #neko
+                $("orderId").addEventListener("input", async (e) => {
+                    const orderId = e.target.value.trim().toLowerCase();
+                    if (orderId === "#neko") {
+                        await setDecor(NEKO_DECOR_PATH);
+                    } else if (orderId === "#reset" && originalFlowerImageSrc) {
+                        await setDecor(originalFlowerImageSrc);
+                    } else if (orderId === "#reset" && !originalFlowerImageSrc) {
+                        await setDecor(null);
+                    } else {
+                        // Tải lại ảnh decor gốc khi xóa #neko
+                        const savedImage = await loadImageFromDB('flowerImg');
+                        if (savedImage === NEKO_DECOR_PATH) {
+                             await setDecor();
+                        }
+                    }
+                });
+
+                // file uploads (store in IndexedDB)
+                handleImageUpload("shopLogo", ["outLogo"], "shopLogo");
+                handleImageUpload(
+                    "flowerImage",
+                    ["flowerTL", "flowerBR"],
+                    "flowerImg"
+                );
+                handleImageUpload("qrImage", ["outQr"], "qrImg");
+
+                // add/clear product
+                $("addProductBtn").addEventListener("click", () => {
+                    addProduct({});
+                });
+                $("clearProducts").addEventListener("click", () => {
+                    if (confirm("Xóa hết sản phẩm?")) {
+                        clearProducts();
+                    }
+                });
+
+                // save/reset
+                $("saveBtn").addEventListener("click", () => {
+                    try {
+                        saveForm();
+                        saveProducts();
+                        alert("Đã lưu dữ liệu vào trình duyệt.");
+                    } catch (e) {
+                        console.error(e);
+                        alert("Lỗi khi lưu dữ liệu. Vui lòng thử lại.");
+                    }
+                });
+                
+                $("clearImagesBtn").addEventListener("click", async () => {
+                     if (confirm("Bạn có chắc chắn muốn xóa toàn bộ ảnh (logo, decor, QR) đã lưu không?")) {
+                        try {
+                            await deleteImagesFromDB();
+                            originalFlowerImageSrc = null;
+                            await setDecor(); 
+                            await loadImages();
+                            alert("Đã xóa toàn bộ ảnh đã lưu.");
+                        } catch (e) {
+                            console.error("Lỗi khi xóa ảnh:", e);
+                            alert("Có lỗi xảy ra khi xóa ảnh. Vui lòng thử lại.");
+                        }
+                     }
+                });
+                
+                $("resetBtn").addEventListener("click", () => {
+                    if (confirm("Xóa toàn bộ dữ liệu (form, sản phẩm, ảnh đã lưu) và làm lại từ đầu?")) {
+                        localStorage.clear();
+                        indexedDB.deleteDatabase(DB_NAME);
+                        location.reload();
+                    }
+                });
+
+                // theme buttons
+                document.querySelectorAll(".theme-btn").forEach((btn) =>
+                    btn.addEventListener("click", () => {
+                        setTheme(btn.dataset.theme);
+                        btn.classList.add("selected");
+                        document.querySelectorAll(".theme-btn").forEach((b) => {
+                            if (b !== btn) b.classList.remove("selected");
+                        });
+                    })
+                );
+
+                // Predefined flower images
+                document
+                    .querySelectorAll(".predefined-flower-img")
+                    .forEach((btn) => {
+                        btn.addEventListener("click", async () => {
+                            const imagePath = btn.getAttribute("data-image");
+                            await saveImageToDB('flowerImg', imagePath);
+                            originalFlowerImageSrc = imagePath;
+                            setDecor(imagePath);
+                            updateInvoice();
+                        });
+                    });
+
+                // download (safe)
+                $("downloadBtn").addEventListener("click", async () => {
+                    const btn = $("downloadBtn");
+                    btn.disabled = true;
+                    btn.textContent = "Đang tạo ảnh...";
+                    try {
+                        // wait images inside card to load (logo/flower/qr)
+                        const imgs = Array.from(
+                            document.querySelectorAll("#card img")
+                        );
+                        await Promise.all(
+                            imgs.map(
+                                (img) =>
+                                    new Promise((resolve) => {
+                                        if (!img.src) return resolve();
+                                        if (img.complete) return resolve();
+                                        img.onload = () => resolve();
+                                        img.onerror = () => {
+                                            console.error('Lỗi khi tải ảnh:', img.src);
+                                            resolve();
+                                        };
+                                    })
+                            )
+                        );
+
+                        // compute safe scale: don't exceed 3 to avoid memory spikes
+                        const card = $("card");
+                        const origWidth = card.clientWidth || 360;
+                        const targetWidth = 1080;
+                        let scale = Math.min(
+                            3,
+                            Math.max(1.5, targetWidth / origWidth)
+                        );
+                        // render with html2canvas
+                        const canvas = await html2canvas(card, {
+                            useCORS: true,
+                            scale: scale,
+                            backgroundColor: null
+                        });
+                        // export via blob to avoid huge dataURL memory peak
+                        canvas.toBlob(
+                            (blob) => {
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement("a");
+                                a.href = url;
+                                a.download = `invoice_${
+                                    $("orderId").value || "order"
+                                }.png`;
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                                setTimeout(
+                                    () => URL.revokeObjectURL(url),
+                                    10000
+                                );
+                            },
+                            "image/png",
+                            0.95
+                        );
+                    } catch (err) {
+                        console.error(err);
+                        alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
+                    } finally {
+                        btn.disabled = false;
+                        btn.textContent = "📥 Tải hóa đơn (Chất lượng cao)";
+                    }
+                });
+            }); // end DOMContentLoaded
         </script>
     </body>
 </html>

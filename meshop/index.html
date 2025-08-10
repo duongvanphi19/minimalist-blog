@@ -37,7 +37,14 @@
                 --accent: #d4b483;
                 --max-width: 980px;
             }
-            /* themes */
+
+            .theme-0 {
+                --card-bg: #fff;
+                --page-bg: #f8f8f8;
+                --text: #333;
+                --accent: #888;
+            }
+
             .theme-1 {
                 --card-bg: #fff;
                 --page-bg: #f8f1e7;
@@ -68,8 +75,7 @@
                 --text: #5d4037; /* nâu nhạt, dễ đọc */
                 --accent: #ffc107; /* vàng tươi nổi bật */
             }
-            /* Theme 6: Vàng pastel sang trọng */
-            /* Theme 6: Xanh đen sang trọng */
+
             .theme-6 {
                 --card-bg: #fff;
                 --page-bg: #e3f2fd; /* xanh nhạt nền */
@@ -142,9 +148,7 @@
                 background-repeat: no-repeat;
                 background-position: top left;
                 background-size: 180px; /* Điều chỉnh kích thước ảnh hoa */
-                opacity: 0.9
-                
-            ; /* Làm mờ để trở thành nền */
+                opacity: 0.9; /* Làm mờ để trở thành nền */
                 pointer-events: none; /* Đảm bảo không cản trở tương tác */
                 z-index: 1;
             }
@@ -519,7 +523,7 @@
                 justify-content: space-between;
                 font-size: 12px;
                 padding: 6px 0;
-                border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+                border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
             }
             .prod-row:last-child {
                 border-bottom: none;
@@ -529,7 +533,7 @@
                 justify-content: space-between;
                 font-weight: 700;
                 padding-top: 8px;
-                border-top: 1px solid rgba(0, 0, 0, 0.04);
+                border-top: 1px solid rgba(0, 0, 0, 0.08);
                 margin-top: 8px;
             }
             .note {
@@ -565,8 +569,10 @@
                 .right {
                     flex: 1;
                     display: flex;
-                    align-items: flex-start;
-                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content:;
+                    gap: 10px;
                 }
                 .card {
                     width: 420px;
@@ -708,11 +714,13 @@
                         ">
                         <strong class="small">Nhập thông tin hóa đơn</strong>
                         <div>
-                            <label class="small">Tên shop</label>
+                            <label class="small">Tên shop của bạn</label>
                             <input
                                 id="shopName"
-                                placeholder="Cô Chủ Nhỏ Shop" />
-                            <label class="small">Logo (upload ảnh <1MB)</label>
+                                placeholder="VD: Shop Của Tôi" />
+                            <label style="margin-top: 6px" class="small"
+                                >Logo (upload ảnh <1MB)</label
+                            >
                             <input id="shopLogo" type="file" accept="image/*" />
                             <div
                                 id="shopLogoIndicator"
@@ -729,7 +737,7 @@
                                     <label class="small">SĐT</label>
                                     <input
                                         id="customerPhone"
-                                        placeholder="0909xxxxxx"
+                                        placeholder="VD: 0909xxxxxx"
                                         type="tel" />
                                 </div>
                                 <div class="col">
@@ -742,7 +750,7 @@
                             >
                             <textarea
                                 id="customerAddress"
-                                placeholder="123 Lê Lợi, Quận 1, TP.HCM"></textarea>
+                                placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
                         </div>
 
                         <div>
@@ -780,7 +788,13 @@
                                         placeholder="0" />
                                 </div>
                             </div>
-
+                            <label style="margin-top: 6px" class="small"
+                                >Thanh toán trước (VNĐ)</label
+                            >
+                            <input
+                                id="paidAmount"
+                                type="number"
+                                placeholder="0" />
                             <label class="small" style="margin-top: 6px"
                                 >Ghi chú ngắn</label
                             >
@@ -836,7 +850,21 @@
                                     display: flex;
                                     gap: 8px;
                                     margin-top: 6px;
+                                    overflow-x: auto;
                                 ">
+                                <img
+                                    class="predefined-flower-img"
+                                    src="assets/uploads/transparent.png"
+                                    data-image="assets/uploads/transparent.png"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        cursor: pointer;
+                                        border: 2px solid transparent;
+                                        border-radius: 4px;
+                                        background: #fff;
+                                    "
+                                    alt="white" />
                                 <img
                                     class="predefined-flower-img"
                                     src="assets/uploads/flower1.png"
@@ -919,7 +947,20 @@
                                         display: flex;
                                         gap: 8px;
                                         margin-top: 6px;
+                                        overflow-x: auto;
                                     ">
+                                    <div
+                                        class="swatch theme-btn"
+                                        data-theme="theme-0"
+                                        style="
+                                            width: 34px;
+                                            height: 24px;
+                                            background: linear-gradient(
+                                                #fff,
+                                                #eee
+                                            );
+                                            border-radius: 6px;
+                                        "></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-1"
@@ -1021,7 +1062,7 @@
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 8px; margin-top: 10px">
+                        <div style="display: flex; gap: 8px; margin-top: 36px">
                             <button id="saveBtn" class="btn" type="button">
                                 Lưu tùy chọn
                             </button>
@@ -1036,17 +1077,10 @@
                 </div>
 
                 <div class="right panel">
-                    <div
-                        style="
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            margin-bottom: 8px;
-                        ">
+                    <div>
                         <div>
                             <strong class="small">Xem trước hóa đơn</strong>
                         </div>
-                        <div class="small"></div>
                     </div>
 
                     <div class="preview-wrap">
@@ -1074,7 +1108,7 @@
                                 alt=""
                                 style="display: none" />
                             <div class="shop-name" id="outShopName">
-                                Cô Chủ Nhỏ Shop
+                                Shop Của Tôi
                             </div>
                             <div class="title">XÁC NHẬN ĐƠN HÀNG</div>
 
@@ -1132,6 +1166,10 @@
                             <div class="total">
                                 <div>Tổng</div>
                                 <div id="outTotal">0 ₫</div>
+                            </div>
+                            <div class="total">
+                                <div>Đã thanh toán</div>
+                                <div id="outPaidAmount">0 ₫</div>
                             </div>
 
                             <div class="note" id="outShortNote"></div>
@@ -1240,11 +1278,25 @@
             const LS_THEME = "invoice_v3_theme";
             const LS_HISTORY = "invoice_v3_history"; // Khóa mới cho lịch sử
             const MAX_FILE_SIZE = 1024 * 1024;
+            // Thay đổi: Thêm một map chứa tất cả các mã ẩn và đường dẫn ảnh tương ứng
+            const HIDDEN_DECOR_MAP = {
+                "#vietnam": "assets/uploads/vietnam-national-day.png",
+                "#midautumn": "assets/uploads/mid-autumn-festival.png",
+                "#neko": "assets/uploads/maneki-neko.png",
+                "#valentine": "assets/uploads/valentine.png",
+                "#halloween": "assets/uploads/halloween.png",
+                "#xmas": "assets/uploads/xmas.png"
+                // Thêm các mã ẩn khác vào đây
+            };
+
+            let originalFlowerImageSrc = null;
             // Bạn có thể tùy chỉnh ảnh decor theo từng tháng tại đây
             const MONTHLY_DECOR_MAP = {
                 12: "assets/uploads/xmas.png", // Tháng 2: Valentine
-                8: "assets/uploads/flower2.png", // Ví dụ tháng 3
-                8: "assets/uploads/mid-autum-festival.png" // Ví dụ tháng 8
+                2: "assets/uploads/valentine.png", // Ví dụ tháng 3
+                8: "assets/uploads/mid-autumn-festival.png", // Ví dụ tháng 8
+                9: "assets/uploads/vietnam-national-day.png" // Ví dụ tháng 8
+
                 // Thêm các tháng khác vào đây
             };
 
@@ -1258,6 +1310,58 @@
                     monthlyImagePath ? `url(${monthlyImagePath})` : "none"
                 );
                 return;
+            }
+
+            // Thay đổi: Cập nhật event listener cho ô Mã đơn
+            $("orderId").addEventListener("input", (e) => {
+                const orderId = e.target.value.trim().toLowerCase();
+                const hiddenImagePath = HIDDEN_DECOR_MAP[orderId];
+
+                // Kiểm tra nếu mã nhập vào là một mã ẩn hợp lệ
+                if (hiddenImagePath) {
+                    setDecorImageFromPath(hiddenImagePath);
+                }
+                // Nếu mã nhập vào là '#reset'
+                else if (orderId === "#reset") {
+                    setDecorImageFromPath(originalFlowerImageSrc || "");
+                }
+                // Nếu không có mã ẩn nào được nhập, khôi phục về ảnh gốc
+                else {
+                    const imgs = JSON.parse(
+                        localStorage.getItem(LS_IMAGES) || "{}"
+                    );
+                    // Kiểm tra xem ảnh hiện tại có phải là ảnh mã ẩn không
+                    if (
+                        Object.values(HIDDEN_DECOR_MAP).includes(imgs.flowerImg)
+                    ) {
+                        setDecorImageFromPath(originalFlowerImageSrc || "");
+                    }
+                }
+            });
+
+            function setDecorImageFromPath(path) {
+                const imgs = JSON.parse(
+                    localStorage.getItem(LS_IMAGES) || "{}"
+                );
+                imgs.flowerImg = path;
+                localStorage.setItem(LS_IMAGES, JSON.stringify(imgs));
+                if ($("flowerTL")) {
+                    $("flowerTL").src = path;
+                    $("flowerTL").style.display = "block";
+                }
+                if ($("flowerBR")) {
+                    $("flowerBR").src = path;
+                    $("flowerBR").style.display = "block";
+                }
+                document
+                    .querySelectorAll(".predefined-flower-img")
+                    .forEach((img) => {
+                        if (img.getAttribute("data-image") === path) {
+                            img.style.border = "2px solid var(--accent)";
+                        } else {
+                            img.style.border = "2px solid transparent";
+                        }
+                    });
             }
 
             /* ======== IndexedDB functions ======== */
@@ -1373,6 +1477,7 @@
                     "orderDate",
                     "expectedDate",
                     "orderId",
+                    "paidAmount",
                     "paymentMethod",
                     "shippingFee",
                     "shortNote",
@@ -1401,6 +1506,7 @@
                     "orderDate",
                     "expectedDate",
                     "orderId",
+                    "paidAmount",
                     "paymentMethod",
                     "shippingFee",
                     "shortNote",
@@ -1596,6 +1702,7 @@
                     "orderDate",
                     "expectedDate",
                     "orderId",
+                    "paidAmount",
                     "paymentMethod",
                     "shippingFee",
                     "shortNote",
@@ -1664,6 +1771,7 @@
                         }, 3000);
                         // Bỏ chọn ảnh có sẵn khi người dùng upload ảnh mới
                         if (storageKey === "flowerImg") {
+                            originalFlowerImageSrc = data;
                             document
                                 .querySelectorAll(".predefined-flower-img")
                                 .forEach((img) => {
@@ -1691,6 +1799,7 @@
                     "orderDate",
                     "expectedDate",
                     "orderId",
+                    "paidAmount",
                     "paymentMethod",
                     "shippingFee",
                     "shortNote",
@@ -1744,6 +1853,7 @@
 
                 // Xử lý ảnh decor góc
                 if (imgs.flowerImg) {
+                    originalFlowerImageSrc = imgs.flowerImg;
                     if ($("flowerTL")) {
                         $("flowerTL").src = imgs.flowerImg;
                         $("flowerTL").style.display = "block";
@@ -1775,10 +1885,6 @@
                 }
 
                 // Cập nhật hoa ở nền hero section
-                /*document.documentElement.style.setProperty(
-                    "--flower-image",
-                    imgs.flowerImg ? `url(${imgs.flowerImg})` : "none"
-                );*/
 
                 // Cập nhật QR Code
                 const outQr = $("outQr");
@@ -1804,6 +1910,7 @@
                     "orderDate",
                     "expectedDate",
                     "orderId",
+                    "paidAmount",
                     "paymentMethod",
                     "shippingFee",
                     "shortNote",
@@ -1843,7 +1950,7 @@
                 // Kiểm tra và đặt ảnh hoa mặc định nếu chưa có trong localStorage
                 let imgs = JSON.parse(localStorage.getItem(LS_IMAGES) || "{}");
                 if (!imgs.flowerImg) {
-                    imgs.flowerImg = "assets/uploads/flower1.png";
+                    imgs.flowerImg = "assets/uploads/transparent.png";
                     localStorage.setItem(LS_IMAGES, JSON.stringify(imgs));
                 }
 
@@ -1940,6 +2047,8 @@
                                 localStorage.getItem(LS_IMAGES) || "{}"
                             );
                             imgs.flowerImg = imagePath;
+                            originalFlowerImageSrc = imagePath;
+                            setDecorImageFromPath(imagePath);
                             localStorage.setItem(
                                 LS_IMAGES,
                                 JSON.stringify(imgs)
@@ -2030,6 +2139,7 @@
                     "orderDate",
                     "expectedDate",
                     "orderId",
+                    "paidAmount",
                     "paymentMethod",
                     "shippingFee",
                     "shortNote",
@@ -2067,6 +2177,7 @@
             /* ======== Theme ======== */
             function setTheme(cls) {
                 document.body.classList.remove(
+                    "theme-0",
                     "theme-1",
                     "theme-2",
                     "theme-3",
@@ -2103,7 +2214,7 @@
             /* ======== Update preview ======== */
             function updateInvoice() {
                 $("outShopName").innerText =
-                    $("shopName").value.trim() || "Cô Chủ Nhỏ Shop";
+                    $("shopName").value.trim() || "Shop Của Tôi";
                 $("outCustomerName").innerText =
                     $("customerName").value.trim() || "Tên khách hàng";
                 $("outCustomerPhone").innerText =
@@ -2121,7 +2232,7 @@
                 $("outShortNote").innerText = $("shortNote").value.trim() || "";
                 $("outThank").innerText =
                     $("thankYouText").value.trim() ||
-                    "Cảm ơn anh/chị đã tin tưởng ủng hộ Cô Chủ Nhỏ Shop!";
+                    "Cảm ơn anh/chị đã tin tưởng ủng hộ Shop!";
 
                 const prods = getProducts();
                 const out = $("outProducts");
@@ -2175,6 +2286,8 @@
                     total += shipping;
                 }
                 $("outTotal").innerText = toCurrency(total) + " ₫";
+                $("outPaidAmount").innerText = toCurrency($("paidAmount").value) + " ₫";
+                
             }
 
             /* ======== Save/load products & form on start ======== */
