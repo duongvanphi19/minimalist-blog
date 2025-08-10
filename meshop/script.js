@@ -1,644 +1,4 @@
-<!doctype html>
-<html lang="vi">
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-BCJ7KX3WXT"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-        gtag("config", "G-BCJ7KX3WXT");
-    </script>
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Invoice Generator — Mobile First (Safe Export)</title>
-
-        <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
-            rel="stylesheet" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-            rel="stylesheet" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-            rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-        <link rel="stylesheet" href="styles.css" />
-    </head>
-    <body class="theme-1">
-        <div class="wrap">
-            <header>
-                <h1>Tạo hóa đơn bán hàng siêu nhanh</h1>
-                <p class="subtitle">
-                    Hoàn thành trong 30 giây - Miễn phí - Tiện lợi - Dành cho
-                    shop online, freelancer & doanh nghiệp nhỏ.
-                </p>
-                <a href="#invoiceForm" class="cta-button"
-                    ><span class="cta-emoji">📃</span>Tạo Hóa Đơn Ngay Bây
-                    Giờ!</a
-                >
-                <span style="margin-top: 8px; margin-bottom: 18px" class="small"
-                    >(Nhanh - Miễn phí - Không cần đăng ký)</span
-                >
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <span class="icon">✨</span>
-                        <span>Hoàn toàn miễn phí</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🔒</span>
-                        <span>An toàn & Riêng tư</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🔑</span>
-                        <span>Không cần đăng nhập</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">🖌️</span>
-                        <span>Tùy chỉnh linh hoạt</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">⚡</span>
-                        <span>Xem trước trực tiếp</span>
-                    </div>
-                    <div class="feature-item">
-                        <span class="icon">📥</span>
-                        <span>Xuất file chất lượng cao</span>
-                    </div>
-                </div>
-            </header>
-
-            <div class="main">
-                <div class="left panel">
-                    <div
-                        id="invoiceForm"
-                        style="
-                            display: flex;
-                            flex-direction: column;
-                            gap: 10px;
-                        ">
-                        <strong class="small">Nhập thông tin hóa đơn</strong>
-                        <div>
-                            <label class="small">Tên shop của bạn</label>
-                            <input
-                                id="shopName"
-                                placeholder="VD: Shop Của Tôi" />
-                            <label style="margin-top: 6px" class="small"
-                                >Logo (upload ảnh <1MB)</label
-                            >
-                            <input id="shopLogo" type="file" accept="image/*" />
-                            <div
-                                id="shopLogoIndicator"
-                                class="upload-indicator"></div>
-                        </div>
-
-                        <div>
-                            <label class="small">Tên khách</label>
-                            <input
-                                id="customerName"
-                                placeholder="VD: Nguyễn Văn A" />
-                            <div class="row" style="margin-top: 6px">
-                                <div class="col">
-                                    <label class="small">SĐT</label>
-                                    <input
-                                        id="customerPhone"
-                                        placeholder="VD: 0909xxxxxx"
-                                        type="tel" />
-                                </div>
-                                <div class="col">
-                                    <label class="small">Ngày đặt hàng</label>
-                                    <input id="orderDate" type="date" />
-                                </div>
-                            </div>
-                            <label class="small" style="margin-top: 6px"
-                                >Địa chỉ nhận</label
-                            >
-                            <textarea
-                                id="customerAddress"
-                                placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
-                        </div>
-
-                        <div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="small">Mã đơn</label>
-                                    <input id="orderId" placeholder="DH001" />
-                                </div>
-                                <div class="col">
-                                    <label class="small"
-                                        >Ngày nhận dự kiến</label
-                                    >
-                                    <input id="expectedDate" type="date" />
-                                </div>
-                            </div>
-
-                            <div class="row" style="margin-top: 6px">
-                                <div class="col">
-                                    <label class="small"
-                                        >Phương thức thanh toán</label
-                                    >
-                                    <select id="paymentMethod">
-                                        <option>Tiền mặt</option>
-                                        <option>Chuyển khoản</option>
-                                        <option>
-                                            Thanh toán khi nhận hàng (COD)
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label class="small">Phí ship (VNĐ)</label>
-                                    <input
-                                        id="shippingFee"
-                                        type="number"
-                                        placeholder="0" />
-                                </div>
-                            </div>
-                            <label style="margin-top: 6px" class="small"
-                                >Thanh toán trước (VNĐ)</label
-                            >
-                            <input
-                                id="paidAmount"
-                                type="number"
-                                placeholder="0" />
-                            <label class="small" style="margin-top: 6px"
-                                >Ghi chú ngắn</label
-                            >
-                            <input
-                                id="shortNote"
-                                placeholder="VD: Giao giờ hành chính" />
-                        </div>
-
-                        <div>
-                            <label class="small">Sản phẩm</label>
-                            <div id="productList"></div>
-                            <div class="actions">
-                                <button
-                                    id="addProductBtn"
-                                    class="btn"
-                                    type="button">
-                                    + Thêm SP
-                                </button>
-                                <button
-                                    id="clearProducts"
-                                    class="btn ghost"
-                                    type="button">
-                                    Xóa hết
-                                </button>
-                            </div>
-                            <div class="small" style="margin-top: 8px"></div>
-                        </div>
-
-                        <div style="margin-top: 8px">
-                            <label class="small">Ghi chú dài (nếu cần)</label>
-                            <textarea
-                                id="note"
-                                placeholder="Ghi chú cho đơn"></textarea>
-                        </div>
-
-                        <div style="margin-top: 8px">
-                            <label class="small"
-                                >Ảnh decor góc (upload ảnh <1MB)</label
-                            >
-                            <input
-                                id="flowerImage"
-                                type="file"
-                                accept="image/*" />
-                            <div
-                                id="flowerImageIndicator"
-                                class="upload-indicator"></div>
-
-                            <label class="small" style="margin-top: 6px"
-                                >Chọn ảnh decor góc có sẵn</label
-                            >
-                            <div
-                                style="
-                                    display: flex;
-                                    gap: 8px;
-                                    margin-top: 6px;
-                                    overflow-x: auto;
-                                ">
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/transparent.png"
-                                    data-image="assets/uploads/transparent.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                        background: #fff;
-                                    "
-                                    alt="white" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower1.png"
-                                    data-image="assets/uploads/flower1.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    alt="Flower 1" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower2.png"
-                                    data-image="assets/uploads/flower2.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    alt="Flower 2" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower3.png"
-                                    data-image="assets/uploads/flower3.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    alt="Flower 3" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower4.png"
-                                    data-image="assets/uploads/flower4.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    alt="Flower 4" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower5.png"
-                                    data-image="assets/uploads/flower5.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    alt="Flower 5" />
-                            </div>
-
-                            <label class="small" style="margin-top: 6px"
-                                >QR chuyển khoản (upload ảnh <1MB)</label
-                            >
-                            <input id="qrImage" type="file" accept="image/*" />
-                            <div
-                                id="qrImageIndicator"
-                                class="upload-indicator"></div>
-                            <label class="small" style="margin-top: 6px"
-                                >Lời cảm ơn (footer)</label
-                            >
-                            <input
-                                id="thankYouText"
-                                placeholder="Cảm ơn anh/chị đã tin tưởng Shop 🌿" />
-                            <div style="margin-top: 8px">
-                                <div class="small">Chọn bộ màu</div>
-                                <div
-                                    style="
-                                        display: flex;
-                                        gap: 8px;
-                                        margin-top: 6px;
-                                        overflow-x: auto;
-                                    ">
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-0"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #eee
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-1"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #f6efe6
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-2"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fffaf7,
-                                                #e7f6f3
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-3"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #eef5ff
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-4"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #fff1f4
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-5"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #ffc107
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-6"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #7eb8f3
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-7"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #ba68c8
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-8"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #da6d51
-                                            );
-                                            border-radius: 6px;
-                                        "></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; gap: 8px; margin-top: 36px">
-                            <button id="saveBtn" class="btn" type="button">
-                                Lưu tùy chọn
-                            </button>
-                            <button
-                                id="resetBtn"
-                                class="btn ghost"
-                                type="button">
-                                Reset
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="right panel">
-                    <div>
-                        <div>
-                            <strong class="small">Xem trước hóa đơn</strong>
-                        </div>
-                    </div>
-
-                    <div class="preview-wrap">
-                        <div
-                            id="card"
-                            class="card"
-                            role="img"
-                            aria-label="Invoice preview">
-                            <img
-                                id="flowerTL"
-                                class="corner tl"
-                                src=""
-                                alt=""
-                                style="display: none" />
-                            <img
-                                id="flowerBR"
-                                class="corner br"
-                                src=""
-                                alt=""
-                                style="display: none" />
-                            <img
-                                id="outLogo"
-                                class="logo"
-                                src=""
-                                alt=""
-                                style="display: none" />
-                            <div class="shop-name" id="outShopName">
-                                Shop Của Tôi
-                            </div>
-                            <div class="title">XÁC NHẬN ĐƠN HÀNG</div>
-
-                            <div class="meta">
-                                <div class="row">
-                                    <div>
-                                        <strong>Khách:</strong>
-                                        <span id="outCustomerName"
-                                            >Nguyễn Văn A</span
-                                        >
-                                    </div>
-                                    <div>
-                                        <strong>SĐT:</strong>
-                                        <span id="outCustomerPhone"
-                                            >0909xxxxxx</span
-                                        >
-                                    </div>
-                                </div>
-                                <div style="margin-top: 6px">
-                                    <strong>Địa chỉ:</strong>
-                                    <span id="outCustomerAddress"
-                                        >123 Lê Lợi, Q1</span
-                                    >
-                                </div>
-                                <div style="margin-top: 6px" class="row">
-                                    <div>
-                                        <strong>Ngày đặt:</strong>
-                                        <span id="outOrderDate"
-                                            >__/__/____</span
-                                        >
-                                    </div>
-                                    <div>
-                                        <strong>Nhận dự kiến:</strong>
-                                        <span id="outExpectedDate"
-                                            >__/__/____</span
-                                        >
-                                    </div>
-                                </div>
-                                <div style="margin-top: 6px" class="row">
-                                    <div>
-                                        <strong>Mã:</strong>
-                                        <span id="outOrderId">DH001</span>
-                                    </div>
-                                    <div>
-                                        <strong>Thanh toán:</strong>
-                                        <span id="outPaymentMethod"
-                                            >Tiền mặt</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="products" id="outProducts"></div>
-
-                            <div class="total">
-                                <div>Tổng</div>
-                                <div id="outTotal">0 ₫</div>
-                            </div>
-                            <div class="total">
-                                <div>Đã thanh toán</div>
-                                <div id="outPaidAmount">0 ₫</div>
-                            </div>
-
-                            <div class="note" id="outShortNote"></div>
-                            <img
-                                id="outQr"
-                                class="qr"
-                                src=""
-                                alt=""
-                                style="display: none" />
-                            <div class="footer" id="outThank">
-                                Cảm ơn anh/chị đã tin tưởng Shop!
-                            </div>
-                        </div>
-                    </div>
-                    <p class="small">
-                        Kiểm tra kỹ thông tin trước khi in hoặc gửi cho khách
-                    </p>
-
-                    <div
-                        style="
-                            display: flex;
-                            gap: 8px;
-                            margin-top: 10px;
-                            justify-content: center;
-                        ">
-                        <button id="downloadBtn" class="btn">
-                            📥 Tải hóa đơn (PNG)
-                        </button>
-                        <button
-                            id="saveToHistoryBtn"
-                            class="btn"
-                            type="button"
-                            style="background-color: #28a745">
-                            💾 Lưu vào Lịch sử
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div
-                class="panel"
-                id="history-container"
-                style="max-width: 600px; margin: 24px auto">
-                <div
-                    style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-bottom: 12px;
-                    ">
-                    <div>
-                        <strong class="small">Lịch sử các đơn gần đây</strong>
-                    </div>
-                    <button
-                        id="clearHistoryBtn"
-                        class="btn warn"
-                        type="button"
-                        style="padding: 5px 10px">
-                        Xóa Lịch sử
-                    </button>
-                </div>
-                <ul id="history-list"></ul>
-            </div>
-
-            <footer
-                style="
-                    text-align: center;
-                    font-size: 12px;
-                    color: var(--muted);
-                    margin-top: 6px;
-                ">
-                <div style="margin-top: 4px; margin-bottom: 24px">
-                    <span style="font-style: italic"
-                        >Dữ liệu được lưu cục bộ trên trình duyệt của bạn – Hoàn
-                        toàn riêng tư</span
-                    >
-                </div>
-                <div>Được tạo bởi duongvanphi19</div>
-                <div style="margin: 0 4px">
-                    <p>
-                        Bạn thích công cụ này? Ủng hộ mình để duy trì và phát
-                        triển thêm tính năng nhé!
-                    </p>
-                    <a
-                        href="https://www.buymeacoffee.com/phi19"
-                        target="_blank"
-                        style="
-                            text-decoration: none;
-                            display: inline-block;
-                            margin-left: 8px;
-                        ">
-                        <img
-                            src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=phi19&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"
-                            alt="Buy Me A Coffee" />
-                    </a>
-                </div>
-            </footer>
-        </div>
-
-        <script>
             /* ======== Helpers ======== */
             const $ = (id) => document.getElementById(id);
             const LS_FORM = "invoice_v3_form";
@@ -649,12 +9,12 @@
             const MAX_FILE_SIZE = 1024 * 1024;
             // Thay đổi: Thêm một map chứa tất cả các mã ẩn và đường dẫn ảnh tương ứng
             const HIDDEN_DECOR_MAP = {
-                "vietnam": "assets/uploads/vietnam-national-day.png",
-                "midautumn": "assets/uploads/mid-autumn-festival.png",
-                "neko": "assets/uploads/maneki-neko.png",
-                "valentine": "assets/uploads/valentine.png",
-                "halloween": "assets/uploads/halloween.png",
-                "xmas": "assets/uploads/xmas.png"
+                "#vietnam": "assets/uploads/vietnam-national-day.png",
+                "#midautumn": "assets/uploads/mid-autumn-festival.png",
+                "#neko": "assets/uploads/maneki-neko.png",
+                "#valentine": "assets/uploads/valentine.png",
+                "#halloween": "assets/uploads/halloween.png",
+                "#xmas": "assets/uploads/xmas.png"
                 // Thêm các mã ẩn khác vào đây
             };
 
@@ -683,7 +43,7 @@
 
             // Thay đổi: Cập nhật event listener cho ô Mã đơn
             $("orderId").addEventListener("input", (e) => {
-                const orderId = e.target.value.trim().toLowerCase().replace(/^#/, '');
+                const orderId = e.target.value.trim().toLowerCase();
                 const hiddenImagePath = HIDDEN_DECOR_MAP[orderId];
 
                 // Kiểm tra nếu mã nhập vào là một mã ẩn hợp lệ
@@ -864,6 +224,48 @@
                 formState.theme = localStorage.getItem(LS_THEME) || "theme-1";
                 return formState;
             }
+
+            function loadFormData(data) {
+                if (!data) return;
+                const ids = [
+                    "shopName",
+                    "customerName",
+                    "customerPhone",
+                    "customerAddress",
+                    "orderDate",
+                    "expectedDate",
+                    "orderId",
+                    "paidAmount",
+                    "paymentMethod",
+                    "shippingFee",
+                    "shortNote",
+                    "note",
+                    "thankYouText"
+                ];
+                ids.forEach((id) => {
+                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
+                });
+
+                if (data.products) {
+                    $("productList").innerHTML = "";
+                    data.products.forEach((p) => addProduct(p));
+                }
+
+                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu
+                localStorage.setItem(LS_IMAGES, JSON.stringify(data.images));
+                loadImages();
+
+                if (data.theme) {
+                    setTheme(data.theme);
+                    document.querySelectorAll(".theme-btn").forEach((b) => {
+                        if (b.dataset.theme === data.theme)
+                            b.classList.add("selected");
+                        else b.classList.remove("selected");
+                    });
+                }
+                updateInvoice();
+            }
+
             function saveInvoiceToHistory() {
                 const invoiceData = getFormData();
                 invoiceData.timestamp = Date.now();
@@ -1114,6 +516,53 @@
                     }
                 });
             }
+
+            /* ======== Form save/load ======== */
+            function loadFormData(data) {
+                if (!data) return;
+                const ids = [
+                    "shopName",
+                    "customerName",
+                    "customerPhone",
+                    "customerAddress",
+                    "orderDate",
+                    "expectedDate",
+                    "orderId",
+                    "paidAmount",
+                    "paymentMethod",
+                    "shippingFee",
+                    "shortNote",
+                    "note",
+                    "thankYouText"
+                ];
+                ids.forEach((id) => {
+                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
+                });
+
+                if (data.products) {
+                    $("productList").innerHTML = "";
+                    data.products.forEach((p) => addProduct(p));
+                }
+
+                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu.
+                // Nếu không có, `data.images` sẽ là một object rỗng.
+                localStorage.setItem(
+                    LS_IMAGES,
+                    JSON.stringify(data.images || {})
+                );
+                loadImages();
+
+                if (data.theme) {
+                    setTheme(data.theme);
+                    document.querySelectorAll(".theme-btn").forEach((b) => {
+                        if (b.dataset.theme === data.theme)
+                            b.classList.add("selected");
+                        else b.classList.remove("selected");
+                    });
+                }
+                updateInvoice();
+            }
+
             function loadImages() {
                 const imgs = JSON.parse(
                     localStorage.getItem(LS_IMAGES) || "{}"
@@ -1177,6 +626,52 @@
                         outQr.style.display = "none";
                     }
                 }
+            }
+
+            /* ======== Form save/load ======== */
+            function loadFormData(data) {
+                if (!data) return;
+                const ids = [
+                    "shopName",
+                    "customerName",
+                    "customerPhone",
+                    "customerAddress",
+                    "orderDate",
+                    "expectedDate",
+                    "orderId",
+                    "paidAmount",
+                    "paymentMethod",
+                    "shippingFee",
+                    "shortNote",
+                    "note",
+                    "thankYouText"
+                ];
+                ids.forEach((id) => {
+                    if ($(id) && data[id] !== undefined) $(id).value = data[id];
+                });
+
+                if (data.products) {
+                    $("productList").innerHTML = "";
+                    data.products.forEach((p) => addProduct(p));
+                }
+
+                // Ghi đè dữ liệu ảnh toàn cục bằng dữ liệu từ hóa đơn đã lưu.
+                // Nếu không có, `data.images` sẽ là một object rỗng.
+                localStorage.setItem(
+                    LS_IMAGES,
+                    JSON.stringify(data.images || {})
+                );
+                loadImages();
+
+                if (data.theme) {
+                    setTheme(data.theme);
+                    document.querySelectorAll(".theme-btn").forEach((b) => {
+                        if (b.dataset.theme === data.theme)
+                            b.classList.add("selected");
+                        else b.classList.remove("selected");
+                    });
+                }
+                updateInvoice();
             }
 
             /* ======== Events init ======== */
@@ -1538,6 +1033,4 @@
                     });
                 } else arr.forEach((p) => addProduct(p));
             }
-        </script>
-    </body>
-</html>
+        

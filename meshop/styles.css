@@ -1,0 +1,682 @@
+
+            :root {
+                --page-bg: #f8f1e7;
+                --card-bg: #fff;
+                --text: #40342e;
+                --muted: #7a6f68;
+                --accent: #d4b483;
+                --max-width: 980px;
+            }
+
+/* Theme-0: Basic Light */
+.theme-0 {
+    --card-bg: #fff;
+    --page-bg: #f8f8f8;
+    --text: #222; /* đậm hơn cho dễ đọc */
+    --accent: #888;
+    --accent-light: #bbb;
+    --border-color: #ddd;
+}
+
+/* Theme-1: Warm Brown */
+.theme-1 {
+    --card-bg: #fff;
+    --page-bg: #f6ede4; /* giảm sáng để chữ dễ đọc hơn */
+    --text: #3a2e28; /* đậm hơn #40342e */
+    --accent: #d4b483;
+    --accent-light: #e6cfa9;
+    --border-color: #ccb79d;
+}
+
+/* Theme-2: Mint Pastel */
+.theme-2 {
+    --card-bg: #fffaf7;
+    --page-bg: #f0f7f6;
+    --text: #243430; /* đậm hơn */
+    --accent: #7cc6b6;
+    --accent-light: #a6dcd0;
+    --border-color: #cce7e2;
+}
+
+/* Theme-3: Blue Calm */
+.theme-3 {
+    --card-bg: #fff;
+    --page-bg: #f4f7ff;
+    --text: #2b3550; /* đậm hơn */
+    --accent: #9aa8ff;
+    --accent-light: #c4cbff;
+    --border-color: #d9ddf5;
+}
+
+/* Theme-4: Pink Pastel */
+.theme-4 {
+    --card-bg: #fff;
+    --page-bg: #fff7f9;
+    --text: #362222; /* đậm hơn #3d2b2b */
+    --accent: #ffb3c6;
+    --accent-light: #ffd6df;
+    --border-color: #f9ccd6;
+}
+
+/* Theme-5: Sunny Yellow */
+.theme-5 {
+    --card-bg: #fff;
+    --page-bg: #fff8e1;
+    --text: #4a342e; /* đậm hơn */
+    --accent: #ffca28; /* vàng dịu hơn #ffc107 */
+    --accent-light: #ffe082;
+    --border-color: #f6d885;
+}
+
+/* Theme-6: Ocean Blue */
+.theme-6 {
+    --card-bg: #fff;
+    --page-bg: #e3f2fd;
+    --text: #0a1624; /* đậm hơn #0d1b2a */
+    --accent: #7eb8f3;
+    --accent-light: #a7d0f7;
+    --border-color: #b5d9f7;
+}
+
+/* Theme-7: Lavender */
+.theme-7 {
+    --card-bg: #fff;
+    --page-bg: #f3e5f5;
+    --text: #190228; /* đậm hơn rgb(15, 1, 24) */
+    --accent: #ba68c8;
+    --accent-light: #d291e0;
+    --border-color: #e1c4eb;
+}
+
+/* Theme-8: Autumn Peach */
+.theme-8 {
+    --card-bg: #fff;
+    --page-bg: #fff3e0;
+    --text: #3d2c25; /* đậm hơn #4e342e nhưng ít đỏ hơn */
+    --accent: #e37a5f; /* dịu hơn #da6d51 */
+    --accent-light: #f0a894;
+    --border-color: #f6c5b4;
+}
+            
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+                font-family: "Poppins", sans-serif;
+                background: var(--page-bg);
+                color: var(--text);
+            }
+            .wrap {
+                max-width: var(--max-width);
+                margin: 12px auto;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Hero Section - Tinh chỉnh mới */
+            header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 50px 10px 30px;
+                background: var(--card-bg); /* Nền đơn giản hơn */
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+                position: relative;
+                overflow: hidden;
+                
+            }
+
+            /* Thêm lớp nền hoa bằng pseudo-element */
+            header::before {
+                content: "";
+                position: absolute;
+                top: -6px;
+                left: -6px;
+                width: 100%;
+                height: 100%;
+                background-image: var(--flower-image); /* Sử dụng biến CSS */
+                background-repeat: no-repeat;
+                background-position: top left;
+                background-size: 180px; /* Điều chỉnh kích thước ảnh hoa */
+                opacity: 0.9; /* Làm mờ để trở thành nền */
+                pointer-events: none; /* Đảm bảo không cản trở tương tác */
+                z-index: 1;
+            }
+
+            header h1 {
+                font-family: "Playfair Display", serif;
+                font-size: 32px;
+                font-weight: 700;
+                margin: 0 0 10px;
+                line-height: 1.2;
+                color: var(--text);
+                position: relative;
+                z-index: 2;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+                letter-spacing : 1px;
+            }
+            header h1::after {
+                content: "";
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 100%;
+                height: 4px;
+                background: var(--accent);
+                transform: scaleX(0);
+                transform-origin: bottom left;
+                animation: drawUnderline 1.5s cubic-bezier(0.2, 1, 0.3, 1)
+                    forwards;
+                animation-delay: 0.5s;
+            }
+            header .subtitle {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 400;
+                color: var(--muted);
+                max-width: 600px;
+                z-index: 2;
+            }
+
+            .cta-button {
+                display: inline-block;
+                padding: 14px 30px;
+                margin-top: 32px;
+                background: var(--text);
+                color: var(--page-bg);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 16px;
+                border-radius: 10px;
+                transition:
+                    transform 0.3s ease,
+                    background-color 0.3s ease,
+                    box-shadow 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                z-index: 2;
+            }
+            .cta-button:hover {
+                background: var(--accent);
+                transform: translateY(-2px) scale(1.02);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            }
+            .cta-button {
+                position: relative; /* Để định vị absolute cho emoji bên trong */
+                overflow: hidden; /* Để emoji không tràn ra ngoài khi xoay */
+                padding-left: 25px; /* Tạo khoảng trống cho emoji bên trái */
+            }
+            .cta-emoji {
+                position: absolute;
+                top: -12px; /* Điều chỉnh vị trí từ trên xuống */
+                left: -8px; /* Điều chỉnh vị trí từ trái sang */
+                font-size: 1.9em; /* Điều chỉnh kích thước emoji */
+                opacity: 0.7; /* Điều chỉnh độ mờ */
+                transform: rotate(-20deg); /* Xoay một góc */
+                z-index: -1;
+            }
+            
+            
+
+.arrow { display:inline-block;}
+@keyframes bounceY {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(6px); }
+  50%  { transform: translateY(4px); }
+  70%  { transform: translateY(6px); }
+  100% { transform: translateY(0); }
+}
+
+.bounce {
+  animation: bounceY 2s cubic-bezier(.2,.8,.2,1) infinite;
+}
+            
+            .feature-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                margin-top: 30px;
+                max-width: 800px;
+                z-index: 2;
+            }
+            .feature-item {
+                background: rgba(255, 255, 255, 0.6);
+                backdrop-filter: blur(5px);
+                padding: 36px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--text);
+                transition: transform 0.2s ease;
+            }
+            .feature-item:hover {
+                transform: translateY(-2px);
+            }
+            #outThank{
+              font-size: 18px;
+            }
+
+            /* MOBILE-FIRST layout */
+            .main {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .panel {
+                background: var(--card-bg);
+                border-radius: 12px;
+                padding: 12px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+            }
+            label {
+                display: block;
+                font-size: 13px;
+                color: var(--muted);
+                margin-bottom: 6px;
+            }
+            input[type="text"],
+            input[type="number"],
+            input[type="date"],
+            select,
+            input,
+            textarea {
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #e6e0d8;
+                background: transparent;
+                font-size: 14px;
+                color: var(--text);
+                min-width: 0;
+            }
+            textarea {
+                min-height: 70px;
+                resize: vertical;
+            }
+            .row {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .col {
+                flex: 1;
+                min-width: 120px;
+            }
+            .swatch.selected {
+                border: 2px solid var(--accent);
+                box-shadow: 0 0 0 1px #fff;
+            }
+
+            .small {
+                font-size: 12px;
+                color: var(--muted);
+            }
+            .callout {
+                font-weight: 700;
+                margin: 8px 0;
+            }
+
+            .btn {
+                display: inline-block;
+                padding: 10px 12px;
+                border-radius: 8px;
+                border: 0;
+                cursor: pointer;
+                background: var(--accent);
+                color: #fff;
+                font-weight: 600;
+            }
+            .btn.ghost {
+                background: transparent;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                color: var(--text);
+            }
+            .btn.warn {
+                background: #e86f6f;
+            }
+            
+            .actions {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-top: 8px;
+            }
+            /* CSS cho lịch sử đơn hàng */
+            #history-list li {
+                position: relative; /* Quan trọng: để định vị hình hoa */
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                transition: background-color 0.3s ease;
+                overflow: hidden; /* Giúp các phần tử bên trong không tràn ra ngoài */
+            }
+            /* Áp dụng màu nền từ các theme */
+            #history-list li.theme-1 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-2 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-3 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-4 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-5 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-6 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-7 {
+                background: var(--page-bg);
+            }
+            #history-list li.theme-8 {
+                background: var(--page-bg);
+            }
+
+            /* CSS cho hình hoa nhỏ ở góc */
+            #history-list .flower-thumbnail {
+                position: absolute;
+                top: -2px; /* Điều chỉnh vị trí */
+                left: -2px; /* Điều chỉnh vị trí */
+                width: 50px;
+                height: 50px;
+                opacity: 0.8;
+                object-fit: contain;
+                border-radius: 8px 0 0 0;
+                z-index: 1; /* Đảm bảo hình hoa nằm dưới nội dung chính */
+            }
+
+            /* Đảm bảo nội dung chính nằm trên hình hoa */
+            #history-list .invoice-details,
+            #history-list .invoice-actions {
+                position: relative;
+                z-index: 2;
+            }
+
+            /* product list */
+            .product-item {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                margin-bottom: 8px;
+                flex-wrap: wrap;
+            }
+            .product-item input {
+                flex: 1;
+                min-width: 90px;
+            }
+            .remove-btn {
+                background: #e86f6f;
+                border: none;
+                color: #fff;
+                padding: 4px 6px;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+
+            .feature-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                margin: 12px 0px;
+            }
+            .feature-item {
+                background: var(--card-bg);
+                padding: 6px 9px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+                flex: 1;
+                min-width: 200px;
+                background: var(--accent);
+                font-size: 12px;
+                font-weight: 700;
+            }
+            .feature-item .icon {
+                font-size: 14px;
+            }
+
+            /* Điều chỉnh lại cho màn hình nhỏ hơn */
+            @media (max-width: 600px) {
+                .feature-item {
+                    min-width: 80%;
+                    justify-content: center;
+                }
+            }
+
+            /* preview */
+            .preview-wrap {
+                display: flex;
+                justify-content: center;
+            }
+            .card {
+                width: 360px;
+                background: var(--card-bg);
+                border-radius: 14px;
+                padding: 16px;
+                position: relative;
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+                overflow: hidden;
+                z-index: 1;
+            }
+            .corner {
+                position: absolute;
+                opacity: 0.45;
+                z-index: 0;
+                width: 140px;
+                z-index: -1;
+            }
+            .corner.tl {
+                top: -6px;
+                left: -6px;
+            }
+            .corner.br {
+                bottom: -6px;
+                right: -6px;
+
+                transform: rotate(180deg);
+            }
+            .logo {
+                max-height: 50px;
+                display: block;
+                margin: 0 auto 6px;
+                z-index: 1;
+            }
+            .shop-name {
+                text-align: center;
+                font-family: "Playfair Display", serif;
+                font-size: 18px;
+                margin-bottom: 6px;
+                color: var(--text);
+            }
+            .title {
+                text-align: center;
+                font-weight: 700;
+                color: var(--accent);
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            .meta {
+                font-size: 13px;
+                color: var(--text);
+                z-index: 1;
+                margin-bottom: 8px;
+            }
+            .meta .row {
+                display: flex;
+                justify-content: space-between;
+                gap: 8px;
+            }
+            .products {
+                background: rgba(255, 255, 255, 0.6);
+                padding: 8px;
+                border-radius: 8px;
+                z-index: 1;
+                margin-bottom: 8px;
+                min-height: 40px;
+            }
+            .prod-row {
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                padding: 6px 0;
+                border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+            }
+            .prod-row:last-child {
+                border-bottom: none;
+            }
+            .total {
+                display: flex;
+                justify-content: space-between;
+                font-weight: 700;
+                padding-top: 8px;
+                border-top: 1px solid rgba(0, 0, 0, 0.08);
+                margin-top: 8px;
+            }
+            .note {
+                text-align: center;
+                font-style: italic;
+                color: var(--muted);
+                font-size: 13px;
+                margin-top: 8px;
+            }
+            .qr {
+                display: block;
+                margin: 8px auto 0;
+                max-width: 140px;
+            }
+            .footer {
+                text-align: center;
+                font-size: 16px;
+                color: var(--muted);
+                margin-top: 8px;
+                font-family: "Dancing Script", cursive;
+                font-family: "Great Vibes", cursive;
+            }
+
+            /* Desktop */
+            @media (min-width: 900px) {
+                .main {
+                    flex-direction: row;
+                    gap: 16px;
+                }
+                .left {
+                    flex: 0 0 420px;
+                }
+                .right {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content:;
+                    gap: 10px;
+                }
+                .card {
+                    width: 420px;
+                }
+            }
+
+            /* CSS mới cho Lịch sử đơn hàng */
+            #history-container {
+                margin-top: 24px;
+            }
+            #history-container .h3 {
+                font-size: 20px;
+                color: var(--text);
+                border-bottom: 2px solid var(--accent);
+                padding-bottom: 5px;
+                margin-bottom: 16px;
+            }
+            #history-list {
+                list-style: none;
+                padding: 0;
+            }
+            #history-list li {
+                background: var(--card-bg);
+                border-radius: 8px;
+                padding: 12px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            }
+            #history-list .invoice-details {
+                text-align: left;
+            }
+            #history-list .invoice-details .history-shop-name {
+                font-weight: 600;
+                font-size: 12px;
+            }
+            #history-list .invoice-details .history-date {
+                font-size: 12px;
+                color: var(--muted);
+            }
+            .invoice-actions {
+                display: flex;
+                justify-content: space-between;
+                flex-shrink: 0;
+            }
+            #history-list .invoice-actions button {
+                margin-left: 8px;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 12px;
+                text-align: right;
+            }
+            #history-list .invoice-actions .load-btn {
+                background: var(--accent);
+                color: white;
+            }
+            #history-list .invoice-actions .delete-btn {
+                background: #dc3545;
+                color: white;
+            }
+
+            /* CSS mới cho chỉ báo upload */
+            .upload-indicator {
+                font-size: 12px;
+                margin-top: 4px;
+                padding: 4px 8px;
+                border-radius: 4px;
+                display: none; /* Mặc định ẩn */
+            }
+            .upload-indicator.loading {
+                background-color: #f0f0f0;
+                color: #555;
+            }
+            .upload-indicator.success {
+                background-color: #d4edda;
+                color: #155724;
+            }
+            .upload-indicator.error {
+                background-color: #f8d7da;
+                color: #721c24;
+            }
+        
