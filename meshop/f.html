@@ -1,1431 +1,162 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Công cụ tạo hóa đơn miễn phí</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet"
-    />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BCJ7KX3WXT"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag("js", new Date());
-        gtag("config", "G-BCJ7KX3WXT");
-    </script>
-    <style>
-        :root {
-            --bg: #f8f8f8;
-            --panel-bg: #fff;
-            --text: #333;
-            --muted-text: #666;
-            --border: #e0e0e0;
-            --accent: #505c48;
-        }
-
-        body.theme-1 {
-            --bg: #f8f8f8;
-            --panel-bg: #fff;
-            --text: #333;
-            --muted-text: #666;
-            --border: #e0e0e0;
-            --accent: #505c48;
-        }
-
-        body.theme-2 {
-            --bg: #1c1c1c;
-            --panel-bg: #2d2d2d;
-            --text: #e0e0e0;
-            --muted-text: #aaaaaa;
-            --border: #444;
-            --accent: #ff8c42;
-        }
-
-        body.theme-3 {
-            --bg: #fff2e6;
-            --panel-bg: #fff;
-            --text: #6b4d32;
-            --muted-text: #a18a7a;
-            --border: #d4b8a2;
-            --accent: #e59500;
-        }
-
-        body.theme-4 {
-            --bg: #e6f2f2;
-            --panel-bg: #fff;
-            --text: #3b596a;
-            --muted-text: #78909c;
-            --border: #b0c4de;
-            --accent: #0e8388;
-        }
-
-        body.theme-5 {
-            --bg: #f1f2e9;
-            --panel-bg: #fff;
-            --text: #5d4954;
-            --muted-text: #8e7a89;
-            --border: #d2c8d0;
-            --accent: #b24d9c;
-        }
-
-        body.theme-6 {
-            --bg: #2c3e50;
-            --panel-bg: #34495e;
-            --text: #ecf0f1;
-            --muted-text: #bdc3c7;
-            --border: #4a6681;
-            --accent: #e74c3c;
-        }
-
-        body.theme-7 {
-            --bg: #f5f5f5;
-            --panel-bg: #ffffff;
-            --text: #4a4a4a;
-            --muted-text: #9b9b9b;
-            --border: #dcdcdc;
-            --accent: #3498db;
-        }
-
-        body.theme-8 {
-            --bg: #fff8f0;
-            --panel-bg: #ffffff;
-            --text: #5a4b41;
-            --muted-text: #b0a59a;
-            --border: #e6d3c0;
-            --accent: #d2691e;
-        }
-
-        body.theme-9 {
-            --bg: #eef5f5;
-            --panel-bg: #ffffff;
-            --text: #2c3e50;
-            --muted-text: #7f8c8d;
-            --border: #b2c8c8;
-            --accent: #1abc9c;
-        }
-
-        * {
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-            transition: all 0.2s ease-in-out;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Playfair Display", serif;
-            color: var(--accent);
-        }
-
-        a {
-            color: var(--accent);
-        }
-
-        /* Layout */
-        .app-container {
-            display: flex;
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .main-panel {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .preview-panel {
-            width: 60%;
-            position: sticky;
-            top: 20px;
-            align-self: flex-start;
-        }
-
-        #card {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
-
-            .app-container {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .main-panel,
-            .preview-panel {
-                width: 100%;
-            }
-
-            .preview-panel {
-                position: static;
-            }
-
-            #card {
-                padding: 16px;
-                gap: 12px;
-            }
-        }
-
-        /* Header */
-        header {
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 32px;
-            line-height: 1.2;
-            margin: 0;
-            color: var(--accent);
-        }
-
-        /* Hiệu ứng đánh máy */
-        .subtitle {
-            font-family: "Poppins", sans-serif;
-            font-size: 16px;
-            margin: 8px auto 0;
-            text-align: center;
-            white-space: pre-wrap;
-            max-width: 90%;
-            display: block;
-        }
-
-        .subtitle .cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1.2em;
-            background-color: var(--accent);
-            margin-left: 3px;
-            opacity: 1;
-            transition: opacity 0.2s ease-in-out;
-        }
-
-        /* Panels */
-        .panel {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .panel-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .panel-heading h3 {
-            margin: 0;
-        }
-
-        /* Forms */
-        #invoiceForm label {
-            display: block;
-            margin-bottom: 4px;
-            font-size: 14px;
-            color: var(--muted-text);
-        }
-
-        #invoiceForm input,
-        #invoiceForm textarea,
-        #invoiceForm select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background-color: transparent;
-            color: var(--text);
-            font-size: 14px;
-            margin-bottom: 8px;
-            resize: vertical;
-        }
-
-        #invoiceForm textarea {
-            min-height: 60px;
-        }
-
-        /* Buttons */
-        .btn {
-            background-color: var(--accent);
-            color: #fff;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .btn:hover {
-            opacity: 0.9;
-        }
-
-        .btn-secondary {
-            background-color: var(--border);
-            color: var(--text);
-        }
-
-        .btn-link {
-            background-color: transparent;
-            color: var(--accent);
-            padding: 0;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .theme-btn {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-
-        .theme-btn.selected {
-            border-color: var(--accent);
-        }
-
-        /* Products */
-        #productList {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .product-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 14px;
-            color: var(--text);
-        }
-
-        .product-name {
-            flex: 1;
-            font-weight: 500;
-        }
-
-        .product-qty,
-        .product-price {
-            width: 80px;
-            text-align: right;
-        }
-
-        .product-price {
-            font-weight: bold;
-        }
-
-        .product-remove-btn {
-            color: var(--accent);
-            cursor: pointer;
-            font-size: 12px;
-            opacity: 0.6;
-        }
-
-        /* Preview card */
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .card-shop-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .card-shop-logo {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .card-shop-name {
-            margin: 0;
-            font-size: 20px;
-            line-height: 1.2;
-            color: var(--accent);
-        }
-
-        .card-title {
-            margin: 0;
-            font-size: 24px;
-            color: var(--accent);
-            font-family: "Playfair Display", serif;
-            text-align: right;
-            text-transform: uppercase;
-        }
-
-        .card-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: var(--muted-text);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-        }
-
-        .card-details-left {
-            flex: 1;
-            padding-right: 20px;
-        }
-
-        .card-details-right {
-            text-align: right;
-            font-style: italic;
-        }
-
-        .card-products {
-            font-size: 14px;
-        }
-
-        .card-products table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .card-products th,
-        .card-products td {
-            text-align: left;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .card-products th {
-            font-weight: 500;
-            color: var(--muted-text);
-        }
-
-        .card-products td:nth-child(2),
-        .card-products td:nth-child(3) {
-            text-align: right;
-            width: 100px;
-        }
-
-        .card-summary {
-            text-align: right;
-            font-size: 14px;
-            color: var(--text);
-            line-height: 1.5;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            font-size: 14px;
-            color: var(--muted-text);
-        }
-
-        .card-qr {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .small {
-            font-size: 12px;
-            color: var(--muted-text);
-        }
-
-        .row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .row.center {
-            justify-content: center;
-        }
-
-        .col {
-            flex: 1;
-        }
-
-        .decor {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            display: none;
-        }
-
-        #flowerTL {
-            top: 15px;
-            left: 15px;
-        }
-
-        #flowerBR {
-            bottom: 15px;
-            right: 15px;
-            transform: scaleX(-1);
-        }
-
-        .predefined-flower-img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            cursor: pointer;
-            border: 2px solid transparent;
-            border-radius: 8px;
-        }
-        
-        /* Hiệu ứng slide in cho feature-item */
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .feature-item {
-            opacity: 0;
-            animation-duration: 0.8s;
-            animation-timing-function: ease-out;
-            animation-fill-mode: forwards;
-        }
-
-        /* Phần tử chẵn trượt từ trái vào */
-        .feature-item:nth-child(even) {
-            animation-name: slideInLeft;
-        }
-
-        /* Phần tử lẻ trượt từ phải vào */
-        .feature-item:nth-child(odd) {
-            animation-name: slideInRight;
-        }
-
-        /* Thêm độ trễ để các mục xuất hiện tuần tự */
-        .feature-item:nth-child(1) { animation-delay: 0.1s; }
-        .feature-item:nth-child(2) { animation-delay: 0.2s; }
-        .feature-item:nth-child(3) { animation-delay: 0.3s; }
-        .feature-item:nth-child(4) { animation-delay: 0.4s; }
-        .feature-item:nth-child(5) { animation-delay: 0.5s; }
-        .feature-item:nth-child(6) { animation-delay: 0.6s; }
-    </style>
+<meta charset="UTF-8">
+<title>Hóa đơn khách hàng</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    select, input { padding: 5px; width: 300px; margin-top: 5px; }
+</style>
 </head>
-
 <body>
-    <header>
-        <h1>Tạo Hóa Đơn Đẹp & Chuyên Nghiệp chỉ trong 30 GIÂY!</h1>
-        <p class="subtitle"><span class="cursor"></span></p>
-        <p class="small" style="text-align: center">
-            Tùy chỉnh, xem trước trực tiếp, lưu lại và xuất ảnh PNG an toàn ngay trên điện thoại
-        </p>
-    </header>
+<h2>Thông tin khách hàng</h2>
 
-    <div class="app-container">
-        <main class="main-panel">
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3>Thông tin</h3>
-                    <div class="btn-group">
-                        <button id="saveBtn" class="btn">💾 Lưu</button>
-                        <button id="resetBtn" class="btn btn-secondary">
-                            🗑️ Reset
-                        </button>
-                    </div>
-                </div>
-                <form id="invoiceForm">
-                    <label class="small">Tên cửa hàng</label>
-                    <input
-                        id="shopName"
-                        type="text"
-                        placeholder="Cỏ May Mắn"
-                        value="Cỏ May Mắn"
-                    />
-                    <div class="row">
-                        <div class="col">
-                            <label class="small">Logo cửa hàng</label>
-                            <input id="shopLogo" type="file" accept="image/*" />
-                        </div>
-                        <div class="col">
-                            <label class="small">Mã QR (ngân hàng...)</label>
-                            <input id="qrImage" type="file" accept="image/*" />
-                        </div>
-                    </div>
-                    <label class="small">Tên khách hàng</label>
-                    <input id="customerName" type="text" placeholder="Nguyễn Văn A" />
+<form id="invoiceForm">
 
-                    <label class="small" style="margin-top: 6px">Địa chỉ nhận</label>
-                    <div class="row" style="margin-top: 6px">
-                        <div class="col">
-                            <select id="provinceSelect"></select>
-                        </div>
-                        <div class="col">
-                            <select id="districtSelect"></select>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top: 6px">
-                        <div class="col">
-                            <select id="wardSelect"></select>
-                        </div>
-                        <div class="col">
-                            <input id="streetAddress" placeholder="Số nhà, tên đường" type="text" />
-                        </div>
-                    </div>
-                    <textarea id="customerAddress" style="display:none;"></textarea>
+    <label for="customerName">Tên khách hàng</label>
+    <input type="text" id="customerName" name="customerName" required />
 
-                    <div class="row">
-                        <div class="col">
-                            <label class="small">Số điện thoại</label>
-                            <input id="customerPhone" type="text" placeholder="0987654321" />
-                        </div>
-                        <div class="col">
-                            <label class="small">Phương thức thanh toán</label>
-                            <input id="paymentMethod" type="text" placeholder="Chuyển khoản / COD" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="small">Ngày đặt hàng</label>
-                            <input id="orderDate" type="text" placeholder="dd/mm/yyyy" onfocus="(this.type='date')" onblur="(this.type='text')" />
-                        </div>
-                        <div class="col">
-                            <label class="small">Ngày nhận hàng</label>
-                            <input id="expectedDate" type="text" placeholder="dd/mm/yyyy" onfocus="(this.type='date')" onblur="(this.type='text')" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="small">Mã đơn hàng</label>
-                            <input id="orderId" type="text" placeholder="#123456" />
-                        </div>
-                        <div class="col">
-                            <label class="small">Phí vận chuyển (VND)</label>
-                            <input id="shippingFee" type="number" value="30000" />
-                        </div>
-                    </div>
-                    <label class="small">Ghi chú ngắn</label>
-                    <input
-                        id="shortNote"
-                        type="text"
-                        placeholder="Món quà này dành cho..."
-                    />
-                    <label class="small">Ghi chú trên hóa đơn</label>
-                    <textarea
-                        id="note"
-                        placeholder="Chúc bạn một ngày thật tuyệt vời!"
-                    ></textarea>
-                    <label class="small">Lời cảm ơn</label>
-                    <textarea
-                        id="thankYouText"
-                        placeholder="Cảm ơn bạn đã ủng hộ!"
-                    ></textarea>
-                </form>
-            </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3>Sản phẩm</h3>
-                    <div class="btn-group">
-                        <button id="addProductBtn" class="btn">➕ Thêm</button>
-                        <button id="clearProducts" class="btn btn-secondary">
-                            ✖️ Xóa hết
-                        </button>
-                    </div>
-                </div>
-                <ul id="productList"></ul>
-            </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3>Trang trí</h3>
-                </div>
-                <label class="small">Chọn theme</label>
-                <div class="btn-group">
-                    <button class="theme-btn" data-theme="theme-1" style="background-color: #505c48"></button>
-                    <button class="theme-btn" data-theme="theme-2" style="background-color: #ff8c42"></button>
-                    <button class="theme-btn" data-theme="theme-3" style="background-color: #e59500"></button>
-                    <button class="theme-btn" data-theme="theme-4" style="background-color: #0e8388"></button>
-                    <button class="theme-btn" data-theme="theme-5" style="background-color: #b24d9c"></button>
-                    <button class="theme-btn" data-theme="theme-6" style="background-color: #e74c3c"></button>
-                    <button class="theme-btn" data-theme="theme-7" style="background-color: #3498db"></button>
-                    <button class="theme-btn" data-theme="theme-8" style="background-color: #d2691e"></button>
-                    <button class="theme-btn" data-theme="theme-9" style="background-color: #1abc9c"></button>
-                </div>
-                <label class="small" style="margin-top: 10px;">Hình trang trí</label>
-                <div class="btn-group" style="margin-bottom: 10px;">
-                    <img class="predefined-flower-img" src="assets/decor-1.png" data-image="assets/decor-1.png" />
-                    <img class="predefined-flower-img" src="assets/decor-2.png" data-image="assets/decor-2.png" />
-                    <img class="predefined-flower-img" src="assets/decor-3.png" data-image="assets/decor-3.png" />
-                    <img class="predefined-flower-img" src="assets/decor-4.png" data-image="assets/decor-4.png" />
-                    <img class="predefined-flower-img" src="assets/decor-5.png" data-image="assets/decor-5.png" />
-                    <img class="predefined-flower-img" src="assets/decor-6.png" data-image="assets/decor-6.png" />
-                </div>
-                <input id="flowerImage" type="file" accept="image/*" />
-            </div>
+    <!-- Input ẩn để lưu địa chỉ đầy đủ -->
+    <input type="hidden" id="customerAddress" name="customerAddress" />
 
-            <div class="panel" style="text-align: center; margin-top: 12px;">
-                <h2
-                    style="
-                        font-family: 'Playfair Display', serif;
-                        color: var(--accent);
-                        margin: 0;
-                        font-size: 20px;
-                    ">
-                    🌿 Góp Ý & Lời Chúc
-                </h2>
-                <p style="
-                    font-size: 14px;
-                    color: var(--text);
-                    margin: 8px 0 16px;
-                    line-height: 1.5;
-                    font-style: italic;
-                ">
-                    Bạn có ý tưởng hay ho? Bạn phát hiện một lỗi nhỏ?
-                    <br />
-                    Hoặc đơn giản là muốn gửi một lời động viên?
-                    <br />
-                    Mọi lời góp ý đều là món quà quý giá!
-                </p>
+    <!-- Phần nhập địa chỉ mới -->
+    <label for="province">Tỉnh/Thành phố</label>
+    <select id="province" required>
+        <option value="">-- Chọn Tỉnh/Thành phố --</option>
+    </select>
 
-                <form action="https://formspree.io/f/your-form-id" method="POST">
-                    <label for="feedback" class="small" style="text-align: left; display: block; margin-bottom: 4px;">Lời nhắn của bạn:</label>
-                    <textarea
-                        id="feedback"
-                        name="Góp Ý từ người dùng"
-                        placeholder="Ví dụ: 'Mình rất thích công cụ này, cảm ơn bạn nhiều nhé!' hoặc 'Nên thêm tùy chọn xuất file PDF thì tốt quá!'"
-                        required
-                        style="min-height: 100px;"></textarea>
-                    <div style="margin-top: 10px;">
-                        <button class="btn" type="submit" style="width: 100%; font-size: 16px;">
-                            💌 Gửi đi
-                        </button>
-                    </div>
-                </form>
-            </div>
+    <label for="ward">Xã/Phường</label>
+    <select id="ward" required>
+        <option value="">-- Chọn Xã/Phường --</option>
+    </select>
 
-        </main>
-        <aside class="preview-panel">
-            <div class="row center">
-                <button id="downloadBtn" class="btn" style="margin-bottom: 12px; width: 300px; font-size: 16px;">
-                    📥 Tải hóa đơn (PNG)
-                </button>
-            </div>
-            <div id="card">
-                <img id="flowerTL" class="decor" />
-                <img id="flowerBR" class="decor" />
-                <div class="card-header">
-                    <div class="card-shop-info">
-                        <img id="outLogo" class="card-shop-logo" />
-                        <div>
-                            <h2 id="outShopName" class="card-shop-name">Cỏ May Mắn</h2>
-                        </div>
-                    </div>
-                    <h1 class="card-title">HÓA ĐƠN</h1>
-                </div>
-                <div class="card-details">
-                    <div class="card-details-left">
-                        <b>Người nhận:</b> <span id="outCustomerName">Nguyễn Văn A</span><br />
-                        <b>Số điện thoại:</b> <span id="outCustomerPhone">0987654321</span><br />
-                        <b>Địa chỉ:</b> <span id="outCustomerAddress">123 Lê Lợi, Quận 1, TP.HCM</span><br />
-                        <br />
-                        <b>Lời nhắn:</b> <span id="outShortNote">Đây là một món quà đặc biệt dành cho bạn.</span>
-                    </div>
-                    <div class="card-details-right">
-                        <b>Mã đơn hàng:</b> <span id="outOrderId">#123456</span><br />
-                        <b>Ngày đặt hàng:</b> <span id="outOrderDate">11/08/2025</span><br />
-                        <b>Ngày giao dự kiến:</b> <span id="outExpectedDate">12/08/2025</span><br />
-                        <br />
-                        <b>Thanh toán:</b> <span id="outPaymentMethod">Chuyển khoản</span>
-                    </div>
-                </div>
-                <div class="card-products">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Giá</th>
-                                <th>Thành tiền</th>
-                            </tr>
-                        </thead>
-                        <tbody id="outProductList"></tbody>
-                    </table>
-                </div>
-                <div class="card-summary">
-                    <p style="margin: 0; padding-top: 10px; border-top: 1px dashed var(--border);">
-                        <b>Tổng tiền hàng:</b> <span id="outSubtotal">1.200.000</span>
-                    </p>
-                    <p style="margin: 0">
-                        <b>Phí vận chuyển:</b> <span id="outShippingFee">30.000</span>
-                    </p>
-                    <p style="margin: 0">
-                        <b>Tổng cộng:</b> <span id="outTotal">1.230.000</span>
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <div>
-                        <p id="outNote" style="margin-top: 0">Chúc bạn một ngày thật tuyệt vời!</p>
-                        <p id="outThankYouText">Cảm ơn bạn đã ủng hộ!</p>
-                    </div>
-                    <img id="outQr" class="card-qr" />
-                </div>
-            </div>
-            <div class="panel" style="margin-top: 12px; font-size: 14px; text-align: center;">
-                <p style="margin: 0; font-family: 'Playfair Display', serif; color: var(--accent); font-weight: bold;">
-                    Features of this tool
-                </p>
-                <div class="feature-list">
-                    <p class="feature-item" style="margin: 8px 0 0; color: var(--text);">✅ Hoàn toàn miễn phí</p>
-                    <p class="feature-item" style="margin: 8px 0 0; color: var(--text);">✅ An toàn & Riêng tư tuyệt đối</p>
-                    <p class="feature-item" style="margin: 8px 0 0; color: var(--text);">✅ Tùy chỉnh theme màu sắc</p>
-                    <p class="feature-item" style="margin: 8px 0 0; color: var(--text);">✅ Lưu dữ liệu trên trình duyệt</p>
-                    <p class="feature-item" style="margin: 8px 0 0; color: var(--text);">✅ Giao diện mobile-friendly</p>
-                    <p class="feature-item" style="margin: 8px 0 0; color: var(--text);">✅ Xuất ảnh chất lượng cao</p>
-                </div>
-            </div>
-        </aside>
-    </div>
+    <label for="street">Số nhà, tên đường</label>
+    <input type="text" id="street" placeholder="VD: 123 Lê Lợi" required />
 
-    <footer>
-        <p class="small" style="margin-top: 20px; text-align: center">
-            Được tạo bởi <a href="https://github.com/vanson477" target="_blank">Vanson477</a>
-        </p>
-    </footer>
+    <label for="customerPhone">Số điện thoại</label>
+    <input type="tel" id="customerPhone" name="customerPhone" required />
 
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script>
-        let VIETNAM_ADDRESSES = {}; // Khai báo biến global để lưu dữ liệu
+    <button type="button" onclick="saveFormData()">💾 Lưu hóa đơn</button>
+    <button type="button" onclick="loadFormData()">📂 Tải hóa đơn</button>
 
-        /* ======== Helpers ======== */
-        const $ = (id) => document.getElementById(id);
-        const HIDDEN_DECOR_MAP = {
-            '#neko': 'assets/uploads/maneki-neko.png',
-            '#dog': 'assets/uploads/dog-image.png',
-            '#christmas': 'assets/uploads/christmas.png',
-        };
-        let originalFlowerImageSrc = null;
+</form>
 
-        function toCurrency(n) {
-            return (Number(n) || 0).toLocaleString("vi-VN");
-        }
-        function dataURLFromFile(file) {
-            return new Promise((res, rej) => {
-                const r = new FileReader();
-                r.onload = (e) => res(e.target.result);
-                r.onerror = rej;
-                r.readAsDataURL(file);
+<script>
+// ====== Load dữ liệu địa chỉ ======
+let provinceList = [];
+
+function loadProvinceData(callback) {
+    fetch('data/data.json')
+        .then(res => res.json())
+        .then(data => {
+            provinceList = data;
+            const provinceSelect = document.getElementById('province');
+            provinceSelect.innerHTML = '<option value="">-- Chọn Tỉnh/Thành phố --</option>';
+            data.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.province_code;
+                opt.textContent = p.name;
+                provinceSelect.appendChild(opt);
             });
-        }
-        function escapeHtml(s) {
-            return String(s || "").replace(
-                /[&<>"']/g,
-                (m) =>
-                    ({
-                        "&": "&amp;",
-                        "<": "&lt;",
-                        ">": "&gt;",
-                        '"': "&quot;",
-                        "'": "&#39;"
-                    })[m]
-            );
-        }
+            if (callback) callback();
+        })
+        .catch(err => console.error('Không thể tải data/data.json', err));
+}
 
-        /* ======== Products ======== */
-        function createProductElement(p) {
-            const li = document.createElement("li");
-            li.className = "product-item";
-            li.innerHTML = `
-                <div class="product-name" contenteditable="true">${escapeHtml(p.name)}</div>
-                <div class="product-qty" contenteditable="true">${p.qty}</div>
-                <div class="product-price" contenteditable="true">${p.price}</div>
-                <div class="product-remove-btn">❌</div>
-            `;
-            const removeBtn = li.querySelector(".product-remove-btn");
-            removeBtn.addEventListener("click", () => {
-                li.remove();
-                debouncedUpdateInvoice();
-            });
-            const fields = li.querySelectorAll("[contenteditable]");
-            fields.forEach((f) =>
-                f.addEventListener("input", debouncedUpdateInvoice)
-            );
-            return li;
-        }
+// ====== Cập nhật xã/phường khi chọn tỉnh ======
+document.getElementById('province').addEventListener('change', () => {
+    const provinceCode = document.getElementById('province').value;
+    const wardSelect = document.getElementById('ward');
+    wardSelect.innerHTML = '<option value="">-- Chọn Xã/Phường --</option>';
 
-        function getProducts() {
-            const products = [];
-            const items = $("productList").children;
-            for (const item of items) {
-                const name = item.querySelector(".product-name").innerText.trim();
-                const qty = item.querySelector(".product-qty").innerText.trim();
-                const price = item.querySelector(".product-price").innerText.trim();
-                products.push({
-                    name: name,
-                    qty: Number(qty.replace(/\./g, "")),
-                    price: Number(price.replace(/\./g, "")),
-                });
-            }
-            return products;
-        }
+    const province = provinceList.find(p => p.province_code === provinceCode);
+    if (province) {
+        province.wards.forEach(w => {
+            const opt = document.createElement('option');
+            opt.value = w.ward_code;
+            opt.textContent = w.name;
+            wardSelect.appendChild(opt);
+        });
+    }
+    updateFullAddress();
+});
 
-        function addProduct(p) {
-            const newProduct = createProductElement(p);
-            $("productList").appendChild(newProduct);
-            debouncedUpdateInvoice();
-        }
+// ====== Cập nhật địa chỉ đầy đủ vào input ẩn ======
+document.getElementById('ward').addEventListener('change', updateFullAddress);
+document.getElementById('street').addEventListener('input', updateFullAddress);
 
-        function clearProducts() {
-            $("productList").innerHTML = "";
-            addProduct({});
-            debouncedUpdateInvoice();
-        }
-        
-        function saveProducts() {
-            localStorage.setItem("products", JSON.stringify(getProducts()));
-        }
-        function loadProducts() {
-            const products = JSON.parse(localStorage.getItem("products")) || [];
-            $("productList").innerHTML = "";
-            if (products.length === 0) {
-                addProduct({ name: "B.Begin Non-Alcohol Perfume", qty: 1, price: 1200000 });
-            } else {
-                products.forEach(p => addProduct(p));
-            }
-        }
+function updateFullAddress() {
+    const provinceName = document.querySelector('#province option:checked')?.textContent || '';
+    const wardName = document.querySelector('#ward option:checked')?.textContent || '';
+    const street = document.getElementById('street').value.trim();
+    document.getElementById('customerAddress').value = `${street}, ${wardName}, ${provinceName}`;
+}
 
-        /* ======== Form save/load ======== */
-        function saveForm() {
-            const ids = [
-                "shopName", "customerName", "customerPhone", "customerAddress",
-                "orderDate", "expectedDate", "orderId", "paymentMethod",
-                "shippingFee", "shortNote", "note", "thankYouText"
-            ];
-            const data = {};
-            ids.forEach((id) => {
-                const el = $(id);
-                if (el) data[id] = el.value;
-            });
+// ====== Lưu dữ liệu hóa đơn ======
+function saveFormData() {
+    updateFullAddress(); // đảm bảo customerAddress đã cập nhật
+    const formData = {
+        customerName: document.getElementById('customerName').value,
+        customerAddress: document.getElementById('customerAddress').value,
+        customerPhone: document.getElementById('customerPhone').value
+    };
+    localStorage.setItem('invoiceData', JSON.stringify(formData));
+    alert('💾 Đã lưu hóa đơn!');
+}
 
-            // Lưu các giá trị của dropdown địa chỉ
-            data.provinceSelect = $("provinceSelect").value;
-            data.districtSelect = $("districtSelect").value;
-            data.wardSelect = $("wardSelect").value;
-            data.streetAddress = $("streetAddress").value;
+// ====== Tải dữ liệu hóa đơn ======
+function loadFormData() {
+    const saved = localStorage.getItem('invoiceData');
+    if (!saved) {
+        alert('⚠️ Chưa có hóa đơn nào được lưu');
+        return;
+    }
+    const data = JSON.parse(saved);
 
-            localStorage.setItem("formData", JSON.stringify(data));
-        }
+    document.getElementById('customerName').value = data.customerName || '';
+    document.getElementById('customerPhone').value = data.customerPhone || '';
+    document.getElementById('customerAddress').value = data.customerAddress || '';
 
-        function loadForm() {
-            const data = JSON.parse(localStorage.getItem("formData")) || {};
-            Object.keys(data).forEach((k) => {
-                if ($(k)) $(k).value = data[k];
-            });
-        }
+    if (data.customerAddress) {
+        const parts = data.customerAddress.split(',').map(s => s.trim());
+        if (parts.length >= 3) {
+            const street = parts[0];
+            const wardName = parts[1];
+            const provinceName = parts[2];
+            document.getElementById('street').value = street;
 
-        /* ======== Images save/load (localStorage) ======== */
-        function handleImageUpload(inputId, outIds, storageKey) {
-            const input = $(inputId);
-            if (!input) return;
-            input.addEventListener("change", async (e) => {
-                const f = e.target.files[0];
-                if (!f) return;
-                const data = await dataURLFromFile(f);
-                localStorage.setItem(storageKey, data);
-                outIds.forEach((id) => {
-                    if ($(id)) {
-                        $(id).src = data;
-                        $(id).style.display = "block";
-                    }
-                });
-                if (storageKey === "flowerImg") {
-                    originalFlowerImageSrc = data;
-                    document.querySelectorAll(".predefined-flower-img").forEach((img) => {
-                        img.style.border = "2px solid transparent";
-                    });
-                }
-            });
-        }
-        function saveImage(key, data) {
-            localStorage.setItem(key, data);
-        }
-        function getImage(key) {
-            return localStorage.getItem(key);
-        }
-        function setDecorImageFromPath(path) {
-            localStorage.setItem("flowerImg", path);
-            if ($("flowerTL")) {
-                $("flowerTL").src = path;
-                $("flowerTL").style.display = path ? "block" : "none";
-            }
-            if ($("flowerBR")) {
-                $("flowerBR").src = path;
-                $("flowerBR").style.display = path ? "block" : "none";
-            }
-            document.querySelectorAll(".predefined-flower-img").forEach((img) => {
-                if (img.getAttribute("data-image") === path) {
-                    img.style.border = "2px solid var(--accent)";
-                } else {
-                    img.style.border = "2px solid transparent";
-                }
-            });
-        }
-        function loadImages() {
-            const shopLogo = localStorage.getItem("shopLogo");
-            if (shopLogo && $("outLogo")) {
-                $("outLogo").src = shopLogo;
-                $("outLogo").style.display = "block";
-            }
-            const flowerImg = localStorage.getItem("flowerImg");
-            if (flowerImg) {
-                originalFlowerImageSrc = flowerImg;
-            }
-            setDecorImageFromPath(flowerImg || '');
-            const qrImg = localStorage.getItem("qrImg");
-            if (qrImg && $("outQr")) {
-                $("outQr").src = qrImg;
-                $("outQr").style.display = "block";
-            }
-        }
+            // Load dropdown và set giá trị
+            loadProvinceData(() => {
+                const provinceItem = provinceList.find(p => p.name === provinceName);
+                if (provinceItem) {
+                    document.getElementById('province').value = provinceItem.province_code;
 
-        /* ======== Theme ======== */
-        const THEME_KEY = "theme";
-        function saveTheme(cls) {
-            localStorage.setItem(THEME_KEY, cls);
-        }
-        function loadTheme() {
-            const t = localStorage.getItem(THEME_KEY) || "theme-1";
-            document.body.classList.remove(
-                "theme-1", "theme-2", "theme-3", "theme-4", "theme-5", "theme-6", "theme-7", "theme-8", "theme-9"
-            );
-            document.body.classList.add(t);
-            document.querySelectorAll(".theme-btn").forEach((b) => {
-                if (b.dataset.theme === t) b.classList.add("selected");
-                else b.classList.remove("selected");
-            });
-        }
-
-        /* ======== Update Invoice Preview ======== */
-        function updateInvoice() {
-            const data = getProducts();
-            $("outShopName").textContent = $("shopName").value || "Tên cửa hàng";
-            $("outCustomerName").textContent = $("customerName").value || "Tên khách hàng";
-            $("outCustomerPhone").textContent = $("customerPhone").value || "Số điện thoại";
-            $("outCustomerAddress").textContent = $("customerAddress").value || "Địa chỉ nhận";
-            $("outOrderDate").textContent = formatDate($("orderDate").value) || "Ngày đặt";
-            $("outExpectedDate").textContent = formatDate($("expectedDate").value) || "Ngày giao";
-            $("outOrderId").textContent = $("orderId").value || "Mã đơn hàng";
-            $("outPaymentMethod").textContent = $("paymentMethod").value || "Phương thức";
-            $("outShortNote").textContent = $("shortNote").value || "";
-            $("outNote").textContent = $("note").value || "";
-            $("outThankYouText").textContent = $("thankYouText").value || "";
-            
-            let subtotal = 0;
-            let productHtml = "";
-            data.forEach((p) => {
-                const total = p.qty * p.price;
-                subtotal += total;
-                productHtml += `
-                    <tr>
-                        <td>${escapeHtml(p.name)}</td>
-                        <td>${toCurrency(p.qty)}</td>
-                        <td>${toCurrency(p.price)}</td>
-                        <td>${toCurrency(total)}</td>
-                    </tr>
-                `;
-            });
-            $("outProductList").innerHTML = productHtml;
-            $("outSubtotal").textContent = toCurrency(subtotal);
-            const shippingFee = Number($("shippingFee").value) || 0;
-            $("outShippingFee").textContent = toCurrency(shippingFee);
-            $("outTotal").textContent = toCurrency(subtotal + shippingFee);
-        }
-
-        /* ======== Debounced Update ======== */
-        let updateTimeout = null;
-        function debouncedUpdateInvoice() {
-            clearTimeout(updateTimeout);
-            updateTimeout = setTimeout(() => {
-                updateInvoice();
-                saveForm();
-                saveProducts();
-            }, 300);
-        }
-
-        /* ======== Reset all data in localStorage ======== */
-        function resetData() {
-            localStorage.clear();
-            location.reload();
-        }
-        
-        // Hàm định dạng ngày
-        function formatDate(date) {
-            if (!date) return "";
-            const [year, month, day] = date.split('-');
-            return `${day}/${month}/${year}`;
-        }
-        
-        /* ======== Hiệu ứng đánh máy đã được tối ưu ======== */
-        let typingTimeout;
-        let cursorInterval;
-        
-        function typeEffect() {
-            const subtitleElement = document.querySelector('.subtitle');
-            const textToType = "Công cụ hoàn toàn miễn phí - An toàn, riêng tư, không cần đăng nhập.";
-
-            clearTimeout(typingTimeout);
-            clearInterval(cursorInterval);
-            subtitleElement.textContent = "";
-
-            const cursorElement = document.createElement('span');
-            cursorElement.className = 'cursor';
-            subtitleElement.appendChild(cursorElement);
-
-            let i = 0;
-            const typingSpeed = 50;
-            const blinkingSpeed = 500;
-            let cursorVisible = true;
-
-            function typeWriter() {
-                if (i < textToType.length) {
-                    cursorElement.style.opacity = 1;
-                    subtitleElement.insertBefore(document.createTextNode(textToType.charAt(i)), cursorElement);
-                    i++;
-                    typingTimeout = setTimeout(typeWriter, typingSpeed);
-                } else {
-                    cursorInterval = setInterval(() => {
-                        cursorVisible = !cursorVisible;
-                        cursorElement.style.opacity = cursorVisible ? 1 : 0;
-                    }, blinkingSpeed);
-                }
-            }
-            typeWriter();
-        }
-        
-        /* ======== Events init đã được tối ưu ======== */
-        document.addEventListener("DOMContentLoaded", async () => {
-            // Fetch dữ liệu địa chỉ từ file JSON
-            try {
-                const response = await fetch('vn-address.json');
-                const rawData = await response.json();
-                VIETNAM_ADDRESSES = reorganizeAddresses(rawData);
-            } catch (error) {
-                console.error("Lỗi khi tải hoặc xử lý dữ liệu địa chỉ:", error);
-            }
-            
-            // Hàm chuyển đổi cấu trúc dữ liệu
-            function reorganizeAddresses(rawData) {
-                const addresses = {};
-                rawData.forEach(province => {
-                    const provinceName = province.Name;
-                    addresses[provinceName] = {};
-                    province.Wards.forEach(ward => {
-                        const districtName = ward.FullName.split(' ')[1]; // Giả sử tên quận/huyện là từ thứ 2 trong FullName
-                        if (!addresses[provinceName][districtName]) {
-                            addresses[provinceName][districtName] = {};
-                        }
-                        const wardName = ward.Name;
-                        addresses[provinceName][districtName][wardName] = {};
-                    });
-                });
-                return addresses;
-            }
-
-            loadForm();
-            loadProducts();
-            loadImages();
-            loadTheme();
-            updateInvoice();
-
-            // Xử lý logic cho các dropdown địa chỉ
-            const provinceSelect = $("provinceSelect");
-            const districtSelect = $("districtSelect");
-            const wardSelect = $("wardSelect");
-            const streetAddressInput = $("streetAddress");
-            
-            // Hàm này sẽ gọi lại hàm updateInvoice
-            function updateAddressPreview() {
-                const fullAddress = [
-                    streetAddressInput.value,
-                    wardSelect.value,
-                    districtSelect.value,
-                    provinceSelect.value
-                ].filter(Boolean).join(", ");
-                $("customerAddress").value = fullAddress;
-                $("outCustomerAddress").innerText = fullAddress || "Địa chỉ nhận";
-                debouncedUpdateInvoice();
-            }
-            
-            // Khởi tạo các dropdown
-            function populateProvinces() {
-                provinceSelect.innerHTML = "<option value=''>Chọn Tỉnh/Thành phố</option>";
-                Object.keys(VIETNAM_ADDRESSES).sort().forEach(province => {
-                    const opt = document.createElement("option");
-                    opt.value = province;
-                    opt.textContent = province;
-                    provinceSelect.appendChild(opt);
-                });
-            }
-
-            function populateDistricts(province) {
-                districtSelect.innerHTML = "<option value=''>Chọn Quận/Huyện</option>";
-                wardSelect.innerHTML = "<option value=''>Chọn Phường/Xã</option>";
-                if (province && VIETNAM_ADDRESSES[province]) {
-                    Object.keys(VIETNAM_ADDRESSES[province]).sort().forEach(district => {
-                        const opt = document.createElement("option");
-                        opt.value = district;
-                        opt.textContent = district;
-                        districtSelect.appendChild(opt);
-                    });
-                }
-                updateAddressPreview();
-            }
-
-            function populateWards(province, district) {
-                wardSelect.innerHTML = "<option value=''>Chọn Phường/Xã</option>";
-                if (province && district && VIETNAM_ADDRESSES[province] && VIETNAM_ADDRESSES[province][district]) {
-                    Object.keys(VIETNAM_ADDRESSES[province][district]).sort().forEach(ward => {
-                        const opt = document.createElement("option");
-                        opt.value = ward;
-                        opt.textContent = ward;
+                    // Load xã/phường
+                    const wardSelect = document.getElementById('ward');
+                    wardSelect.innerHTML = '<option value="">-- Chọn Xã/Phường --</option>';
+                    provinceItem.wards.forEach(w => {
+                        const opt = document.createElement('option');
+                        opt.value = w.ward_code;
+                        opt.textContent = w.name;
                         wardSelect.appendChild(opt);
                     });
-                }
-                updateAddressPreview();
-            }
 
-            // Thêm các event listener
-            provinceSelect.addEventListener("change", (e) => {
-                populateDistricts(e.target.value);
-            });
-            districtSelect.addEventListener("change", (e) => {
-                populateWards(provinceSelect.value, e.target.value);
-            });
-            wardSelect.addEventListener("change", updateAddressPreview);
-            streetAddressInput.addEventListener("input", updateAddressPreview);
-
-            // Tải dữ liệu từ localStorage và khởi tạo các dropdown
-            const savedData = JSON.parse(localStorage.getItem('formData')) || {};
-            populateProvinces();
-            provinceSelect.value = savedData.provinceSelect || '';
-            if (provinceSelect.value) {
-                populateDistricts(provinceSelect.value);
-                districtSelect.value = savedData.districtSelect || '';
-                if (districtSelect.value) {
-                    populateWards(provinceSelect.value, districtSelect.value);
-                    wardSelect.value = savedData.wardSelect || '';
-                }
-            }
-            streetAddressInput.value = savedData.streetAddress || '';
-
-            // Cập nhật preview lần đầu tiên
-            updateInvoice();
-
-            // input live update cho các trường còn lại
-            document.querySelectorAll(
-                    '#invoiceForm input:not([type="file"]), #invoiceForm textarea, #invoiceForm select'
-                )
-                .forEach((inp) =>
-                    inp.addEventListener("input", debouncedUpdateInvoice)
-                );
-            
-            // Thay đổi: Cập nhật event listener cho ô Mã đơn
-            $("orderId").addEventListener("input", async (e) => {
-                const orderId = e.target.value.trim().toLowerCase();
-                const hiddenImagePath = HIDDEN_DECOR_MAP[orderId];
-                if (hiddenImagePath) {
-                    setDecorImageFromPath(hiddenImagePath);
-                } else if (orderId === "#reset") {
-                    setDecorImageFromPath(originalFlowerImageSrc || '');
-                } else {
-                    const currentImgPath = localStorage.getItem("flowerImg");
-                    if (Object.values(HIDDEN_DECOR_MAP).includes(currentImgPath)) {
-                       setDecorImageFromPath(originalFlowerImageSrc || '');
+                    const wardItem = provinceItem.wards.find(w => w.name === wardName);
+                    if (wardItem) {
+                        document.getElementById('ward').value = wardItem.ward_code;
                     }
                 }
             });
-            
-            // event listener cho input type date
-            $("orderDate").addEventListener("input", (e) => {
-                const value = e.target.value;
-                if (value) {
-                    e.target.value = formatDate(value);
-                }
-                debouncedUpdateInvoice();
-            });
+        }
+    }
+}
 
-            // file uploads (store base64)
-            handleImageUpload("shopLogo", ["outLogo"], "shopLogo");
-            handleImageUpload(
-                "flowerImage",
-                ["flowerTL", "flowerBR"],
-                "flowerImg"
-            );
-            handleImageUpload("qrImage", ["outQr"], "qrImg");
+// Khi trang load xong -> load danh sách tỉnh
+document.addEventListener('DOMContentLoaded', () => {
+    loadProvinceData();
+});
+</script>
 
-            // add/clear product
-            $("addProductBtn").addEventListener("click", () => {
-                addProduct({});
-            });
-            $("clearProducts").addEventListener("click", () => {
-                if (confirm("Xóa hết sản phẩm?")) {
-                    clearProducts();
-                }
-            });
-
-            // save/reset
-            $("saveBtn").addEventListener("click", async () => {
-                saveForm();
-                saveProducts();
-                alert("Đã lưu vào trình duyệt.");
-            });
-            $("resetBtn").addEventListener("click", async () => {
-                if (confirm("Reset toàn bộ dữ liệu?")) {
-                    resetData();
-                }
-            });
-
-            // theme buttons
-            document.querySelectorAll(".theme-btn").forEach((btn) =>
-                btn.addEventListener("click", async () => {
-                    const theme = btn.dataset.theme;
-                    saveTheme(theme);
-                    document.body.className = theme;
-                    document.querySelectorAll(".theme-btn").forEach((b) => {
-                        if (b.dataset.theme === theme) b.classList.add("selected");
-                        else b.classList.remove("selected");
-                    });
-                })
-            );
-
-            // Predefined flower images
-            document
-                .querySelectorAll(".predefined-flower-img")
-                .forEach((btn) => {
-                    btn.addEventListener("click", async () => {
-                        const imagePath = btn.getAttribute("data-image");
-                        originalFlowerImageSrc = imagePath;
-                        setDecorImageFromPath(imagePath);
-                    });
-                });
-
-            // download (safe)
-            $("downloadBtn").addEventListener("click", async () => {
-                const btn = $("downloadBtn");
-                btn.disabled = true;
-                btn.textContent = "Đang tạo ảnh...";
-                try {
-                    const imgs = Array.from(
-                        document.querySelectorAll("#card img")
-                    );
-                    await Promise.all(
-                        imgs.map(
-                            (img) =>
-                                new Promise((resolve) => {
-                                    if (!img.src) return resolve();
-                                    if (img.complete) return resolve();
-                                    img.onload = () => resolve();
-                                    img.onerror = () => resolve();
-                                })
-                        )
-                    );
-                    const card = $("card");
-                    const origWidth = card.clientWidth || 360;
-                    const targetWidth = 1080;
-                    let scale = Math.min(
-                        3,
-                        Math.max(1.5, targetWidth / origWidth)
-                    );
-                    const canvas = await html2canvas(card, {
-                        useCORS: true,
-                        scale: scale,
-                        backgroundColor: null
-                    });
-                    canvas.toBlob(
-                        (blob) => {
-                            const url = URL.createObjectURL(blob);
-                            const a = document.createElement("a");
-                            a.href = url;
-                            a.download = `invoice_${
-                                $("orderId").value || "order"
-                            }.png`;
-                            document.body.appendChild(a);
-                            a.click();
-                            a.remove();
-                            setTimeout(
-                                () => URL.revokeObjectURL(url),
-                                10000
-                            );
-                        },
-                        "image/png",
-                        0.95
-                    );
-                } catch (err) {
-                    console.error(err);
-                    alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = "📥 Tải hóa đơn (PNG)";
-                }
-            });
-            
-            // Kích hoạt hiệu ứng đánh máy
-            typeEffect();
-        });
-    </script>
 </body>
-
 </html>

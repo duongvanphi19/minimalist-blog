@@ -107,38 +107,12 @@
                                     <input id="orderDate" type="date" />
                                 </div>
                             </div>
-                            <!-- ==== Phần nhập địa chỉ khách hàng ==== -->
-                            <div>
-                                <label class="small" style="margin-top: 6px" for="province">Tỉnh/Thành phố</label>
-                                <select id="province" required>
-                                    <option value="">
-                                        -- Chọn Tỉnh/Thành phố --
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label style="margin-top: 6px"  class="small"for="ward">Xã/Phường</label>
-                                <select id="ward" required>
-                                    <option value="">
-                                        -- Chọn Xã/Phường --
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="small" style="margin-top: 6px"  for="street">Số nhà, tên đường</label>
-                                <input
-                                    type="text"
-                                    id="street"
-                                    placeholder="VD: 123 Lê Lợi"
-                                    required />
-                                <input
-                                    type="hidden"
-                                    id="customerAddress"
-                                    placeholder="VD: 123 Lê Lợi"
-                                    required />
-                            </div>
+                            <label class="small" style="margin-top: 6px"
+                                >Địa chỉ nhận</label
+                            >
+                            <textarea
+                                id="customerAddress"
+                                placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
                         </div>
 
                         <div>
