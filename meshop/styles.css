@@ -12,8 +12,8 @@
 .theme-0 {
     --card-bg: #fff;
     --page-bg: #f8f8f8;
-    --text: #222; /* đậm hơn cho dễ đọc */
-    --accent: #888;
+    --text: #333; /* đậm hơn cho dễ đọc */
+    --accent: #777;
     --accent-light: #bbb;
     --border-color: #ddd;
 }
@@ -358,7 +358,7 @@
                 border: 0;
                 cursor: pointer;
                 background: var(--accent);
-                color: #fff;
+                color: var(--text) ;
                 font-weight: 600;
             }
             .btn.ghost {
