@@ -249,6 +249,25 @@
                 max-width: 800px;
                 z-index: 2;
             }
+            
+            #downloadBtn{
+    background-color: #4CAF50;
+    color: #fff;
+}
+#downloadPdf {
+    background-color: #2196F3;
+    color: #fff;
+}
+#saveToHistoryBtn {
+    background-color: #FF9800;
+    color: #fff;
+}
+
+#downloadBtn:hover { background-color: #45A049; }
+#downloadPdf:hover { background-color: #1976D2; }
+#saveToHistoryBtn:hover { background-color: #FB8C00; }
+
+
             .feature-item {
                 background: rgba(255, 255, 255, 0.6);
                 backdrop-filter: blur(5px);

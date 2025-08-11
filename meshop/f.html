@@ -637,10 +637,7 @@
             const MAX_FILE_SIZE = 1024 * 1024;
 
             // IndexedDB constants (safely declared)
-            const DB_NAME = "invoice_images_db";
-            const DB_VERSION = 1;
-            const STORE_NAME = "images_store";
-            let db = null;
+            
 
             // Hidden decor codes (keys are normalized WITHOUT leading '#')
             const HIDDEN_DECOR_MAP = {
@@ -752,89 +749,7 @@
                     });
             }
 
-            /* ======== IndexedDB functions (optional image storage) ======== */
-            function initDB() {
-                return new Promise((resolve, reject) => {
-                    if (!window.indexedDB) {
-                        console.warn(
-                            "IndexedDB not supported in this browser."
-                        );
-                        return resolve(null);
-                    }
-                    const request = indexedDB.open(DB_NAME, DB_VERSION);
-                    request.onerror = (event) => {
-                        console.error(
-                            "IndexedDB error:",
-                            event.target.errorCode
-                        );
-                        reject("IndexedDB error: " + event.target.errorCode);
-                    };
-                    request.onsuccess = (event) => {
-                        db = event.target.result;
-                        resolve(db);
-                    };
-                    request.onupgradeneeded = (event) => {
-                        db = event.target.result;
-                        if (!db.objectStoreNames.contains(STORE_NAME)) {
-                            db.createObjectStore(STORE_NAME, { keyPath: "id" });
-                        }
-                    };
-                });
-            }
 
-            function saveImageToDB(id, dataUrl) {
-                return new Promise((resolve, reject) => {
-                    if (!db) {
-                        return reject("IndexedDB not initialized.");
-                    }
-                    const transaction = db.transaction(
-                        [STORE_NAME],
-                        "readwrite"
-                    );
-                    const store = transaction.objectStore(STORE_NAME);
-                    store.put({ id: id, data: dataUrl });
-
-                    transaction.oncomplete = () => resolve();
-                    transaction.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            function loadImageFromDB(id) {
-                return new Promise((resolve, reject) => {
-                    if (!db) {
-                        return reject("IndexedDB not initialized.");
-                    }
-                    const transaction = db.transaction(
-                        [STORE_NAME],
-                        "readonly"
-                    );
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.get(id);
-
-                    request.onsuccess = (event) => {
-                        const result = event.target.result;
-                        resolve(result ? result.data : null);
-                    };
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            function deleteImagesFromDB() {
-                return new Promise((resolve, reject) => {
-                    if (!db) {
-                        return reject("IndexedDB not initialized.");
-                    }
-                    const transaction = db.transaction(
-                        [STORE_NAME],
-                        "readwrite"
-                    );
-                    const store = transaction.objectStore(STORE_NAME);
-                    store.clear();
-
-                    transaction.oncomplete = () => resolve();
-                    transaction.onerror = (event) => reject(event.target.error);
-                });
-            }
 
             /* ======== Utilities ======== */
             function toCurrency(n) {
@@ -1379,12 +1294,7 @@
 
             /* ======== Init Events ======== */
             document.addEventListener("DOMContentLoaded", async () => {
-                // Init IndexedDB (optional)
-                try {
-                    await initDB();
-                } catch (err) {
-                    console.warn("IndexedDB init failed:", err);
-                }
+
 
                 // Ensure default flower image exists in localStorage
                 let imgs = JSON.parse(localStorage.getItem(LS_IMAGES) || "{}");
@@ -1441,8 +1351,7 @@
                         localStorage.removeItem(LS_PRODUCTS);
                         localStorage.removeItem(LS_IMAGES);
                         localStorage.removeItem(LS_THEME);
-                        // optionally clear DB images
-                        deleteImagesFromDB().catch(() => {});
+                        
                         location.reload();
                     }
                 });
@@ -1598,5 +1507,45 @@
                 });
             }); // end DOMContentLoaded
         </script>
-    </body>
+
+<!-- Firebase SDK v8 (Compat mode) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  // Thay thông tin này bằng cấu hình Firebase của bạn
+  var firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.database();
+
+  document.addEventListener("DOMContentLoaded", function() {
+    var saveBtn = document.getElementById('saveHistory');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function() {
+        var data = {
+          name: document.getElementById('customerName')?.value || "",
+          contact: document.getElementById('customerContact')?.value || "",
+          invoiceNumber: document.getElementById('invoiceNumber')?.value || "",
+          total: document.getElementById('totalAmount')?.innerText || "",
+          device: navigator.userAgent,
+          time: new Date().toLocaleString()
+        };
+        db.ref("invoices").push(data)
+          .then(() => console.log("✅ Đã lưu hóa đơn vào Firebase!"))
+          .catch(err => console.error("❌ Lỗi lưu Firebase:", err));
+      });
+    }
+  });
+</script>
+
+</body>
 </html>
