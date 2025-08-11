@@ -1,72 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="google-adsense-account" content="ca-pub-2136247054214280">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Minimalist Blog</title>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="style.css">
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-   <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
-</head>
-<body>
-  <!-- Header -->
-  <header class="main-header sticky-header">
-    <h1>Minimalist Blog</h1>
-    <nav>
-      <ul>
-        <li><a href="https://minimblog.netlify.app/index.html">Trang chủ</a></li>
-        <li><a href="about.html">Giới thiệu</a></li>
-        <li><a href="contact.html">Liên hệ</a></li>
-        <li><button id="darkModeToggle" class="toggle-btn">Dark Mode</button></li>
-      </ul>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="google-adsense-account" content="ca-pub-2136247054214280" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Minimalist Blog</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="style.css" />
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+            rel="stylesheet" />
+        <script
+            type="text/javascript"
+            src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="main-header sticky-header">
+            <h1>Minimalist Blog</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://minimblog.netlify.app/index.html"
+                            >Trang chủ</a
+                        >
+                    </li>
+                    <li><a href="about.html">Giới thiệu</a></li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                    <li>
+                        <button id="darkModeToggle" class="toggle-btn">
+                            Dark Mode
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
-<!-- <div data-netlify-identity-menu></div>
+        <!-- <div data-netlify-identity-menu></div>
   <div data-netlify-identity-button>Login with Netlify Identity</div>
 -->
 
-<div id="scroll-indicator"></div>
+        <div id="scroll-indicator"></div>
 
-  <!-- Danh sách bài viết -->
-  <main class="blog-list">
-   
-  <section class="featured-posts">
-    <h2 style="text-align: center;">🔥 Bài viết nổi bật</h2>
-    <div id="featured-list">
+        <!-- Danh sách bài viết -->
+        <main class="blog-list">
+            <section class="featured-posts">
+                <h2 style="text-align: center">🔥 Bài viết nổi bật</h2>
+                <div id="featured-list">
+                    <p>Đang tải...</p>
+                </div>
+            </section>
 
-        <p>Đang tải...</p>
-    </div>
-  </section>
-    
-    <div class="search-container search-filter search-bar">
-    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết...">
-    
-    <ul id="suggestions" class="suggestions-list"></ul>
-    <button id="searchButton">Search</button>
-    <select id="categoryFilter">
-        <option value="all">Tất cả danh mục</option>
-    </select>
-</div>
-    <h2 style="text-align: center;">📜 <span id="totalPosts">0</span> Công thức</h2>
-    <div id="post-list">
-        <p id="loading">Đang tải...</p>      
-    </div>
-  </main>
+            <div class="search-container search-filter search-bar">
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Tìm kiếm bài viết..." />
 
-  <!-- Footer -->
-  <footer class="main-footer">
-    <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
-  </footer>
-  <div id="toast-container"></div>
-  <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js"></script>
-</body>
+                <ul id="suggestions" class="suggestions-list"></ul>
+                <button id="searchButton">Search</button>
+                <select id="categoryFilter">
+                    <option value="all">Tất cả danh mục</option>
+                </select>
+            </div>
+            <h2 style="text-align: center">
+                📜 <span id="totalPosts">0</span> Công thức
+            </h2>
+            <div id="post-list">
+                <p id="loading">Đang tải...</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <p>&copy; 2025 Minimalist Blog. All rights reserved.</p>
+        </footer>
+        <div id="toast-container"></div>
+        <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/front-matter@4.0.2/index.min.js"></script>
+    </body>
 </html>
