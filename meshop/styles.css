@@ -97,6 +97,155 @@
     --accent-light: #f0a894;
     --border-color: #f6c5b4;
 }
+
+
+
+/* Theme-1: Warm Brown */
+.theme-1 {
+    --card-bg: #fff;
+    --page-bg: #f5ece2; 
+    --text: #3d2f26; 
+    --accent: #b89163; /* Đậm hơn để nổi bật trên nền sáng */
+}
+
+/* Theme-2: Mint Pastel */
+.theme-2 {
+    --card-bg: #fff;
+    --page-bg: #f1f8f7; 
+    --text: #2c3a35; 
+    --accent: #65b39e; /* Đậm hơn */
+}
+
+/* Theme-3: Blue Calm */
+.theme-3 {
+    --card-bg: #fff;
+    --page-bg: #f6f9ff; 
+    --text: #313d5a; 
+    --accent: #788af0; /* Đậm hơn */
+}
+
+/* Theme-4: Pink Pastel */
+.theme-4 {
+    --card-bg: #fff;
+    --page-bg: #fff8f9;
+    --text: #3c2a2a; 
+    --accent: #f297b1; /* Đậm hơn */
+}
+
+/* Theme-5: Sunny Yellow */
+.theme-5 {
+    --card-bg: #fff;
+    --page-bg: #fff9e5; 
+    --text: #503932; 
+    --accent: #e6b026; /* Đậm hơn */
+}
+
+/* Theme-6: Ocean Blue */
+.theme-6 {
+    --card-bg: #fff;
+    --page-bg: #e6f3fd; 
+    --text: #101c2c; 
+    --accent: #6aa9e5; /* Đậm hơn */
+}
+
+/* Theme-7: Lavender */
+.theme-7 {
+    --card-bg: #fff;
+    --page-bg: #f4e8f6; 
+    --text: #210430; 
+    --accent: #a559ae; /* Đậm hơn */
+}
+
+/* Theme-8: Autumn Peach */
+.theme-8 {
+    --card-bg: #fff;
+    --page-bg: #fff4e2; 
+    --text: #412e27; 
+    --accent: #d66b52; /* Đậm hơn */
+}
+
+/* Theme-9: Forest Green */
+.theme-9{
+    --card-bg: #fff;
+    --page-bg: #eaf1ea; /* Nền sáng hơn, tạo tương phản tốt */
+    --text: #2f3d2f; /* Đậm hơn để dễ đọc trên nền sáng */
+    --accent: #5e995e; /* Màu nhấn đậm vừa đủ để nổi bật */
+}
+
+/* Theme-10: Amethyst Dawn */
+.theme-10{
+    --card-bg: #fff;
+    --page-bg: #f9f4fb; /* Nền tím nhạt, gần như trắng */
+    --text: #3c2a4f;   /* Tím than đậm, dễ đọc */
+    --accent: #a170c9; /* Tím thạch anh nổi bật */
+}
+
+/* Theme-11: Crimson Dusk */
+.theme-11 {
+    --card-bg: #fff;
+    --page-bg: #fff9f6; /* Nền trắng ngà, giúp giảm độ chói */
+    --text: #5c2d2d;   /* Đỏ sẫm, dễ đọc trên nền sáng */
+    --accent: #d15656; /* Đỏ tươi, làm điểm nhấn mạnh mẽ */
+}
+
+/* Theme-12: Solar Flare */
+.theme-12 {
+    --card-bg: #2d2433; /* Tím than sẫm, màu của vũ trụ */
+    --page-bg: #221c29; /* Đen tím đậm, nền tối */
+    --text: #fefcf3;   /* Trắng ngà, dễ đọc */
+    --accent: #ff8c42; /* Cam cháy rực rỡ, màu của ngọn lửa */
+}
+/* Theme-13: Neon Abyss */
+.theme-13 {
+    --card-bg: #1a1a1a; /* Xám đen, tạo cảm giác chiều sâu */
+    --page-bg: #0d0d0d; /* Đen sâu thẳm */
+    --text: #c0c0c0;   /* Xám bạc, dễ đọc trên nền tối */
+    --accent: #00ff99; /* Xanh neon cực sáng */
+}
+/* Theme-14: Steampunk Foundry */
+.theme-14 {
+    --card-bg: #3c352f; /* Nền xám nâu, màu của sắt thép */
+    --page-bg: #2d2825; /* Nền tối hơn, tạo chiều sâu */
+    --text: #e0d8c0;   /* Màu kem nhạt, giống giấy cũ */
+    --accent: #b8860b; /* Màu đồng thau, điểm nhấn chính */
+}
+
+/* Theme-15: Minimalist Zen */
+.theme-15{
+    --card-bg: #fdfdfc; /* Trắng ngà nhẹ nhàng */
+    --page-bg: #f9f9f7; /* Màu nền ấm, không quá chói */
+    --text: #4a4a4a;   /* Xám đậm, dễ đọc */
+    --accent: #8dc6c6; /* Xanh ngọc dịu nhẹ */
+}
+/* Theme-16: Mystic Forest */
+.theme-16{
+    --card-bg: #f5f8f5; /* Màu xám xanh nhạt, giống sương mù */
+    --page-bg: #eef2ef; /* Màu nền sáng hơn, tạo không gian thoáng */
+    --text: #414a41;   /* Xanh rêu đậm, dễ đọc */
+    --accent: #a5b098; /* Màu xanh lá cây xám, điểm nhấn dịu nhẹ */
+}
+/* Theme-17: Desert Rose */
+.theme-17{
+    --card-bg: #fff;
+    --page-bg: #fdf5f1; /* Nền màu be hồng nhạt */
+    --text: #5c3f3f;   /* Nâu đỏ đậm, dễ đọc */
+    --accent: #d4a9a9; /* Hồng đất, làm điểm nhấn nhẹ nhàng */
+}
+/* Theme-18: Vintage Slate */
+.theme-18{
+    --card-bg: #fff;
+    --page-bg: #f2f4f7; /* Nền xám xanh nhạt */
+    --text: #39424c;   /* Xanh than đậm, dễ đọc */
+    --accent: #788a9e; /* Xám bạc, điểm nhấn tinh tế */
+}
+
+
+
+
+
+
+
+
             
             * {
                 box-sizing: border-box;
@@ -149,7 +298,7 @@
                 background-repeat: no-repeat;
                 background-position: top left;
                 background-size: 180px; /* Điều chỉnh kích thước ảnh hoa */
-                opacity: 0.9; /* Làm mờ để trở thành nền */
+                opacity: 0.75; /* Làm mờ để trở thành nền */
                 pointer-events: none; /* Đảm bảo không cản trở tương tác */
                 z-index: 1;
             }
@@ -189,6 +338,58 @@
                 max-width: 600px;
                 z-index: 2;
             }
+            
+            /* Hiệu ứng đánh máy đã sửa lỗi con trỏ */
+
+/* Hiệu ứng slide in cho feature-item */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.feature-item {
+    opacity: 0;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+/* Phần tử chẵn trượt từ trái vào */
+.feature-item:nth-child(even) {
+    animation-name: slideInLeft;
+}
+
+/* Phần tử lẻ trượt từ phải vào */
+.feature-item:nth-child(odd) {
+    animation-name: slideInRight;
+}
+
+/* Thêm độ trễ để các mục xuất hiện tuần tự */
+.feature-item:nth-child(1) { animation-delay: 0.1s; }
+.feature-item:nth-child(2) { animation-delay: 0.2s; }
+.feature-item:nth-child(3) { animation-delay: 0.3s; }
+.feature-item:nth-child(4) { animation-delay: 0.4s; }
+.feature-item:nth-child(5) { animation-delay: 0.5s; }
+.feature-item:nth-child(6) { animation-delay: 0.6s; }
+
+
 
             .cta-button {
                 display: inline-block;
@@ -358,7 +559,7 @@
                 border: 0;
                 cursor: pointer;
                 background: var(--accent);
-                color: var(--text) ;
+                color: var(--page-bg) ;
                 font-weight: 600;
             }
             .btn.ghost {
@@ -422,7 +623,7 @@
                 left: -2px; /* Điều chỉnh vị trí */
                 width: 50px;
                 height: 50px;
-                opacity: 0.8;
+                opacity: 0.75;
                 object-fit: contain;
                 border-radius: 8px 0 0 0;
                 z-index: 1; /* Đảm bảo hình hoa nằm dưới nội dung chính */
@@ -627,7 +828,7 @@
             }
             #history-container .h3 {
                 font-size: 20px;
-                color: var(--text);
+                color: var(--card-bg);
                 border-bottom: 2px solid var(--accent);
                 padding-bottom: 5px;
                 margin-bottom: 16px;
