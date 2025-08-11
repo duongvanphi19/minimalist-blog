@@ -454,21 +454,21 @@
             }
             
             #downloadBtn{
-    background-color: #4CAF50;
+    background-color:  #5e995e;
     color: #fff;
 }
 #downloadPdf {
-    background-color: #2196F3;
+    background-color:  #d15656;
     color: #fff;
 }
 #saveToHistoryBtn {
-    background-color: #FF9800;
+    background-color:  #788a9e;
     color: #fff;
 }
 
-#downloadBtn:hover { background-color: #45A049; }
-#downloadPdf:hover { background-color: #1976D2; }
-#saveToHistoryBtn:hover { background-color: #FB8C00; }
+#downloadBtn:hover { background-color:   #2f3d2f; }
+#downloadPdf:hover { background-color:  #5c2d2d; }
+#saveToHistoryBtn:hover { background-color:  #39424c; }
 
 
             .feature-item {

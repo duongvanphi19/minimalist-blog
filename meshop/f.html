@@ -848,35 +848,7 @@
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-        /* ======== Database Địa Chỉ (Thay thế bằng dữ liệu của bạn) ======== */
-        const VIETNAM_ADDRESSES = {
-            "Hồ Chí Minh": {
-                "Quận 1": {
-                    "Phường Bến Nghé": {},
-                    "Phường Bến Thành": {}
-                },
-                "Quận 2": {
-                    "Phường An Phú": {},
-                    "Phường Thảo Điền": {}
-                }
-            },
-            "Hà Nội": {
-                "Ba Đình": {
-                    "Phường Điện Biên": {},
-                    "Phường Đội Cấn": {}
-                },
-                "Hoàn Kiếm": {
-                    "Phường Chương Dương": {},
-                    "Phường Đồng Xuân": {}
-                }
-            },
-            "Đà Nẵng": {
-                "Hải Châu": {
-                    "Phường Hải Châu 1": {},
-                    "Phường Hải Châu 2": {}
-                }
-            }
-        };
+        let VIETNAM_ADDRESSES = {}; // Khai báo biến global để lưu dữ liệu
 
         /* ======== Helpers ======== */
         const $ = (id) => document.getElementById(id);
@@ -1182,9 +1154,36 @@
             }
             typeWriter();
         }
-
+        
         /* ======== Events init đã được tối ưu ======== */
         document.addEventListener("DOMContentLoaded", async () => {
+            // Fetch dữ liệu địa chỉ từ file JSON
+            try {
+                const response = await fetch('vn-address.json');
+                const rawData = await response.json();
+                VIETNAM_ADDRESSES = reorganizeAddresses(rawData);
+            } catch (error) {
+                console.error("Lỗi khi tải hoặc xử lý dữ liệu địa chỉ:", error);
+            }
+            
+            // Hàm chuyển đổi cấu trúc dữ liệu
+            function reorganizeAddresses(rawData) {
+                const addresses = {};
+                rawData.forEach(province => {
+                    const provinceName = province.Name;
+                    addresses[provinceName] = {};
+                    province.Wards.forEach(ward => {
+                        const districtName = ward.FullName.split(' ')[1]; // Giả sử tên quận/huyện là từ thứ 2 trong FullName
+                        if (!addresses[provinceName][districtName]) {
+                            addresses[provinceName][districtName] = {};
+                        }
+                        const wardName = ward.Name;
+                        addresses[provinceName][districtName][wardName] = {};
+                    });
+                });
+                return addresses;
+            }
+
             loadForm();
             loadProducts();
             loadImages();
@@ -1213,7 +1212,7 @@
             // Khởi tạo các dropdown
             function populateProvinces() {
                 provinceSelect.innerHTML = "<option value=''>Chọn Tỉnh/Thành phố</option>";
-                Object.keys(VIETNAM_ADDRESSES).forEach(province => {
+                Object.keys(VIETNAM_ADDRESSES).sort().forEach(province => {
                     const opt = document.createElement("option");
                     opt.value = province;
                     opt.textContent = province;
@@ -1225,7 +1224,7 @@
                 districtSelect.innerHTML = "<option value=''>Chọn Quận/Huyện</option>";
                 wardSelect.innerHTML = "<option value=''>Chọn Phường/Xã</option>";
                 if (province && VIETNAM_ADDRESSES[province]) {
-                    Object.keys(VIETNAM_ADDRESSES[province]).forEach(district => {
+                    Object.keys(VIETNAM_ADDRESSES[province]).sort().forEach(district => {
                         const opt = document.createElement("option");
                         opt.value = district;
                         opt.textContent = district;
@@ -1238,7 +1237,7 @@
             function populateWards(province, district) {
                 wardSelect.innerHTML = "<option value=''>Chọn Phường/Xã</option>";
                 if (province && district && VIETNAM_ADDRESSES[province] && VIETNAM_ADDRESSES[province][district]) {
-                    Object.keys(VIETNAM_ADDRESSES[province][district]).forEach(ward => {
+                    Object.keys(VIETNAM_ADDRESSES[province][district]).sort().forEach(ward => {
                         const opt = document.createElement("option");
                         opt.value = ward;
                         opt.textContent = ward;

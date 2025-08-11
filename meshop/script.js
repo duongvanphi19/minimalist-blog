@@ -8,11 +8,7 @@
             const LS_HISTORY = "invoice_v3_history";
             const MAX_FILE_SIZE = 1024 * 1024;
 
-            // IndexedDB constants (safely declared)
-            const DB_NAME = "invoice_images_db";
-            const DB_VERSION = 1;
-            const STORE_NAME = "images_store";
-            let db = null;
+
 
             // Hidden decor codes (keys are normalized WITHOUT leading '#')
             const HIDDEN_DECOR_MAP = {
@@ -34,6 +30,95 @@
                 9: "assets/uploads/vietnam-national-day.png", // Sep - VN National Day
                 12: "assets/uploads/xmas.png" // Dec - Christmas
             };
+            
+            
+
+// Load dữ liệu từ file data/data.json
+fetch('data/data.json')
+  .then(res => res.json())
+  .then(data => {
+    const provinceSelect = document.getElementById('province');
+    const wardSelect = document.getElementById('ward');
+    const streetInput = document.getElementById('street');
+
+    // Đổ danh sách tỉnh/thành
+    data.forEach(province => {
+      const opt = document.createElement('option');
+      opt.value = province.province_code;
+      opt.textContent = province.name;
+      provinceSelect.appendChild(opt);
+    });
+
+    // Khi chọn tỉnh -> cập nhật danh sách xã/phường
+    provinceSelect.addEventListener('change', () => {
+      wardSelect.innerHTML = '<option value=""></option>';
+      const selectedProvince = data.find(p => p.province_code === provinceSelect.value);
+      if (selectedProvince) {
+        selectedProvince.wards.forEach(ward => {
+          const opt = document.createElement('option');
+          opt.value = ward.ward_code;
+          opt.textContent = ward.name;
+          wardSelect.appendChild(opt);
+        });
+      }
+      saveAddressToLocal();
+    });
+
+    wardSelect.addEventListener('change', saveAddressToLocal);
+    streetInput.addEventListener('input', saveAddressToLocal);
+
+    // Hàm lưu vào localStorage (theo format của web bạn)
+    function saveAddressToLocal() {
+      const provinceName = provinceSelect.options[provinceSelect.selectedIndex]?.text || '';
+      const wardName = wardSelect.options[wardSelect.selectedIndex]?.text || '';
+      const street = streetInput.value.trim();
+      const fullAddress = `${street}, ${wardName}, ${provinceName}`;
+      $("customerAddress").value = fullAddress;
+      localStorage.setItem('customerAddress', fullAddress);
+    }
+
+    // Load lại dữ liệu khi reload trang
+    const savedAddress = localStorage.getItem('customerAddress');
+  
+    if (savedAddress) {
+      const parts = savedAddress.split(',').map(s => s.trim());
+      if (parts.length >= 3) {
+        streetInput.value = parts[0];
+        // Tìm và set tỉnh
+        const provinceName = parts[2];
+        const provinceItem = data.find(p => p.name === provinceName);
+        if (provinceItem) {
+          provinceSelect.value = provinceItem.province_code;
+          // Set xã/phường
+          wardSelect.innerHTML = '<option value=""></option>';
+          provinceItem.wards.forEach(ward => {
+            const opt = document.createElement('option');
+            opt.value = ward.ward_code;
+            opt.textContent = ward.name;
+            wardSelect.appendChild(opt);
+          });
+          // Tìm xã đã lưu
+          const wardName = parts[1];
+          const wardItem = provinceItem.wards.find(w => w.name === wardName);
+          if (wardItem) {
+            wardSelect.value = wardItem.ward_code;
+          }
+        }
+      }
+    }else{
+    $("ward").value ="";
+    $("province").value = "";
+    $("street").value = "";
+    $("customerAddress").value ="";
+  }
+  })
+  .catch(err => console.error('Không thể tải data/data.json', err));
+
+// Hàm xuất địa chỉ đầy đủ khi in hóa đơn
+function getFullAddress() {
+  return localStorage.getItem('customerAddress') || '';
+}
+
 
             function setMonthlyDecor() {
                 try {
@@ -165,90 +250,6 @@ function typeEffect() {
 }
 
 
-            /* ======== IndexedDB functions (optional image storage) ======== */
-            function initDB() {
-                return new Promise((resolve, reject) => {
-                    if (!window.indexedDB) {
-                        console.warn(
-                            "IndexedDB not supported in this browser."
-                        );
-                        return resolve(null);
-                    }
-                    const request = indexedDB.open(DB_NAME, DB_VERSION);
-                    request.onerror = (event) => {
-                        console.error(
-                            "IndexedDB error:",
-                            event.target.errorCode
-                        );
-                        reject("IndexedDB error: " + event.target.errorCode);
-                    };
-                    request.onsuccess = (event) => {
-                        db = event.target.result;
-                        resolve(db);
-                    };
-                    request.onupgradeneeded = (event) => {
-                        db = event.target.result;
-                        if (!db.objectStoreNames.contains(STORE_NAME)) {
-                            db.createObjectStore(STORE_NAME, { keyPath: "id" });
-                        }
-                    };
-                });
-            }
-
-            function saveImageToDB(id, dataUrl) {
-                return new Promise((resolve, reject) => {
-                    if (!db) {
-                        return reject("IndexedDB not initialized.");
-                    }
-                    const transaction = db.transaction(
-                        [STORE_NAME],
-                        "readwrite"
-                    );
-                    const store = transaction.objectStore(STORE_NAME);
-                    store.put({ id: id, data: dataUrl });
-
-                    transaction.oncomplete = () => resolve();
-                    transaction.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            function loadImageFromDB(id) {
-                return new Promise((resolve, reject) => {
-                    if (!db) {
-                        return reject("IndexedDB not initialized.");
-                    }
-                    const transaction = db.transaction(
-                        [STORE_NAME],
-                        "readonly"
-                    );
-                    const store = transaction.objectStore(STORE_NAME);
-                    const request = store.get(id);
-
-                    request.onsuccess = (event) => {
-                        const result = event.target.result;
-                        resolve(result ? result.data : null);
-                    };
-                    request.onerror = (event) => reject(event.target.error);
-                });
-            }
-
-            function deleteImagesFromDB() {
-                return new Promise((resolve, reject) => {
-                    if (!db) {
-                        return reject("IndexedDB not initialized.");
-                    }
-                    const transaction = db.transaction(
-                        [STORE_NAME],
-                        "readwrite"
-                    );
-                    const store = transaction.objectStore(STORE_NAME);
-                    store.clear();
-
-                    transaction.oncomplete = () => resolve();
-                    transaction.onerror = (event) => reject(event.target.error);
-                });
-            }
-
             /* ======== Utilities ======== */
             function toCurrency(n) {
                 return (Number(n) || 0).toLocaleString("vi-VN");
@@ -330,6 +331,10 @@ function typeEffect() {
                     $("productList").innerHTML = "";
                     data.products.forEach((p) => addProduct(p));
                 }
+                
+                
+            
+  
 
                 // safe: data.images might be undefined in older items
                 localStorage.setItem(
@@ -348,6 +353,61 @@ function typeEffect() {
                 }
                 updateInvoice();
             }
+            
+            function loadAddressData(savedData){
+              console.log(savedData)
+  if(savedData.customerAddress){
+
+  const parts = savedData.customerAddress.split(',').map(s => s.trim());
+  if (parts.length >= 3) {
+    const street = parts[0];
+    const wardName = parts[1];
+    const provinceName = parts[2];
+
+    $('street').value = street;
+    $('customerAddress').value = savedData.customerAddress;
+    
+    // Chờ data.json load xong
+    fetch('data/data.json')
+      .then(res => res.json())
+      .then(provinces => {
+        const provinceSelect = document.getElementById('province');
+        const wardSelect = document.getElementById('ward');
+
+        // Set tỉnh
+        const provinceItem = provinces.find(p => p.name === provinceName);
+        if (provinceItem) {
+          provinceSelect.value = provinceItem.province_code;
+
+          // Load xã/phường tương ứng
+          wardSelect.innerHTML = '<option value=""></option>';
+          provinceItem.wards.forEach(ward => {
+            const opt = document.createElement('option');
+            opt.value = ward.ward_code;
+            opt.textContent = ward.name;
+            wardSelect.appendChild(opt);
+          });
+
+          // Set xã
+          const wardItem = provinceItem.wards.find(w => w.name === wardName);
+          if (wardItem) {
+            wardSelect.value = wardItem.ward_code;
+          }
+        }
+      });
+  }
+  }else{
+    $("ward").value ="";
+    $("province").value = "";
+    $("street").value = "";
+    $("customerAddress").value ="";
+  }
+
+            }
+            
+            
+            
+          
 
             function saveInvoiceToHistory() {
                 const invoiceData = getFormData();
@@ -371,7 +431,7 @@ function typeEffect() {
                 historyList.innerHTML = "";
 
                 if (!history || history.length === 0) {
-                    historyList.innerHTML = `<li class="">Chưa có hóa đơn nào được lưu.</li>`;
+                    historyList.innerHTML = `<p class="">Chưa có hóa đơn nào được lưu.</p>`;
                     return;
                 }
 
@@ -415,6 +475,7 @@ function typeEffect() {
                 );
                 if (invoiceToLoad) {
                     loadFormData(invoiceToLoad);
+                    loadAddressData(invoiceToLoad);
                     alert(
                         `Đã tải lại hóa đơn "${
                             invoiceToLoad.shopName || "Đơn hàng"
@@ -714,8 +775,7 @@ function typeEffect() {
                     $("customerName").value.trim() || "Tên khách hàng";
                 $("outCustomerPhone").innerText =
                     $("customerPhone").value.trim() || "SĐT";
-                $("outCustomerAddress").innerText =
-                    $("customerAddress").value.trim() || "Địa chỉ nhận";
+                $("outCustomerAddress").innerText = $("customerAddress").value.trim() || "Địa chỉ nhận";
                 $("outOrderDate").innerText =
                     formatDate($("orderDate").value) || "__/__/____";
                 $("outExpectedDate").innerText =
@@ -792,12 +852,6 @@ function typeEffect() {
 
             /* ======== Init Events ======== */
             document.addEventListener("DOMContentLoaded", async () => {
-                // Init IndexedDB (optional)
-                try {
-                    await initDB();
-                } catch (err) {
-                    console.warn("IndexedDB init failed:", err);
-                }
 
                 // Ensure default flower image exists in localStorage
                 let imgs = JSON.parse(localStorage.getItem(LS_IMAGES) || "{}");
@@ -855,8 +909,7 @@ function typeEffect() {
                         localStorage.removeItem(LS_PRODUCTS);
                         localStorage.removeItem(LS_IMAGES);
                         localStorage.removeItem(LS_THEME);
-                        // optionally clear DB images
-                        deleteImagesFromDB().catch(() => {});
+                        
                         location.reload();
                     }
                 });
