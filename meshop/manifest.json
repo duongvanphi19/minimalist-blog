@@ -1,0 +1,22 @@
+{
+  "name": "Tạo Hóa Đơn Bán Hàng Online",
+  "short_name": "Hóa Đơn",
+  "description": "Công cụ tạo hóa đơn bán hàng miễn phí, nhanh, an toàn, xuất PNG/PDF.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffc107",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

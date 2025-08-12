@@ -36,7 +36,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <link rel="stylesheet" href="styles.css" />
-        
+        <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffc107">
             <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -54,6 +55,13 @@
       }
     }
     </script>
+    <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js")
+    .then(() => console.log("Service Worker registered"))
+    .catch(err => console.log("SW registration failed:", err));
+}
+</script>
     </head>
     <body class="theme-0">
         <div class="wrap">
