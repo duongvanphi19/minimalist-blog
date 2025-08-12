@@ -452,6 +452,35 @@
                 max-width: 800px;
                 z-index: 2;
             }
+            
+            .floating-install-btn {
+  position: fixed;
+  bottom: 20px;
+   left: 20px ;
+  
+  padding:  8px 16px;
+  background: var(--text);
+    color: var(--page-bg);
+    font-family: "Poppins", sans-serif;
+   font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+  animation: bounce 2s infinite;
+  z-index: 9999;
+}
+
+.floating-install-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
             #shareBtn{
 background-color:   #5e995e;
 color: #fff;

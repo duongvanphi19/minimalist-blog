@@ -73,7 +73,7 @@
                 <h3 style="margin-top: 8px; margin-bottom: 18px" class="small"
                     >(Nhanh - Miễn phí - Không cần đăng ký)</h3
                 >
-                	<button id="installBtn" class="btn" style="display:none; margin-top:8px;">📥 Cài đặt ứng dụng</button>
+                	<button id="installBtn" class="floating-install-btn" style="display:; margin-top:8px;">📥 Cài đặt App</button>
 
 
                 <div class="feature-list">
@@ -723,25 +723,26 @@
                             src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=phi19&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"
                             loading="lazy" alt="Buy Me A Coffee" />
                     </a>
-                </div>
+                </div><p><a  href="privacy.html" target="_blank">Chính sách bảo mật</a></p>
             </footer>
         </div>
 
         <script src="script.js"></script>
     <script>
 let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
 
-// Khi trình duyệt phát hiện PWA đủ điều kiện cài đặt
+// Khi trình duyệt cho phép cài
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault(); // Ngăn Chrome tự hiện popup
-  deferredPrompt = e; // Lưu lại sự kiện để gọi sau
-  document.getElementById('installBtn').style.display = 'inline-block'; // Hiện nút
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'flex';
 });
 
-// Khi bấm nút cài đặt
-document.getElementById('installBtn').addEventListener('click', () => {
+// Khi bấm nút cài
+installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
-    deferredPrompt.prompt(); // Gọi popup cài đặt
+    deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choice) => {
       if (choice.outcome === 'accepted') {
         console.log('Người dùng đã cài app');
@@ -752,6 +753,17 @@ document.getElementById('installBtn').addEventListener('click', () => {
     });
   }
 });
+
+// Khi app đã cài thành công → ẩn nút
+window.addEventListener('appinstalled', () => {
+  console.log('App đã được cài đặt');
+  installBtn.style.display = 'none';
+});
+
+// Nếu đang chạy trong chế độ standalone (app đã cài) → ẩn nút
+if (window.matchMedia('(display-mode: standalone)').matches) {
+  installBtn.style.display = 'none';
+}
 </script>
     </body>
 </html>
