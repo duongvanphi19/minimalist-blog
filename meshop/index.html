@@ -55,13 +55,7 @@
       }
     }
     </script>
-    <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js")
-    .then(() => console.log("Service Worker registered"))
-    .catch(err => console.log("SW registration failed:", err));
-}
-</script>
+    
     </head>
     <body class="theme-0">
         <div class="wrap">
@@ -79,6 +73,9 @@ if ("serviceWorker" in navigator) {
                 <h3 style="margin-top: 8px; margin-bottom: 18px" class="small"
                     >(Nhanh - Miễn phí - Không cần đăng ký)</h3
                 >
+                	<button id="installBtn" style="display:none;">📥 Cài đặt ứng dụng</button>
+
+
                 <div class="feature-list">
                     <div class="feature-item">
                         <span class="icon">✨</span>
@@ -731,5 +728,33 @@ if ("serviceWorker" in navigator) {
         </div>
 
         <script src="script.js"></script>
+        <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js")
+    .then(() => console.log("Service Worker registered"))
+    .catch(err => console.log("SW registration failed:", err));
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBtn').style.display = 'block';
+});
+
+document.getElementById('installBtn').addEventListener('click', () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        console.log('Người dùng đã cài app');
+      } else {
+        console.log('Người dùng từ chối cài app');
+      }
+      deferredPrompt = null;
+    });
+  }
+});
+</script>
     </body>
 </html>
