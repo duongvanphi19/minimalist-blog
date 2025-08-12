@@ -37,7 +37,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <link rel="stylesheet" href="styles.css" />
         <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ffc107">
+
             <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -670,13 +670,18 @@
                     <form
                         action="https://formspree.io/f/xrblrdel"
                         method="POST">
+                      <label style="text-align: left;" class="small" for="email">Email của bạn:</ label>
+
+<input type="email" id="email" name="email" placeholder="Nhập email" required>
+<br/>
                         <label
                             for="feedback"
                             class="small"
                             style="
                                 text-align: left;
                                 display: block;
-                                margin-bottom: 4px;
+                                margin-bottom: 4px ;
+                                margin-top: 4px;
                             "
                             >Lời nhắn của bạn:</label
                         >
@@ -731,7 +736,7 @@
     <script>
 let deferredPrompt;
 const installBtn = document.getElementById('installBtn');
-
+installBtn.style.display ="none";
 // Khi trình duyệt cho phép cài
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
