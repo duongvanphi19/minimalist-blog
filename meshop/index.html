@@ -73,7 +73,7 @@
                 <h3 style="margin-top: 8px; margin-bottom: 18px" class="small"
                     >(Nhanh - Miễn phí - Không cần đăng ký)</h3
                 >
-                	<button id="installBtn" style="display:none;">📥 Cài đặt ứng dụng</button>
+                	<button id="installBtn" class="btn" style="display:none; margin-top:8px;">📥 Cài đặt ứng dụng</button>
 
 
                 <div class="feature-list">
@@ -728,28 +728,25 @@
         </div>
 
         <script src="script.js"></script>
-        <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js")
-    .then(() => console.log("Service Worker registered"))
-    .catch(err => console.log("SW registration failed:", err));
-}
-
+    <script>
 let deferredPrompt;
+
+// Khi trình duyệt phát hiện PWA đủ điều kiện cài đặt
 window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBtn').style.display = 'block';
+  e.preventDefault(); // Ngăn Chrome tự hiện popup
+  deferredPrompt = e; // Lưu lại sự kiện để gọi sau
+  document.getElementById('installBtn').style.display = 'inline-block'; // Hiện nút
 });
 
+// Khi bấm nút cài đặt
 document.getElementById('installBtn').addEventListener('click', () => {
   if (deferredPrompt) {
-    deferredPrompt.prompt();
+    deferredPrompt.prompt(); // Gọi popup cài đặt
     deferredPrompt.userChoice.then((choice) => {
       if (choice.outcome === 'accepted') {
         console.log('Người dùng đã cài app');
       } else {
-        console.log('Người dùng từ chối cài app');
+        console.log('Người dùng hủy cài app');
       }
       deferredPrompt = null;
     });
