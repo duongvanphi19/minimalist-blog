@@ -651,7 +651,7 @@ function typeEffect() {
                     const headerRow = document.createElement("div");
                     headerRow.className = "callout prod-row";
                     headerRow.style = "color: var(--accent)";
-                    headerRow.innerHTML = `<div style="flex:1">Sản phẩm</div><div style="width:24px;text-align:right">SL</div><div style="width:90px;text-align:right">Đơn giá</div><div style="width:90px;text-align:right">Thành tiền</div>`;
+                    headerRow.innerHTML = `<div style="flex:1">Sản phẩm</div><div style="width:20px;text-align:right">SL</div><div style="width:90px;text-align:right">Đơn giá</div><div style="width:90px;text-align:right">Thành tiền</div>`;
                     frag.appendChild(headerRow);
                     prods.forEach((p) => {
                         const subtotal = p.qty * p.price;
@@ -660,7 +660,7 @@ function typeEffect() {
                         row.className = "prod-row";
                         row.innerHTML = `<div style="flex:1">${escapeHtml(
                             p.name
-                        )}</div><div style="width:24px;text-align:right">${
+                        )}</div><div style="width:20px;text-align:right">${
                             p.qty
                         }</div><div style="width:90px;text-align:right">${toCurrency(
                             p.price
