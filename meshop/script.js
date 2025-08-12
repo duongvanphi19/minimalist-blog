@@ -846,6 +846,105 @@ function typeEffect() {
                             );
                         });
                     });
+                    
+                    // Hàm tiện ích để tạo Canvas từ hóa đơn
+async function createInvoiceCanvas() {
+    const card = document.getElementById("card");
+    const imgs = Array.from(card.querySelectorAll("img"));
+    
+    // Chờ tất cả ảnh tải xong
+    await Promise.all(
+        imgs.map(
+            (img) =>
+            new Promise((resolve) => {
+                if (!img.src) return resolve();
+                if (img.complete) return resolve();
+                img.onload = () => resolve();
+                img.onerror = () => resolve();
+            })
+        )
+    );
+
+    // Tính toán safe scale
+    const origWidth = card.clientWidth || 360;
+    const targetWidth = 1080;
+    let scale = Math.min(3, Math.max(1.5, targetWidth / origWidth));
+    
+    // Tạo canvas
+    return await html2canvas(card, {
+        useCORS: true,
+        scale: scale,
+        backgroundColor: null,
+    });
+}
+
+// Hàm xử lý việc tải ảnh xuống
+async function safeExport() {
+    const btn = document.getElementById("safeExportBtn");
+    btn.disabled = true;
+    btn.textContent = "Đang tạo ảnh...";
+    
+    try {
+        const canvas = await createInvoiceCanvas();
+        canvas.toBlob(
+            (blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `invoice_${document.getElementById("orderId").value || "order"}.png`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 10000);
+            },
+            "image/png",
+            0.95
+        );
+    } catch (err) {
+        console.error(err);
+        alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "📥 Tải ảnh (PNG)";
+    }
+}
+
+// Hàm xử lý việc chia sẻ ảnh
+async function shareInvoice() {
+    if (!navigator.share) {
+        alert("Trình duyệt của bạn không hỗ trợ tính năng chia sẻ.");
+        return;
+    }
+
+    const btn = document.getElementById("shareBtn");
+    btn.disabled = true;
+    btn.textContent = "Đang tạo ảnh...";
+
+    try {
+        const canvas = await createInvoiceCanvas();
+        const imageBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+        const imageFile = new File([imageBlob], "hoa_don.png", { type: "image/png" });
+        const shopName = document.getElementById("shopName").value || "Hóa đơn bán hàng";
+        
+        await navigator.share({
+            files: [imageFile],
+            title: shopName,
+            text: ``,
+        });
+
+    } catch (error) {
+        console.error("Lỗi khi chia sẻ:", error);
+        if (error.name !== 'AbortError') {
+             alert("Không thể chia sẻ ảnh. Vui lòng thử lại.");
+        }
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "📲 Chia sẻ ảnh";
+    }
+}
+
+
+$("shareBtn").addEventListener("click",shareInvoice); 
                 // download (safe)
                 $("downloadBtn").addEventListener("click", async () => {
                     const btn = $("downloadBtn");
@@ -911,7 +1010,7 @@ function typeEffect() {
                         alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
                     } finally {
                         btn.disabled = false;
-                        btn.textContent = "📥 Tải PNG";
+                        btn.ntent = "📥 Tải xuống PNG";
                     }
                 });
             }); // end DOMContentLoaded

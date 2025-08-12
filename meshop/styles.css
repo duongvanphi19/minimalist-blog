@@ -452,9 +452,12 @@
                 max-width: 800px;
                 z-index: 2;
             }
-            
+            #shareBtn{
+background-color:   #5e995e;
+color: #fff;
+}
             #downloadBtn{
-    background-color:  #5e995e;
+    background-color: #6aa9e5 ;
     color: #fff;
 }
 #downloadPdf {
@@ -465,8 +468,8 @@
     background-color:  #788a9e;
     color: #fff;
 }
-
-#downloadBtn:hover { background-color:   #2f3d2f; }
+#shareBtn:hover{background-color:   #2f3d2f}
+#downloadBtn:hover { background-color:  #101c2c; }
 #downloadPdf:hover { background-color:  #5c2d2d; }
 #saveToHistoryBtn:hover { background-color:  #39424c; }
 
