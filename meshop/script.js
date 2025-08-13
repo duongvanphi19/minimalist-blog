@@ -30,6 +30,25 @@
                 9: "assets/uploads/vietnam-national-day.png", // Sep - VN National Day
                 12: "assets/uploads/xmas.png" // Dec - Christmas
             };
+            function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+function isInStandaloneMode() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+}
+
+const iosModal = document.getElementById('iosInstallModal');
+const closeBtns = document.querySelectorAll('.close');
+
+if (isIOS() && !isInStandaloneMode()) {
+  iosModal.style.display = 'block';
+}
+
+closeBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    iosModal.style.display = 'none';
+  });
+});
 
             function setMonthlyDecor() {
                 try {
@@ -694,10 +713,7 @@ function typeEffect() {
                 $("productList").innerHTML = "";
                 if (!arr || arr.length === 0) {
                     addProduct({
-                        name: "B.Begin Non-Alcohol Perfume",
-                        qty: 1,
-                        price: 1200000
-                    });
+                        });
                 } else arr.forEach((p) => addProduct(p));
             }
 

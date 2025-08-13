@@ -28,9 +28,8 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
             rel="stylesheet" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-            rel="stylesheet" />
+        
+            
 
         <!-- Thư viện xuất ảnh và PDF -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -731,6 +730,21 @@
                 </div><p><a  href="privacy.html" target="_blank">Chính sách bảo mật</a></p>
             </footer>
         </div>
+        
+        <!-- Modal hướng dẫn iOS -->
+<div id="iosInstallModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>📱 Cài đặt ứng dụng</h2>
+    <p>Để cài ứng dụng trên iPhone/iPad:</p>
+    <ol>
+      <li>Bấm nút <strong>Chia sẻ</strong> (🔼) ở thanh công cụ Safari.</li>
+      <li>Chọn <strong>Thêm vào Màn hình chính</strong>.</li>
+      <li>Nhấn <strong>Thêm</strong> để hoàn tất.</li>
+    </ol>
+    <img src="ios-add-home.jpg" alt="Hướng dẫn thêm vào màn hình chính" style="width:100%;border-radius:8px;">
+  </div>
+</div>
 
         <script src="script.js"></script>
     <script>
@@ -770,5 +784,6 @@ if (window.matchMedia('(display-mode: standalone)').matches) {
   installBtn.style.display = 'none';
 }
 </script>
+
     </body>
 </html>
