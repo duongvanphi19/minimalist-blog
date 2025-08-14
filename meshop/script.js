@@ -60,9 +60,10 @@ if (flowerSelect) {
     `).join('');
 }
 const themeSelect = document.getElementById('themeSelect');
+
 if (themeSelect) {
     themeSelect.innerHTML = themes.map(theme => `
-        <div class="swatch theme-btn" data-theme="${theme.id}" style="width: 34px; height: 24px; background: ${theme.gradient}; border-radius: 6px;" aria-label="Theme ${theme.id}" tabindex="0"></div>
+        <div class="swatch theme-btn" data-theme="${theme.id}" style="width: 34px; height: 24px; background: ${theme.gradient}; border-radius: 6px;" aria-label="Theme ${theme.id}"></div>
     `).join('');
 }
 
@@ -360,6 +361,124 @@ async function getFormData() {
     }
 }
 
+// Load images from IndexedDB or localStorage with proper clearing
+async function loadImages() {
+    const outLogo = $("outLogo");
+    const outQr = $("outQr");
+    const flowerTL = $("flowerTL");
+    const flowerBR = $("flowerBR");
+
+    // Reset tất cả hình ảnh về trạng thái ẩn
+    if (outLogo) {
+        outLogo.src = '';
+        outLogo.style.display = 'none';
+    }
+    if (outQr) {
+        outQr.src = '';
+        outQr.style.display = 'none';
+    }
+    if (flowerTL) {
+        flowerTL.src = '';
+        flowerTL.style.display = 'none';
+    }
+    if (flowerBR) {
+        flowerBR.src = '';
+        flowerBR.style.display = 'none';
+    }
+    document.querySelectorAll('.predefined-flower-img').forEach((img) => {
+        img.style.border = '2px solid transparent';
+    });
+
+    if (db) {
+        const transaction = db.transaction(['images'], 'readonly');
+        const store = transaction.objectStore('images');
+        const request = store.getAll();
+
+        return new Promise((resolve, reject) => {
+            request.onsuccess = () => {
+                const imgs = request.result.reduce((acc, { key, data }) => {
+                    acc[key] = data;
+                    return acc;
+                }, {});
+
+                // Tải logo nếu có
+                if (imgs.shopLogo && outLogo) {
+                    outLogo.src = imgs.shopLogo;
+                    outLogo.style.display = 'block';
+                }
+
+                // Tải hình hoa nếu có
+                if (imgs.flowerImg) {
+                    originalFlowerImageSrc = imgs.flowerImg;
+                    if (flowerTL) {
+                        flowerTL.src = imgs.flowerImg;
+                        flowerTL.style.display = 'block';
+                    }
+                    if (flowerBR) {
+                        flowerBR.src = imgs.flowerImg;
+                        flowerBR.style.display = 'block';
+                    }
+                    document.querySelectorAll('.predefined-flower-img').forEach((img) => {
+                        img.style.border = img.getAttribute('data-image') === imgs.flowerImg
+                            ? '2px solid var(--accent)'
+                            : '2px solid transparent';
+                    });
+                }
+
+                // Tải QR nếu có
+                if (imgs.qrImg && outQr) {
+                    outQr.src = imgs.qrImg;
+                    outQr.style.display = 'block';
+                }
+
+                resolve();
+            };
+
+            request.onerror = () => {
+                console.error('Lỗi tải ảnh:', request.error);
+                reject(request.error);
+            };
+        });
+    } else {
+        const imgs = {
+            shopLogo: localStorage.getItem('shopLogo'),
+            flowerImg: localStorage.getItem('flowerImg'),
+            qrImg: localStorage.getItem('qrImg')
+        };
+
+        // Tải logo nếu có
+        if (imgs.shopLogo && outLogo) {
+            outLogo.src = imgs.shopLogo;
+            outLogo.style.display = 'block';
+        }
+
+        // Tải hình hoa nếu có
+        if (imgs.flowerImg) {
+            originalFlowerImageSrc = imgs.flowerImg;
+            if (flowerTL) {
+                flowerTL.src = imgs.flowerImg;
+                flowerTL.style.display = 'block';
+            }
+            if (flowerBR) {
+                flowerBR.src = imgs.flowerImg;
+                flowerBR.style.display = 'block';
+            }
+            document.querySelectorAll('.predefined-flower-img').forEach((img) => {
+                img.style.border = img.getAttribute('data-image') === imgs.flowerImg
+                    ? '2px solid var(--accent)'
+                    : '2px solid transparent';
+            });
+        }
+
+        // Tải QR nếu có
+        if (imgs.qrImg && outQr) {
+            outQr.src = imgs.qrImg;
+            outQr.style.display = 'block';
+        }
+    }
+}
+
+// Load form data with proper image reset
 async function loadFormData(data) {
     if (!data) return;
     const ids = [
@@ -378,18 +497,21 @@ async function loadFormData(data) {
         data.products.forEach((p) => addProduct(p));
     }
 
-    if (data.images) {
-        if (db) {
-            const transaction = db.transaction(['images'], 'readwrite');
-            const store = transaction.objectStore('images');
-            Object.entries(data.images || {}).forEach(([key, value]) => {
-                store.put({ key, data: value });
-            });
-            await loadImages();
-        } else {
-            Object.entries(data.images || {}).forEach(([key, value]) => localStorage.setItem(key, value));
-            await loadImages();
-        }
+    // Xóa hình ảnh trước khi tải mới
+    if (db) {
+        const transaction = db.transaction(['images'], 'readwrite');
+        const store = transaction.objectStore('images');
+        store.clear(); // Xóa hết hình ảnh cũ
+        Object.entries(data.images || {}).forEach(([key, value]) => {
+            store.put({ key, data: value });
+        });
+        await loadImages();
+    } else {
+        localStorage.removeItem('shopLogo');
+        localStorage.removeItem('flowerImg');
+        localStorage.removeItem('qrImg');
+        Object.entries(data.images || {}).forEach(([key, value]) => localStorage.setItem(key, value));
+        await loadImages();
     }
 
     if (data.theme) {
@@ -519,6 +641,48 @@ async function renderHistory() {
 }
 
 async function loadInvoiceFromHistory(id) {
+    const applyInvoiceData = (invoice) => {
+        if (!invoice) return;
+
+        // Load các trường form khác
+        loadFormData(invoice);
+
+        // Logo
+        if (invoice.logo) {
+            loadImageFromIndexedDB(invoice.logo, 'outLogo');
+            document.getElementById('outLogo').style.display = '';
+        } else {
+            const logoEl = document.getElementById('outLogo');
+            logoEl.src = '';
+            logoEl.style.display = 'none';
+        }
+
+        // Decor (flower)
+        if (invoice.flower) {
+            loadImageFromIndexedDB(invoice.flower, 'flowerTL');
+            loadImageFromIndexedDB(invoice.flower, 'flowerBR');
+            ['flowerTL', 'flowerBR'].forEach(id => document.getElementById(id).style.display = '');
+        } else {
+            ['flowerTL', 'flowerBR'].forEach(id => {
+                const el = document.getElementById(id);
+                el.src = '';
+                el.style.display = 'none';
+            });
+        }
+
+        // QR
+        if (invoice.qr) {
+            loadImageFromIndexedDB(invoice.qr, 'outQr');
+            document.getElementById('outQr').style.display = '';
+        } else {
+            const qrEl = document.getElementById('outQr');
+            qrEl.src = '';
+            qrEl.style.display = 'none';
+        }
+
+        alert(`Đã tải lại hóa đơn "${invoice.shopName || 'Đơn hàng'}".`);
+    };
+
     if (db) {
         const transaction = db.transaction(['history'], 'readonly');
         const store = transaction.objectStore('history');
@@ -526,11 +690,7 @@ async function loadInvoiceFromHistory(id) {
 
         return new Promise((resolve, reject) => {
             request.onsuccess = () => {
-                const invoiceToLoad = request.result;
-                if (invoiceToLoad) {
-                    loadFormData(invoiceToLoad);
-                    alert(`Đã tải lại hóa đơn "${invoiceToLoad.shopName || 'Đơn hàng'}".`);
-                }
+                applyInvoiceData(request.result);
                 resolve();
             };
             request.onerror = () => reject(request.error);
@@ -538,10 +698,7 @@ async function loadInvoiceFromHistory(id) {
     } else {
         let history = JSON.parse(localStorage.getItem('history') || '[]');
         const invoiceToLoad = history.find(inv => inv.timestamp === Number(id));
-        if (invoiceToLoad) {
-            loadFormData(invoiceToLoad);
-            alert(`Đã tải lại hóa đơn "${invoiceToLoad.shopName || 'Đơn hàng'}".`);
-        }
+        applyInvoiceData(invoiceToLoad);
     }
 }
 
@@ -753,132 +910,7 @@ async function handleImageUpload(inputId, outIds, storageKey) {
     });
 }
 
-async function loadImages() {
-    if (db) {
-        const transaction = db.transaction(['images'], 'readonly');
-        const store = transaction.objectStore('images');
-        const request = store.getAll();
 
-        return new Promise((resolve, reject) => {
-            request.onsuccess = () => {
-                const imgs = request.result.reduce((acc, { key, data }) => {
-                    acc[key] = data;
-                    return acc;
-                }, {});
-                console.log('Loaded images from IndexedDB:', imgs);
-
-                const outLogo = $('outLogo');
-                if (outLogo) {
-                    if (imgs.shopLogo) {
-                        outLogo.src = imgs.shopLogo;
-                        outLogo.style.display = 'block';
-                    } else {
-                        outLogo.src = '';
-                        outLogo.style.display = 'none';
-                    }
-                }
-
-                if (imgs.flowerImg) {
-                    originalFlowerImageSrc = imgs.flowerImg;
-                    const flowerTL = $('flowerTL');
-                    const flowerBR = $('flowerBR');
-                    if (flowerTL) {
-                        flowerTL.src = imgs.flowerImg;
-                        flowerTL.style.display = 'block';
-                    }
-                    if (flowerBR) {
-                        flowerBR.src = imgs.flowerImg;
-                        flowerBR.style.display = 'block';
-                    }
-                    document.querySelectorAll('.predefined-flower-img').forEach((img) => {
-                        img.style.border = img.getAttribute('data-image') === imgs.flowerImg
-                            ? '2px solid var(--accent)'
-                            : '2px solid transparent';
-                    });
-                } else {
-                    const flowerTL = $('flowerTL');
-                    const flowerBR = $('flowerBR');
-                    if (flowerTL) flowerTL.style.display = 'none';
-                    if (flowerBR) flowerBR.style.display = 'none';
-                    document.querySelectorAll('.predefined-flower-img').forEach((img) => {
-                        img.style.border = '2px solid transparent';
-                    });
-                }
-
-                const outQr = $('outQr');
-                if (outQr) {
-                    if (imgs.qrImg) {
-                        outQr.src = imgs.qrImg;
-                        outQr.style.display = 'block';
-                    } else {
-                        outQr.src = '';
-                        outQr.style.display = 'none';
-                    }
-                }
-                resolve();
-            };
-
-            request.onerror = () => {
-                console.error('Error loading images:', request.error);
-                reject(request.error);
-            };
-        });
-    } else {
-        const imgs = {
-            shopLogo: localStorage.getItem('shopLogo'),
-            flowerImg: localStorage.getItem('flowerImg'),
-            qrImg: localStorage.getItem('qrImg')
-        };
-        const outLogo = $('outLogo');
-        if (outLogo) {
-            if (imgs.shopLogo) {
-                outLogo.src = imgs.shopLogo;
-                outLogo.style.display = 'block';
-            } else {
-                outLogo.src = '';
-                outLogo.style.display = 'none';
-            }
-        }
-
-        if (imgs.flowerImg) {
-            originalFlowerImageSrc = imgs.flowerImg;
-            const flowerTL = $('flowerTL');
-            const flowerBR = $('flowerBR');
-            if (flowerTL) {
-                flowerTL.src = imgs.flowerImg;
-                flowerTL.style.display = 'block';
-            }
-            if (flowerBR) {
-                flowerBR.src = imgs.flowerImg;
-                flowerBR.style.display = 'block';
-            }
-            document.querySelectorAll('.predefined-flower-img').forEach((img) => {
-                img.style.border = img.getAttribute('data-image') === imgs.flowerImg
-                    ? '2px solid var(--accent)'
-                    : '2px solid transparent';
-            });
-        } else {
-            const flowerTL = $('flowerTL');
-            const flowerBR = $('flowerBR');
-            if (flowerTL) flowerTL.style.display = 'none';
-            if (flowerBR) flowerBR.style.display = 'none';
-            document.querySelectorAll('.predefined-flower-img').forEach((img) => {
-                img.style.border = '2px solid transparent';
-            });
-        }
-
-        const outQr = $('outQr');
-        if (outQr) {
-            if (imgs.qrImg) {
-                outQr.src = imgs.qrImg;
-                outQr.style.display = 'block';
-            } else {
-                outQr.src = '';
-                outQr.style.display = 'none';
-            }
-        }
-    }
-}
 
 /* ======== Theme ======== */
 function setTheme(cls) {
@@ -1050,7 +1082,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (db) {
                     const transaction = db.transaction(['images', 'history'], 'readwrite');
                     transaction.objectStore('images').clear();
-                    transaction.objectStore('history').clear();
+                   /* transaction.objectStore('history').clear();*/
                 }
                 localStorage.removeItem(LS_FORM);
                 localStorage.removeItem(LS_PRODUCTS);
