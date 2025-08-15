@@ -12,78 +12,76 @@
 .theme-0 {
     --card-bg: #fff;
     --page-bg: #f8f8f8;
-    --text: #333; /* đậm hơn cho dễ đọc */
-    --accent: #777;
-    --accent-light: #bbb;
-    --border-color: #ddd;
+    --text: #222; /* Đậm hơn #333 */
+    --accent: #555; /* Đậm hơn để nổi */
+    --accent-light: #999; 
+    --border-color: #ccc; /* Tối hơn để dễ phân biệt */
 }
-
-
-
 
 /* Theme-1: Warm Brown */
 .theme-1 {
     --card-bg: #fff;
-    --page-bg: #f5ece2; 
-    --text: #3d2f26; 
-    --accent: #b89163; /* Đậm hơn để nổi bật trên nền sáng */
+    --page-bg: #f5ece2;
+    --text: #2e241d; /* Đậm hơn */
+    --accent: #9a6f3d; /* Đậm hơn #b89163 */
 }
 
 /* Theme-2: Mint Pastel */
 .theme-2 {
     --card-bg: #fff;
-    --page-bg: #f1f8f7; 
-    --text: #2c3a35; 
-    --accent: #65b39e; /* Đậm hơn */
+    --page-bg: #f1f8f7;
+    --text: #1f2c27; /* Đậm hơn */
+    --accent: #4a8e7d; /* Đậm hơn #65b39e */
 }
 
 /* Theme-3: Blue Calm */
 .theme-3 {
     --card-bg: #fff;
-    --page-bg: #f6f9ff; 
-    --text: #313d5a; 
-    --accent: #788af0; /* Đậm hơn */
+    --page-bg: #f6f9ff;
+    --text: #25314d; /* Đậm hơn */
+    --accent: #5b74d8; /* Đậm hơn #788af0 */
 }
 
 /* Theme-4: Pink Pastel */
 .theme-4 {
     --card-bg: #fff;
     --page-bg: #fff8f9;
-    --text: #3c2a2a; 
-    --accent: #f297b1; /* Đậm hơn */
+    --text: #2a1d1d; /* Đậm hơn */
+    --accent: #d16c85; /* Đậm hơn #f297b1 */
 }
 
 /* Theme-5: Sunny Yellow */
 .theme-5 {
     --card-bg: #fff;
-    --page-bg: #fff9e5; 
-    --text: #503932; 
-    --accent: #e6b026; /* Đậm hơn */
+    --page-bg: #fff9e5;
+    --text: #3a2b26; /* Đậm hơn */
+    --accent: #c39118; /* Đậm hơn #e6b026 */
 }
 
 /* Theme-6: Ocean Blue */
 .theme-6 {
     --card-bg: #fff;
-    --page-bg: #e6f3fd; 
-    --text: #101c2c; 
-    --accent: #6aa9e5; /* Đậm hơn */
+    --page-bg: #e6f3fd;
+    --text: #0a1522; /* Đậm hơn */
+    --accent: #4a8cc6; /* Đậm hơn #6aa9e5 */
 }
 
 /* Theme-7: Lavender */
 .theme-7 {
     --card-bg: #fff;
-    --page-bg: #f4e8f6; 
-    --text: #210430; 
-    --accent: #a559ae; /* Đậm hơn */
+    --page-bg: #f4e8f6;
+    --text: #180226; /* Đậm hơn */
+    --accent: #843f8a; /* Đậm hơn #a559ae */
 }
 
 /* Theme-8: Autumn Peach */
 .theme-8 {
     --card-bg: #fff;
-    --page-bg: #fff4e2; 
-    --text: #412e27; 
-    --accent: #d66b52; /* Đậm hơn */
+    --page-bg: #fff4e2;
+    --text: #2d1f1a; /* Đậm hơn */
+    --accent: #b5543e; /* Đậm hơn #d66b52 */
 }
+
             * {
                 box-sizing: border-box;
             }
@@ -352,7 +350,7 @@ color: #fff;
 }
 
             .feature-item {
-                background: rgba(255, 255, 255, 0.6);
+              
                 padding: 36px;
                 border-radius: 8px;
                 display: flex;
@@ -361,7 +359,7 @@ color: #fff;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
                 font-size: 13px;
                 font-weight: 600;
-                color: var(--text);
+                color: var(--page-bg);
                 transition: transform 0.2s ease;
             }
             .feature-item:hover {
@@ -470,32 +468,10 @@ color: #fff;
                 transition: background-color 0.3s ease;
                 overflow: hidden; /* Giúp các phần tử bên trong không tràn ra ngoài */
             }
-            /* Áp dụng màu nền từ các theme */
-            #history-list li.theme-1 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-2 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-3 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-4 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-5 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-6 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-7 {
-                background: var(--page-bg);
-            }
-            #history-list li.theme-8 {
-                background: var(--page-bg);
-            }
 
+#history-list li[class*="theme-"] {
+    background: var(--page-bg);
+}
             /* CSS cho hình hoa nhỏ ở góc */
             #history-list .flower-thumbnail {
                 position: absolute;
@@ -911,10 +887,9 @@ fieldset + fieldset {
     border: 2px solid transparent;
     border-radius: 4px;
     overflow: auto;
-    background: var(--page-bg)
 }
 .predefined-flower-img[src="assets/uploads/transparent.webp"] {
-    background: #fff; !important /* Chỉ áp dụng cho transparent.webp*/
+    background: #fff; /* Chỉ áp dụng cho transparent.webp*/
 }
 
 /* Class tiện ích đã có từ trước (nếu chưa có, thêm vào) */
