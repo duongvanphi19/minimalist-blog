@@ -60,6 +60,7 @@ async function sendLocalPushNotification(message) {
     });
 }
 if ("serviceWorker" in navigator) {
+  alert(1)
     navigator.serviceWorker.getRegistrations().then((registrations) => {
         for (let registration of registrations) {
             registration.unregister();
