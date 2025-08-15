@@ -349,19 +349,7 @@ color: #fff;
   cursor: pointer;
 }
 
-            .feature-item {
-              
-                padding: 36px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-                font-size: 13px;
-                font-weight: 600;
-                color: var(--page-bg);
-                transition: transform 0.2s ease;
-            }
+
             .feature-item:hover {
                 transform: translateY(-2px);
             }
@@ -521,7 +509,7 @@ color: #fff;
                 margin: 12px 0px;
             }
             .feature-item {
-                background: var(--card-bg);
+              
                 padding: 6px 9px;
                 border-radius: 6px;
                 display: flex;
@@ -531,8 +519,9 @@ color: #fff;
                 flex: 1;
                 min-width: 200px;
                 background: var(--accent);
-                font-size: 12px;
+                font-size: 13px;
                 font-weight: 700;
+                color: var(--page-bg);
             }
             .feature-item .icon {
                 font-size: 14px;
