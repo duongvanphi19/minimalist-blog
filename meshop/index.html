@@ -1,63 +1,68 @@
-
-
-
 <!doctype html>
-
 <html lang="vi">
     <head>
         <meta charset="utf-8" />
         <meta name="google-adsense-account" content="ca-pub-2136247054214280" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <!-- SEO Title & Description -->
-    <title>Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn</title>
-    <meta name="description" content="Công cụ tạo hóa đơn bán hàng online miễn phí, nhanh chóng, an toàn. Xuất PNG/PDF chất lượng cao trong 30 giây. Dành cho shop online, freelancer, doanh nghiệp nhỏ.">
-    <meta name="keywords" content="tạo hóa đơn, in hóa đơn, hóa đơn online, xuất hóa đơn pdf, invoice generator, shop online, freelancer">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn">
-    <meta property="og:description" content="Tạo hóa đơn bán hàng chỉ trong 30 giây. Xuất file PNG/PDF miễn phí, an toàn, không cần đăng ký.">
-    <meta property="og:image" content="https://minimblog.netlify.app/meshop/assets/uploads/preview.jpg">
-    <meta property="og:url" content="https://minimblog.netlify.app/meshop/">
-    <meta property="og:type" content="website">
+        <!-- Primary SEO -->
+        <title>Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn</title>
+        <meta name="description" content="Công cụ tạo hóa đơn bán hàng online miễn phí, nhanh chóng, an toàn. Xuất PNG/PDF chất lượng cao trong 30 giây. Dành cho shop online, freelancer, doanh nghiệp nhỏ.">
+        <meta name="keywords" content="tạo hóa đơn, in hóa đơn, hóa đơn online, xuất hóa đơn pdf, invoice generator, shop online, freelancer">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="https://minimblog.netlify.app/meshop/">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn">
-    <meta name="twitter:description" content="Xuất hóa đơn PNG/PDF chỉ trong 30 giây. Hoàn toàn miễn phí.">
-    <meta name="twitter:image" content="https://minimblog.netlify.app/meshop/assets/uploads/preview.jpg">
-        <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
-            rel="stylesheet" />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-            rel="stylesheet" />
-          <link rel="icon" href="/meshop/favicon.ico"> 
-            
+        <!-- Open Graph / Twitter -->
+        <meta property="og:title" content="Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn">
+        <meta property="og:description" content="Tạo hóa đơn bán hàng chỉ trong 30 giây. Xuất file PNG/PDF miễn phí, an toàn, không cần đăng ký.">
+        <meta property="og:image" content="https://minimblog.netlify.app/meshop/assets/uploads/preview.jpg">
+        <meta property="og:url" content="https://minimblog.netlify.app/meshop/">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:site_name" content="Tạo Hóa Đơn Online">
 
-        <!-- Thư viện xuất ảnh và PDF -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-        <link rel="stylesheet" href="styles.css" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn">
+        <meta name="twitter:description" content="Xuất hóa đơn PNG/PDF chỉ trong 30 giây. Hoàn toàn miễn phí.">
+        <meta name="twitter:image" content="https://minimblog.netlify.app/meshop/assets/uploads/preview.webp">
+
+        <!-- Theme & Preload -->
+        <meta name="theme-color" content="#ffffff">
+        <link rel="preload" as="image" href="assets/uploads/preview.web">
+
+        <!-- Fonts (preconnect + single request) -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet" />
+
+        <!-- Favicon & manifest -->
+        <link rel="icon" href="/meshop/favicon.ico">
         <link rel="manifest" href="manifest.json">
 
-            <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Tạo Hóa Đơn Bán Hàng Online",
-      "url": "https://minimblog.netlify.app/meshop/",
-      "description": "Công cụ tạo hóa đơn bán hàng miễn phí, nhanh, an toàn, không cần đăng ký.",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "VND"
-      }
-    }
-    </script>
-    
+        <!-- Styles -->
+        <link rel="stylesheet" href="styles.css" />
+
+        <!-- External libs (defer to avoid blocking render) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+
+        <!-- Structured Data -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Tạo Hóa Đơn Bán Hàng Online",
+          "url": "https://minimblog.netlify.app/meshop/",
+          "description": "Công cụ tạo hóa đơn bán hàng miễn phí, nhanh, an toàn, không cần đăng ký.",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "All",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "VND"
+          }
+        }
+        </script>
     </head>
     <body class="theme-0">
         <div class="wrap">
@@ -65,7 +70,7 @@
                 <h1>Tạo hóa đơn bán hàng siêu nhanh 🚀</h1>
                 <h2 class="subtitle">
                     <span class="cursor"></span>
-                    Hoàn thành trong 30 giây - Miễn phí - Tiện lợi - Dành cho
+                    Hoàn thành trong 30 giây - Miễn Phí - Tiện lợi - Dành cho
                     shop online, freelancer & doanh nghiệp nhỏ.
                 </h2>
                 <a href="#invoiceForm" class="cta-button"
@@ -73,33 +78,33 @@
                     <span class="arrow bounce">⇓</span>
                 </a>
                 <h3 style="margin-top: 8px; margin-bottom: 18px" class="small"
-                    >(Nhanh - Miễn phí - Không cần đăng ký)</h3
+                    >(Nhanh - Miễn Phí - Không cần đăng ký)</h3
                 >
-                	<button id="installBtn" class="floating-install-btn">
-  📲 Cài đặt App
-</button>
-                <div class="feature-list">
-                    <div class="feature-item">
+                <button id="installBtn" class="floating-install-btn" aria-hidden="true">
+                  📲 Cài đặt App
+                </button>
+                <div class="feature-list" role="list" aria-label="Tính năng nổi bật">
+                    <div class="feature-item" role="listitem">
                         <span class="icon">✨</span>
                         <span>Hoàn toàn miễn phí</span>
                     </div>
-                    <div class="feature-item">
+                    <div class="feature-item" role="listitem">
                         <span class="icon">🔒</span>
                         <span>An toàn & Riêng tư</span>
                     </div>
-                    <div class="feature-item">
+                    <div class="feature-item" role="listitem">
                         <span class="icon">🔑</span>
                         <span>Không cần đăng nhập</span>
                     </div>
-                    <div class="feature-item">
+                    <div class="feature-item" role="listitem">
                         <span class="icon">🖌️</span>
                         <span>Tùy chỉnh linh hoạt</span>
                     </div>
-                    <div class="feature-item">
+                    <div class="feature-item" role="listitem">
                         <span class="icon">⚡</span>
                         <span>Xem trước trực tiếp</span>
                     </div>
-                    <div class="feature-item">
+                    <div class="feature-item" role="listitem">
                         <span class="icon">📥</span>
                         <span>Xuất file chất lượng cao</span>
                     </div>
@@ -117,38 +122,38 @@
                         ">
                         <strong class="small">Nhập thông tin hóa đơn</strong>
                         <div>
-                            <label class="small">Tên shop của bạn</label>
+                            <label class="small" for="shopName">Tên shop của bạn</label>
                             <input
                                 id="shopName"
                                 placeholder="VD: Shop Của Tôi" />
-                            <label style="margin-top: 6px" class="small"
-                                >Logo (upload ảnh <2MB)</label
+                            <label style="margin-top: 6px" class="small" for="shopLogo"
+                                >Logo (upload ảnh &lt;2MB)</label
                             >
                             <input id="shopLogo" type="file" accept="image/*" />
                             <div
                                 id="shopLogoIndicator"
-                                class="upload-indicator"></div>
+                                class="upload-indicator" aria-live="polite"></div>
                         </div>
 
                         <div>
-                            <label class="small">Tên khách</label>
+                            <label class="small" for="customerName">Tên khách</label>
                             <input
                                 id="customerName"
                                 placeholder="VD: Nguyễn Văn A" />
                             <div class="row" style="margin-top: 6px">
                                 <div class="col">
-                                    <label class="small">SĐT</label>
+                                    <label class="small" for="customerPhone">SĐT</label>
                                     <input
                                         id="customerPhone"
                                         placeholder="VD: 0909xxxxxx"
                                         type="tel" />
                                 </div>
                                 <div class="col">
-                                    <label class="small">Ngày đặt hàng</label>
+                                    <label class="small" for="orderDate">Ngày đặt hàng</label>
                                     <input id="orderDate" type="date" />
                                 </div>
                             </div>
-                            <label class="small" style="margin-top: 6px"
+                            <label class="small" style="margin-top: 6px" for="customerAddress"
                                 >Địa chỉ nhận</label
                             >
                             <textarea
@@ -159,11 +164,11 @@
                         <div>
                             <div class="row">
                                 <div class="col">
-                                    <label class="small">Mã đơn</label>
+                                    <label class="small" for="orderId">Mã đơn</label>
                                     <input id="orderId" placeholder="DH001" />
                                 </div>
                                 <div class="col">
-                                    <label class="small"
+                                    <label class="small" for="expectedDate"
                                         >Ngày nhận dự kiến</label
                                     >
                                     <input id="expectedDate" type="date" />
@@ -172,7 +177,7 @@
 
                             <div class="row" style="margin-top: 6px">
                                 <div class="col">
-                                    <label class="small"
+                                    <label class="small" for="paymentMethod"
                                         >Phương thức thanh toán</label
                                     >
                                     <select id="paymentMethod">
@@ -184,21 +189,21 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label class="small">Phí ship (VNĐ)</label>
+                                    <label class="small" for="shippingFee">Phí ship (VNĐ)</label>
                                     <input
                                         id="shippingFee"
                                         type="number"
                                         placeholder="0" />
                                 </div>
                             </div>
-                            <label style="margin-top: 6px" class="small"
+                            <label style="margin-top: 6px" class="small" for="paidAmount"
                                 >Thanh toán trước (VNĐ)</label
                             >
                             <input
                                 id="paidAmount"
                                 type="number"
                                 placeholder="0" />
-                            <label class="small" style="margin-top: 6px"
+                            <label class="small" style="margin-top: 6px" for="shortNote"
                                 >Ghi chú ngắn</label
                             >
                             <input
@@ -207,7 +212,7 @@
                         </div>
 
                         <div>
-                            <label class="small">Sản phẩm</label>
+                            <label class="small" for="productList">Sản phẩm</label>
                             <div id="productList"></div>
                             <div class="actions">
                                 <button
@@ -227,15 +232,15 @@
                         </div>
 
                         <div  style="margin-top: 8px; display:none;">
-                            <label class="small">Ghi chú dài (nếu cần)</label>
+                            <label class="small" for="note">Ghi chú dài (nếu cần)</label>
                             <textarea
                                 id="note"
                                 placeholder="Ghi chú cho đơn"></textarea>
                         </div>
 
                         <div style="margin-top: 8px">
-                            <label class="small"
-                                >Ảnh decor góc (upload ảnh <2MB)</label
+                            <label class="small" for="flowerImage"
+                                >Ảnh decor góc (upload ảnh &lt;2MB)</label
                             >
                             <input
                                 id="flowerImage"
@@ -243,7 +248,7 @@
                                 accept="image/*" />
                             <div
                                 id="flowerImageIndicator"
-                                class="upload-indicator"></div>
+                                class="upload-indicator" aria-live="polite"></div>
 
                             <label class="small" style="margin-top: 6px"
                                 >Chọn ảnh decor góc có sẵn</label
@@ -267,7 +272,7 @@
                                         border-radius: 4px;
                                         background: #fff;
                                     "
-                                    loading="lazy" alt="transparent" />
+                                    loading="lazy" alt="Transparent (không sử dụng decor)" />
                                 <img
                                     class="predefined-flower-img"
                                     src="assets/uploads/flower1.png"
@@ -279,7 +284,7 @@
                                         border: 2px solid transparent;
                                         border-radius: 4px;
                                     "
-                                    loading="lazy" alt="Flower 1" />
+                                    loading="lazy" alt="Hoa 1" />
                                 <img
                                     class="predefined-flower-img"
                                     src="assets/uploads/flower2.png"
@@ -291,7 +296,7 @@
                                         border: 2px solid transparent;
                                         border-radius: 4px;
                                     "
-                                    loading="lazy" alt="Flower 2" />
+                                    loading="lazy" alt="Hoa 2" />
                                 <img
                                     class="predefined-flower-img"
                                     src="assets/uploads/flower3.png"
@@ -303,7 +308,7 @@
                                         border: 2px solid transparent;
                                         border-radius: 4px;
                                     "
-                                    loading="lazy" alt="Flower 3" />
+                                    loading="lazy" alt="Hoa 3" />
                                 <img
                                     class="predefined-flower-img"
                                     src="assets/uploads/flower4.png"
@@ -315,7 +320,7 @@
                                         border: 2px solid transparent;
                                         border-radius: 4px;
                                     "
-                                    loading="lazy" alt="Flower 4" />
+                                    loading="lazy" alt="Hoa 4" />
                                 <img
                                     class="predefined-flower-img"
                                     src="assets/uploads/flower5.png"
@@ -327,17 +332,17 @@
                                         border: 2px solid transparent;
                                         border-radius: 4px;
                                     "
-                                    loading="lazy" alt="Flower 5" />
+                                    loading="lazy" alt="Hoa 5" />
                             </div>
 
-                            <label class="small" style="margin-top: 6px"
-                                >QR chuyển khoản (upload ảnh <2MB)</label
+                            <label class="small" style="margin-top: 6px" for="qrImage"
+                                >QR chuyển khoản (upload ảnh &lt;2MB)</label
                             >
                             <input id="qrImage" type="file" accept="image/*" />
                             <div
                                 id="qrImageIndicator"
-                                class="upload-indicator"></div>
-                            <label class="small" style="margin-top: 6px"
+                                class="upload-indicator" aria-live="polite"></div>
+                            <label class="small" style="margin-top: 6px" for="thankYouText"
                                 >Lời cảm ơn (footer)</label
                             >
                             <input
@@ -364,7 +369,7 @@
                                                 #eee
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu mặc định"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-1"
@@ -376,7 +381,7 @@
                                                 #f6efe6
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu vàng nhẹ"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-2"
@@ -388,7 +393,7 @@
                                                 #e7f6f3
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu xanh nhạt"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-3"
@@ -400,7 +405,7 @@
                                                 #eef5ff
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu xanh dương"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-4"
@@ -412,7 +417,7 @@
                                                 #fff1f4
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu hồng nhẹ"></div>
 
                                     <div
                                         class="swatch theme-btn"
@@ -425,7 +430,7 @@
                                                 #ffc107
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu vàng đậm"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-6"
@@ -437,7 +442,7 @@
                                                 #7eb8f3
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu xanh biển"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-7"
@@ -449,7 +454,7 @@
                                                 #ba68c8
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu tím"></div>
                                     <div
                                         class="swatch theme-btn"
                                         data-theme="theme-8"
@@ -461,7 +466,7 @@
                                                 #da6d51
                                             );
                                             border-radius: 6px;
-                                        "></div>
+                                        " aria-label="Màu cam"></div>
                                 </div>
                             </div>
                         </div>
@@ -492,24 +497,24 @@
                             id="card"
                             class="card"
                             role="img"
-                            aria-label="Invoice preview">
+                            aria-label="Xem trước hóa đơn">
                             <img
                                 id="flowerTL"
                                 class="corner tl"
                                 src=""
-                                loading="lazy" alt=""
+                                loading="lazy" alt="Ảnh trang trí góc trên trái"
                                 style="display: none" />
                             <img
                                 id="flowerBR"
                                 class="corner br"
                                 src=""
-                                loading="lazy" alt=""
+                                loading="lazy" alt="Ảnh trang trí góc dưới phải"
                                 style="display: none" />
                             <img
                                 id="outLogo"
                                 class="logo"
                                 src=""
-                                loading="lazy" alt=""
+                                loading="lazy" alt="Logo cửa hàng"
                                 style="display: none" />
                             <div class="shop-name" id="outShopName">
                                 Shop Của Tôi
@@ -567,7 +572,7 @@
                                 </div>
                             </div>
 
-                            <div class="products" id="outProducts"></div>
+                            <div class="products" id="outProducts" aria-live="polite"></div>
 
                             <div class="total">
                                 <div>Tổng</div>
@@ -583,7 +588,7 @@
                                 id="outQr"
                                 class="qr"
                                 src=""
-                                loading="lazy" alt=""
+                                loading="lazy" alt="QR chuyển khoản"
                                 style="display: none" />
                             <div class="footer" id="outThank">
                                 Cảm ơn anh/chị đã tin tưởng Shop!
@@ -602,13 +607,13 @@
                             justify-content: center;
                             flex-direction: column;
                         ">
-                        	<button class="btn" id="shareBtn">
+                        	<button class="btn" id="shareBtn" type="button">
   📤 Chia sẻ ảnh
 </button>
 
-                        <button id="downloadBtn" class="btn">🖼️ Tải xuống PNG</button>
-                        <button id="downloadPdf" class="btn">📄 Tải xuống PDF</button>
-                        <button id="saveToHistoryBtn" class="btn">
+                        <button id="downloadBtn" class="btn" type="button">🖼️ Tải xuống PNG</button>
+                        <button id="downloadPdf" class="btn" type="button">📄 Tải xuống PDF</button>
+                        <button id="saveToHistoryBtn" class="btn" type="button">
                             🕓 Lưu vào Lịch sử
                         </button>
                     </div>
@@ -637,7 +642,7 @@
                         Xóa Lịch sử
                     </button>
                 </div>
-                <ul id="history-list"></ul>
+                <ul id="history-list" aria-live="polite"></ul>
             </div>
 
             <footer
@@ -672,7 +677,7 @@
                     <form
                         action="https://formspree.io/f/xrblrdel"
                         method="POST">
-                      <label style="text-align: left;" class="small" for="email">Email của bạn:</ label>
+                      <label style="text-align: left;" class="small" for="email">Email của bạn:</label>
 
 <input type="email" id="email" name="email" placeholder="VD: nguyenvana@gmail.com" required>
 <br/>
@@ -690,7 +695,7 @@
                         <textarea
                             id="feedback"
                             name="feedback"
-                            placeholder="VD: 'Nên thêm tùy chọn <abc> thì tốt quá!😊'"
+                            placeholder="VD: 'Nên thêm tùy chọn &lt;abc&gt; thì tốt quá!😊'"
                             required
                             style="min-height: 80px"></textarea>
                         <div style="margin-top: 10px">
@@ -704,14 +709,13 @@
                     </form>
                 </div>
 
-                
-                
-                            <div class="panel" style="max-width: 600px; margin: 24px auto">
-                <strong class="small">Giới thiệu</strong>
-                <p style="font-size: 14px; color: var(--text); line-height: 1.5;">
-                    Đây là công cụ giúp bạn tạo hóa đơn bán hàng online nhanh chóng và miễn phí. <br/>Chỉ cần nhập thông tin, tùy chỉnh logo, màu sắc và xuất file PNG/PDF chất lượng cao. <br/>Phù hợp cho shop online, freelancer, doanh nghiệp nhỏ muốn chuyên nghiệp hóa bán hàng.
-                </p>
-            </div>
+                <div class="panel" style="max-width: 600px; margin: 24px auto">
+                    <strong class="small">Giới thiệu</strong>
+                    <p style="font-size: 14px; color: var(--text); line-height: 1.5;">
+                        Đây là công cụ giúp bạn tạo hóa đơn bán hàng online nhanh chóng và miễn phí. <br/>Chỉ cần nhập thông tin, tùy chỉnh logo, màu sắc và xuất file PNG/PDF chất lượng cao. <br/>Phù hợp cho shop online, freelancer, doanh nghiệp nhỏ muốn chuyên nghiệp hóa bán hàng.
+                    </p>
+                </div>
+
                 <div>Được tạo bởi dvp19</div>
                 <div style="margin: 0 4px">
                     <p>
@@ -721,6 +725,7 @@
                     <a
                         href="https://www.buymeacoffee.com/phi19"
                         target="_blank"
+                        rel="noopener noreferrer"
                         style="
                             text-decoration: none;
                             display: inline-block;
@@ -730,63 +735,75 @@
                             src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=phi19&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"
                             loading="lazy" alt="Buy Me A Coffee" />
                     </a>
-                </div><p><a  href="privacy.html" target="_blank">Chính sách bảo mật</a></p>
+                </div>
+                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Chính sách bảo mật</a></p>
             </footer>
         </div>
         
         <!-- Modal hướng dẫn iOS -->
-<div id="iosInstallModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>📱 Cài đặt ứng dụng</h2>
-    <p>Để cài ứng dụng trên iPhone/iPad:</p>
-    <ol>
-      <li>Bấm nút <strong>Chia sẻ</strong> (🔼) ở thanh công cụ Safari.</li>
-      <li>Chọn <strong>Thêm vào Màn hình chính</strong>.</li>
-      <li>Nhấn <strong>Thêm</strong> để hoàn tất.</li>
-    </ol>
-    <img src="ios-add-home.jpg" alt="Hướng dẫn thêm vào màn hình chính" style="width:100%;border-radius:8px;">
-  </div>
-</div>
+        <div id="iosInstallModal" class="modal" aria-hidden="true">
+          <div class="modal-content">
+            <button class="close" aria-label="Đóng">&times;</button>
+            <h2>📱 Cài đặt ứng dụng</h2>
+            <p>Để cài ứng dụng trên iPhone/iPad:</p>
+            <ol>
+              <li>Bấm nút <strong>Chia sẻ</strong> (🔼) ở thanh công cụ Safari.</li>
+              <li>Chọn <strong>Thêm vào Màn hình chính</strong>.</li>
+              <li>Nhấn <strong>Thêm</strong> để hoàn tất.</li>
+            </ol>
+            <img src="ios-add-home.jpg" alt="Hướng dẫn thêm vào màn hình chính" style="width:100%;border-radius:8px;">
+          </div>
+        </div>
 
-        <script src="script.js"></script>
-    <script>
-let deferredPrompt;
-const installBtn = document.getElementById('installBtn');
-installBtn.style.display ="none";
-// Khi trình duyệt cho phép cài
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBtn.style.display = 'flex';
-});
+        <!-- Main script (kept external, defer) -->
+        <script src="script.js" defer></script>
 
-// Khi bấm nút cài
-installBtn.addEventListener('click', () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choice) => {
-      if (choice.outcome === 'accepted') {
-        console.log('Người dùng đã cài app');
-      } else {
-        console.log('Người dùng hủy cài app');
-      }
-      deferredPrompt = null;
-    });
-  }
-});
+        <!-- Small safe inline script for PWA install prompt (guarded to avoid null errors) -->
+        <script>
+        (function(){
+          let deferredPrompt;
+          const installBtn = document.getElementById('installBtn');
+          if (installBtn) {
+            installBtn.style.display = "none";
+          }
+          window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (installBtn) {
+              installBtn.style.display = 'flex';
+              installBtn.setAttribute('aria-hidden','false');
+            }
+          });
 
-// Khi app đã cài thành công → ẩn nút
-window.addEventListener('appinstalled', () => {
-  console.log('App đã được cài đặt');
-  installBtn.style.display = 'none';
-});
+          if (installBtn) {
+            installBtn.addEventListener('click', () => {
+              if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choice) => {
+                  if (choice.outcome === 'accepted') {
+                    console.log('Người dùng đã cài app');
+                  } else {
+                    console.log('Người dùng hủy cài app');
+                  }
+                  deferredPrompt = null;
+                }).catch(()=>{ deferredPrompt = null; });
+              }
+            });
+          }
 
-// Nếu đang chạy trong chế độ standalone (app đã cài) → ẩn nút
-if (window.matchMedia('(display-mode: standalone)').matches) {
-  installBtn.style.display = 'none';
-}
-</script>
+          window.addEventListener('appinstalled', () => {
+            console.log('App đã được cài đặt');
+            if (installBtn) installBtn.style.display = 'none';
+          });
 
+          try {
+            if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+              if (installBtn) installBtn.style.display = 'none';
+            }
+          } catch (e) {
+            // noop
+          }
+        })();
+        </script>
     </body>
 </html>
