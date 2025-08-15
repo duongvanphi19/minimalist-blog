@@ -1,3 +1,31 @@
+
+// Khởi tạo Service Worker và yêu cầu quyền thông báo
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+        try {
+            const registration = await navigator.serviceWorker.register("/service-worker.js", { scope: "/" });
+            console.log("Service Worker registered with scope:", registration.scope);
+            // Chỉ yêu cầu quyền thông báo nếu Notification API tồn tại
+            if ("Notification" in window && Notification.permission === "default") {
+                try {
+                    const permission = await Notification.requestPermission();
+                    console.log("Notification permission:", permission);
+                } catch (err) {
+                    console.error("Notification permission request failed:", err);
+                    alert("Không thể yêu cầu quyền thông báo. Một số tính năng có thể không hoạt động.");
+                }
+            } else if (!("Notification" in window)) {
+                console.warn("Notification API not supported in this browser");
+            }
+        } catch (err) {
+            console.error("Service Worker registration failed:", err);
+            alert(`Không thể đăng ký Service Worker: ${err.message}. Vui lòng kiểm tra đường dẫn file hoặc chạy trên HTTPS/localhost.`);
+        }
+    });
+} else {
+    console.warn("Service Worker not supported in this browser");
+    alert("Trình duyệt không hỗ trợ Service Worker. Một số tính năng như thông báo đẩy sẽ không hoạt động.");
+}
 /* ======== Helpers & Constants ======== */
 const $ = (id) => document.getElementById(id);
 const LS_FORM = "invoice_v3_form";
