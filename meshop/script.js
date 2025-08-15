@@ -59,20 +59,10 @@ async function sendLocalPushNotification(message) {
         ],
     });
 }
-
-// Khởi tạo Service Worker và yêu cầu quyền thông báo
 if ("serviceWorker" in navigator) {
-    window.addEventListener("load", async () => {
-        try {
-            const registration = await navigator.serviceWorker.register("/service-worker.js");
-            console.log("Service Worker registered");
-            // Chỉ yêu cầu quyền thông báo nếu Notification API tồn tại
-            if ("Notification" in window && Notification.permission === "default") {
-                await Notification.requestPermission();
-            }
-        } catch (err) {
-            console.error("Service Worker registration failed:", err);
-            alert("Không thể đăng ký Service Worker. Một số tính năng có thể không hoạt động.");
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+            registration.unregister();
         }
     });
 }
