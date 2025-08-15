@@ -422,7 +422,7 @@ function createProductElement(p = {}) {
     el.className = "product-item";
     el.innerHTML = `
         <input class="productName" placeholder="Tên sản phẩm" value="${escapeHtml(p.name || "")}">
-        <input class="productQty" placeholder="SL" type="number" min="0" value="${p.qty || ""}">
+        <input style="min-width: 10px;" class="productQty" placeholder="SL" type="number" min="0" value="${p.qty || ""}">
         <input class="productPrice" placeholder="Giá (VNĐ)" type="number" min="0" value="${p.price || ""}">
         <button class="remove-btn" title="Xóa">×</button>
     `;

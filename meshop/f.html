@@ -1,162 +1,101 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>Hóa đơn khách hàng</title>
-<style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    label { display: block; margin-top: 10px; font-weight: bold; }
-    select, input { padding: 5px; width: 300px; margin-top: 5px; }
-</style>
-</head>
-<body>
-<h2>Thông tin khách hàng</h2>
+<form id="invoiceForm" class="flex-column-gap-10">
+    <!-- Thông tin cửa hàng -->
+    <fieldset>
+        <legend><span aria-hidden="true">🏷️</span> Thông tin cửa hàng</legend>
+        <label for="shopName">Tên cửa hàng</label>
+        <input type="text" id="shopName" name="shopName" placeholder="Tên cửa hàng" 
+               required pattern="[A-Za-z0-9\s\-\&]+" maxlength="50" 
+               aria-describedby="shopName-error">
+        <span id="shopName-error" class="error-message" role="alert"></span>
 
-<form id="invoiceForm">
+        <label for="shopLogo">Logo cửa hàng (jpg, png, webp)</label>
+        <input type="file" id="shopLogo" name="shopLogo" accept="image/jpeg,image/png,image/webp" 
+               aria-describedby="shopLogo-error shopLogo-indicator">
+        <span class="upload-indicator" id="shopLogo-indicator"></span>
+        <span id="shopLogo-error" class="error-message" role="alert"></span>
+    </fieldset>
 
-    <label for="customerName">Tên khách hàng</label>
-    <input type="text" id="customerName" name="customerName" required />
+    <!-- Tùy chỉnh giao diện -->
+    <fieldset>
+        <legend><span aria-hidden="true">⚙</span> Tùy chỉnh giao diện</legend>
+        <label>Chọn giao diện</label>
+        <div class="theme-selector mt-6" role="radiogroup" aria-required="true">
+            <div class="swatch theme-btn" data-theme="theme-0" role="radio" 
+                 aria-checked="true" aria-label="Giao diện Basic Light" tabindex="0"></div>
+            <div class="swatch theme-btn" data-theme="theme-1" role="radio" 
+                 aria-checked="false" aria-label="Giao diện Warm Brown" tabindex="0"></div>
+            <!-- Thêm các theme-btn khác (theme-2 đến theme-18) -->
+        </div>
+        <span id="themeSelector-error" class="error-message" role="alert"></span>
 
-    <!-- Input ẩn để lưu địa chỉ đầy đủ -->
-    <input type="hidden" id="customerAddress" name="customerAddress" />
+        <label>Chọn ảnh decor góc có sẵn</label>
+        <div class="image-selector mt-6" role="radiogroup" aria-required="true">
+            <div class="predefined-flower-img" data-image="transparent" role="radio" 
+                 aria-checked="true" aria-label="Không sử dụng decor" tabindex="0"></div>
+            <div class="predefined-flower-img" data-image="flower1" role="radio" 
+                 aria-checked="false" aria-label="Hoa 1" tabindex="0"></div>
+            <!-- Thêm các flower-img khác -->
+        </div>
+        <span id="flowerImage-error" class="error-message" role="alert"></span>
+    </fieldset>
 
-    <!-- Phần nhập địa chỉ mới -->
-    <label for="province">Tỉnh/Thành phố</label>
-    <select id="province" required>
-        <option value="">-- Chọn Tỉnh/Thành phố --</option>
-    </select>
+    <!-- Thông tin khách hàng -->
+    <fieldset>
+        <legend><span aria-hidden="true">👤</span> Thông tin khách hàng</legend>
+        <label for="customerName">Tên khách hàng</label>
+        <input type="text" id="customerName" name="customerName" placeholder="Tên khách hàng" 
+               required pattern="[A-Za-z0-9\s\-\&]+" maxlength="50" 
+               aria-describedby="customerName-error">
+        <span id="customerName-error" class="error-message" role="alert"></span>
 
-    <label for="ward">Xã/Phường</label>
-    <select id="ward" required>
-        <option value="">-- Chọn Xã/Phường --</option>
-    </select>
+        <label for="date">Ngày</label>
+        <input type="date" id="date" name="date" required max="2025-08-15" 
+               aria-describedby="date-error">
+        <span id="date-error" class="error-message" role="alert"></span>
+    </fieldset>
 
-    <label for="street">Số nhà, tên đường</label>
-    <input type="text" id="street" placeholder="VD: 123 Lê Lợi" required />
+    <!-- Sản phẩm -->
+    <fieldset>
+        <legend><span aria-hidden="true">✚</span> Sản phẩm</legend>
+        <div id="productList" class="product-list"></div>
+        <span id="productList-error" class="error-message" role="alert"></span>
+        <div class="actions mt-8">
+            <button id="addProductBtn" class="btn" type="button">+ Thêm SP</button>
+            <button id="clearProducts" class="btn ghost" type="button">Xóa hết</button>
+        </div>
+    </fieldset>
 
-    <label for="customerPhone">Số điện thoại</label>
-    <input type="tel" id="customerPhone" name="customerPhone" required />
+    <!-- Ghi chú -->
+    <fieldset>
+        <legend><span aria-hidden="true">📝</span> Ghi chú</legend>
+        <label for="note">Ghi chú</label>
+        <textarea id="note" name="note" maxlength="500" placeholder="Ghi chú (tối đa 500 ký tự)" 
+                  aria-describedby="note-error"></textarea>
+        <span id="note-error" class="error-message" role="alert"></span>
+    </fieldset>
 
-    <button type="button" onclick="saveFormData()">💾 Lưu hóa đơn</button>
-    <button type="button" onclick="loadFormData()">📂 Tải hóa đơn</button>
-
+    <!-- Nút hành động -->
+    <div class="actions btns">
+        <button id="saveBtn" class="btn" type="submit">Lưu tùy chọn</button>
+        <button id="shareBtn" class="btn">Chia sẻ</button>
+        <button id="downloadBtn" class="btn">Tải ảnh</button>
+        <button id="downloadPdf" class="btn">Tải PDF</button>
+        <button id="saveToHistoryBtn" class="btn">Lưu vào lịch sử</button>
+    </div>
 </form>
 
-<script>
-// ====== Load dữ liệu địa chỉ ======
-let provinceList = [];
-
-function loadProvinceData(callback) {
-    fetch('data/data.json')
-        .then(res => res.json())
-        .then(data => {
-            provinceList = data;
-            const provinceSelect = document.getElementById('province');
-            provinceSelect.innerHTML = '<option value="">-- Chọn Tỉnh/Thành phố --</option>';
-            data.forEach(p => {
-                const opt = document.createElement('option');
-                opt.value = p.province_code;
-                opt.textContent = p.name;
-                provinceSelect.appendChild(opt);
-            });
-            if (callback) callback();
-        })
-        .catch(err => console.error('Không thể tải data/data.json', err));
-}
-
-// ====== Cập nhật xã/phường khi chọn tỉnh ======
-document.getElementById('province').addEventListener('change', () => {
-    const provinceCode = document.getElementById('province').value;
-    const wardSelect = document.getElementById('ward');
-    wardSelect.innerHTML = '<option value="">-- Chọn Xã/Phường --</option>';
-
-    const province = provinceList.find(p => p.province_code === provinceCode);
-    if (province) {
-        province.wards.forEach(w => {
-            const opt = document.createElement('option');
-            opt.value = w.ward_code;
-            opt.textContent = w.name;
-            wardSelect.appendChild(opt);
-        });
-    }
-    updateFullAddress();
-});
-
-// ====== Cập nhật địa chỉ đầy đủ vào input ẩn ======
-document.getElementById('ward').addEventListener('change', updateFullAddress);
-document.getElementById('street').addEventListener('input', updateFullAddress);
-
-function updateFullAddress() {
-    const provinceName = document.querySelector('#province option:checked')?.textContent || '';
-    const wardName = document.querySelector('#ward option:checked')?.textContent || '';
-    const street = document.getElementById('street').value.trim();
-    document.getElementById('customerAddress').value = `${street}, ${wardName}, ${provinceName}`;
-}
-
-// ====== Lưu dữ liệu hóa đơn ======
-function saveFormData() {
-    updateFullAddress(); // đảm bảo customerAddress đã cập nhật
-    const formData = {
-        customerName: document.getElementById('customerName').value,
-        customerAddress: document.getElementById('customerAddress').value,
-        customerPhone: document.getElementById('customerPhone').value
-    };
-    localStorage.setItem('invoiceData', JSON.stringify(formData));
-    alert('💾 Đã lưu hóa đơn!');
-}
-
-// ====== Tải dữ liệu hóa đơn ======
-function loadFormData() {
-    const saved = localStorage.getItem('invoiceData');
-    if (!saved) {
-        alert('⚠️ Chưa có hóa đơn nào được lưu');
-        return;
-    }
-    const data = JSON.parse(saved);
-
-    document.getElementById('customerName').value = data.customerName || '';
-    document.getElementById('customerPhone').value = data.customerPhone || '';
-    document.getElementById('customerAddress').value = data.customerAddress || '';
-
-    if (data.customerAddress) {
-        const parts = data.customerAddress.split(',').map(s => s.trim());
-        if (parts.length >= 3) {
-            const street = parts[0];
-            const wardName = parts[1];
-            const provinceName = parts[2];
-            document.getElementById('street').value = street;
-
-            // Load dropdown và set giá trị
-            loadProvinceData(() => {
-                const provinceItem = provinceList.find(p => p.name === provinceName);
-                if (provinceItem) {
-                    document.getElementById('province').value = provinceItem.province_code;
-
-                    // Load xã/phường
-                    const wardSelect = document.getElementById('ward');
-                    wardSelect.innerHTML = '<option value="">-- Chọn Xã/Phường --</option>';
-                    provinceItem.wards.forEach(w => {
-                        const opt = document.createElement('option');
-                        opt.value = w.ward_code;
-                        opt.textContent = w.name;
-                        wardSelect.appendChild(opt);
-                    });
-
-                    const wardItem = provinceItem.wards.find(w => w.name === wardName);
-                    if (wardItem) {
-                        document.getElementById('ward').value = wardItem.ward_code;
-                    }
-                }
-            });
-        }
-    }
-}
-
-// Khi trang load xong -> load danh sách tỉnh
-document.addEventListener('DOMContentLoaded', () => {
-    loadProvinceData();
-});
-</script>
-
-</body>
-</html>
+<template id="productTemplate">
+    <div class="product-item">
+        <input type="text" placeholder="Tên sản phẩm" aria-label="Tên sản phẩm" 
+               required pattern="[A-Za-z0-9\s\-\&]+" maxlength="100" 
+               aria-describedby="productName-error">
+        <span class="error-message" role="alert" id="productName-error"></span>
+        <input type="number" placeholder="Số lượng" aria-label="Số lượng" 
+               min="1" max="999" maxlength="3" required aria-describedby="quantity-error">
+        <span class="error-message" role="alert" id="quantity-error"></span>
+        <input type="number" placeholder="Đơn giá (VNĐ)" aria-label="Đơn giá" 
+               min="0" max="9999999999" required aria-describedby="price-error">
+        <span class="error-message" role="alert" id="price-error"></span>
+        <button class="remove-btn" aria-label="Xóa sản phẩm">✖</button>
+    </div>
+</template>

@@ -18,85 +18,6 @@
     --border-color: #ddd;
 }
 
-/* Theme-1: Warm Brown */
-.theme-1 {
-    --card-bg: #fff;
-    --page-bg: #f6ede4; /* giảm sáng để chữ dễ đọc hơn */
-    --text: #3a2e28; /* đậm hơn #40342e */
-    --accent: #d4b483;
-    --accent-light: #e6cfa9;
-    --border-color: #ccb79d;
-}
-
-/* Theme-2: Mint Pastel */
-.theme-2 {
-    --card-bg: #fffaf7;
-    --page-bg: #f0f7f6;
-    --text: #243430; /* đậm hơn */
-    --accent: #7cc6b6;
-    --accent-light: #a6dcd0;
-    --border-color: #cce7e2;
-}
-
-/* Theme-3: Blue Calm */
-.theme-3 {
-    --card-bg: #fff;
-    --page-bg: #f4f7ff;
-    --text: #2b3550; /* đậm hơn */
-    --accent: #9aa8ff;
-    --accent-light: #c4cbff;
-    --border-color: #d9ddf5;
-}
-
-/* Theme-4: Pink Pastel */
-.theme-4 {
-    --card-bg: #fff;
-    --page-bg: #fff7f9;
-    --text: #362222; /* đậm hơn #3d2b2b */
-    --accent: #ffb3c6;
-    --accent-light: #ffd6df;
-    --border-color: #f9ccd6;
-}
-
-/* Theme-5: Sunny Yellow */
-.theme-5 {
-    --card-bg: #fff;
-    --page-bg: #fff8e1;
-    --text: #4a342e; /* đậm hơn */
-    --accent: #ffca28; /* vàng dịu hơn #ffc107 */
-    --accent-light: #ffe082;
-    --border-color: #f6d885;
-}
-
-/* Theme-6: Ocean Blue */
-.theme-6 {
-    --card-bg: #fff;
-    --page-bg: #e3f2fd;
-    --text: #0a1624; /* đậm hơn #0d1b2a */
-    --accent: #7eb8f3;
-    --accent-light: #a7d0f7;
-    --border-color: #b5d9f7;
-}
-
-/* Theme-7: Lavender */
-.theme-7 {
-    --card-bg: #fff;
-    --page-bg: #f3e5f5;
-    --text: #190228; /* đậm hơn rgb(15, 1, 24) */
-    --accent: #ba68c8;
-    --accent-light: #d291e0;
-    --border-color: #e1c4eb;
-}
-
-/* Theme-8: Autumn Peach */
-.theme-8 {
-    --card-bg: #fff;
-    --page-bg: #fff3e0;
-    --text: #3d2c25; /* đậm hơn #4e342e nhưng ít đỏ hơn */
-    --accent: #e37a5f; /* dịu hơn #da6d51 */
-    --accent-light: #f0a894;
-    --border-color: #f6c5b4;
-}
 
 
 
@@ -163,90 +84,6 @@
     --text: #412e27; 
     --accent: #d66b52; /* Đậm hơn */
 }
-
-/* Theme-9: Forest Green */
-.theme-9{
-    --card-bg: #fff;
-    --page-bg: #eaf1ea; /* Nền sáng hơn, tạo tương phản tốt */
-    --text: #2f3d2f; /* Đậm hơn để dễ đọc trên nền sáng */
-    --accent: #5e995e; /* Màu nhấn đậm vừa đủ để nổi bật */
-}
-
-/* Theme-10: Amethyst Dawn */
-.theme-10{
-    --card-bg: #fff;
-    --page-bg: #f9f4fb; /* Nền tím nhạt, gần như trắng */
-    --text: #3c2a4f;   /* Tím than đậm, dễ đọc */
-    --accent: #a170c9; /* Tím thạch anh nổi bật */
-}
-
-/* Theme-11: Crimson Dusk */
-.theme-11 {
-    --card-bg: #fff;
-    --page-bg: #fff9f6; /* Nền trắng ngà, giúp giảm độ chói */
-    --text: #5c2d2d;   /* Đỏ sẫm, dễ đọc trên nền sáng */
-    --accent: #d15656; /* Đỏ tươi, làm điểm nhấn mạnh mẽ */
-}
-
-/* Theme-12: Solar Flare */
-.theme-12 {
-    --card-bg: #2d2433; /* Tím than sẫm, màu của vũ trụ */
-    --page-bg: #221c29; /* Đen tím đậm, nền tối */
-    --text: #fefcf3;   /* Trắng ngà, dễ đọc */
-    --accent: #ff8c42; /* Cam cháy rực rỡ, màu của ngọn lửa */
-}
-/* Theme-13: Neon Abyss */
-.theme-13 {
-    --card-bg: #1a1a1a; /* Xám đen, tạo cảm giác chiều sâu */
-    --page-bg: #0d0d0d; /* Đen sâu thẳm */
-    --text: #c0c0c0;   /* Xám bạc, dễ đọc trên nền tối */
-    --accent: #00ff99; /* Xanh neon cực sáng */
-}
-/* Theme-14: Steampunk Foundry */
-.theme-14 {
-    --card-bg: #3c352f; /* Nền xám nâu, màu của sắt thép */
-    --page-bg: #2d2825; /* Nền tối hơn, tạo chiều sâu */
-    --text: #e0d8c0;   /* Màu kem nhạt, giống giấy cũ */
-    --accent: #b8860b; /* Màu đồng thau, điểm nhấn chính */
-}
-
-/* Theme-15: Minimalist Zen */
-.theme-15{
-    --card-bg: #fdfdfc; /* Trắng ngà nhẹ nhàng */
-    --page-bg: #f9f9f7; /* Màu nền ấm, không quá chói */
-    --text: #4a4a4a;   /* Xám đậm, dễ đọc */
-    --accent: #8dc6c6; /* Xanh ngọc dịu nhẹ */
-}
-/* Theme-16: Mystic Forest */
-.theme-16{
-    --card-bg: #f5f8f5; /* Màu xám xanh nhạt, giống sương mù */
-    --page-bg: #eef2ef; /* Màu nền sáng hơn, tạo không gian thoáng */
-    --text: #414a41;   /* Xanh rêu đậm, dễ đọc */
-    --accent: #a5b098; /* Màu xanh lá cây xám, điểm nhấn dịu nhẹ */
-}
-/* Theme-17: Desert Rose */
-.theme-17{
-    --card-bg: #fff;
-    --page-bg: #fdf5f1; /* Nền màu be hồng nhạt */
-    --text: #5c3f3f;   /* Nâu đỏ đậm, dễ đọc */
-    --accent: #d4a9a9; /* Hồng đất, làm điểm nhấn nhẹ nhàng */
-}
-/* Theme-18: Vintage Slate */
-.theme-18{
-    --card-bg: #fff;
-    --page-bg: #f2f4f7; /* Nền xám xanh nhạt */
-    --text: #39424c;   /* Xanh than đậm, dễ đọc */
-    --accent: #788a9e; /* Xám bạc, điểm nhấn tinh tế */
-}
-
-
-
-
-
-
-
-
-            
             * {
                 box-sizing: border-box;
             }
@@ -317,20 +154,7 @@
                 
                 letter-spacing : 1.5px;
             }
-            header h1::after {
-                content: "";
-                position: absolute;
-                bottom: -5px;
-                left: 0;
-                width: 100%;
-                height: 4px;
-                background: var(--accent);
-                transform: scaleX(0);
-                transform-origin: bottom left;
-                animation: drawUnderline 1.5s cubic-bezier(0.2, 1, 0.3, 1)
-                    forwards;
-                animation-delay: 0.5s;
-            }
+            
             header .subtitle {
                 margin-top: 20px;
                 font-size: 18px;
@@ -529,7 +353,6 @@ color: #fff;
 
             .feature-item {
                 background: rgba(255, 255, 255, 0.6);
-                backdrop-filter: blur(5px);
                 padding: 36px;
                 border-radius: 8px;
                 display: flex;
@@ -545,7 +368,8 @@ color: #fff;
                 transform: translateY(-2px);
             }
             #outThank{
-              font-size: 18px;
+              font-size: 20px;
+              color: var(--text);
             }
 
             /* MOBILE-FIRST layout */
@@ -555,7 +379,6 @@ color: #fff;
                 gap: 12px;
             }
             .panel {
-              
                 background: var(--card-bg);
                 border-radius: 12px;
                 padding: 12px;
@@ -1130,5 +953,27 @@ legend span[aria-hidden="true"] {
     legend span[aria-hidden="true"] {
         font-size: 16px; /* Giảm kích thước biểu tượng trên di động */
     }
+}
+
+/* Trong styles.css */
+input:invalid, textarea:invalid {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(var(--accent-rgb, 232, 111, 111), 0.2);
+}
+input:invalid:focus, textarea:invalid:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent);
+}
+.error-message {
+    display: none;
+    font-size: 12px;
+    color: var(--accent);
+    margin-top: 4px;
+}
+input:invalid + .error-message, textarea:invalid + .error-message {
+    display: block;
+}
+.image-selector:invalid + .error-message {
+    display: block;
 }
         

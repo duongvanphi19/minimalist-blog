@@ -159,7 +159,7 @@
     <fieldset>
         <legend> <span aria-hidden="true">⌂</span>Thông tin cửa hàng</legend>
         <label for="shopName">Tên shop của bạn</label>
-        <input id="shopName" placeholder="VD: Shop Của Tôi" />
+        <input type="text" required pattern="[A-Za-z0-9\s\-\&]+" maxlength="50"  id="shopName" placeholder="VD: Shop Của Tôi" />
         <label for="shopLogo" class="mt-6">Logo shop (upload ảnh &lt;2MB)</label>
         <input id="shopLogo" type="file" accept="image/*" />
         <div id="shopLogoIndicator" class="upload-indicator" aria-live="polite"></div>
@@ -167,14 +167,14 @@
         <input id="qrImage" type="file" accept="image/*" />
         <div id="qrImageIndicator" class="upload-indicator" aria-live="polite"></div>
                 <label for="thankYouText" class="mt-6">Lời cảm ơn KH</label>
-        <input id="thankYouText" placeholder="VD: Cảm ơn anh/chị đã tin tưởng Shop 🌿" />
+        <input type="text"  id="thankYouText" placeholder="VD: Cảm ơn anh/chị đã tin tưởng Shop 🌿"  maxlength="50"  />
     </fieldset>
 
     <!-- Nhóm 2: Thông tin khách hàng -->
     <fieldset>
         <legend><span aria-hidden="true">☻</span>Thông tin khách hàng</legend>
         <label for="customerName">Tên khách</label>
-        <input id="customerName" placeholder="VD: Nguyễn Văn A" />
+        <input id="customerName" placeholder="VD: Nguyễn Văn A" required pattern="[A-Za-z0-9\s\-\&]+" maxlength="50"  />
         <div class="row mt-6">
             <div class="col">
                 <label for="customerPhone">SĐT</label>
@@ -218,7 +218,7 @@
         </div>
         <label for="paidAmount" class="mt-6">Thanh toán trước (VNĐ)</label>
         <input id="paidAmount" type="number" placeholder="0" />
-        <label for="shortNote" class="mt-6">Ghi chú ngắn</label>
+        <label for="shortNote" class="mt-6"  maxlength="100" >Ghi chú ngắn</label>
         <input id="shortNote" placeholder="VD: Giao giờ hành chính" />
     </fieldset>
 
