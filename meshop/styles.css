@@ -555,6 +555,7 @@ color: #fff;
                 gap: 12px;
             }
             .panel {
+              
                 background: var(--card-bg);
                 border-radius: 12px;
                 padding: 12px;
@@ -847,6 +848,12 @@ color: #fff;
                 margin: 8px auto 0;
                 max-width: 140px;
             }
+            footer{
+              text-align: center;
+                    font-size: 12px;
+                    color: var(--muted);
+                    margin-top: 6px;
+            }
             .footer {
                 text-align: center;
                 font-size: 16px;
@@ -856,6 +863,62 @@ color: #fff;
                 font-family: "Great Vibes", cursive;
                 
             }
+            
+            #invoiceForm{
+              display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+            }
+            
+            .mt6{
+              margin-top: 6px;
+            }
+            
+            .w100{
+              width: 100%;
+            }
+            .br8{
+              border-radius: 8px;
+            }
+            
+            .text-med{
+              font-size: 16px;
+            }
+            .tal{
+              text-align: left;
+            }
+            .clr-text{
+              color: var(--text);
+            }
+            .btns{
+              display: flex;
+                            gap: 8px;
+                            margin-top: 10px;
+                            justify-content: center;
+                            flex-direction: column;
+            }
+            .decor-none{
+              text-decoration: none;
+              color: var(--text);
+            }
+            .italic{
+              font-style: italic;
+            }
+            .mw-600{
+              max-width: 600px; 
+              margin: 24px auto;
+            }
+            .text-center{text-align: center;}
+            
+            #history-container> div{
+              
+      
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 12px;
+            }
+            
 
             /* Desktop */
             @media (min-width: 900px) {
@@ -958,4 +1021,114 @@ color: #fff;
                 background-color: #f8d7da;
                 color: #721c24;
             }
+            
+            
+            /* Style cho fieldset và legend */
+fieldset {
+    border: 1px solid #ddd; /* Viền nhẹ để phân biệt nhóm */
+    padding: 12px;
+    margin-bottom: ;
+    border-radius: 4px;
+    background: var(--card-bg) /* Đảm bảo nền trắng hoặc khớp với theme */
+}
+legend {
+    font-size: 12px; /* Kích thước chữ tương đương <strong class="small"> */
+    font-weight: 600;
+    color: var(--text); /* Sử dụng biến màu hiện có */
+    padding: 0 4px;
+    background: #fff; /* Đảm bảo legend không bị viền cắt ngang */
+}
+fieldset + fieldset {
+    margin-top: 8px; /* Khoảng cách giữa các fieldset */
+}
+
+/* Style cho các theme-btn (di chuyển inline style) */
+.swatch.theme-btn {
+    width: 34px;
+    height: 24px;
+    border-radius: 6px;
+}
+.theme-btn[data-theme="theme-0"] {
+    background: linear-gradient(#fff, #eee);
+}
+.theme-btn[data-theme="theme-1"] {
+    background: linear-gradient(#fff, #f6efe6);
+}
+.theme-btn[data-theme="theme-2"] {
+    background: linear-gradient(#fffaf7, #e7f6f3);
+}
+.theme-btn[data-theme="theme-3"] {
+    background: linear-gradient(#fff, #eef5ff);
+}
+.theme-btn[data-theme="theme-4"] {
+    background: linear-gradient(#fff, #fff1f4);
+}
+.theme-btn[data-theme="theme-5"] {
+    background: linear-gradient(#fff, #ffc107);
+}
+.theme-btn[data-theme="theme-6"] {
+    background: linear-gradient(#fff, #7eb8f3);
+}
+.theme-btn[data-theme="theme-7"] {
+    background: linear-gradient(#fff, #ba68c8);
+}
+.theme-btn[data-theme="theme-8"] {
+    background: linear-gradient(#fff, #da6d51);
+}
+
+/* Style cho predefined-flower-img (di chuyển inline style) */
+.predefined-flower-img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: auto;
+}
+.predefined-flower-img[src="assets/uploads/transparent.png"] {
+    background: #fff; /* Chỉ áp dụng cho transparent.png */
+}
+
+/* Class tiện ích đã có từ trước (nếu chưa có, thêm vào) */
+.mt-6 { margin-top: 6px; }
+.mt-8 { margin-top: 8px; }
+.mt-36 { margin-top: 36px; }
+.flex-gap-8 { display: flex; gap: 8px; }
+.flex-column-gap-10 { display: flex; flex-direction: column; gap: 10px; }
+.overflow-x-auto { overflow-x: auto ; !important}
+
+.theme-selector, .image-selector{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: flex-start;
+  gap:8px;
+}
+legend span[aria-hidden="true"] {
+  font-family: 'Noto Sans Symbols', sans-serif;
+        font-size: 16px; 
+        line-height: 1;
+        margin-right: 4px;
+    }
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 600px) {
+    .image-selector, .theme-selector {
+        gap: 6px; /* Giảm khoảng cách trên màn hình nhỏ */
+    }
+    .predefined-flower-img {
+        width: 48px; /* Giảm nhẹ để vừa màn hình nhỏ */
+        height: 48px;
+    }
+    .swatch.theme-btn {
+        width: 32px; /* Giảm nhẹ để vừa màn hình nhỏ */
+        height: 22px;
+    }
+    legend {
+        font-size: 12px; /* Giảm kích thước chữ trên di động */
+    }
+    legend span[aria-hidden="true"] {
+        font-size: 16px; /* Giảm kích thước biểu tượng trên di động */
+    }
+}
         

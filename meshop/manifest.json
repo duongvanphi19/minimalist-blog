@@ -2,7 +2,7 @@
   "name": "Hóa Đơn Online",
   "short_name": "Hóa Đơn",
   "description": "Công cụ tạo hóa đơn bán hàng miễn phí, nhanh, an toàn, xuất PNG/PDF.",
-  "start_url": "./",
+  "start_url": "/meshop/?utm_source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000",

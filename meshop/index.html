@@ -15,7 +15,8 @@
         <!-- Open Graph / Twitter -->
         <meta property="og:title" content="Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn">
         <meta property="og:description" content="Tạo hóa đơn bán hàng chỉ trong 30 giây. Xuất file PNG/PDF miễn phí, an toàn, không cần đăng ký.">
-        <meta property="og:image" content="https://minimblog.netlify.app/meshop/assets/uploads/preview.jpg">
+        <meta property="og:image" content="https://minimblog.netlify.app/meshop/assets/uploads/preview.webp">
+<link rel="preload" as="image" href="assets/uploads/preview.webp">
         <meta property="og:url" content="https://minimblog.netlify.app/meshop/">
         <meta property="og:type" content="website">
         <meta property="og:locale" content="vi_VN">
@@ -40,7 +41,12 @@
         <link rel="manifest" href="manifest.json">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="styles.css" />
+        <style>
+/* Critical CSS: Chỉ phần header và form đầu tiên (copy từ styles.css, ví dụ) */
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:700;font-display:swap;src:url(https://fonts.gstatic.com/s/playfairdisplay/v39/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiukDQ.ttf) format('truetype')}@font-face{font-family:Poppins;font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrFJA.ttf) format('truetype')}@font-face{font-family:Poppins;font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/poppins/v23/pxiByp8kv8JHgFVrLEj6V1s.ttf) format('truetype')}textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e0d8;background:0 0;font-size:14px;color:var(--text);min-width:0}@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/greatvibes/v20/RWmMoKWR9v4ksMfaWd_JN-XC.ttf) format('truetype')}:root{--page-bg:#f8f1e7;--card-bg:#fff;--text:#40342e;--muted:#7a6f68;--accent:#d4b483;--max-width:980px}.theme-0{--card-bg:#fff;--page-bg:#f8f8f8;--text:#333;--accent:#777;--accent-light:#bbb;--border-color:#ddd}*{box-sizing:border-box}html{scroll-behavior:smooth}body,html{height:100%;margin:0;font-family:Poppins,sans-serif;background:var(--page-bg);color:var(--text)}.wrap{max-width:var(--max-width);margin:12px auto;padding:10px;display:flex;flex-direction:column;gap:12px}header{display:flex;flex-direction:column;align-items:center;text-align:center;padding:50px 10px 30px;background:var(--card-bg);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);position:relative;overflow:hidden}header::before{content:"";position:absolute;top:-6px;left:-6px;width:100%;height:100%;background-image:var(--flower-image);background-repeat:no-repeat;background-position:top left;background-size:180px;opacity:.75;z-index:1}header h1{font-family:"Playfair Display",serif;font-size:32px;font-weight:700;margin:0 0 10px;line-height:1.2;color:var(--text);position:relative;z-index:2;text-shadow:1px 1px 2px rgba(0,0,0,.05);letter-spacing:1.5px}header h1::after{content:"";position:absolute;bottom:-5px;left:0;width:100%;height:4px;background:var(--accent);transform:scaleX(0);transform-origin:bottom left;animation:1.5s cubic-bezier(.2,1,.3,1) forwards drawUnderline;animation-delay:.5s}header .subtitle{margin-top:20px;font-size:18px;font-weight:400;color:var(--muted);max-width:600px;z-index:2}@keyframes slideInLeft{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:translateX(0)}}@keyframes slideInRight{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:translateX(0)}}.feature-item{opacity:0;animation-duration:.8s;animation-timing-function:ease-out;animation-fill-mode:forwards}.feature-item:nth-child(even){animation-name:slideInLeft}.feature-item:nth-child(odd){animation-name:slideInRight}.feature-item:nth-child(1){animation-delay:.1s}.feature-item:nth-child(2){animation-delay:.2s}.feature-item:nth-child(3){animation-delay:.3s}.feature-item:nth-child(4){animation-delay:.4s}.feature-item:nth-child(5){animation-delay:.5s}.feature-item:nth-child(6){animation-delay:.6s}.cta-button{display:inline-block;padding:14px 30px;margin-top:32px;background:var(--text);color:var(--page-bg);text-decoration:none;font-weight:600;font-size:16px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.1);z-index:2}.cta-button{position:relative;overflow:hidden;padding-left:25px}.cta-emoji{position:absolute;top:-12px;left:-8px;font-size:1.9em;opacity:.7;transform:rotate(-20deg);z-index:-1}.arrow{display:inline-block}@keyframes bounceY{0%{transform:translateY(0)}30%{transform:translateY(6px)}50%{transform:translateY(4px)}70%{transform:translateY(6px)}100%{transform:translateY(0)}}.bounce{animation:2s cubic-bezier(.2,.8,.2,1) infinite bounceY}.feature-list{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:30px;max-width:800px;z-index:2}.floating-install-btn{position:fixed;bottom:20px;left:20px;opacity:.98;padding:8px 16px;background:var(--text);color:var(--page-bg);font-family:Poppins,sans-serif;font-weight:700;font-size:14px;border:none;border-radius:10px;box-shadow:0 4px 6px rgba(0,0,0,.03);animation:2s infinite bounce;z-index:9999}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}.modal{display:none;position:fixed;z-index:9999;padding-top:80px;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,.5)}.modal-content{background:#fff;margin:auto;padding:20px;border-radius:10px;width:90%;max-width:400px}.close{float:right;font-size:20px;font-weight:700}.feature-item{background:rgba(255,255,255,.6);backdrop-filter:blur(5px);padding:36px;border-radius:8px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.04);font-size:13px;font-weight:600;color:var(--text)}#outThank{font-size:18px}.main{display:flex;flex-direction:column;gap:12px}.panel{background:var(--card-bg);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.06)}label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}input,input[type=date],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e0d8;background:0 0;font-size:14px;color:var(--text);min-width:0}textarea{min-height:70px;resize:vertical}.row{display:flex;gap:8px;flex-wrap:wrap}.col{flex:1;min-width:120px}.small{font-size:12px;color:var(--muted)}.feature-list{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:12px 0}.feature-item{background:var(--card-bg);padding:6px 9px;border-radius:6px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,.06);flex:1;min-width:200px;background:var(--accent);font-size:12px;font-weight:700}.feature-item .icon{font-size:14px}@media (max-width:600px){.feature-item{min-width:80%;justify-content:center}}.preview-wrap{display:flex;justify-content:center}.card{width:360px;background:var(--card-bg);border-radius:14px;padding:16px;position:relative;box-shadow:0 10px 28px rgba(0,0,0,.08);overflow:hidden;z-index:1}.corner{position:absolute;opacity:.45;z-index:0;width:140px;z-index:-1}.corner.tl{top:-6px;left:-6px}.corner.br{bottom:-6px;right:-6px;transform:rotate(180deg)}.logo{max-height:50px;display:block;margin:0 auto 6px;z-index:1}.shop-name{text-align:center;font-family:"Playfair Display",serif;font-size:18px;margin-bottom:6px;color:var(--text)}.title{text-align:center;font-weight:700;color:var(--accent);font-size:12px;margin-bottom:8px}.meta{font-size:13px;color:var(--text);z-index:1;margin-bottom:8px}.meta .row{display:flex;justify-content:space-between;gap:8px}.products{background:rgba(255,255,255,.6);padding:8px;border-radius:8px;z-index:1;margin-bottom:8px;min-height:40px}.total{display:flex;justify-content:space-between;font-weight:700;padding-top:8px;border-top:1px solid rgba(0,0,0,.08);margin-top:8px}.note{text-align:center;font-style:italic;color:var(--muted);font-size:13px;margin-top:8px}.qr{display:block;margin:8px auto 0;max-width:140px}.footer{text-align:center;font-size:16px;color:var(--muted);margin-top:8px;font-family:"Great Vibes",cursive}@media (min-width:900px){.main{flex-direction:row;gap:16px}.left{flex:0 0 420px}.right{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px}.card{width:420px}}.upload-indicator{font-size:12px;margin-top:4px;padding:4px 8px;border-radius:4px;display:none}
+</style>
+<link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="styles.css"></noscript>
 
         <!-- External libs (defer to avoid blocking render) -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
@@ -92,6 +98,7 @@
         <div class="wrap">
             <header>
                 <h1>Tạo hóa đơn bán hàng siêu nhanh 🚀</h1>
+                
                 <h2 class="subtitle">
                     <span class="cursor"></span>
                     Hoàn thành trong 30 giây - Miễn Phí - Tiện lợi - Dành cho
@@ -101,7 +108,7 @@
                     ><span class="cta-emoji">📃</span>Tạo Hóa Đơn Ngay Bây Giờ
                     <span class="arrow bounce">⇓</span>
                 </a>
-                <h3 style="margin-top: 8px; margin-bottom: 18px" class="small"
+                <h3 class="mt6 small"
                     >(Nhanh - Miễn Phí - Không cần đăng ký)</h3
                 >
                 <button id="installBtn" class="floating-install-btn" aria-hidden="true">
@@ -134,381 +141,136 @@
                     </div>
                 </div>
             </header>
-
+<div class="text-center bounce">▼</div>
             <div class="main">
                 <div class="left panel">
-                    <div
-                        id="invoiceForm"
-                        style="
-                            display: flex;
-                            flex-direction: column;
-                            gap: 10px;
-                        ">
-                        <strong class="small">Nhập thông tin hóa đơn</strong>
-                        <div>
-                            <label class="small" for="shopName">Tên shop của bạn</label>
-                            <input
-                                id="shopName"
-                                placeholder="VD: Shop Của Tôi" />
-                            <label style="margin-top: 6px" class="small" for="shopLogo"
-                                >Logo (upload ảnh &lt;2MB)</label
-                            >
-                            <input id="shopLogo" type="file" accept="image/*" />
-                            <div
-                                id="shopLogoIndicator"
-                                class="upload-indicator" aria-live="polite"></div>
-                        </div>
+                  
+<div id="invoiceForm" class="flex-column-gap-10">
+    <!-- Nhóm 1: Thông tin cửa hàng -->
+    <fieldset>
+        <legend> <span aria-hidden="true">⌂</span>Thông tin cửa hàng</legend>
+        <label for="shopName">Tên shop của bạn</label>
+        <input id="shopName" placeholder="VD: Shop Của Tôi" />
+        <label for="shopLogo" class="mt-6">Logo (upload ảnh &lt;2MB)</label>
+        <input id="shopLogo" type="file" accept="image/*" />
+        <div id="shopLogoIndicator" class="upload-indicator" aria-live="polite"></div>
+                <label for="qrImage" class="mt-6">QR chuyển khoản (upload ảnh &lt;2MB)</label>
+        <input id="qrImage" type="file" accept="image/*" />
+        <div id="qrImageIndicator" class="upload-indicator" aria-live="polite"></div>
+                <label for="thankYouText" class="mt-6">Lời cảm ơn (footer)</label>
+        <input id="thankYouText" placeholder="VD: Cảm ơn anh/chị đã tin tưởng Shop 🌿" />
+    </fieldset>
 
-                        <div>
-                            <label class="small" for="customerName">Tên khách</label>
-                            <input
-                                id="customerName"
-                                placeholder="VD: Nguyễn Văn A" />
-                            <div class="row" style="margin-top: 6px">
-                                <div class="col">
-                                    <label class="small" for="customerPhone">SĐT</label>
-                                    <input
-                                        id="customerPhone"
-                                        placeholder="VD: 0909xxxxxx"
-                                        type="tel" />
-                                </div>
-                                <div class="col">
-                                    <label class="small" for="orderDate">Ngày đặt hàng</label>
-                                    <input id="orderDate" type="date" />
-                                </div>
-                            </div>
-                            <label class="small" style="margin-top: 6px" for="customerAddress"
-                                >Địa chỉ nhận</label
-                            >
-                            <textarea
-                                id="customerAddress"
-                                placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
-                        </div>
+    <!-- Nhóm 2: Thông tin khách hàng -->
+    <fieldset>
+        <legend><span aria-hidden="true">☻</span>Thông tin khách hàng</legend>
+        <label for="customerName">Tên khách</label>
+        <input id="customerName" placeholder="VD: Nguyễn Văn A" />
+        <div class="row mt-6">
+            <div class="col">
+                <label for="customerPhone">SĐT</label>
+                <input id="customerPhone" placeholder="VD: 0909xxxxxx" type="tel" />
+            </div>
+            <div class="col">
+                <label for="orderDate">Ngày đặt hàng</label>
+                <input id="orderDate" type="date" />
+            </div>
+        </div>
+        <label for="customerAddress" class="mt-6">Địa chỉ nhận</label>
+        <textarea id="customerAddress" placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
+    </fieldset>
 
-                        <div>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="small" for="orderId">Mã đơn</label>
-                                    <input id="orderId" placeholder="DH001" />
-                                </div>
-                                <div class="col">
-                                    <label class="small" for="expectedDate"
-                                        >Ngày nhận dự kiến</label
-                                    >
-                                    <input id="expectedDate" type="date" />
-                                </div>
-                            </div>
+    <!-- Nhóm 3: Chi tiết đơn hàng -->
+    <fieldset>
+        <legend><span aria-hidden="true">☑</span>Chi tiết đơn hàng</legend>
+        <div class="row">
+            <div class="col">
+                <label for="orderId">Mã đơn</label>
+                <input id="orderId" placeholder="DH001" />
+            </div>
+            <div class="col">
+                <label for="expectedDate">Ngày nhận dự kiến</label>
+                <input id="expectedDate" type="date" />
+            </div>
+        </div>
+        <div class="row mt-6">
+            <div class="col">
+                <label for="paymentMethod">P.thức thanh toán</label>
+                <select id="paymentMethod">
+                    <option>Tiền mặt</option>
+                    <option>Chuyển khoản</option>
+                    <option>Thanh toán khi nhận hàng (COD)</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="shippingFee">Phí ship (VNĐ)</label>
+                <input id="shippingFee" type="number" placeholder="0" />
+            </div>
+        </div>
+        <label for="paidAmount" class="mt-6">Thanh toán trước (VNĐ)</label>
+        <input id="paidAmount" type="number" placeholder="0" />
+        <label for="shortNote" class="mt-6">Ghi chú ngắn</label>
+        <input id="shortNote" placeholder="VD: Giao giờ hành chính" />
+    </fieldset>
 
-                            <div class="row" style="margin-top: 6px">
-                                <div class="col">
-                                    <label class="small" for="paymentMethod"
-                                        >Phương thức thanh toán</label
-                                    >
-                                    <select id="paymentMethod">
-                                        <option>Tiền mặt</option>
-                                        <option>Chuyển khoản</option>
-                                        <option>
-                                            Thanh toán khi nhận hàng (COD)
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label class="small" for="shippingFee">Phí ship (VNĐ)</label>
-                                    <input
-                                        id="shippingFee"
-                                        type="number"
-                                        placeholder="0" />
-                                </div>
-                            </div>
-                            <label style="margin-top: 6px" class="small" for="paidAmount"
-                                >Thanh toán trước (VNĐ)</label
-                            >
-                            <input
-                                id="paidAmount"
-                                type="number"
-                                placeholder="0" />
-                            <label class="small" style="margin-top: 6px" for="shortNote"
-                                >Ghi chú ngắn</label
-                            >
-                            <input
-                                id="shortNote"
-                                placeholder="VD: Giao giờ hành chính" />
-                        </div>
+    <!-- Nhóm 4: Sản phẩm -->
+    <fieldset>
+        <legend><span aria-hidden="true">⬡</span>Sản phẩm</legend>
+        <div id="productList"></div>
+        <div class="actions mt-8">
+            <button id="addProductBtn" class="btn" type="button">+ Thêm SP</button>
+            <button id="clearProducts" class="btn ghost" type="button">Xóa hết</button>
+        </div>
+    </fieldset>
 
-                        <div>
-                            <label class="small" for="productList">Sản phẩm</label>
-                            <div id="productList"></div>
-                            <div class="actions">
-                                <button
-                                    id="addProductBtn"
-                                    class="btn"
-                                    type="button">
-                                    + Thêm SP
-                                </button>
-                                <button
-                                    id="clearProducts"
-                                    class="btn ghost"
-                                    type="button">
-                                    Xóa hết
-                                </button>
-                            </div>
-                            <div class="small" style="margin-top: 8px"></div>
-                        </div>
+    <!-- Nhóm 5: Ghi chú dài -->
+    <fieldset>
+        <legend><span aria-hidden="true">✎</span>Ghi chú dài (nếu cần)</legend>
+        <label for="note">Ghi chú cho đơn</label>
+        <textarea id="note" placeholder="Ghi chú cho đơn"></textarea>
+    </fieldset>
 
-                        <div  style="margin-top: 8px; display:none;">
-                            <label class="small" for="note">Ghi chú dài (nếu cần)</label>
-                            <textarea
-                                id="note"
-                                placeholder="Ghi chú cho đơn"></textarea>
-                        </div>
+    <!-- Nhóm 6: Tùy chỉnh giao diện -->
+    <fieldset>
+        <legend><span aria-hidden="true">⚙</span>Tùy chỉnh giao diện</legend>
+        <label for="flowerImage">Ảnh decor góc (upload ảnh &lt;2MB)</label>
+        <input id="flowerImage" type="file" accept="image/*" />
+        <div id="flowerImageIndicator" class="upload-indicator" aria-live="polite"></div>
+        <label class="mt-6">Chọn ảnh decor góc có sẵn</label>
+        <div class="image-selector flex-gap-8 mt-6 ">
+            <img class="predefined-flower-img" src="assets/uploads/transparent.png" data-image="assets/uploads/transparent.png" alt="Transparent (không sử dụng decor)" />
+            <img class="predefined-flower-img" src="assets/uploads/flower1.png" data-image="assets/uploads/flower1.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 1" />
+            <img class="predefined-flower-img" src="assets/uploads/flower2.png" data-image="assets/uploads/flower2.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 2" />
+            <img class="predefined-flower-img" src="assets/uploads/flower3.png" data-image="assets/uploads/flower3.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 3" />
+            <img class="predefined-flower-img" src="assets/uploads/flower4.png" data-image="assets/uploads/flower4.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 4" />
+            <img class="predefined-flower-img" src="assets/uploads/flower5.png" data-image="assets/uploads/flower5.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 5" />
+        </div>
 
-                        <div style="margin-top: 8px">
-                            <label class="small" for="flowerImage"
-                                >Ảnh decor góc (upload ảnh &lt;2MB)</label
-                            >
-                            <input
-                                id="flowerImage"
-                                type="file"
-                                accept="image/*" />
-                            <div
-                                id="flowerImageIndicator"
-                                class="upload-indicator" aria-live="polite"></div>
 
-                            <label class="small" style="margin-top: 6px"
-                                >Chọn ảnh decor góc có sẵn</label
-                            >
-                            <div
-                                style="
-                                    display: flex;
-                                    gap: 8px;
-                                    margin-top: 6px;
-                                    overflow-x: auto;
-                                ">
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/transparent.png"
-                                    data-image="assets/uploads/transparent.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                        background: #fff;
-                                    "
-                                    loading="lazy" alt="Transparent (không sử dụng decor)" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower1.png"
-                                    data-image="assets/uploads/flower1.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    loading="lazy" alt="Hoa 1" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower2.png"
-                                    data-image="assets/uploads/flower2.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    loading="lazy" alt="Hoa 2" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower3.png"
-                                    data-image="assets/uploads/flower3.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    loading="lazy" alt="Hoa 3" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower4.png"
-                                    data-image="assets/uploads/flower4.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    loading="lazy" alt="Hoa 4" />
-                                <img
-                                    class="predefined-flower-img"
-                                    src="assets/uploads/flower5.png"
-                                    data-image="assets/uploads/flower5.png"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        cursor: pointer;
-                                        border: 2px solid transparent;
-                                        border-radius: 4px;
-                                    "
-                                    loading="lazy" alt="Hoa 5" />
-                            </div>
+        <div class="mt-8">
+            <label>Chọn bộ màu</label>
+            <div id="themeSelect" class="theme-selector flex-gap-8 mt-6 ">
+                <div class="swatch theme-btn" data-theme="theme-0" aria-label="Màu mặc định"></div>
+                <div class="swatch theme-btn" data-theme="theme-1" aria-label="Màu vàng nhẹ"></div>
+                <div class="swatch theme-btn" data-theme="theme-2" aria-label="Màu xanh nhạt"></div>
+                <div class="swatch theme-btn" data-theme="theme-3" aria-label="Màu xanh dương"></div>
+                <div class="swatch theme-btn" data-theme="theme-4" aria-label="Màu hồng nhẹ"></div>
+                <div class="swatch theme-btn" data-theme="theme-5" aria-label="Màu vàng đậm"></div>
+                <div class="swatch theme-btn" data-theme="theme-6" aria-label="Màu xanh biển"></div>
+                <div class="swatch theme-btn" data-theme="theme-7" aria-label="Màu tím"></div>
+                <div class="swatch theme-btn" data-theme="theme-8" aria-label="Màu cam"></div>
+            </div>
+        </div>
+    </fieldset>
 
-                            <label class="small" style="margin-top: 6px" for="qrImage"
-                                >QR chuyển khoản (upload ảnh &lt;2MB)</label
-                            >
-                            <input id="qrImage" type="file" accept="image/*" />
-                            <div
-                                id="qrImageIndicator"
-                                class="upload-indicator" aria-live="polite"></div>
-                            <label class="small" style="margin-top: 6px" for="thankYouText"
-                                >Lời cảm ơn (footer)</label
-                            >
-                            <input
-                                id="thankYouText"
-                                placeholder="VD: Cảm ơn anh/chị đã tin tưởng Shop 🌿" />
-                            <div style="margin-top: 8px">
-                                <div class="small">Chọn bộ màu</div>
-                                <div
-                                    id="themeSelect"
-                                    style="
-                                        display: flex;
-                                        gap: 8px;
-                                        margin-top: 6px;
-                                        overflow-x: auto;
-                                    ">
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-0"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #eee
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu mặc định"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-1"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #f6efe6
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu vàng nhẹ"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-2"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fffaf7,
-                                                #e7f6f3
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu xanh nhạt"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-3"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #eef5ff
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu xanh dương"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-4"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #fff1f4
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu hồng nhẹ"></div>
-
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-5"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #ffc107
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu vàng đậm"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-6"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #7eb8f3
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu xanh biển"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-7"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #ba68c8
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu tím"></div>
-                                    <div
-                                        class="swatch theme-btn"
-                                        data-theme="theme-8"
-                                        style="
-                                            width: 34px;
-                                            height: 24px;
-                                            background: linear-gradient(
-                                                #fff,
-                                                #da6d51
-                                            );
-                                            border-radius: 6px;
-                                        " aria-label="Màu cam"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; gap: 8px; margin-top: 36px">
-                            <button id="saveBtn" class="btn" type="button">
-                                Lưu tùy chọn
-                            </button>
-                            <button
-                                id="resetBtn"
-                                class="btn ghost"
-                                type="button">
-                                ↺ Reset
-                            </button>
-                        </div>
-                    </div>
+    <!-- Nút hành động -->
+    <div class="flex-gap-8 mt-36">
+        <button id="saveBtn" class="btn" type="button">Lưu tùy chọn</button>
+        <button id="resetBtn" class="btn ghost" type="button">↺ Reset</button>
+    </div>
+</div>
                 </div>
-
+<div class="text-center bounce">▼</div>
                 <div class="right panel">
                     <div>
                         <div style="margin-bottom:6px;">
@@ -610,27 +372,22 @@
                             <div class="note" id="outShortNote"></div>
                             <img
                                 id="outQr"
-                                class="qr"
+                                class="qr display-none"
                                 src=""
                                 loading="lazy" alt="QR chuyển khoản"
-                                style="display: none" />
+                                />
                             <div class="footer" id="outThank">
                                 Cảm ơn anh/chị đã tin tưởng Shop!
                             </div>
                         </div>
                     </div>
-                    <p style="font-style: italic" class="small">
+                    <p  class="italic small">
                         Kiểm tra kỹ thông tin trước khi in hoặc gửi cho khách
                     </p>
 
                     <div
-                        style="
-                            display: flex;
-                            gap: 8px;
-                            margin-top: 10px;
-                            justify-content: center;
-                            flex-direction: column;
-                        ">
+                    class="btns"
+                        >
                         	<button class="btn" id="shareBtn" type="button">
   📤 Chia sẻ ảnh
 </button>
@@ -647,14 +404,9 @@
             <div
                 class="panel"
                 id="history-container"
-                style="max-width: 600px; margin: 24px auto">
+                >
                 <div
-                    style="
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        margin-bottom: 12px;
-                    ">
+                    >
                     <div>
                         <strong class="small">Lịch sử các đơn gần đây</strong>
                     </div>
@@ -662,35 +414,23 @@
                         id="clearHistoryBtn"
                         class="btn warn"
                         type="button"
-                        style="padding: 5px 10px">
+                        >
                         Xóa Lịch sử
                     </button>
                 </div>
                 <ul id="history-list" aria-live="polite"></ul>
             </div>
 
-            <footer
-                style="
-                    text-align: center;
-                    font-size: 12px;
-                    color: var(--muted);
-                    margin-top: 6px;
-                ">
-                <div style="margin-top: 4px; margin-bottom: 24px">
-                    <span style="font-style: italic"
+            <footer>
+                <div >
+                    <span class="italic"
                         >Dữ liệu được lưu cục bộ trên trình duyệt của bạn – Hoàn
                         toàn riêng tư</span
                     >
                 </div>
                 <div class="panel" style="max-width: 600px; margin: 24px auto">
                     <strong class="small">Góp ý & lời chúc</strong>
-                    <p
-                        style="
-                            font-size: 14px;
-                            color: var(--text);
-                            margin: 8px 0 16px;
-                            line-height: 1.5;
-                        ">
+                    <p class="text-med clr-text">
                         Bạn có ý tưởng hay ho hay phát hiện một lỗi nhỏ?🪲
 
                         <br />
@@ -698,50 +438,28 @@
                         Mọi lời cảm ơn hay góp ý đều là món quà quý giá! 🎁
                     </p>
 
-                    <form
-                        action="https://formspree.io/f/xrblrdel"
-                        method="POST">
-                      <label style="text-align: left;" class="small" for="email">Email của bạn:</label>
-
-<input type="email" id="email" name="email" placeholder="VD: nguyenvana@gmail.com" required>
-<br/>
-                        <label
-                            for="feedback"
-                            class="small"
-                            style="
-                                text-align: left;
-                                display: block;
-                                margin-bottom: 4px ;
-                                margin-top: 4px;
-                            "
-                            >Lời nhắn của bạn:</label
-                        >
-                        <textarea
-                            id="feedback"
-                            name="feedback"
-                            placeholder="VD: 'Nên thêm tùy chọn &lt;abc&gt; thì tốt quá!😊'"
-                            required
-                            style="min-height: 80px"></textarea>
-                        <div style="margin-top: 10px">
-                            <button
-                                class="btn"
-                                type="submit"
-                                style="width: 100%; font-size: 16px">
-                                💌 Gửi đi
-                            </button>
-                        </div>
-                    </form>
+<form action="https://formspree.io/f/xrblrdel" method="POST">
+    <label style="text-align: left;" class="small" for="email">Email của bạn:</label>
+    <input type="email" id="email" name="email" placeholder="VD: nguyenvana@gmail.com" required>
+    <br/>
+    <label for="feedback" class="small" style="text-align: left; display: block; margin-bottom: 4px; margin-top: 4px;">Lời nhắn của bạn:</label>
+    <textarea id="feedback" name="feedback" placeholder="VD: 'Nên thêm tùy chọn <abc> thì tốt quá!😊'" required style="min-height: 80px"></textarea>
+    <input type="text" name="_gotcha" style="display:none"> <!-- Honeypot field -->
+    <div class="mt6">
+        <button class="btn text-med w100" type="submit" >💌 Gửi đi</button>
+    </div>
+</form>
                 </div>
 
                 <div class="panel" style="max-width: 600px; margin: 24px auto">
                     <strong class="small">Giới thiệu</strong>
-                    <p style="font-size: 14px; color: var(--text); line-height: 1.5;">
+                    <p class="text-med clr-text">
                         Đây là công cụ giúp bạn tạo hóa đơn bán hàng online nhanh chóng và miễn phí. <br/>Chỉ cần nhập thông tin, tùy chỉnh logo, màu sắc và xuất file PNG/PDF chất lượng cao. <br/>Phù hợp cho shop online, freelancer, doanh nghiệp nhỏ muốn chuyên nghiệp hóa bán hàng.
                     </p>
                 </div>
 
                 <div>Được tạo bởi dvp19</div>
-                <div style="margin: 0 4px">
+                <div >
                     <p>
                         Bạn thích công cụ này? Ủng hộ mình để duy trì và phát
                         triển thêm tính năng nhé!
@@ -750,17 +468,13 @@
                         href="https://www.buymeacoffee.com/phi19"
                         target="_blank"
                         rel="noopener noreferrer"
-                        style="
-                            text-decoration: none;
-                            display: inline-block;
-                            margin-left: 8px;
-                        ">
+                        >
                         <img
                             src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&slug=phi19&button_colour=FFDD00&font_colour=000000&font_family=Poppins&outline_colour=000000&coffee_colour=ffffff"
                             loading="lazy" alt="Buy Me A Coffee" />
                     </a>
                 </div>
-                <p><a href="privacy.html" target="_blank" rel="noopener noreferrer">Chính sách bảo mật</a></p>
+                <p><a   href="privacy.html" target="_blank" rel="noopener noreferrer">Chính sách bảo mật</a></p>
             </footer>
         </div>
         
@@ -775,8 +489,9 @@
               <li>Chọn <strong>Thêm vào Màn hình chính</strong>.</li>
               <li>Nhấn <strong>Thêm</strong> để hoàn tất.</li>
             </ol>
-            <img src="ios-add-home.jpg" alt="Hướng dẫn thêm vào màn hình chính" style="width:100%;border-radius:8px;">
+            <img src="ios-add-home.jpg" alt="Hướng dẫn cài đặt ứng dụng tạo hóa đơn online trên iOS" class="w100 br8">
           </div>
+          
         </div>
 
         <!-- Main script (kept external, defer) -->

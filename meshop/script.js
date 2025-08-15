@@ -686,7 +686,7 @@ function updateInvoice() {
     if (shipping > 0) {
         const r = document.createElement("div");
         r.className = "prod-row";
-        r.innerHTML = `<div style="flex:1">Phí ship</div><div style="width:36px"></div><div style="width:90px;text-align:right"></div><div style="width:110px;text-align:right">${toCurrency(shipping)} ₫</div>`;
+        r.innerHTML = `<div style="flex:1;">Phí ship</div><div style="width:90px;text-align:right"></div><div style="width:110px;text-align:right">${toCurrency(shipping)} ₫</div>`;
         out.appendChild(r);
         total += shipping;
     }
@@ -703,10 +703,54 @@ function loadProducts() {
     } else arr.forEach((p) => addProduct(p));
 }
 
+function parseAndFillForm(text) {
+    // Biểu thức chính quy cho thông tin chính
+    const mainRegex = /Mã ĐH:\s*(\S+)\s*Người nhận:\s*(.+?),\s*(\d{10})\s*Địa chỉ:\s*(.+?)\s*Dự kiến giao:/s;
+    
+    // Biểu thức chính quy cho phí vận chuyển
+    const shippingFeeRegex = /Người nhận trả cước:\s*([\d\.]+)\s*đ/;
+
+    const mainMatch = text.match(mainRegex);
+    const shippingFeeMatch = text.match(shippingFeeRegex);
+
+    if (mainMatch) {
+        const orderId = mainMatch[1];
+        const recipientName = mainMatch[2];
+        const phoneNumber = mainMatch[3];
+        const address = mainMatch[4].trim().replace(/\s*-\s*/g, ' - ');
+
+        // Gán giá trị vào các trường trên form
+        // Bạn cần đảm bảo các ID này trùng khớp với cấu trúc HTML của bạn
+        $('orderId').value = orderId + " - VTP";
+        $('customerName').value = recipientName;
+        $('customerPhone').value = phoneNumber;
+        $('customerAddress').value = address;
+
+        // Nếu tìm thấy phí vận chuyển, điền vào trường tương ứng
+        if (shippingFeeMatch) {
+            // Loại bỏ dấu chấm và chuyển đổi sang số nguyên
+            const shippingFee = parseInt(shippingFeeMatch[1].replace(/\./g, ''), 10);
+            $('shippingFee').value = shippingFee;
+        }
+        
+        // Thông báo cho người dùng
+        alert('Đã tự động điền thông tin đơn hàng!');
+    } else {
+        console.log('Không tìm thấy mẫu thông tin đơn hàng.');
+    }
+}
+
+
+
 /* ======== Init Events ======== */
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         await openDB();
+        $('note').addEventListener('paste', function(event) {
+    const pastedText = (event.clipboardData || window.clipboardData).getData('text');
+    parseAndFillForm(pastedText);
+});
+
 
         // Đảm bảo flowerImg mặc định
         const transaction = db.transaction(['images'], 'readwrite');
