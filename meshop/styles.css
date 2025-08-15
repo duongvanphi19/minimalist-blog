@@ -95,8 +95,14 @@
                 font-family: "Poppins", sans-serif;
                 background: var(--page-bg);
                 color: var(--text);
-                
+    touch-action: pan-x pan-y;
+    -webkit-text-size-adjust: 100%;
+    -webkit-user-select: none;
+    overscroll-behavior: none;
+
             }
+            
+            
             .wrap {
                 max-width: var(--max-width);
                 margin: 12px auto;
@@ -901,7 +907,6 @@ legend span[aria-hidden="true"] {
         font-size: 16px; 
         line-height: 1;
         margin-right: 4px;
-        font-weight: 700;
     }
 
 /* Responsive cho màn hình nhỏ */

@@ -1,14 +1,13 @@
-const CACHE_NAME = "invoice-app-v2";
+const CACHE_NAME = "invoice-app-v1";
 const urlsToCache = [
-    "./",
-    "./index.html",
-    "./styles.css",
-    "./script.js",
-    "./manifest.json",
-    "./assets/icons/icon-192.png", // Thêm icon để cache
-    "./assets/icons/icon-512.png", // Thêm icon để đảm bảo
+    "/",
+    "/index.html",
+    "/styles.css",
+    "/script.js",
+    "/icon-192.png",
+    "/icon-512.png",
     "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+    "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
 ];
 
 self.addEventListener("install", (event) => {
@@ -28,7 +27,9 @@ self.addEventListener("activate", (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) =>
             Promise.all(
-                cacheNames.map((name) => cacheWhitelist.includes(name) ? null : caches.delete(name))
+                cacheNames.map((cacheName) =>
+                    cacheWhitelist.includes(cacheName) ? null : caches.delete(cacheName)
+                )
             )
         )
     );
@@ -39,22 +40,8 @@ self.addEventListener("push", (event) => {
     const title = data.title || "Invoice App";
     const options = {
         body: data.body || "Thông báo từ ứng dụng",
-        icon: "./assets/icons/icon-192.png",
-        badge: "./assets/icons/icon-192.png",
-        tag: data.tag || `invoice-${Date.now()}`,
-        actions: [
-            { action: "view", title: "Xem hóa đơn" },
-            { action: "dismiss", title: "Bỏ qua" }
-        ],
+        icon: "/icon-192.png",
+        badge: "/icon-192.png",
     };
     event.waitUntil(self.registration.showNotification(title, options));
-});
-
-self.addEventListener("notificationclick", (event) => {
-    event.notification.close();
-    if (event.action === "view") {
-        event.waitUntil(
-            clients.openWindow("/index.html")
-        );
-    }
 });

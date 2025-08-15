@@ -20,7 +20,7 @@ let originalFlowerImageSrc = null;
 
 // Map month -> decor (keys are month numbers)
 const MONTHLY_DECOR_MAP = {
-    2: "assets/uploads/valentine.webp", // Feb - Valentine
+    "14-2": "assets/uploads/valentine.webp", // Feb - Valentine
     8: "assets/uploads/vulan.webp", // Aug - Mid-Autumn
     9: "assets/uploads/vietnam-national-day.webp", // Sep - VN National Day
     12: "assets/uploads/xmas.webp" // Dec - Christmas
@@ -30,6 +30,52 @@ const MONTHLY_DECOR_MAP = {
 const DB_NAME = 'InvoiceV3DB';
 const DB_VERSION = 1;
 let db;
+
+// Gửi thông báo đẩy cục bộ
+async function sendLocalPushNotification(message) {
+  return;
+    if (!("Notification" in window) || Notification.permission !== "granted") {
+        if (Notification.permission === "default") {
+            const permission = await Notification.requestPermission();
+            if (permission !== "granted") {
+                console.warn("Notification permission denied");
+                return;
+            }
+        } else {
+            alert("Notifications blocked");
+            return;
+        }
+    }
+
+    const registration = await navigator.serviceWorker.ready;
+    registration.showNotification("Hóa đơn Online", {
+        body: message,
+        icon: "./assets/icons/icon-192.png",
+        badge: "./assets/icons/icon-192.png",
+        tag: `invoice-${Date.now()}`,
+        actions: [
+            { action: "view", title: "Xem hóa đơn" },
+            { action: "dismiss", title: "Bỏ qua" }
+        ],
+    });
+}
+
+// Khởi tạo Service Worker và yêu cầu quyền thông báo
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", async () => {
+        try {
+            const registration = await navigator.serviceWorker.register("/service-worker.js");
+            console.log("Service Worker registered");
+            // Chỉ yêu cầu quyền thông báo nếu Notification API tồn tại
+            if ("Notification" in window && Notification.permission === "default") {
+                await Notification.requestPermission();
+            }
+        } catch (err) {
+            console.error("Service Worker registration failed:", err);
+            alert("Không thể đăng ký Service Worker. Một số tính năng có thể không hoạt động.");
+        }
+    });
+}
 
 function openDB() {
     return new Promise((resolve, reject) => {
@@ -155,43 +201,6 @@ async function setDecorImageFromPath(path) {
             reject(transaction.error);
         };
     });
-}
-
-/* ======== Hiệu ứng đánh máy đã được tối ưu ======== */
-let typingTimeout;
-let cursorInterval;
-
-function typeEffect() {
-    const subtitleElement = document.querySelector('.subtitle');
-    const textToType = "Hoàn thành trong 30 giây - Miễn phí - Tiện lợi - Dành cho shop online, freelancer & doanh nghiệp nhỏ.";
-
-    clearTimeout(typingTimeout);
-    clearInterval(cursorInterval);
-    subtitleElement.textContent = "";
-
-    const cursorElement = document.createElement('span');
-    cursorElement.className = 'cursor';
-    subtitleElement.appendChild(cursorElement);
-
-    let i = 0;
-    const typingSpeed = 45;
-    const blinkingSpeed = 500;
-    let cursorVisible = true;
-
-    function typeWriter() {
-        if (i < textToType.length) {
-            cursorElement.style.opacity = 1;
-            subtitleElement.insertBefore(document.createTextNode(textToType.charAt(i)), cursorElement);
-            i++;
-            typingTimeout = setTimeout(typeWriter, typingSpeed);
-        } else {
-            cursorInterval = setInterval(() => {
-                cursorVisible = !cursorVisible;
-                cursorElement.style.opacity = cursorVisible ? 1 : 0;
-            }, blinkingSpeed);
-        }
-    }
-    typeWriter();
 }
 
 /* ======== Utilities ======== */
@@ -841,114 +850,146 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         // Download PDF
-        $("downloadPdf").addEventListener("click", () => {
-            const capture = $("card");
-            html2canvas(capture, { scale: 2 }).then((canvas) => {
-                const { jsPDF } = window.jspdf;
-                const imgData = canvas.toDataURL("image/png");
-                const pxToMm = (px) => px * 0.264583;
-                const pdfWidth = pxToMm(canvas.width);
-                const pdfHeight = pxToMm(canvas.height);
-                const pdf = new jsPDF("p", "mm", [pdfWidth, pdfHeight]);
-                pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-                pdf.save(`invoice_${$("orderId").value || "order"}.pdf`);
-            });
+// Hàm tiện ích để lấy phần tử DOM
+
+
+// Hàm tạo Canvas từ hóa đơn
+async function createInvoiceCanvas() {
+    const card = $("card");
+    const imgs = card.querySelectorAll("img");
+
+    // Đợi tất cả ảnh tải hoàn tất
+    await Promise.all(
+        Array.from(imgs).map(
+            (img) =>
+                new Promise((resolve) => {
+                    if (!img.src || img.complete) return resolve();
+                    img.crossOrigin = "Anonymous"; // Hỗ trợ CORS cho ảnh từ nguồn khác
+                    img.onload = resolve;
+                    img.onerror = () => {
+                        console.warn(`Failed to load image: ${img.src}`);
+                        resolve();
+                    };
+                })
+        )
+    );
+
+    const origWidth = card.offsetWidth || 360; // Sử dụng offsetWidth để chính xác hơn
+    const targetWidth = 1080; // Độ rộng mục tiêu cho chất lượng cao
+    const scale = Math.min(3, Math.max(1.5, targetWidth / origWidth)); // Giới hạn scale để tránh quá tải
+
+    return html2canvas(card, {
+        useCORS: true, // Hỗ trợ ảnh từ nguồn khác
+        scale: scale, // Tự động điều chỉnh độ phân giải
+        backgroundColor: null, // Giữ nền trong suốt
+        logging: false, // Tắt log để cải thiện hiệu suất
+        allowTaint: false, // Đảm bảo không có ảnh bị "tainted"
+        windowWidth: document.body.scrollWidth, // Đảm bảo kích thước cửa sổ đầy đủ
+        windowHeight: document.body.scrollHeight,
+    });
+}
+
+// Xuất PDF
+$("downloadPdf")?.addEventListener("click", async () => {
+    const btn = $("downloadPdf");
+    btn.disabled = true;
+    btn.textContent = "Đang tạo PDF...";
+
+    try {
+        const canvas = await createInvoiceCanvas();
+        const { jsPDF } = window.jspdf;
+        const imgData = canvas.toDataURL("image/png", 1.0); // Chất lượng tối đa cho PNG
+        const pxToMm = (px) => px * 0.264583; // Chuyển đổi pixel sang mm
+        const pdfWidth = pxToMm(canvas.width);
+        const pdfHeight = pxToMm(canvas.height);
+
+        // Tạo PDF với kích thước chính xác
+        const pdf = new jsPDF({
+            orientation: "portrait",
+            unit: "mm",
+            format: [pdfWidth, pdfHeight],
+            compress: true, // Nén PDF để giảm kích thước file
         });
 
-        // Hàm tiện ích để tạo Canvas từ hóa đơn
-        async function createInvoiceCanvas() {
-            const card = $("card");
-            const imgs = Array.from(card.querySelectorAll("img"));
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST"); // Tối ưu tốc độ
+        pdf.save(`invoice_${$("orderId")?.value || "order"}.pdf`);
+        sendLocalPushNotification("Hóa đơn PDF đã được tải xuống thành công!")
+    } catch (err) {
+        console.error("PDF export error:", err);
+        alert("Có lỗi khi tạo PDF. Vui lòng thử lại.");
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "Tải PDF";
+    }
+});
 
-            await Promise.all(
-                imgs.map(
-                    (img) =>
-                        new Promise((resolve) => {
-                            if (!img.src) return resolve();
-                            if (img.complete) return resolve();
-                            img.onload = () => resolve();
-                            img.onerror = () => {
-                                console.warn(`Failed to load image: ${img.src}`);
-                                resolve();
-                            };
-                        })
-                )
-            );
+// Xuất PNG
+async function safeExport() {
+    const btn = $("downloadBtn");
+    btn.disabled = true;
+    btn.textContent = "Đang tạo ảnh...";
 
-            const origWidth = card.clientWidth || 360;
-            const targetWidth = 1080;
-            let scale = Math.min(3, Math.max(1.5, targetWidth / origWidth));
+    try {
+        const canvas = await createInvoiceCanvas();
+        canvas.toBlob(
+            (blob) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `invoice_${$("orderId")?.value || "order"}.png`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(url); // Thu hồi ngay sau khi tải
+              sendLocalPushNotification("Hóa đơn PNG đã được tải xuống thành công!");
+            },
+            "image/png",
+            1.0 // Chất lượng tối đa cho PNG
+        );
+    } catch (err) {
+        console.error("PNG export error:", err);
+        alert("Có lỗi khi tạo ảnh. Vui lòng thử lại.");
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "📥 Tải ảnh (PNG)";
+    }
+}
 
-            return await html2canvas(card, {
-                useCORS: true,
-                scale: scale,
-                backgroundColor: null,
-            });
+// Chia sẻ ảnh
+async function shareInvoice() {
+    if (!navigator.share) {
+        alert("Trình duyệt của bạn không hỗ trợ tính năng chia sẻ.");
+        return;
+    }
+
+    const btn = $("shareBtn");
+    btn.disabled = true;
+    btn.textContent = "Đang tạo ảnh...";
+
+    try {
+        const canvas = await createInvoiceCanvas();
+        const imageBlob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png", 1.0));
+        const imageFile = new File([imageBlob], `invoice_${$("orderId")?.value || "order"}.png`, {
+            type: "image/png",
+        });
+        const shopName = $("shopName")?.value || "Hóa đơn bán hàng";
+
+        await navigator.share({
+            files: [imageFile],
+            title: shopName,
+            text: "Hóa đơn từ cửa hàng",
+        });
+        sendLocalPushNotification("Hóa đơn đã được chia sẻ thành công!")
+    } catch (error) {
+        console.error("Share error:", error);
+        if (error.name !== "AbortError") {
+            alert("Không thể chia sẻ ảnh. Vui lòng thử lại.");
         }
-
-        // Hàm xử lý việc tải ảnh xuống
-        async function safeExport() {
-            const btn = $("safeExportBtn") || $("downloadBtn");
-            btn.disabled = true;
-            btn.textContent = "Đang tạo ảnh...";
-
-            try {
-                const canvas = await createInvoiceCanvas();
-                canvas.toBlob(
-                    (blob) => {
-                        const url = URL.createObjectURL(blob);
-                        const a = document.createElement("a");
-                        a.href = url;
-                        a.download = `invoice_${$("orderId").value || "order"}.png`;
-                        document.body.appendChild(a);
-                        a.click();
-                        a.remove();
-                        setTimeout(() => URL.revokeObjectURL(url), 10000);
-                    },
-                    "image/png",
-                    0.95
-                );
-            } catch (err) {
-                console.error('Export error:', err);
-                alert("Có lỗi khi tạo ảnh. Thử lại nhé.");
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "📥 Tải ảnh (PNG)";
-            }
-        }
-
-        // Hàm xử lý việc chia sẻ ảnh
-        async function shareInvoice() {
-            if (!navigator.share) {
-                alert("Trình duyệt của bạn không hỗ trợ tính năng chia sẻ.");
-                return;
-            }
-
-            const btn = $("shareBtn");
-            btn.disabled = true;
-            btn.textContent = "Đang tạo ảnh...";
-
-            try {
-                const canvas = await createInvoiceCanvas();
-                const imageBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-                const imageFile = new File([imageBlob], "hoa_don.png", { type: "image/png" });
-                const shopName = $("shopName").value || "Hóa đơn bán hàng";
-
-                await navigator.share({
-                    files: [imageFile],
-                    title: shopName,
-                    text: ``,
-                });
-            } catch (error) {
-                console.error("Lỗi khi chia sẻ:", error);
-                if (error.name !== 'AbortError') {
-                    alert("Không thể chia sẻ ảnh. Vui lòng thử lại.");
-                }
-            } finally {
-                btn.disabled = false;
-                btn.textContent = "📲 Chia sẻ ảnh";
-            }
-        }
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "📲 Chia sẻ ảnh";
+    }
+}
 
         $("shareBtn").addEventListener("click", shareInvoice);
         $("downloadBtn").addEventListener("click", safeExport);
