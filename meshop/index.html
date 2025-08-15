@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1" />
 
         <!-- Primary SEO -->
-        <title>Tạo Hóa Đơn Bán Hàng Online - Miễn Phí, Nhanh, An Toàn</title>
+        <title>Tạo Hóa Đơn Online - Miễn Phí, Nhanh, An Toàn</title>
         <meta name="description" content="Công cụ tạo hóa đơn bán hàng online miễn phí, nhanh chóng, an toàn. Xuất PNG/PDF chất lượng cao trong 30 giây. Dành cho shop online, freelancer, doanh nghiệp nhỏ.">
         <meta name="keywords" content="tạo hóa đơn, in hóa đơn, hóa đơn online, xuất hóa đơn pdf, invoice generator, shop online, freelancer">
         <meta name="robots" content="index, follow">
@@ -63,6 +63,30 @@
           }
         }
         </script>
+        <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Làm thế nào để tạo hóa đơn online miễn phí?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chỉ cần nhập thông tin shop, khách hàng, sản phẩm và xuất file PNG/PDF trong 30 giây."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Công cụ này có an toàn không?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hoàn toàn an toàn, dữ liệu lưu cục bộ trên trình duyệt của bạn."
+      }
+    }
+  ]
+}
+</script>
     </head>
     <body class="theme-0">
         <div class="wrap">
@@ -759,51 +783,6 @@
         <script src="script.js" defer></script>
 
         <!-- Small safe inline script for PWA install prompt (guarded to avoid null errors) -->
-        <script>
-        (function(){
-          let deferredPrompt;
-          const installBtn = document.getElementById('installBtn');
-          if (installBtn) {
-            installBtn.style.display = "none";
-          }
-          window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if (installBtn) {
-              installBtn.style.display = 'flex';
-              installBtn.setAttribute('aria-hidden','false');
-            }
-          });
-
-          if (installBtn) {
-            installBtn.addEventListener('click', () => {
-              if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choice) => {
-                  if (choice.outcome === 'accepted') {
-                    console.log('Người dùng đã cài app');
-                  } else {
-                    console.log('Người dùng hủy cài app');
-                  }
-                  deferredPrompt = null;
-                }).catch(()=>{ deferredPrompt = null; });
-              }
-            });
-          }
-
-          window.addEventListener('appinstalled', () => {
-            console.log('App đã được cài đặt');
-            if (installBtn) installBtn.style.display = 'none';
-          });
-
-          try {
-            if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
-              if (installBtn) installBtn.style.display = 'none';
-            }
-          } catch (e) {
-            // noop
-          }
-        })();
-        </script>
+       
     </body>
 </html>

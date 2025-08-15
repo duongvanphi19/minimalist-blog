@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://minimblog.netlify.app/meshop/sitemap.xml
