@@ -1,31 +1,3 @@
-
-// Khởi tạo Service Worker và yêu cầu quyền thông báo
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", async () => {
-        try {
-            const registration = await navigator.serviceWorker.register("/service-worker.js", { scope: "/" });
-            console.log("Service Worker registered with scope:", registration.scope);
-            // Chỉ yêu cầu quyền thông báo nếu Notification API tồn tại
-            if ("Notification" in window && Notification.permission === "default") {
-                try {
-                    const permission = await Notification.requestPermission();
-                    console.log("Notification permission:", permission);
-                } catch (err) {
-                    console.error("Notification permission request failed:", err);
-                    alert("Không thể yêu cầu quyền thông báo. Một số tính năng có thể không hoạt động.");
-                }
-            } else if (!("Notification" in window)) {
-                console.warn("Notification API not supported in this browser");
-            }
-        } catch (err) {
-            console.error("Service Worker registration failed:", err);
-            alert(`Không thể đăng ký Service Worker: ${err.message}. Vui lòng kiểm tra đường dẫn file hoặc chạy trên HTTPS/localhost.`);
-        }
-    });
-} else {
-    console.warn("Service Worker not supported in this browser");
-    alert("Trình duyệt không hỗ trợ Service Worker. Một số tính năng như thông báo đẩy sẽ không hoạt động.");
-}
 /* ======== Helpers & Constants ======== */
 const $ = (id) => document.getElementById(id);
 const LS_FORM = "invoice_v3_form";
@@ -58,43 +30,6 @@ const MONTHLY_DECOR_MAP = {
 const DB_NAME = 'InvoiceV3DB';
 const DB_VERSION = 1;
 let db;
-
-// Gửi thông báo đẩy cục bộ
-async function sendLocalPushNotification(message) {
-  return;
-    if (!("Notification" in window) || Notification.permission !== "granted") {
-        if (Notification.permission === "default") {
-            const permission = await Notification.requestPermission();
-            if (permission !== "granted") {
-                console.warn("Notification permission denied");
-                return;
-            }
-        } else {
-            alert("Notifications blocked");
-            return;
-        }
-    }
-
-    const registration = await navigator.serviceWorker.ready;
-    registration.showNotification("Hóa đơn Online", {
-        body: message,
-        icon: "./assets/icons/icon-192.png",
-        badge: "./assets/icons/icon-192.png",
-        tag: `invoice-${Date.now()}`,
-        actions: [
-            { action: "view", title: "Xem hóa đơn" },
-            { action: "dismiss", title: "Bỏ qua" }
-        ],
-    });
-}
-if ("serviceWorker" in navigator) {
-  alert(1)
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-        for (let registration of registrations) {
-            registration.unregister();
-        }
-    });
-}
 
 function openDB() {
     return new Promise((resolve, reject) => {
@@ -932,7 +867,7 @@ $("downloadPdf")?.addEventListener("click", async () => {
 
         pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST"); // Tối ưu tốc độ
         pdf.save(`invoice_${$("orderId")?.value || "order"}.pdf`);
-        sendLocalPushNotification("Hóa đơn PDF đã được tải xuống thành công!")
+        
     } catch (err) {
         console.error("PDF export error:", err);
         alert("Có lỗi khi tạo PDF. Vui lòng thử lại.");
@@ -960,7 +895,6 @@ async function safeExport() {
                 a.click();
                 a.remove();
                 URL.revokeObjectURL(url); // Thu hồi ngay sau khi tải
-              sendLocalPushNotification("Hóa đơn PNG đã được tải xuống thành công!");
             },
             "image/png",
             1.0 // Chất lượng tối đa cho PNG
@@ -998,7 +932,7 @@ async function shareInvoice() {
             title: shopName,
             text: "Hóa đơn từ cửa hàng",
         });
-        sendLocalPushNotification("Hóa đơn đã được chia sẻ thành công!")
+        
     } catch (error) {
         console.error("Share error:", error);
         if (error.name !== "AbortError") {

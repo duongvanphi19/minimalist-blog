@@ -33,28 +33,3 @@ self.addEventListener("activate", (event) => {
         )
     );
 });
-
-self.addEventListener("push", (event) => {
-    const data = event.data?.json() || {};
-    const title = data.title || "Invoice App";
-    const options = {
-        body: data.body || "Thông báo từ ứng dụng",
-        icon: "./assets/icons/icon-192.png",
-        badge: "./assets/icons/icon-192.png",
-        tag: data.tag || `invoice-${Date.now()}`,
-        actions: [
-            { action: "view", title: "Xem hóa đơn" },
-            { action: "dismiss", title: "Bỏ qua" }
-        ],
-    };
-    event.waitUntil(self.registration.showNotification(title, options));
-});
-
-self.addEventListener("notificationclick", (event) => {
-    event.notification.close();
-    if (event.action === "view") {
-        event.waitUntil(
-            clients.openWindow("/index.html")
-        );
-    }
-});
