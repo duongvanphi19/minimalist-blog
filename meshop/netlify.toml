@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://www.minimblog.netlify.app/*"
+  to = "https://minimblog.netlify.app/:splat"
+  status = 301
+  force = true
