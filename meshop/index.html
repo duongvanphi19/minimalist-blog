@@ -156,14 +156,15 @@
                   
 <div id="invoiceForm" class="flex-column-gap-10">
     <!-- Nhóm 1: Thông tin cửa hàng -->
+    
     <fieldset>
         <legend> <span aria-hidden="true">⌂</span>Thông tin cửa hàng</legend>
         <label for="shopName">Tên shop của bạn</label>
         <input type="text" required pattern="[A-Za-z0-9\s\-\&]+" maxlength="50"  id="shopName" placeholder="VD: Shop Của Tôi" />
-        <label for="shopLogo" class="mt-6">Logo shop (upload ảnh &lt;2MB)</label>
+        <label for="shopLogo" class="mt-6">Logo shop (upload ảnh &lt;1MB)</label>
         <input id="shopLogo" type="file" accept="image/*" />
         <div id="shopLogoIndicator" class="upload-indicator" aria-live="polite"></div>
-                <label for="qrImage" class="mt-6">QR chuyển khoản (upload ảnh &lt;2MB)</label>
+                <label for="qrImage" class="mt-6">QR chuyển khoản (upload ảnh &lt;1MB)</label>
         <input id="qrImage" type="file" accept="image/*" />
         <div id="qrImageIndicator" class="upload-indicator" aria-live="polite"></div>
                 <label for="thankYouText" class="mt-6">Lời cảm ơn KH</label>
@@ -178,15 +179,15 @@
         <div class="row mt-6">
             <div class="col">
                 <label for="customerPhone">SĐT</label>
-                <input id="customerPhone" placeholder="VD: 0909xxxxxx" type="tel" />
+                <input id="customerPhone" placeholder="VD: 0909xxxxxx" type="tel"  required />
             </div>
             <div class="col">
                 <label for="orderDate">Ngày đặt hàng</label>
-                <input id="orderDate" type="date" />
+                <input id="orderDate" required type="date" />
             </div>
         </div>
         <label for="customerAddress" class="mt-6">Địa chỉ nhận</label>
-        <textarea id="customerAddress" placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
+        <textarea id="customerAddress" maxlength="100" required placeholder="VD: 123 Lê Lợi, Quận 1, TP.HCM"></textarea>
     </fieldset>
 
     <!-- Nhóm 3: Chi tiết đơn hàng -->
@@ -195,11 +196,11 @@
         <div class="row">
             <div class="col">
                 <label for="orderId">Mã đơn</label>
-                <input id="orderId" placeholder="DH001" />
+                <input id="orderId" placeholder="VD: DH001" />
             </div>
             <div class="col">
                 <label for="expectedDate">Ngày nhận dự kiến</label>
-                <input id="expectedDate" type="date" />
+                <input id="expectedDate" required type="date" />
             </div>
         </div>
         <div class="row mt-6">
@@ -217,9 +218,9 @@
             </div>
         </div>
         <label for="paidAmount" class="mt-6">Thanh toán trước (VNĐ)</label>
-        <input id="paidAmount" type="number" placeholder="0" />
-        <label for="shortNote" class="mt-6"  maxlength="100" >Ghi chú ngắn</label>
-        <input id="shortNote" placeholder="VD: Giao giờ hành chính" />
+        <input id="paidAmount" type="number"  placeholder="0" />
+        <label for="shortNote" class="mt-6"  >Ghi chú ngắn</label>
+        <input id="shortNote" maxlength="50" placeholder="VD: Giao giờ hành chính" />
     </fieldset>
 
     <!-- Nhóm 4: Sản phẩm -->
@@ -236,23 +237,25 @@
     <fieldset>
         <legend><span aria-hidden="true">✎</span>Ghi chú dài (nếu cần)</legend>
         <label for="note">Ghi chú cho đơn</label>
-        <textarea id="note" placeholder="Ghi chú cho đơn"></textarea>
+        <textarea id="note" maxlength="500" placeholder="Ghi chú cho đơn"></textarea>
     </fieldset>
 
     <!-- Nhóm 6: Tùy chỉnh giao diện -->
     <fieldset>
         <legend><span aria-hidden="true">⚙</span>Tùy chỉnh giao diện</legend>
-        <label for="flowerImage">Ảnh decor góc (upload ảnh &lt;2MB)</label>
+        <label for="flowerImage">Ảnh decor góc (upload ảnh &lt;1MB)</label>
         <input id="flowerImage" type="file" accept="image/*" />
         <div id="flowerImageIndicator" class="upload-indicator" aria-live="polite"></div>
         <label class="mt-6">Chọn ảnh decor góc có sẵn</label>
         <div class="image-selector flex-gap-8 mt-6 ">
-            <img class="predefined-flower-img" src="assets/uploads/transparent.png" data-image="assets/uploads/transparent.png" alt="Transparent (không sử dụng decor)" />
-            <img class="predefined-flower-img" src="assets/uploads/flower1.png" data-image="assets/uploads/flower1.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 1" />
-            <img class="predefined-flower-img" src="assets/uploads/flower2.png" data-image="assets/uploads/flower2.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 2" />
-            <img class="predefined-flower-img" src="assets/uploads/flower3.png" data-image="assets/uploads/flower3.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 3" />
-            <img class="predefined-flower-img" src="assets/uploads/flower4.png" data-image="assets/uploads/flower4.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 4" />
-            <img class="predefined-flower-img" src="assets/uploads/flower5.png" data-image="assets/uploads/flower5.png" alt="Hình ảnh trang trí hóa đơn online - Hoa 5" />
+            <img class="predefined-flower-img" src="assets/uploads/transparent.webp" data-image="assets/uploads/transparent.webp" alt="Transparent (không sử dụng decor)" />
+            <img class="predefined-flower-img" src="assets/uploads/flower1.webp" data-image="assets/uploads/flower1.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 1" />
+            <img class="predefined-flower-img" src="assets/uploads/flower2.webp" data-image="assets/uploads/flower2.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 2" />
+            <img class="predefined-flower-img" src="assets/uploads/flower3.webp" data-image="assets/uploads/flower3.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 3" />
+            <img class="predefined-flower-img" src="assets/uploads/flower4.webp" data-image="assets/uploads/flower4.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 4" />
+            <img class="predefined-flower-img" src="assets/uploads/flower5.webp" data-image="assets/uploads/flower5.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 5" />
+            <img class="predefined-flower-img" src="assets/uploads/flower6.webp" data-image="assets/uploads/flower6.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 6" />
+            <img class="predefined-flower-img" src="assets/uploads/flower7.webp" data-image="assets/uploads/flower7.webp" alt="Hình ảnh trang trí hóa đơn online - Hoa 7" />
         </div>
 
 
@@ -449,10 +452,10 @@
 
 <form action="https://formspree.io/f/xrblrdel" method="POST">
     <label style="text-align: left;" class="small" for="email">Email của bạn:</label>
-    <input type="email" id="email" name="email" placeholder="VD: nguyenvana@gmail.com" required>
+    <input type="email" id="email" name="email" placeholder="VD: nguyenvana@gmail.com" >
     <br/>
     <label for="feedback" class="small" style="text-align: left; display: block; margin-bottom: 4px; margin-top: 4px;">Lời nhắn của bạn:</label>
-    <textarea id="feedback" name="feedback" placeholder="VD: 'Nên thêm tùy chọn <abc> thì tốt quá!😊'" required style="min-height: 80px"></textarea>
+    <textarea id="feedback" maxlength="500" name="feedback" placeholder="VD: 'Nên thêm tùy chọn <abc> thì tốt quá!😊'"  style="min-height: 80px"></textarea>
     <input type="text" name="_gotcha" style="display:none"> <!-- Honeypot field -->
     <div class="mt6">
         <button class="btn text-med w100" type="submit" >💌 Gửi đi</button>
@@ -498,7 +501,7 @@
               <li>Chọn <strong>Thêm vào Màn hình chính</strong>.</li>
               <li>Nhấn <strong>Thêm</strong> để hoàn tất.</li>
             </ol>
-            <img src="ios-add-home.jpg" alt="Hướng dẫn cài đặt ứng dụng tạo hóa đơn online trên iOS" class="w100 br8">
+            <img src="ios-add-home.webp" alt="Hướng dẫn cài đặt ứng dụng tạo hóa đơn online trên iOS" class="w100 br8">
           </div>
           
         </div>

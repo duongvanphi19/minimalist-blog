@@ -3,27 +3,27 @@ const $ = (id) => document.getElementById(id);
 const LS_FORM = "invoice_v3_form";
 const LS_PRODUCTS = "invoice_v3_products";
 const LS_THEME = "invoice_v3_theme";
-const MAX_FILE_SIZE = 2* 1024 * 1024;
+const MAX_FILE_SIZE = 1024 * 1024;
 
 // Hidden decor codes (keys are normalized WITHOUT leading '#')
 const HIDDEN_DECOR_MAP = {
-    vietnam: "assets/uploads/vietnam-national-day.png",
-    midautumn: "assets/uploads/mid-autumn-festival.png",
-    neko: "assets/uploads/maneki-neko.png",
-    valentine: "assets/uploads/valentine.png",
-    vulan: "assets/uploads/vulan.png",
-    halloween: "assets/uploads/halloween.png",
-    xmas: "assets/uploads/xmas.png"
+    vietnam: "assets/uploads/vietnam-national-day.webp",
+    midautumn: "assets/uploads/mid-autumn-festival.webp",
+    neko: "assets/uploads/maneki-neko.webp",
+    valentine: "assets/uploads/valentine.webp",
+    vulan: "assets/uploads/vulan.webp",
+    halloween: "assets/uploads/halloween.webp",
+    xmas: "assets/uploads/xmas.webp"
 };
 
 let originalFlowerImageSrc = null;
 
 // Map month -> decor (keys are month numbers)
 const MONTHLY_DECOR_MAP = {
-    2: "assets/uploads/valentine.png", // Feb - Valentine
-    8: "assets/uploads/vulan.png", // Aug - Mid-Autumn
-    9: "assets/uploads/vietnam-national-day.png", // Sep - VN National Day
-    12: "assets/uploads/xmas.png" // Dec - Christmas
+    2: "assets/uploads/valentine.webp", // Feb - Valentine
+    8: "assets/uploads/vulan.webp", // Aug - Mid-Autumn
+    9: "assets/uploads/vietnam-national-day.webp", // Sep - VN National Day
+    12: "assets/uploads/xmas.webp" // Dec - Christmas
 };
 
 // IndexedDB setup
@@ -422,8 +422,8 @@ function createProductElement(p = {}) {
     el.className = "product-item";
     el.innerHTML = `
         <input class="productName" placeholder="Tên sản phẩm" value="${escapeHtml(p.name || "")}">
-        <input style="min-width: 10px;" class="productQty" placeholder="SL" type="number" min="0" value="${p.qty || ""}">
-        <input class="productPrice" placeholder="Giá (VNĐ)" type="number" min="0" value="${p.price || ""}">
+        <input style="min-width: 10px;" class="productQty" placeholder="SL" type="number" min="1" max="999" maxlenght="3" value="${p.qty || ""}">
+        <input class="productPrice" placeholder="Giá (VNĐ)" type="number" min="1" value="${p.price || ""}">
         <button class="remove-btn" title="Xóa">×</button>
     `;
     el.querySelector(".remove-btn").addEventListener("click", () => {
@@ -758,7 +758,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const request = store.get('flowerImg');
         request.onsuccess = () => {
             if (!request.result) {
-                store.put({ key: 'flowerImg', data: 'assets/uploads/transparent.png' });
+                store.put({ key: 'flowerImg', data: 'assets/uploads/transparent.webp' });
                 console.log('Set default flowerImg');
             }
         };
