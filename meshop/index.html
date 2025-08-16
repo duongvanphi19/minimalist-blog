@@ -155,6 +155,41 @@
                   
 <div id="invoiceForm" class="flex-column-gap-10">
     <!-- Nhóm 1: Thông tin cửa hàng -->
+    <fieldset id="qrGenerator">
+  <legend><span aria-hidden="true">💳</span>Thông tin thanh toán QR (⚠️ Tính năng đang phát triển)</legend>
+  <div class="row">
+    <div class="col">
+      <label for="bankSelect">Ngân hàng</label>
+      <select id="bankSelect" required>
+        <option value="">Chọn ngân hàng</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="accountNo">Số tài khoản</label>
+      <input id="accountNo" type="text" pattern="[0-9]{6,19}" required placeholder="Nhập số tài khoản">
+    </div>
+    <div class="col">
+      <label for="accountName">Tên tài khoản</label>
+      <input id="accountName" type="text" maxlength="50" required placeholder="Nhập tên tài khoản">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label for="qrMemo">Nội dung chuyển khoản</label>
+      <input id="qrMemo" type="text" maxlength="25" placeholder="Nội dung (tùy chọn)">
+    </div>
+    <div class="col">
+      <label>Số tiền</label>
+      <span id="qrAmountPreview" class="text-med">Lấy từ tổng hóa đơn</span>
+    </div>
+  </div>
+  <div class="row">
+    <button id="generateQrBtn" class="btn">Tạo mã QR</button>
+  </div>
+  <div id="qrUrlIndicator" class="upload-indicator"></div>
+</fieldset>
     
     <fieldset>
         <legend> <span aria-hidden="true">⌂</span>Thông tin cửa hàng</legend>

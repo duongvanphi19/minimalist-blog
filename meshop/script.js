@@ -5,6 +5,119 @@ const LS_PRODUCTS = "invoice_v3_products";
 const LS_THEME = "invoice_v3_theme";
 const MAX_FILE_SIZE = 1024 * 1024;
 
+
+// Thêm vào phần Constants
+const VIETQR_BANKS_URL = "https://api.vietqr.io/v1/banks";
+
+// Lấy danh sách ngân hàng
+async function loadBanks() {
+  try {
+    const response = await fetch(VIETQR_BANKS_URL, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await response.json();
+    if (result.code === "00") {
+      const banks = result.data;
+      const bankSelect = $("bankSelect");
+      bankSelect.innerHTML = '<option value="">Chọn ngân hàng</option>' +
+        banks.map(bank => `<option value="${bank.bin}">${bank.shortName}</option>`).join("");
+    } else {
+      throw new Error(result.desc);
+    }
+  } catch (error) {
+    console.error("Error loading banks:", error);
+    alert("Không thể tải danh sách ngân hàng. Vui lòng thử lại.");
+  }
+}
+
+// Tạo và tải QR từ thông tin ngân hàng
+async function generateVietQrFromForm() {
+  const btn = $("generateQrBtn");
+  const indicator = $("qrUrlIndicator");
+  btn.disabled = true;
+  btn.textContent = "Đang tạo QR...";
+  indicator.textContent = "Đang xử lý...";
+  indicator.className = "upload-indicator loading";
+  indicator.style.display = "block";
+
+  try {
+    const bank = $("bankSelect").value;
+    const accountNo = $("accountNo").value;
+    const accountName = $("accountName").value;
+    const memo = $("qrMemo").value;
+
+    if (!bank || !accountNo || !accountName) {
+      throw new Error("Vui lòng điền đầy đủ ngân hàng, số tài khoản và tên tài khoản.");
+    }
+
+    // Lấy tổng giá trị hóa đơn từ #outTotal
+    const total = getProducts().reduce((sum, p) => sum + p.qty * p.price, 0) + (Number($("shippingFee").value) || 0);
+    if (total <= 0) {
+      throw new Error("Tổng giá trị hóa đơn không hợp lệ.");
+    }
+
+    // Tạo URL VietQR
+    const qrUrl = `https://img.vietqr.io/image/${bank}-${accountNo}-qr_only.png?amount=${total}&addInfo=${encodeURIComponent(memo || "")}&accountName=${encodeURIComponent(accountName)}`;
+
+    // Tải ảnh QR
+    const response = await fetch(qrUrl, { method: "GET" });
+    if (!response.ok) throw new Error("Không thể tải QR từ URL.");
+
+    const blob = await response.blob();
+    const qrDataURL = await dataURLFromFile(blob);
+
+    // Lưu vào IndexedDB
+    await saveQrToIndexedDB(qrDataURL);
+
+    // Cập nhật số tiền preview
+    $("qrAmountPreview").textContent = toCurrency(total) + " ₫";
+
+    indicator.textContent = "Tạo QR thành công!";
+    indicator.className = "upload-indicator success";
+    setTimeout(() => indicator.style.display = "none", 3000);
+
+    // Gửi sự kiện analytics
+    gtag("event", "generate_qr_url", {
+      event_category: "Invoice Actions",
+      event_label: `QR for ${accountNo}`,
+      value: total,
+    });
+  } catch (error) {
+    console.error("Error generating QR:", error);
+    indicator.textContent = `Lỗi: ${error.message}`;
+    indicator.className = "upload-indicator error";
+    indicator.style.display = "block";
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Tạo mã QR";
+  }
+}
+
+// Lưu QR vào IndexedDB (tái sử dụng từ code hiện tại)
+async function saveQrToIndexedDB(qrDataURL) {
+  const transaction = db.transaction(["images"], "readwrite");
+  const store = transaction.objectStore("images");
+  store.put({ key: "qrImg", data: qrDataURL });
+
+  return new Promise((resolve, reject) => {
+    transaction.oncomplete = () => {
+      $("outQr").src = qrDataURL;
+      $("outQr").style.display = "block";
+      resolve();
+    };
+    transaction.onerror = () => {
+      console.error("Error saving QR to IndexedDB:", transaction.error);
+      reject(transaction.error);
+    };
+  });
+}
+
+// Cập nhật updateInvoice để trigger QR refresh
+
+
+
+
 // Hidden decor codes (keys are normalized WITHOUT leading '#')
 const HIDDEN_DECOR_MAP = {
     vietnam: "assets/uploads/vietnam-national-day.webp",
@@ -100,6 +213,8 @@ function setMonthlyDecor() {
 /* ======== Decor code input (orderId) ======== */
 if (document && document.addEventListener) {
     document.addEventListener("DOMContentLoaded", () => {
+       
+       
         const orderEl = $("orderId");
         if (orderEl) {
             orderEl.addEventListener("input", async (e) => {
@@ -661,6 +776,10 @@ function updateInvoice() {
     }
     $("outTotal").innerText = toCurrency(total) + " ₫";
     $("outPaidAmount").innerText = toCurrency($("paidAmount").value) + " ₫";
+      // Trigger QR refresh nếu đã nhập đủ thông tin ngân hàng
+  if ($("bankSelect").value && $("accountNo").value && $("accountName").value) {
+    generateVietQrFromForm();
+  }
 }
 
 /* ======== Save/load products & form on start ======== */
@@ -715,6 +834,23 @@ function parseAndFillForm(text) {
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         await openDB();
+        
+        
+         // Load danh sách ngân hàng
+    if ($("bankSelect")) await loadBanks();
+
+    // Event cho nút tạo QR
+    if ($("generateQrBtn")) {
+      $("generateQrBtn").addEventListener("click", generateVietQrFromForm);
+    }
+
+    // Tự động cập nhật QR khi thay đổi thông tin ngân hàng
+    ["bankSelect", "accountNo", "accountName", "qrMemo"].forEach(id => {
+      const el = $(id);
+      if (el) el.addEventListener("input", debouncedUpdateInvoice);
+    });
+   
+        
         $('note').addEventListener('paste', function(event) {
     const pastedText = (event.clipboardData || window.clipboardData).getData('text');
     parseAndFillForm(pastedText);
