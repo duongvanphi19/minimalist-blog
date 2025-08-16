@@ -6,7 +6,7 @@ const LS_THEME = "invoice_v3_theme";
 const MAX_FILE_SIZE = 1024 * 1024;
 
 
-const BANKS_JSON_URL = "/data/banks.json";
+const BANKS_JSON_URL = "./data/banks.json";
 
 // Tải danh sách ngân hàng từ banks.json
 async function loadBanks() {
