@@ -135,7 +135,7 @@
                 left: -6px;
                 width: 100%;
                 height: 100%;
-                background-image: var(--flower-image); /* Sử dụng biến CSS */
+                background-image: var(--flower-image); /* Sử dụng biến  */
                 background-repeat: no-repeat;
                 background-position: top left;
                 background-size: 180px; /* Điều chỉnh kích thước ảnh hoa */
@@ -448,7 +448,7 @@ color: #fff;
                 flex-wrap: wrap;
                 margin-top: 8px;
             }
-            /* CSS cho lịch sử đơn hàng */
+            /*  cho lịch sử đơn hàng */
             #history-list li {
                 position: relative; /* Quan trọng: để định vị hình hoa */
                 display: flex;
@@ -465,7 +465,7 @@ color: #fff;
 #history-list li[class*="theme-"] {
     background: var(--page-bg);
 }
-            /* CSS cho hình hoa nhỏ ở góc */
+            /*  cho hình hoa nhỏ ở góc */
             #history-list .flower-thumbnail {
                 position: absolute;
                 top: -2px; /* Điều chỉnh vị trí */
@@ -739,7 +739,7 @@ color: #fff;
                 }
             }
 
-            /* CSS mới cho Lịch sử đơn hàng */
+            /*  mới cho Lịch sử đơn hàng */
             #history-container {
                 margin-top: 24px;
             }
@@ -798,7 +798,7 @@ color: #fff;
                 color: white;
             }
 
-            /* CSS mới cho chỉ báo upload */
+            /*  mới cho chỉ báo upload */
             .upload-indicator {
                 font-size: 12px;
                 margin-top: 4px;
@@ -951,3 +951,17 @@ input:invalid + .error-message, textarea:invalid + .error-message {
 }
 
 /* Sprite sheet cho image-selector */
+.display-none{
+  display: none;
+}
+
+@media print {
+    body > *:not(#card) {
+        display: none;
+    }
+    .card {
+        box-shadow: none;
+        width: 100%;
+        margin: 0;
+    }
+}

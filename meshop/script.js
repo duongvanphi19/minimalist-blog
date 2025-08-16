@@ -31,6 +31,12 @@ const DB_NAME = 'InvoiceV3DB';
 const DB_VERSION = 1;
 let db;
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+}
+
+
+
 function openDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -877,6 +883,15 @@ $("downloadPdf")?.addEventListener("click", async () => {
     }
 });
 
+function printInvoice() {
+    window.print();
+}
+const printBtn = document.createElement("button");
+printBtn.className = "btn";
+printBtn.style.background ="#c970d0";
+printBtn.textContent = "🖨️ In hóa đơn";
+printBtn.addEventListener("click", printInvoice);
+$("btns").appendChild(printBtn);
 // Xuất PNG
 async function safeExport() {
     const btn = $("downloadBtn");
@@ -895,6 +910,11 @@ async function safeExport() {
                 a.click();
                 a.remove();
                 URL.revokeObjectURL(url); // Thu hồi ngay sau khi tải
+               gtag('event', 'download_png', {
+                    event_category: 'Invoice Actions',
+                    event_label: `Invoice ${$("orderId")?.value || "order"}`,
+                    value: 1 // Có thể dùng để đếm số lần tải
+                });
             },
             "image/png",
             1.0 // Chất lượng tối đa cho PNG
@@ -932,6 +952,7 @@ async function shareInvoice() {
             title: shopName,
             text: "Hóa đơn từ cửa hàng",
         });
+       gtag('event', 'share_invoice', { event_category: 'Invoice Actions', event_label: `Invoice ${$("orderId")?.value || "order"}` });
         
     } catch (error) {
         console.error("Share error:", error);
@@ -998,4 +1019,9 @@ async function shareInvoice() {
             // noop
           }
         })();
+        
+window.addEventListener('error', (event) => {
+    console.error('Global error:', event.error);
+    alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+});      
         
