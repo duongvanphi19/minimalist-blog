@@ -156,7 +156,7 @@
 <div id="invoiceForm" class="flex-column-gap-10">
     <!-- Nhóm 1: Thông tin cửa hàng -->
     <fieldset id="qrGenerator">
-  <legend><span aria-hidden="true">💳</span>Thông tin thanh toán QR (⚠️ Tính năng đang phát triển)</legend>
+  <legend><span aria-hidden="true">💳</span>QR (⚠️ Tính năng đang phát triển)</legend>
   <div class="row">
     <div class="col">
       <label for="bankSelect">Ngân hàng</label>
@@ -196,6 +196,7 @@
         <label for="shopName">Tên shop của bạn</label>
         <input type="text" required pattern="[A-Za-z0-9\s\-\&]+" maxlength="50"  id="shopName" placeholder="VD: Shop Của Tôi" />
         <label for="shopLogo" class="mt-6">Logo shop (upload ảnh &lt;1MB)</label>
+        
         <input id="shopLogo" type="file" accept="image/*" />
         <div id="shopLogoIndicator" class="upload-indicator" aria-live="polite"></div>
                 <label for="qrImage" class="mt-6">QR chuyển khoản (upload ảnh &lt;1MB)</label>
@@ -351,7 +352,7 @@
                             <div class="shop-name" id="outShopName">
                                 Shop Của Tôi
                             </div>
-                            <div class="title">XÁC NHẬN ĐƠN HÀNG</div>
+                            <div class="title">HÓA ĐƠN THANH TOÁN</div>
 
                             <div class="meta">
                                 <div class="row">
@@ -406,13 +407,17 @@
 
                             <div class="products" id="outProducts" aria-live="polite"></div>
 
-                            <div class="total">
+                            <div class="total text-med">
                                 <div>Tổng</div>
                                 <div style="text-align: right;" id="outTotal">0 ₫</div>
                             </div>
-                            <div class="total">
+                            <div class="total text-med">
                                 <div>Đã thanh toán</div>
                                 <div style="text-align: right; "id="outPaidAmount">0 ₫</div>
+                            </div>
+                                                        <div class="total">
+                                <div>Còn thanh toán</div>
+                                <div style="text-align: right; "id="outRemaining">0 ₫</div>
                             </div>
 
                             <div class="note" id="outShortNote"></div>
@@ -430,7 +435,9 @@
                     <p  class="italic small">
                         Kiểm tra kỹ thông tin trước khi in hoặc gửi cho khách
                     </p>
-
+<div class="row">
+  <label class="display-none"><input type="checkbox" id="showQr" checked> Hiển thị mã QR trên hóa đơn</label>
+</div>
                     <div
                     class="btns"
                     id="btns"
