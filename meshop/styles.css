@@ -965,3 +965,36 @@ input:invalid + .error-message, textarea:invalid + .error-message {
         margin: 0;
     }
 }
+
+
+#qrAmountPreview {
+  color: var(--text);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#qrUrlIndicator {
+  display: none;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-top: 4px;
+  padding: 4px 8px;
+}
+
+#qrUrlIndicator.loading {
+  background-color: #f0f0f0;
+  color: #555;
+  display: block;
+}
+
+#qrUrlIndicator.success {
+  background-color: #d4edda;
+  color: #155724;
+  display: block;
+}
+
+#qrUrlIndicator.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  display: block;
+}

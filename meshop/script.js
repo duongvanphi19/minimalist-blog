@@ -6,19 +6,16 @@ const LS_THEME = "invoice_v3_theme";
 const MAX_FILE_SIZE = 1024 * 1024;
 
 
-// Thêm vào phần Constants
-const VIETQR_BANKS_URL = "https://api.vietqr.io/v1/banks";
+const BANKS_JSON_URL = "/data/banks.json";
 
-// Lấy danh sách ngân hàng
+// Tải danh sách ngân hàng từ banks.json
 async function loadBanks() {
   try {
-    const response = await fetch(VIETQR_BANKS_URL, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
+    const response = await fetch(BANKS_JSON_URL);
+    if (!response.ok) throw new Error("Không thể tải danh sách ngân hàng.");
     const result = await response.json();
     if (result.code === "00") {
-      const banks = result.data;
+      const banks = result.data.filter(bank => bank.isTransfer === 1); // Chỉ lấy ngân hàng hỗ trợ chuyển khoản
       const bankSelect = $("bankSelect");
       bankSelect.innerHTML = '<option value="">Chọn ngân hàng</option>' +
         banks.map(bank => `<option value="${bank.bin}">${bank.shortName}</option>`).join("");
@@ -30,7 +27,6 @@ async function loadBanks() {
     alert("Không thể tải danh sách ngân hàng. Vui lòng thử lại.");
   }
 }
-
 // Tạo và tải QR từ thông tin ngân hàng
 async function generateVietQrFromForm() {
   const btn = $("generateQrBtn");
